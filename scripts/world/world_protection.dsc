@@ -2,6 +2,7 @@
 # protection against using portals etc.
 
 # TODO: Mob Spawn Protection hinzufügen (Wither, Enderdrache, etc.)
+# TODO: place all prevention scripts into this script
 
 portal_disable:
     type: world

@@ -41,7 +41,7 @@ task_buildermode_enable:
         - group add builder
         - flag <player> buildermode_player_old_inventory:<player.inventory.list_contents>
         - inventory clear
-        - wait 1s
+        - wait 0.5s
         - run chatsounds_standard
         - narrate format:c_info "Ihr seid nun im Erbauermodus."
 task_buildermode_disable:
@@ -53,6 +53,6 @@ task_buildermode_disable:
         - group remove builder
         - inventory set o:<player.flag[buildermode_player_old_inventory]>
         - flag <player> buildermode_player_old_inventory:!
-        - wait 1s
+        - wait 0.5s
         - run chatsounds_standard
         - narrate format:c_info "Ihr seid nicht mehr im Erbauermodus."
