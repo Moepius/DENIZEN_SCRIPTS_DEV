@@ -1,8 +1,8 @@
 # Moepius' Denizen Scripts
 
-This repo contains a collection of all the Denizen scripts I'm currently working on.
-Denizen is a scripting language plugin for Spigot servers, allowing for fast customization <https://github.com/DenizenScript/Denizen>
-Be aware that these scripts are used on a German Minecraft Server <https://www.craftasy.de>, so most of my scripts contain German text. 
+This repo contains a collection of all the Denizen scripts I'm currently working on.  
+Denizen is a scripting language plugin for Spigot servers, allowing for fast customization <https://github.com/DenizenScript/Denizen>. 
+Be aware that these scripts are used on a German Minecraft Server <https://www.craftasy.de>, so most of my scripts contain German text.  
 Since it's an ongoing project, expect things to be broken or not working at all - **you've been warned**.
 I'm using some external scripts provided by the Denizen community, you can find them in the `external` folder.
 
