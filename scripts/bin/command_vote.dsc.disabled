@@ -1,0 +1,151 @@
+command_votes:
+  type: command
+  debug: false
+  name: votes
+  description: Votes anzeigen
+  usage: /votes [Spieler]
+  aliases:
+   - vote
+  script:
+  - if <context.args.size> = 1 {
+          - define spieler <context.args.get[1]>
+          - define sp_uuid p@<player[<[spieler]>].uuid>          
+          - if <server.flag[VotifierPlayers].as_list> !contains <[sp_uuid]> {
+            - narrate format:c_vote "<&e><[sp_uuid].name> <&b>hat noch nie gevotet."
+            }
+            else {
+            - narrate format:c_vote "<&e><[sp_uuid].name> <&b>hat bisher <&6><[sp_uuid].flag[votes].as_int> Mal<&b> gevotet."
+            }
+          }
+  - if <context.args.size> != 1 {
+          - narrate format:c_vote "<&b>Ihr habt bisher <&6><player.flag[votes].as_int> Mal<&b> für uns gevotet." 
+          }
+  - narrate format:c_vote2 "Votelink<&co> <&e>https://goo.gl/3L79vL <&b>"
+
+command_voteserver:
+  type: command
+  debug: false
+  name: voteserver
+  aliases:
+  - servervote
+  usage: /voteserver
+  permission: d.votifier
+  description: Daily Votes accumulated
+  script:
+    - if <server.flag[servervotes]> >= 10 {
+          - ^narrate format:c_vote "Heute wurden <&e><server.flag[servervotes].as_int> Votes<&b> gesammelt."
+          - ^narrate format:c_vote2 "<&6>Bonus<&co> <&c>Netherportale<&b> bis <&e>23.59 Uhr<&b> offen"
+          }
+      else {
+          - ^narrate format:c_vote "Heute wurden <&e><server.flag[servervotes].as_int> Votes<&b> gesammelt."
+          }
+  
+command_votetop:
+  type: command
+  debug: false
+  name: topvote
+  aliases:
+  - votetop
+  - tvote
+  - votet
+  usage: /votetop
+  description: Check the vote leaderboards!
+  script:
+    - if <player.has_permission[voteleaderboard.reset]||<context.server>> && <context.args.get[1]||null> == reset {
+      - narrate "<&6>Resetting the server's leaderboard. <&f>NOTE: May lag servers with a large playerbase."
+      - foreach <server.flag[VotifierPlayers].as_list> {
+        - flag <def[Value]> votes:!
+      }
+      - flag server "voteleaders:!"
+      - narrate "<&6>Successfully reset the server's voteleaderboard."
+      - queue clear
+    }
+    - if <server.has_flag[update_voteleaders]> {
+      - flag server update_voteleaders:!
+      - inject s@VoteBoard_Handler path:update
+    }
+    
+    - if <server.has_flag[voteleaders].not> {
+      - narrate "<&3><&m>----- <&6><&l> Aktivste Voter <&e>1-10 <&3><&m> ------"
+      - narrate "Bislang hat niemand gevotet!"
+      - queue clear
+    }
+    - if <context.args.is_empty> {
+      - narrate "<&3><&m>----- <&6><&l> Aktivste Voter <&e>1-10 <&3><&m> -----"
+      - foreach <server.flag[voteleaders].as_list> {
+          #- narrate "<def[loop_index]>. <&e><def[Value].name> - <&6><def[value].flag[votes].as_int||0><&r>"
+          - if <def[loop_index]> == 1 {
+            - narrate "<&b>❉ <&6><def[value].flag[votes].as_int||0><&r> - <&e><def[Value].name>"
+            }
+          else if <def[loop_index]> == 2 {
+            - narrate "<&3>❉ <&6><def[value].flag[votes].as_int||0><&r> - <&e><def[Value].name>"
+            }
+          else if <def[loop_index]> == 3 {
+            - narrate "<&9>❉ <&6><def[value].flag[votes].as_int||0><&r> - <&e><def[Value].name>"
+            }
+            else {
+          - narrate "<&7>❉ <&6><def[value].flag[votes].as_int||0><&r> - <&e><def[Value].name>"
+          }
+         }
+      }
+    #- if <context.args.get[1]> == 2 {
+    #  - narrate "<&3><&m>----- <&6><&l> Aktivste Voter <&e>11-20 <&3><&m> -----"
+    #  - foreach <server.flag[voteleaders2].as_list> {
+    #      #- narrate "<def[loop_index]>. <&e><def[Value].name> - <&6><def[value].flag[votes].as_int||0><&r>"
+    #       - narrate "<&7>❉ <&6><def[value].flag[votes].as_int||0><&r> - <&e><def[Value].name>"
+    #      }
+    #  }
+      
+  
+VoteBoard_Handler:
+  debug: false
+  type: world
+  
+  update:
+  - flag server "voteleaders:!"
+  - define VoteLeaders <server.flag[VotifierPlayers].as_list.sort[VoteBoard_Sort].get[1].to[10]||li@>
+  - define VoteLeaders2 <server.flag[VotifierPlayers].as_list.sort[VoteBoard_Sort].get[11].to[20]||li@>
+  - if <def[VoteLeaders].is_empty.not> {
+    - flag server "voteleaders:|:<def[VoteLeaders]>"
+    }
+  - if <def[VoteLeaders2].is_empty.not> {
+    - flag server "voteleaders2:|:<def[VoteLeaders2]>"
+    }
+    
+
+  events:
+    on votifier vote:
+    - flag server update_voteleaders 
+
+VoteBoard_Sort:
+  type: procedure
+  debug: false
+  definitions: p1|p2
+  script:
+  ## If P2's score is better than P1's move P2 up, ooh that bitch is climbin!
+  - if <def[p2].flag[votes]||0> > <def[p1].flag[votes]||0> {
+    - determine 1
+  }
+  ## If P1's score is better than P2's move P1 up, ooh that bitch is climbin!
+  else if <def[p1].flag[votes]||0> > <def[p2].flag[votes]||0> {
+    - determine -1
+  }
+  ## Their kill score is equal, so do nothing... boring..
+  else {
+    - determine 0
+  }
+ 
+ 
+VoteBoard_ManuUpdate:
+    type: task
+    debug: true
+    script:
+    - foreach <server.list_players> {
+      - if <%value%.has_flag[votes]> {
+        - flag server VotifierPlayers:->:%value%
+        }
+      }
+    - narrate "Done"
+      
+ 
+ 

@@ -1,0 +1,16 @@
+﻿dhelp_page_wirsingfix:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-----------<&6><&l> WirsingFix <&3><&m>-----------"
+  - ^narrate format:dhelp_text "WirsingFix ermöglicht es, auf unserem Server diverse Blöcke"
+  - ^narrate format:dhelp_text "an Stellen zu setzen, die mit den normalen Physics nicht"
+  - ^narrate format:dhelp_text "möglich wären, z.B. Pflanzen auf Sand."  
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Setzt dazu die Pflanze erst auf einen normalen Block (Gras)"
+  - ^narrate format:dhelp_text "und tauscht dann diesen Block mit einem anderen aus."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Demobild aus unserer Galerie<&co> <&e>https://goo.gl/kB9598"
+  - ^narrate format:dhelp_footer_single ""
+ 
+  

@@ -1,0 +1,42 @@
+SCOREBOARD_teams_onjoin:
+  type: world
+  debug: false
+  events:
+    on player joins:
+      - run SCOREBOARD_teams_update instantly player:<player>
+    on scoreupdate command:
+    - if !<player.has_permission[group.administrator]>:
+      - stop
+    - determine passively FULFILLED
+    - define arg1 <c.args.get[1].escaped||null>
+    - if <def[arg1].is[!=].to[null]>:
+      - if <server.object_is_valid[p@[arg1]]>:
+        - define username <[arg1]>
+        - define player <def[username].as_player>
+    - else:
+        - narrate format:c_info "<&c><[arg1]> is not a valid player name!"
+        - stop
+
+    - run SCOREBOARD_teams_update instantly player:<player>
+        
+SCOREBOARD_teams_update:
+  type: task
+  debug: false
+  script:
+    - if <player.has_permission[group.administrator]>:
+        - execute as_server 'team join Administrator <player.name>'
+        - stop
+    - else if <player.has_permission[group.mitglied]>:
+        - execute as_server 'team join Mitglied <player.name>'
+        - stop
+    - else if <player.has_permission[group.free_04]>:
+        - execute as_server 'team join Spieler <player.name>'
+        - stop
+    - else if <player.has_permission[group.free_01]>:
+        - execute as_server 'team join Yneuling <player.name>'
+        - stop
+    - else if <player.has_permission[group.freund]>:
+        - execute as_server 'team join Xfreund <player.name>'
+        - stop
+    - else:
+        - execute as_server 'team join Zgast <player.name>'

@@ -1,0 +1,33 @@
+﻿##==========================================================================
+## HELP PAGES PLUGINS
+##========================================================================== 
+
+dhelp_page_plugins2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------------<&6><&l> Plugins <&3><&m>---- -------"
+  - ^run dhelp_topic 'def:FireworkFiesta<&l>   <&r>    <&7><&chr[25B6]><&b> Feuerwerkitems <&d>by Mulcho<&6>|Information|fireworkfiesta' instantly player:<player>
+  - ^run dhelp_topic 'def:WorldGuard<&l>   <&r>        <&7><&chr[25B6]><&3> Sicherung|Erkl<&auml>rung, Befehle|worldguard1' instantly player:<player>
+  #- ^run dhelp_topic 'def:TreasureChest       <&7><&chr[25B6]><&3> Schatzkisten|Befehle, <&b>Guide<&co><&r> Sch<&auml>tze finden|treasurechest' instantly player:<player>
+  - ^run dhelp_topic 'def:HeadDatabase<&l>  <&r>      <&7><&chr[25B6]><&b> Kopfdatenbank|Befehle|headdatabase1' instantly player:<player>
+  - ^run dhelp_footer_last def:plugins|2 instantly player:<player>
+  
+dhelp_page_plugins1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------------<&6><&l> Plugins <&3><&m>---- -------"
+  #- ^run dhelp_topic 'def:LandLord              <&7><&chr[25B6]><&3> \"Grundst<&uuml>cke\"|Befehle, <&b>Guide<&co><&r> Chunks kaufen|landlord1' instantly player:<player>
+  #- ^run dhelp_topic 'def:Showcase              <&7><&chr[25B6]><&b> Shops|Befehle, <&b>Guide<&co><&r> Items kaufen/verkaufen|showcase1' instantly player:<player>
+  - ^run dhelp_topic 'def:ColorPortals          <&7><&chr[25B6]><&3> Spielerportale|<&b>Guide<&co><&r> Portale bauen|colorportals1' instantly player:<player>
+  #- ^run dhelp_topic 'def:AutomaticInventory  <&7><&chr[25B6]><&b> Inventarsortierung|Befehle, Tipps|automaticinventory' instantly player:<player>
+  - ^run dhelp_topic 'def:ChestSort           <&l>  <&7><&chr[25B6]><&b> Inventarsortierung <&d>NEU<&b>|Befehle, Tipps|chestsort1' instantly player:<player>
+  - ^run dhelp_topic 'def:mcMMO<&l>  <&r>                <&7><&chr[25B6]><&3> Skillsystem|Befehle, Kurzguide|mcmmo' instantly player:<player>
+  - ^run dhelp_topic 'def:ChatControl Pro<&l>   <&r>  <&7><&chr[25B6]><&b> Chatsystem|Befehle, Erkl<&auml>rung|chatcontrolpro' instantly player:<player>
+  - ^run dhelp_topic 'def:WirsingFix              <&7><&chr[25B6]><&b> Blockphysikfix|Info, Tipps und Tricks|wirsingfix' instantly player:<player>
+  - ^run dhelp_topic 'def:CMI-Economy<&l>    <&r>     <&7><&chr[25B6]><&3> Geldsystem|Befehle|economy' instantly player:<player>
+  - ^run dhelp_topic 'def:ArtDeko<&l> <&r>               <&7><&chr[25B6]><&3> Armorstandeditor|Information|artdeko' instantly player:<player>
+  - ^run dhelp_footer_first def:plugins|2 instantly player:<player>
+  
+  

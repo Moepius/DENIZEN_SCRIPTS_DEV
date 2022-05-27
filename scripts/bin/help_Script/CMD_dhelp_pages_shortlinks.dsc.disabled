@@ -1,0 +1,120 @@
+dhelp_page_voting2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "--------------<&6><&l> Vote <&3><&m>-------------"
+  - ^run dhelp_command 'def:voteserver|Zeigt tägliche Servervotes und Boni<&nl><&b>Alias<&co> <&e>/servervote<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&3><&l>Serverbelohnungen:"
+  - ^narrate format:dhelp_text "Werden bestimmte, tägliche Voteziele erreicht,"
+  - ^narrate format:dhelp_text "werden serverweit zusätzliche Boni aktiviert."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Erreichte Ziele werden automatisch im Chat verkündet."
+  - ^run dhelp_footer_last def:voting|2 instantly player:<player>         
+    
+dhelp_page_voting1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "--------------<&6><&l> Vote <&3><&m>-------------"
+  - ^run dhelp_command_variables 'def:vote [Spieler]|vote|Zeigt eigene Votes oder die eines<&nl>angegebenen Spielers<&nl>Schnellzugriff auf den Link<&nl><&b>Alias<&co> <&e>/votes<&f>' instantly player:<player>
+  - ^run dhelp_command_variables 'def:votetop [Seite]|votetop|Zeigt die aktivsten Voter<&nl><&b>Alias<&co> <&e>/topvote<&f>,<&e>/tvote<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^if <player.has_permission[d.votifier]> {
+      - ^narrate format:dhelp_reward "<&e>10 Silberlinge<&b>, <&6>ChimaeraWing<&b> + zufälliger Effekt"  
+    }
+    else {
+      - ^narrate format:dhelp_reward "<&e>10 Silberlinge<&b> + zufälliger Effekt"
+    }
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Besondere Belohungen erhaltet Ihr, wenn Ihr eine gewisse"
+  - ^narrate format:dhelp_text "Anzahl an Votes gesammelt. Ist Euch Fortuna hold, so sind"
+  - ^narrate format:dhelp_text "vielleicht exlusive <&6>Voteitems<&b> für Euch dabei!"
+  - ^narrate format:dhelp_tip "Ihr müsst zum Voten nicht online sein."
+  - ^if <player.has_permission[d.votifier]> {
+      - ^run dhelp_footer_first def:voting|2 instantly player:<player>
+    } 
+    else {
+      - ^narrate format:dhelp_footer_single ""
+    }
+  
+dhelp_page_voice:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "--------- <&6><&l> Voiceserver <&3><&m> ---------"
+  - ^run dhelp_command 'def:voiceserver|Schnellzugriff auf den Link<&nl><&b>Alias<&co> <&e>/voice<&f>, <&e>/teamspeak<&f>, <&e>/ts<&f>, <&e>/discord<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Wir empfehlen, über unser Voiceserverangebot in"
+  - ^narrate format:dhelp_text "Kontakt zu treten und auszutauschen. Besucht uns!"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Teamspeakserver: <&e>craftasy.de"
+  - ^narrate format:Discordserver: <&e>https://discord.gg/GVHrmf9"
+  - ^narrate format:dhelp_footer_single ""
+
+dhelp_page_steam:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "--- --------- <&6><&l> Steam <&3><&m> ------------"
+  - ^run dhelp_command 'def:steam|Schnellzugriff auf den Link<&nl><&b>Alias<&co> <&e>/steamgruppe<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Tretet unserer Steamgruppe bei, um im Kontakt zu bleiben,"
+  - ^narrate format:dhelp_text "wenn es gerade mal nicht um Minecraft geht."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Steamgruppe: <&e>http://steamcommunity.com/groups/craftasyDE"
+  - ^narrate format:dhelp_footer_single ""
+
+dhelp_page_homepage:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------- --- <&6><&l> Homepage <&3><&m> ----------"
+  - ^run dhelp_command 'def:homepage|Schnellzugriff auf den Link<&nl><&b>Alias<&co> <&e>/hp<&f>, <&e>/forum<&f>, <&e>/web<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Auf unserer Homepage findet Ihr unser Forum für alle"
+  - ^narrate format:dhelp_text "Angelegenheiten, die Craftasy betreffen oder die man mit uns"
+  - ^narrate format:dhelp_text "uns allen teilen möchte."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Homepage: <&e>http://www.craftasy.de"
+  - ^narrate format:dhelp_footer_single ""
+
+dhelp_page_dynmap:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- ----<&6><&l> Dynmap <&3><&m>------------"
+  - ^run dhelp_command 'def:dynmap|Schnellzugriff auf den Link<&nl><&b>Alias<&co> <&e>/map<&f>, <&e>/karte<&f>, <&e>/livemap<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Auf der Dynmap könnt Ihr die Haupt- und Freebuildwelt"
+  - ^narrate format:dhelp_text "begutachten. Reiserouten, Marker und WorldGuard-Regionen"
+  - ^narrate format:dhelp_text "sind über das Dropdownmenü oben links einblendbar."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Dynmap: <&e>http://www.craftasy.de:8123"
+  - ^narrate format:dhelp_footer_single ""
+
+dhelp_page_links:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------------- <&6><&l> Links <&3><&m> ------------"
+  - ^run dhelp_topic 'def:Dynmap|Dynamische Onlinekarte|dynmap' instantly player:<player>
+  - ^run dhelp_topic 'def:Homepage|Forum, Galerie, Informationen|homepage' instantly player:<player>
+  - ^run dhelp_topic 'def:Steamgruppe|Craftasy auf Steam|steam' instantly player:<player>
+  - ^run dhelp_topic 'def:Voiceserver|Teamspeak, Discord|voice' instantly player:<player>
+  - ^run dhelp_topic 'def:Voting|Stimmt für uns ab!|voting1' instantly player:<player>
+  - ^narrate format:dhelp_footer_single ""
+
+dhelp_page_rules:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------- <&b><&l> Craftasy<&6><&l> Regeln <&3><&m> -------"
+  - ^narrate "<&3>Vollversion: <&e>http://www.craftasy.de"
+  - ^narrate "<&2><&chr[278A]><&b> Ihr stimmt der <&3><&l>Vollversion<&b> zu, wenn ihr den Server nutzt."
+  - ^narrate "<&a><&chr[278B]><&b> Es gibt 100 andere Server, falls euch dieser nicht gefällt."
+  - ^narrate "<&e><&chr[278C]><&b> Seid anständig und klärt Euren Kram untereinander."
+  - ^run dhelp_command_at_end 'def:<&6><&chr[278D]><&b> Das Hilfemenü ist zum Benutzen da -|hilfe|Hilfe Hauptmen<&uuml>' instantly player:<player>
+  - ^run dhelp_topic_at_end 'def:<&c><&chr[278E]><&b> Keine automatischen Farmen. Kein Mining in den|Bauwelten|Die Welten Craftasys|guide_worlds1' instantly player:<player>
+  - ^narrate "<&4><&chr[278F]><&b> Support nur für technische Fragen. Siehe <&e><&chr[278C]>"
+  - ^narrate format:dhelp_footer_single ""

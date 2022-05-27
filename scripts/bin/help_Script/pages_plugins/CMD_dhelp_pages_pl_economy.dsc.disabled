@@ -1,0 +1,16 @@
+﻿dhelp_page_economy:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------<&6><&l> CMI-Economy <&3><&m>---------"
+  - ^run dhelp_command 'def:money|Eigenen Kontostand abfragen' instantly player:<player>
+  - ^run dhelp_command_variables 'def:balance [Spieler]|balance|Eigenen Kontostand oder den eines Spielers abfragen' instantly player:<player>  
+  - ^run dhelp_command_variables 'def:money pay <&lt>Spieler<&gt> <&lt>Betrag<&gt>|money pay|<&e><&lt>Betrag<&gt><&f> Silberlinge an <&e><&lt>Spieler<&gt><&f> überweisen.\nNachkommastellen mit Punkt schreiben \n(<&a>2.01 <&f>nicht <&c>2,01<&r>)' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Geld kann über Verkauf von Items oder Quests erworben"
+  - ^narrate format:dhelp_text "werden. Wirtschaftssimulation ist <&l>kein<&b> Schwerpunkt des"
+  - ^narrate format:dhelp_text "Servers."
+  #- ^run dhelp_topic 'def:CMI|cmi1' instantly player:<player>
+  - ^narrate format:dhelp_footer_single ""
+  
+ 

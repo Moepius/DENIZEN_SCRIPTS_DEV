@@ -1,0 +1,35 @@
+﻿dhelp_page_showcase2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-----------<&6><&l> Showcase <&3><&m>-----------"
+  - ^run dhelp_command_variables 'def:scs add [Anzahl]|scs add|Fügt Eurem Showcase <&e>[Anzahl]<&r>/alle gültigen Items hinzu\nAuch mit Rechtsklick über das Inventar möglich\n<&b>Alias<&co> <&e>/showcasestandalone add<&f>' instantly player:<player>
+  - ^run dhelp_command_variables 'def:scs get [Anzahl]|scs get|Entnehmt Eurem Showcase <&e>[Anzahl]<&r>/alle gültigen Items\nAuch mit Rechtsklick über das Inventar möglich\n<&b>Alias<&co> <&e>/showcasestandalone get<&f>' instantly player:<player>
+  - ^run dhelp_command_variables 'def:scs member <&lt>add<&chr[239C]>remove<&gt> [Spieler]|scs member add|Gebt/Entzieht <&e>[Spieler]<&r> Rechte zum Hinzufügen und Entnehmen von Items\n<&b>Alias<&co> <&e>/showcasestandalone member<&f>' instantly player:<player>
+  - ^run dhelp_command_variables 'def:scs price [Preis]|scs price|Legt den Preis für Euren Showcase fest\nNachkommastellen mit Punkt abtrennen\n<&b>Alias<&co> <&e>/showcasestandalone price<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Preis für ein Verkaufsshowcase<&co> <&e>100 Silberlinge"
+  - ^narrate format:dhelp_text "Preis für ein Kaufshowcase<&co> <&e>0 Silberlinge"
+  - ^run dhelp_footer_last def:showcase|2 instantly player:<player>
+
+
+dhelp_page_showcase1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-----------<&6><&l> Showcase <&3><&m>-----------"
+  - ^run dhelp_action 'def:<&a><&l>Linksklick<&e> auf einen Showcaseblock|Informationen zum Angebot des Showcase' instantly player:<player>
+  - ^run dhelp_action 'def:<&a><&l>Rechtsklick<&e> auf einen Showcaseblock|Kauf/Verkauf eines Items' instantly player:<player>
+  - ^run dhelp_action 'def:<&a><&l>Ducken + Rechtsklick<&e> auf einen Showcaseblock|Kauf/Verkauf einer \"Unit\"' instantly player:<player>
+  - ^run dhelp_command_variables 'def:scs unit [Anzahl]|scs unit|Zeigt/Verändert die Anzahl der Items, die Ihr\nbei Ducken+Rechtsklick kauft\n<&b>Alias<&co> <&e>/showcasestandalone unit<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "In den Außenposten findet ihr jeweils einen Showcasehändler"
+  - ^narrate format:dhelp_text "bei dem ausgewählte Items gehandelt werden können."
+  - ^narrate format:dhelp_tip "Forgeclients zeigen Showcaseitems nicht korrekt an."
+  - if <player.has_permission[scs.manage]> {
+    - ^run dhelp_footer_first def:showcase|2 instantly player:<player>
+    }
+    else {
+    - ^narrate format:dhelp_footer_single ""
+    }
+  

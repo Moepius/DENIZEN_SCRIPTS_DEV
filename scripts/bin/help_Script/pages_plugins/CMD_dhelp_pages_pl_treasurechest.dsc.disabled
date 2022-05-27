@@ -1,0 +1,14 @@
+﻿dhelp_page_treasurechest:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- <&6><&l> TreasureChest <&3><&m>--------"
+  - ^run dhelp_command 'def:tchest list|Listet bereits gefundene TChests mit Koordinaten auf\n<&b>Alias: <&e>/treasurechest list<&b>' instantly player:<player>
+  - ^run dhelp_command 'def:tchest count|Zeigt Anzahl der bereits gefundenen und\ninsgesamt versteckten TChests an\n<&b>Alias: <&e>/treasurechest count<&b>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "TreasureChests (Schatzkisten) werden zu besonderen"
+  - ^narrate format:dhelp_text "Anlässen versteckt. Jede TChest kann von Jedem nur einmal"
+  - ^narrate format:dhelp_text "geöffnet und gelootet werden."
+  - ^narrate format:dhelp_text "TChest-Events werden im Forum angekündigt."
+  - ^narrate format:dhelp_footer_single ""
+  

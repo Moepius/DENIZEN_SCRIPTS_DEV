@@ -1,0 +1,432 @@
+dhelp_command_handler: 
+  type: command 
+  debug: false 
+  name: dhelp 
+  description: Craftasy Hilfe
+  usage: /dhelp
+  aliases:
+    - hilfe
+    - help
+  allowed help:
+    - determine <player.has_permission[denizen.*]>
+  permissions: denizen.*
+  script: 
+    - choose <context.args.get[1]||null>:
+      - case crafting2:
+        - flag player help_page:2
+        - inject dhelp_page_crafting2 instantly player:<player>      
+      - case crafting1:
+        - flag player help_page:1
+        - inject dhelp_page_crafting1 instantly player:<player>      
+      - case guide_npc3:
+        - flag player help_page:3
+        - inject dhelp_page_guide_npc3 instantly player:<player>      
+      - case guide_npc2:
+        - flag player help_page:2
+        - inject dhelp_page_guide_npc2 instantly player:<player>      
+      - case guide_npc1:
+        - flag player help_page:1
+        - inject dhelp_page_guide_npc1 instantly player:<player>      
+      - case guide_teleport2:
+        - flag player help_page:2
+        - inject dhelp_page_guide_teleport2 instantly player:<player>      
+      - case guide_teleport1:
+        - flag player help_page:1
+        - inject dhelp_page_guide_teleport1 instantly player:<player>    
+      - case guide_build2:
+        - flag player help_page:2
+        - inject dhelp_page_guide_build2 instantly player:<player>      
+      - case guide_build1:
+        - flag player help_page:1
+        - inject dhelp_page_guide_build1 instantly player:<player>      
+      - case guide_worlds5:
+        - flag player help_page:5
+        - inject dhelp_page_guide_worlds5 instantly player:<player>      
+      - case guide_worlds4:
+        - flag player help_page:4
+        - inject dhelp_page_guide_worlds4 instantly player:<player>      
+      - case guide_worlds3:
+        - flag player help_page:3
+        - inject dhelp_page_guide_worlds3 instantly player:<player>      
+      - case guide_worlds2:
+        - flag player help_page:2
+        - inject dhelp_page_guide_worlds2 instantly player:<player>      
+      - case guide_worlds1:
+        - flag player help_page:1
+        - inject dhelp_page_guide_worlds1 instantly player:<player>      
+      - case guide_outposts2:
+        - flag player help_page:2
+        - inject dhelp_page_guide_outposts2 instantly player:<player>      
+      - case guide_outposts1:
+        - flag player help_page:1
+        - inject dhelp_page_guide_outposts1 instantly player:<player>      
+      - case guide_ranks7:
+        - flag player help_page:7
+        - inject dhelp_page_guide_ranks7 instantly player:<player>      
+      - case guide_ranks6:
+        - flag player help_page:6
+        - inject dhelp_page_guide_ranks6 instantly player:<player>      
+      - case guide_ranks5:
+        - flag player help_page:5
+        - inject dhelp_page_guide_ranks5 instantly player:<player>      
+      - case guide_ranks4:
+        - flag player help_page:4
+        - inject dhelp_page_guide_ranks4 instantly player:<player>      
+      - case guide_ranks3:
+        - flag player help_page:3
+        - inject dhelp_page_guide_ranks3 instantly player:<player>      
+      - case guide_ranks2:
+        - flag player help_page:2
+        - inject dhelp_page_guide_ranks2 instantly player:<player>      
+      - case guide_ranks1:
+        - flag player help_page:1
+        - inject dhelp_page_guide_ranks1 instantly player:<player>      
+      - case guide_economy2:
+        - flag player help_page:2
+        - inject dhelp_page_guide_economy2 instantly player:<player>      
+      - case guide_economy1:
+        - flag player help_page:1
+        - inject dhelp_page_guide_economy1 instantly player:<player>      
+      - case guide_chat:
+        - flag player help_page:1
+        - inject dhelp_page_guide_chat instantly player:<player>      
+      - case guide_commands2:
+        - flag player help_page:2
+        - inject dhelp_page_guide_commands2 instantly player:<player>      
+      - case guide_commands1:
+        - flag player help_page:1
+        - inject dhelp_page_guide_commands1 instantly player:<player>      
+      - case guide2:
+        - flag player help_page:2
+        - inject dhelp_page_guide2 instantly player:<player>
+      - case guide1:
+        - flag player help_page:1
+        - inject dhelp_page_guide1 instantly player:<player>      
+      - case headdatabase2:
+        - flag player help_page:2
+        - inject dhelp_page_headdatabase2 instantly player:<player>      
+      - case headdatabase1:
+        - flag player help_page:1
+        - inject dhelp_page_headdatabase1 instantly player:<player>      
+      - case worldguard2:
+        - flag player help_page:2
+        - inject dhelp_page_worldguard2 instantly player:<player>      
+      - case worldguard1:
+        - flag player help_page:1
+        - inject dhelp_page_worldguard1 instantly player:<player>      
+      - case fireworkfiesta:
+        - flag player help_page:1
+        - inject dhelp_page_fireworkfiesta instantly player:<player>      
+      - case artdeko:
+        - flag player help_page:1
+        - inject dhelp_page_artdeko instantly player:<player>      
+      - case wirsingfix:
+        - flag player help_page:1
+        - inject dhelp_page_wirsingfix instantly player:<player>      
+      - case treasurechest:
+        - flag player help_page:1
+        - inject dhelp_page_treasurechest instantly player:<player>      
+      - case chatcontrolpro_pm:
+        - flag player help_page:1
+        - inject dhelp_page_chatcontrolpro_pm instantly player:<player>      
+      - case chatcontrolpro:
+        - flag player help_page:1
+        - inject dhelp_page_chatcontrolpro instantly player:<player>      
+      - case economy:
+        - flag player help_page:1
+        - inject dhelp_page_economy instantly player:<player>      
+      - case mcmmo_items:
+        - flag player help_page:1
+        - inject dhelp_page_mcmmo_items instantly player:<player>      
+      - case mcmmo_stats:
+        - flag player help_page:1
+        - inject dhelp_page_mcmmo_stats instantly player:<player>
+      - case mcmmo_party_teleport:
+        - flag player help_page:1
+        - inject dhelp_page_mcmmo_party_teleport instantly player:<player>      
+      - case mcmmo_party_chat:
+        - flag player help_page:1
+        - inject dhelp_page_mcmmo_party_chat instantly player:<player>      
+      - case mcmmo_party_manage3:
+        - flag player help_page:3
+        - inject dhelp_page_mcmmo_party_manage3 instantly player:<player>      
+      - case mcmmo_party_manage2:
+        - flag player help_page:2
+        - inject dhelp_page_mcmmo_party_manage2 instantly player:<player>      
+      - case mcmmo_party_manage1:
+        - flag player help_page:1
+        - inject dhelp_page_mcmmo_party_manage1 instantly player:<player>      
+      - case mcmmo_party2:
+        - flag player help_page:2
+        - inject dhelp_page_mcmmo_party2 instantly player:<player>      
+      - case mcmmo_party1:
+        - flag player help_page:1
+        - inject dhelp_page_mcmmo_party1 instantly player:<player>      
+      - case mcmmo_skills5:
+        - flag player help_page:5
+        - inject dhelp_page_mcmmo_skills5 instantly player:<player>      
+      - case mcmmo_skills4:
+        - flag player help_page:4
+        - inject dhelp_page_mcmmo_skills4 instantly player:<player>      
+      - case mcmmo_skills3:
+        - flag player help_page:3
+        - inject dhelp_page_mcmmo_skills3 instantly player:<player>      
+      - case mcmmo_skills2:
+        - flag player help_page:2
+        - inject dhelp_page_mcmmo_skills2 instantly player:<player>      
+      - case mcmmo_skills1:
+        - flag player help_page:1
+        - inject dhelp_page_mcmmo_skills1 instantly player:<player>      
+      - case mcmmo:
+        - flag player help_page:1
+        - inject dhelp_page_mcmmo instantly player:<player>      
+      - case automaticinventory:
+        - flag player help_page:1
+        - inject dhelp_page_automaticinventory instantly player:<player>      
+      - case chestsort1:
+        - flag player help_page:1
+        - inject dhelp_page_chestsort1 instantly player:<player>      
+      - case chestsort2:
+        - flag player help_page:2
+        - inject dhelp_page_chestsort2 instantly player:<player>      
+      - case colorportals2:
+        - flag player help_page:2
+        - inject dhelp_page_colorportals2 instantly player:<player>
+      - case colorportals1:
+        - flag player help_page:1
+        - inject dhelp_page_colorportals1 instantly player:<player>
+      - case showcase2:
+        - flag player help_page:2
+        - inject dhelp_page_showcase2 instantly player:<player>
+      - case showcase1:
+        - flag player help_page:1
+        - inject dhelp_page_showcase1 instantly player:<player>
+      - case landlord3:
+        - flag player help_page:3
+        - inject dhelp_page_landlord3 instantly player:<player>
+      - case landlord2:
+        - flag player help_page:2
+        - inject dhelp_page_landlord2 instantly player:<player>
+      - case landlord1:
+        - flag player help_page:1
+        - inject dhelp_page_landlord1 instantly player:<player>
+      - case plugins2:
+        - flag player help_page:2
+        - inject dhelp_page_plugins2 instantly player:<player>
+      - case plugins1:
+        - flag player help_page:1
+        - inject dhelp_page_plugins1 instantly player:<player>
+      - case voting2:
+        - flag player help_page:2
+        - inject dhelp_page_voting2 instantly player:<player>
+      - case voting1:
+        - flag player help_page:1
+        - inject dhelp_page_voting1 instantly player:<player>
+      - case voice:
+        - flag player help_page:1
+        - inject dhelp_page_voice instantly player:<player>
+      - case steam:
+        - flag player help_page:1
+        - inject dhelp_page_steam instantly player:<player>
+      - case homepage:
+        - flag player help_page:1
+        - inject dhelp_page_homepage instantly player:<player>
+      - case dynmap:
+        - flag player help_page:1
+        - inject dhelp_page_dynmap instantly player:<player>
+      - case links:
+        - flag player help_page:1
+        - inject dhelp_page_links instantly player:<player>
+      - case rules:
+        - flag player help_page:1
+        - inject dhelp_page_rules instantly player:<player>
+      - default: 
+        - flag player help_page:1
+        - inject dhelp_page_default instantly player:<player>
+
+##==========================================================================
+## HELP PAGES
+##==========================================================================        
+dhelp_page_crafting2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-----<&l> <&3><&m>--<&6><&l> Craftingrezepte <&3><&m>----<&l> <&3><&m>---"
+  - ^run dhelp_item 'def:<&f>Spinnennetz|<&f>Toll für staubige Dachböden.<&nl><&b><&l>Crafting<&co><&r><&nl><&f><&chr[2592]><&chr[2592]><&chr[2592]> <&7>•<&f> <&chr[2592]> <&7>Faden<&r><&nl><&f><&chr[2592]><&chr[2592]><&chr[2592]><&nl><&f><&chr[2592]><&chr[2592]><&chr[2592]>' instantly player:<player>
+  - ^run dhelp_item 'def:<&f>Faden|<&f>Ergibt 4 Fäden<&nl><&b><&l>Crafting<&co><&r><&nl><&8><&chr[2588]><&chr[2588]><&8><&chr[2588]>  <&7>•<&f> <&chr[2593]> <&7>Wolle<&nl><&8><&chr[2588]><&8><&chr[2588]><&8><&chr[2588]><&nl><&8><&chr[2588]><&8><&chr[2588]><&f><&chr[2593]>  <&7>•<&7> Anordnung egal' instantly player:<player>
+  - ^run dhelp_item 'def:<&f>Ton|<&f>Ergibt 2 Tonblöcke<&nl><&b><&l>Crafting<&co><&r><&nl><&8><&chr[2588]><&chr[2588]><&8><&chr[2588]>  <&7>•<&c> <&chr[2593]> <&7>Erde,<&e> <&chr[2593]> <&7>Sand<&r><&nl><&8><&chr[2588]><&c><&chr[2593]><&e><&chr[2593]><&nl><&8><&chr[2588]><&c><&chr[2593]><&e><&chr[2593]>  <&7>•<&7> Anordnung egal' instantly player:<player>
+  #- ^narrate ""
+  #- ^narrate format:dhelp_text "Die mcMMO-Items können durch jeden gecraftet werden, die"
+  #- ^narrate format:dhelp_text "Verwendung ist aber teils mit dem assoziierten Skill verbunden."
+  - ^run dhelp_footer_last def:crafting|2 instantly player:<player>
+  #- ^narrate format:dhelp_footer_single ""
+
+dhelp_page_crafting1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-----<&l> <&3><&m>--<&6><&l> Craftingrezepte <&3><&m>----<&l> <&3><&m>---"
+  - ^narrate format:dhelp_text "Items mit besonderem Effekt sind in <&a>grün<&b> gelistet. Hovert über"
+  - ^narrate format:dhelp_text "den Chat um das jeweilige Rezept zu erfahren."
+  - ^narrate ""
+  - ^run dhelp_item 'def:Enderstaub<&l><&r>           <&7><&chr[25B6]><&b> Teleportitem (Außenposten)|<&a>Enderstaub <&f>teleportiert Euch zu einem<&nl>bereits erkundetem Außenposten.<&nl><&b><&l>Crafting<&co><&r><&nl><&8><&chr[2588]><&chr[2588]><&3><&chr[2592]>  <&7>•<&3> <&chr[2592]> <&7>Enderperle<&r><&nl><&8><&chr[2588]><&3><&chr[2592]><&chr[2592]><&nl><&8><&chr[2588]><&3><&chr[2592]><&chr[2592]>  <&7>•<&7> Anordnung egal' instantly player:<player>
+  - ^run dhelp_item 'def:Chimaera-Wing        <&7><&chr[25B6]><&3> Teleportitem (Bett/eig. Spawnpunkt)|<&a>Chimaera-Wings <&f>teleportieren zu Eurem<&nl>Bett/Spawn, wenn sie unter freiem Himmel<&nl>aktiviert werden.<&nl><&b><&l>Crafting<&co><&r><&nl><&8><&chr[2588]><&chr[2588]><&f><&chr[2592]>  <&7>•<&f> <&chr[2592]> <&7>Feder<&r><&nl><&8><&chr[2588]><&f><&chr[2592]><&chr[2592]><&nl><&8><&chr[2588]><&f><&chr[2592]><&chr[2592]>  <&7>•<&7> Anordnung egal' instantly player:<player>
+  - ^run dhelp_topic 'def:<&a>Fluxspitzhacke       <&7><&chr[25B6]><&b> Spezialwerkzeug des <&3><&chr[2749]> <&6>Smeltingskills|<&a>Fluxspitzhacken<&r> haben, abhängig von<&nl>Eurem Smeltinglevel, die Chance Erze<&nl>sofort einzuschmelzen.<&nl><&b><&l>Crafting<&co><&r><&nl><&7>Eine beliebige, intakte Spitzhacke im Ofen schmelzen.|mcmmo_skills3' instantly player:<player>
+  - ^run dhelp_item 'def:Schlammkur<&l>  <&r>         <&7><&chr[25B6]><&3> Blockmodifizierer|<&f>Mit einer ordentlichen Schlammpackung, könnt Ihr<&nl>einigen Blöcken ein neues Aussehen verpassen.<&nl>(Sandstein, Holzstamm, Pilzblock, Doppelstufe)<&nl><&b><&l>Crafting<&co><&r><&nl><&8><&chr[2588]><&chr[2588]><&8><&chr[2588]>  <&7>•<&c> <&chr[2592]> <&7>Verrottetes Fleisch<&r><&nl><&8><&chr[2588]><&c><&chr[2592]><&chr[2592]><&nl><&8><&chr[2588]><&c><&chr[2592]><&chr[2592]>  <&7>•<&7> Anordnung egal' instantly player:<player>
+  - ^run dhelp_item 'def:<&f>Kohleblock|<&f>Mit Holzkohle statt Steinkohle<&nl><&b><&l>Crafting<&co><&r><&nl><&7><&chr[2592]><&chr[2592]><&chr[2592]> <&7>•<&7> <&chr[2592]> <&7>Holzkohle<&r><&nl><&7><&chr[2592]><&chr[2592]><&chr[2592]><&nl><&7><&chr[2592]><&chr[2592]><&chr[2592]>' instantly player:<player>
+  #- ^narrate ""
+  #- ^narrate format:dhelp_text "Die mcMMO-Items können durch jeden gecraftet werden, die"
+  #- ^narrate format:dhelp_text "Verwendung ist aber teils mit dem assoziierten Skill verbunden."
+  - ^run dhelp_footer_first def:crafting|2 instantly player:<player>
+  #- ^narrate format:dhelp_footer_single ""
+
+
+dhelp_page_default:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------ <&b><&l> Craftasy<&6><&l> Hilfemenü <&3><&m>------"
+  - ^run dhelp_topic 'def:Regeln|Kurzfassung|rules' instantly player:<player>
+  - ^run dhelp_topic 'def:Handbuch für neue Spieler|Tipps zum erfolgreichen Start|guide1' instantly player:<player>
+  - ^narrate ""
+  - ^run dhelp_topic 'def:Wichtige Links|Livemap, Forum, Voiceserver, Kontaktmöglichkeiten|links' instantly player:<player>
+  - ^run dhelp_topic 'def:Unsere Plugins|Befehle, Tipps und Hinweise|plugins1' instantly player:<player>
+  - ^run dhelp_topic 'def:Hauseigene Rezepte|Serverspezifische Craftingrezepte und Items|crafting1' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_tip "<&3><&chr[2749]> <&6>Themen<&a> und <&e>/befehle<&a> sind im Chat anklickbar."
+  - ^narrate format:dhelp_footer_single ""
+  
+##==========================================================================
+## FORMATTING
+##==========================================================================
+dhelp_topic:
+  #- ^run dhelp_topic 'def:topic_display|topic_hover|topic' instantly player:<player>
+  type: task
+  debug: false
+  definitions: topic_display|topic_hover|topic
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&chr[2749]> <&6><[topic_display]>","hoverEvent":{"action":"show_text","value":"<[topic_hover]>"},"clickEvent":{"action":"run_command","value":"/dhelp <[topic]>"}}]'
+ 
+dhelp_topic_at_end:
+  #- ^run dhelp_topic_at_end 'def:text|topic_display|topic_hover|topic' instantly player:<player>
+  type: task
+  debug: false
+  definitions: text|topic_display|topic_hover|topic
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&b><[text]>"},{"text":"<&3><&chr[2749]> <&6><[topic_display]>","hoverEvent":{"action":"show_text","value":"<[topic_hover]>"},"clickEvent":{"action":"run_command","value":"/dhelp <[topic]>"}}]'
+
+dhelp_topic_at_start:
+  #- ^run dhelp_topic_at_start 'def:topic_display|topic_hover|topic|text' instantly player:<player>
+  type: task
+  debug: false
+  definitions: topic_display|topic_hover|topic|text
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&chr[2749]> <&6><[topic_display]>","hoverEvent":{"action":"show_text","value":"<[topic_hover]>"},"clickEvent":{"action":"run_command","value":"/dhelp <[topic]>"}},{"text":" <&b><[text]> "}]'
+
+dhelp_topic_in_mid:
+  #- ^run dhelp_topic_at_start 'def:topic_display|topic_hover|topic|text' instantly player:<player>
+  type: task
+  debug: false
+  definitions: text1|topic_display|topic_hover|topic|text2
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&b><[text1]>"},{"text":"<&3><&chr[2749]> <&6><[topic_display]> ","hoverEvent":{"action":"show_text","value":"<[topic_hover]>"},"clickEvent":{"action":"run_command","value":"/dhelp <[topic]>"}},{"text":"<&b><[text2]>"}]'
+  
+dhelp_item:
+  #- ^run dhelp_item 'def:item|Itemname<&nl><&b>Crafting<&co><&r><&nl><&8>███<&nl><&8>███<&nl><&8>███' instantly player:<player>
+  type: task
+  debug: false
+  definitions: item|item_hover
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&chr[2749]> <&a><[item]>","hoverEvent":{"action":"show_text","value":"<[item_hover]>"}}]'
+dhelp_action:
+  #- ^run dhelp_action 'def:action|action_hover' instantly player:<player>
+  type: task
+  debug: false
+  definitions: action|action_hover
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&chr[2749]> <&e><[action]>","hoverEvent":{"action":"show_text","value":"<[action_hover]>"}}]'
+
+dhelp_command:
+  #- ^run dhelp_command 'def:command|command_hover' instantly player:<player>
+  type: task
+  debug: false
+  definitions: command|command_hover
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&chr[2749]> <&e>/<[command]>","hoverEvent":{"action":"show_text","value":"<[command_hover]>"},"clickEvent":{"action":"suggest_command","value":"/<[command]>"}}]'
+  #- ^execute as_server 'tellraw <player.name> [{"text":"<&3><&chr[2749]> <&e>/<[command]>","clickEvent":{"action":"suggest_command","value":"/<[command]>"},"hoverEvent":{"action":"show_text","value":{"text":"","extra":[{"text":"<[command_hover]>"}]}},"insertion":"a"}]'
+  
+dhelp_command_no_slash:
+  #- ^run dhelp_command_no_slash 'def:command_text|command|command_hover' instantly player:<player>
+  type: task
+  debug: false
+  definitions: command_text|command|command_hover
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&chr[2749]> <&e><[command_text]>","hoverEvent":{"action":"show_text","value":"<[command_hover]>"},"clickEvent":{"action":"suggest_command","value":"/<[command]>"}}]'
+
+dhelp_command_variables:
+  type: task
+  debug: false
+  definitions: command_display|command|command_hover
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&chr[2749]> <&e>/<[command_display]>","hoverEvent":{"action":"show_text","value":"<[command_hover]>"},"clickEvent":{"action":"suggest_command","value":"/<[command]>"}}]'
+
+  
+dhelp_command_at_end:
+  type: task
+  debug: false
+  definitions: text|command|command_hover
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&b><[text]> "},{"text":"<&e>/<[command]>","hoverEvent":{"action":"show_text","value":"<[command_hover]>"},"clickEvent":{"action":"suggest_command","value":"/<[command]>"}}]'
+  
+##========================================================================== 
+ 
+dhelp_footer:
+  type: task
+  debug: false
+  definitions: topic|page_total
+  script:
+  - define page <player.flag[help_page]>
+  - define page_next <player.flag[help_page].add_int[1]>
+  - define page_last <player.flag[help_page].add_int[-1]>
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&m>-------------------- "},{"text":"<&e><&l> <&lt><&lt><&lt>","hoverEvent":{"action":"show_text","value":"Vorige Seite"},"clickEvent":{"action":"run_command","value":"/dhelp <[topic]><[page_last]>"}},{"text":" <&3>|<&6><[page]>/<[page_total]><&3>| "},{"text":"<&e><&l><&gt><&gt><&gt> ","hoverEvent":{"action":"show_text","value":"Nächste Seite"},"clickEvent":{"action":"run_command","value":"/dhelp <[topic]><[page_next]>"}},{"text":"<&3><&m>--------------------"}]'
+  
+dhelp_footer_first:
+  type: task
+  debug: false
+  definitions: topic|page_total
+  script:
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&m>-------------------- "},{"text":"<&7><&l> <&lt><&lt><&lt>"},{"text":" <&3>|<&6>1/<[page_total]><&3>| "},{"text":"<&e><&l><&gt><&gt><&gt> ","hoverEvent":{"action":"show_text","value":"Nächste Seite"},"clickEvent":{"action":"run_command","value":"/dhelp <[topic]>2"}},{"text":"<&3><&m>--------------------"}]'
+  
+dhelp_footer_last:
+  type: task
+  debug: false
+  definitions: topic|page_total
+  script:
+  - define page_last <player.flag[help_page].add_int[-1]>
+  - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&m>-------------------- "},{"text":"<&e><&l> <&lt><&lt><&lt>","hoverEvent":{"action":"show_text","value":"Vorige Seite"},"clickEvent":{"action":"run_command","value":"/dhelp <[topic]><[page_last]>"}},{"text":" <&3>|<&6><[page_total]>/<[page_total]><&3>| "},{"text":"<&7><&l><&gt><&gt><&gt> "},{"text":"<&3><&m>--------------------"}]'
+
+dhelp_footer_single:
+#- ^narrate format:dhelp_footer_single ""  
+  type: format
+  debug: false
+  format: "<&3><&m>-------------------- <&7><&l> <&lt><&lt><&lt><&8> |<&7>1/1<&8>| <&7><&l><&gt><&gt><&gt> <&3><&m>--------------------"
+  
+dhelp_header:
+  type: format
+  debug: false
+  format: "<&3><&m>----------<text>----------"
+  
+dhelp_text:
+  type: format
+  debug: false
+  format: "<&b><text>"
+  
+dhelp_tip:
+  type: format
+  debug: false
+  format: "<&2><&l>Tipp<&co> <&a><text>"
+  
+dhelp_reward:
+  type: format
+  debug: false
+  format: "<&3><&l>Belohnung: <text>"

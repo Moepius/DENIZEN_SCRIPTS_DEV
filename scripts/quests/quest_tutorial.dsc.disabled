@@ -1,0 +1,700 @@
+Tutorial_Tempelwache:
+  Type: Interact
+  debug: true
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - IF <player.has_permission[d.introduction]> {
+            - CHAT "Willkommen auf <&b>Craftasy<&e>, <player.name>!"
+            - WAIT 1
+            - CHAT "Kommt her zu mir, ich habe Euch erwartet!"
+            }
+            ELSE {
+            - CHAT "Hallo, <player.name>!"
+            }
+          - NARRATE "<&f>Rechtsklickt <&b>den <&a>NPC<&b>, um zu erfahren, was er möchte."
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hervorragend!"
+        ## Permission wird von einem Administrator vergeben
+        - IF <player.has_permission[d.tutorial]> {
+            - WAIT 1
+            - NARRATE "<&b>Schreibt '<&f>Ja<&b>' um das Tutorial zu beginnen, '<&f>Nein<&b>', wenn Ihr Euch als <&8>Gast <&b>gefahrlos umsehen wollt."
+            - WAIT 5
+            - NARRATE "<&c>Durch das '<&f>Ja<&c>' best<&auml>tigt Ihr noch einmal den Regeln der Community folge zu leisten. <&f>http://www.craftasy.de"
+            - ^ZAP 3
+            - DISENGAGE
+            }
+            
+          ELSE {
+            - CHAT "Was möchtet Ihr machen?"
+            - WAIT 1
+            - ^narrate "<&3><&m>-----------------------------------------------------"
+            - ^narrate ""
+            - ^execute as_server 'tellraw <player.name> {"text":"<&3>❉ <&6>Ich möchte mich nur umsehen","hoverEvent":{"action":"show_text","value":"Gast bleiben"},"clickEvent":{"action":"run_command","value":"/tut gast"}}'
+            - ^if <player.has_permission[d.introduction]> {
+              - execute as_server 'tellraw <player.name> {"text":"<&3>❉ <&6>Ich möchte im <&3><&l>Freebuild<&6> spielen","hoverEvent":{"action":"show_text","value":"Freebuildspieler werden"},"clickEvent":{"action":"run_command","value":"/tut freebuild"}}'
+              }
+            - ^if <player.has_permission[d.introduction]> {
+              - ^execute as_server 'tellraw <player.name> {"text":"<&3>❉ <&6>Ich möchte auf der Hauptkarte mitspielen (Ü18)","hoverEvent":{"action":"show_text","value":"Als <&b>Mitglied<&f> bewerben"},"clickEvent":{"action":"run_command","value":"/tut bewerbung"}}'
+              }
+            - ^narrate ""
+            - ^narrate "<&3><&m>-----------------------------------------------------"
+            - ^narrate "<&b>Zum Fortfahren auf eine der Optionen klicken."
+            - DISENGAGE
+            }          
+    2:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Hey <player.name>. Wie l<&auml>uft Eure Besichtigungstour?"
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Wollt Ihr nun mit dem Tutorial beginnen?"
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 3
+        - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/, ich kenne die Regeln und m<&ouml>chte das Tutorial starten."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ausgezeichnet."
+          - WAIT 1          
+          - CHAT "Ich werde Euch nun zu einigen wichtigen Pers<&ouml>nlichkeiten Iturias schicken, die Euch die zentralen Punkte der Insel erkl<&auml>ren werden."
+          - WAIT 3
+          - CHAT "Folgt als erstes der Treppe dort nach unten. Am Ende trefft Ihr auf eine der Portalwachen."
+          - WAIT 3
+          - CHAT "... Vielleicht beeilt Ihr Euch auch ein wenig. Er ist nicht gerade der Geduldigste seiner Art."
+          - WAIT 4
+          - ^FLAG PLAYER 'AktiveQuests:->:Tutorial'
+          - ^FLAG PLAYER 'Tutorial_Liste:->:T_Tempelwache'
+          - NARRATE format:quest_given "Tutorial"
+          - WAIT 2
+          - NARRATE "<&b>Mit <&f>/quest <&b>k<&ouml>nnt Ihr Eure Questeintr<&auml>ge abrufen. Ihr k<&ouml>nnt auch mehrere Quests gleichzeitig erledigen."
+          - WAIT 5
+          - NARRATE "<&c>Inhaltliche Fragen zu Quests sind verboten und k<&ouml>nnen zum Bann f<&uuml>hren!"
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/, ich m<&ouml>chte mich als <&8>Gast <&f>nur umsehen."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Kein Problem, Ihr k<&ouml>nnt Euch als <&8>Gast <&e>so lange umsehen wie Ihr m<&ouml>chtet."
+          - WAIT 4
+          - CHAT "Kommt einfach wieder, wenn Ihr das Tutorial starten wollt."
+          - WAIT 3
+          - NARRATE "<&c>Auch f<&uuml>r G<&auml>ste gelten die auf <&f>http://www.craftasy.de <&c>beschriebenen Regeln."
+          - ^ZAP 2
+          - DISENGAGE
+        3:
+          Trigger: /REGEX:\w+/
+          Script:
+          - CHAT "Entschuldigt, aber ich wei<&chr[00DF]> nicht, was Ihr mit '<&f><player.chat_history><&e>' meint."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Ja|Nein'
+          - NARRATE format:trigger ""
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Portalwache' {
+            - CHAT "Beeilt Euch lieber, die Portalwache l<&auml>sst man nicht warten."
+            - WAIT 2
+            - CHAT "Einfach die Treppe hinunter, das k<&ouml>nnt Ihr nicht verfehlen."
+            }
+          ELSE {
+            - CHAT "Zum Z<&ouml>llner Thorben? Na, da seit Ihr bei mit aber falsch."
+            - WAIT 2
+            - CHAT "Der S<&uuml>dhafen ist ausgeschildert, aber fragt die Portalwache doch ruhig noch einmal."
+            }
+        - DISENGAGE
+    5:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Karolus' {
+            - CHAT "Seid Ihr schon fertig? - Ach, Geiz und Gier sucht ihr."
+            - WAIT 3
+            - CHAT "Fragt doch den Z<&ouml>llner Thorben, der wei<&chr[00DF]> wie ihr dort am Einfachsten hin gelangt."
+            }
+          ELSE {
+            - CHAT "Eigentlich w<&auml>re es ja einfacher, denjenigen zu fragen der Euch geschickt hat."
+            - WAIT 3
+            - CHAT "Aber gut, dieses Mal habt ihr bei mir Gl<&uuml>ck. Das Rathaus ist von hier aus gut sichtbar!"
+            }
+        - DISENGAGE
+    6:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Sieghurt' {
+            - CHAT "Der Markt? Schaut doch unten beim Brunnen auf dem Rathausplatz nach Schildern."
+            - WAIT 3
+            - CHAT "Die helfen Euch sicher weiter."
+            }
+          ELSE {
+            - CHAT "Jetzt k<&uuml>rzt Ihr aber doch nur ab, oder?"
+            - WAIT 2
+            - CHAT "Wo Ihr die Parallelwelt findet muss ich Euch wohl nicht erkl<&auml>ren."
+            }
+        - DISENGAGE
+    7:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ah <player.name>! So so, ihr m<&uuml>sst also noch den Tabak abliefern."
+        - WAIT 3
+        - CHAT "Meine G<&uuml>te, kaum angekommen und schon so hilfsbereit. Ich bin begeistert!"
+        - DISENGAGE
+
+Tutorial_Portalwache:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> contains 'T_Tempelwache' {
+            - CHAT "Noch einer..."
+            - WAIT 2
+            - CHAT "Sperrt die Lauscher auf, ich habe nicht ewig Zeit und ich wiederhole mich ungern!"
+            - WAIT 5
+            - CHAT "Ich bewache hier das Portal zur Parallelwelt. In dieser findet Ihr alle Materialien, die zum Bauen auf Terra Thusundea ben<&ouml>tigt werden."
+            - WAIT 7
+            - CHAT "Sobald Ihr Neuling seid, d<&uuml>rft Ihr Euch dort, und NUR dort, frei an den Ressourcen bedienen."
+            - WAIT 6
+            - NARRATE "<&b>Beendet erfolgreich die Tutorialquest um Neuling zu werden."
+            - WAIT 3
+            - CHAT "Ihr werdet von Thorben, dem Z<&ouml>llner am S<&uuml>dhafen erwartet."
+            - WAIT 4
+            - CHAT "Geht jetzt und steht mir nicht im Weg!"
+            - WAIT 3
+            - NARRATE "<&b>Nutzt zur Orientierung die Schilder oder nehmt die Livemap <&f>http://www.craftasy.de:8123 <&b>zur Hilfe."
+            - ^FLAG PLAYER 'Tutorial_Liste:->:T_Portalwache'
+            - ^ZAP 2
+            }
+          ELSE {
+            - RANDOM {
+              - CHAT "Steht hier nicht im Weg rum!"
+              - CHAT "Geht weiter und versperrt hier nicht den Durchgang!"
+              - CHAT "Ist es wichtig? Wenn nicht, hinfort mit Euch!"
+              }
+            }
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Thorben' {
+            - RANDOM {
+              - CHAT "Muss ich es Euch buchstabieren?! S-<&Uuml>-D-H-A-F-E-N!"
+              - CHAT "Thorben - S<&uuml>dhafen - Ihr - gehen! Die Neuen werden von Tag zu Tag unf<&auml>higer..."
+              - CHAT "Schwer von Begriff? Ich sagte Ihr sollt zum S<&uuml>dhafen!"
+              }
+            }
+          ELSE {
+            - RANDOM {
+              - CHAT "Was wollt Ihr denn immernoch?!"
+              - CHAT "Interessiert mich nicht wen Ihr sucht."  
+              - CHAT "Ihr steht mir im Weg!" 
+              - CHAT "Ich habe Euch geholfen, jetzt helft mir und zieht Leine!"
+              }
+            }
+        - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Pietro' {
+            - CHAT "WIE BITTE??! IHR FINDET DIE PARALLELWELT NICHT??!"
+            - WAIT 2
+            - CHAT "WAS HABE ICH EUCH DENN VORHIN ERZ<&Auml>HLT!!"
+            - WAIT 2
+            - CHAT "DIESE NEULINGE. UNF<&Auml>HIG BIS ZUM LETZTEN. ALLE MITEINANDER!"
+            }
+          ELSE {
+            - CHAT "Es ist mir v<&ouml>llig egal wer Tabak will."
+            - WAIT 2
+            - CHAT "Ihr k<&uuml>mmert Euch um Euren und ich mich um meinen Kram."
+            }
+        - DISENGAGE
+
+Tutorial_Thorben:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - INGROUP default
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> contains 'T_Portalwache' {
+            - CHAT "Habt Ihr was zu verzollen?... Achsoo! Ihr wurdet geschickt, sagt das doch gleich."
+            - WAIT 4
+            - CHAT "Ich gebe Euch eine kurze Erkl<&auml>rung zu unseren Reiserouten."
+            - WAIT 4
+            - CHAT "Es steht Euch nat<&uuml>rlich frei ein eigenes B<&ouml>tchen zu bauen und damit los zu schippern."
+            - WAIT 4
+            - CHAT "Bequemer reist es sich allerdings mit den gro<&chr[00DF]>en Schiffen, die sich in den H<&auml>fen finden."
+            - WAIT 4
+            - CHAT "Geht einfach an Bord und wartet bis das Schiff ablegt. Dank unserer Handelsvert<&auml>ge ist das Reisen f<&uuml>r Zivilisten kostenlos."
+            - WAIT 5
+            - CHAT "Haltet auch in den einzelnen L<&auml>ndern die Augen offen. Einige haben eigene Karawanen- oder Kutschverbindungen!"
+            - WAIT 4
+            - NARRATE "<&b>Auf der Livemap k<&ouml>nnt ihr alle Verbindungen <&f>http://www.craftasy.de:8123 <&b>einblenden lassen."
+            - WAIT 4
+            - CHAT "Genug geplaudert. Karolus, der Inhaber des Gesch<&auml>fts Geiz und Gier wird Euch in seinem Laden empfangen."
+            - WAIT 4
+            - NARRATE "<&b>Wenn Ihr <&f>Hinweise<&b> zu einer Quest ben<&ouml>tigt, <&f>rechtsklickt die NPC<&b> noch einmal."
+            - ^FLAG PLAYER 'Tutorial_Liste:->:T_Thorben'
+            - ^ZAP 'step:5' 's@Tutorial_Tempelwache'
+            - ^ZAP 'step:2' 's@Tutorial_Chrys'
+            - ^ZAP 2
+            }
+          ELSE {
+            - RANDOM {
+              - CHAT "Habt Ihr was zu verzollen?"
+              - CHAT "Ja, bitte?"
+              - CHAT "Die See kann zu Weilen t<&uuml>ckisch sein. Da ist meine Arbeit doch viel sicherer."
+              }
+            }
+        - DISENGAGE
+
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Karolus' {
+            - CHAT "Ihr findet Geiz und Gier, wenn ihr hier am Pier weitergeht und den Schildern folgt."
+            }
+          ELSE {
+            - CHAT "Hat Euch Karolus eine falsche Richtung genannt? Das ist aber seltsam."
+            - WAIT 4
+            - CHAT "Naja, dann geht doch einfach zur<&uuml>ck in Richtung Tempel, da ist auch das Rathaus in der N<&auml>he."
+            }
+        - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Sieghurt' {
+            - CHAT "Ihr schon wieder hier? Wie, Tabak sucht Ihr?"
+            - WAIT 3
+            - CHAT "Von Amtswegen wei<&chr[00DF]> ich nat<&uuml>rlich, dass die letzte Lieferung schon etwas her ist."
+            - WAIT 4
+            - CHAT "Aber die H<&auml>ndler findet Ihr im Marktviertel, da seid Ihr bei mir falsch."
+            }
+          ELSE {
+            - CHAT "Wie schafft Ihr es nur, immer wieder bei mir zu landen?"
+            - WAIT 3
+            - CHAT "Parallelwelt? Ich dachte, die h<&auml>tte Euch bereits eine der Portalwachen gezeigt."
+            }
+        - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Nein danke, ich rauche nicht."
+        - WAIT 2
+        - CHAT "Und ich bin mir ziemlich sicher, dass Euch jemand anderes geschickt hat Tabak zu besorgen."
+        - DISENGAGE
+
+Tutorial_Karolus:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - INGROUP default
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> contains 'T_Thorben' {
+            - CHAT "Willkommen, Neuank<&ouml>mmling! Ihr habt soeben den wohl wichtigsten Shop der Stadt betreten!"
+            - WAIT 4
+            - CHAT "Meinen Shop um genau zu sein! Lasst mich kurz erkl<&auml>ren, wie ihr bei mir einkaufen k<&ouml>nnt."
+            - WAIT 4
+            - CHAT "... Und nat<&uuml>rlich auch in anderen L<&auml>den, aber die sind ja irrelevant, nicht wahr?"
+            - WAIT 4
+            - CHAT "Also, im Erdgeschoss seht ihr einige schwebende Items <&uuml>ber Bl<&ouml>cken, die sich Showcase nennen."
+            - WAIT 4
+            - CHAT "Meistens findet ihr auch ein Schild daran, welches Euch zeigt ob dieser Showcase Items kauft (buy) oder Euch verkauft (sell)."
+            - WAIT 5
+            - NARRATE "<&b>Klickt mit der <&f>linken Maustaste<&b> oben auf den Block, um den <&f>Status<&b> des Showcase anzuzeigen."
+            - WAIT 4
+            - NARRATE "<&b>Klickt mit der <&f>rechten Maustaste<&b> oben auf den Block, um die <&f>Transaktion<&b> auszuf<&uuml>hren."
+            - WAIT 4
+            - NARRATE "<&b>Haltet <&f>SHIFT<&b> gedr<&uuml>ckt, wenn Ihr <&f>64 Items<&b> auf einmal handeln m<&ouml>chtet."
+            - WAIT 4
+            - CHAT "Ich f<&uuml>hre nat<&uuml>rlich nur einige auserw<&auml>hlte, edle G<&uuml>ter! Sollte Euch nach anderem gel<&uuml>sten, werdet Ihr wohl das Marktviertel aufsuchen m<&uuml>ssen."
+            - WAIT 6
+            - CHAT "Dort haben einige Bewohner Terra Thusundeas eigene L<&auml>den er<&ouml>ffnet und bietet allerlei seltsame Waren feil."
+            - WAIT 5
+            - CHAT "Jetzt habe ich Euch aber genug aufgehalten. Ich denke Egmont, der Stadtverwalter, erwartet Euch bereits im Rathaus."
+            - WAIT 5
+            - CHAT "Auf mit Euch!"
+            - ^FLAG PLAYER 'Tutorial_Liste:->:T_Karolus'
+            - ^ZAP 2
+            }
+          ELSE {
+            - RANDOM {
+              - CHAT "Bei mir findet Ihr nur erstklassige G<&uuml>ter!"
+              - CHAT "Willkommen im besten Laden der Stadt!"
+              - CHAT "Kein anderer Laden kann mit dem meinen mithalten! Das ist Fakt!"
+              }
+            }
+        - DISENGAGE
+
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Egmont' {
+            - CHAT "Lasst Egmont nicht warten! In letzter Zeit hat er viel zu tun."
+            - WAIT 3
+            - CHAT "Das Rathaus ist ausgeschildert, Ihr k<&ouml>nnt es aber auch vom Tempel aus sehen."
+            }
+          ELSE {
+            - CHAT "Tabak? Nein, solch minderwertige Waren f<&uuml>hre ich nicht."
+            - WAIT 3
+            - CHAT "Schaut doch mal im Marktviertel vorbei, der Marktschreier Sieghurt wei<&chr[00DF]> <&uuml>blicherweise wo es was zu kaufen gibt."
+            }
+        - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Pietro' {
+            - CHAT "Die Parallelwelt wurde Euch sicher schon von einer Wache gezeigt."
+            - WAIT 4
+            - CHAT "Wenn Ihr nichts bei mir kaufen wollt, geht Ihr besser."
+            }
+          ELSE {
+            - CHAT "Tabak!? Was bewegt Euch mir diese minderwertige Ware vor die Nase zu halten!"
+            - WAIT 5
+            - CHAT "Hinaus mit Euch und kommt mit dem Zeug ja nicht wieder!"
+            }
+        - DISENGAGE
+
+Tutorial_Egmont:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - INGROUP default
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> contains 'T_Karolus' {
+            - CHAT "Ah, <player.name>. Ich warte schon auf Euch!"
+            - WAIT 3
+            - CHAT "Eure Baugenehmigung ist so gut wie fertig, aber es fehlt noch die Unterschrift des B<&uuml>rgermeisters."
+            - WAIT 5
+            - CHAT "Leider ist ihm heute Morgen der Tabak ausgegangen und ohne ist er schrecklich launisch."
+            - WAIT 5
+            - CHAT "Ich w<&uuml>rde ihm ja Neuen besorgen, aber derart niedere Dienste stehen nicht in meinem Arbeitsvertrag!"
+            - WAIT 5
+            - CHAT "Davon abgesehen geht hier alles drunter und dr<&uuml>ber, wenn ich nicht da bin. Und in letzter Zeit ist alles noch viel chaotischer."
+            - WAIT 7
+            - CHAT "Wenn Ihr Eure Baugenehmigung haben wollt, werdet Ihr wohl ein paar Tage warten m<&uuml>ssen. Oder..."
+            - WAIT 4
+            - CHAT "... Ihr besorgt ihm seine neue Lieferung!"
+            - WAIT 3
+            - CHAT "Welch hervorragende Idee von mir! Das ist es!"
+            - WAIT 3
+            - CHAT "Schnell, lauft ins Marktviertel zu Sieghurt. Er hat immer ein P<&auml>ckchen f<&uuml>r den B<&uuml>rgermeister auf Vorrat."
+            - WAIT 5
+            - CHAT "Ihr m<&uuml>sst es nur abholen, ich werde Sieghurt sp<&auml>ter bezahlen. Keine Sorge."
+            - WAIT 3
+            - CHAT "Wenn Ihr jetzt los lauft, solltet Ihr es schaffen, bevor der B<&uuml>rgermeister Feierabend macht... und mich in den Wahnsinn treibt..."
+            - ^FLAG PLAYER 'Tutorial_Liste:->:T_Egmont'
+            - ^ZAP 'step:6' 's@Tutorial_Tempelwache'
+            - ^ZAP 'step:3' 's@Tutorial_Thorben'
+            - ^ZAP 'step:3' 's@Tutorial_Chrys'
+            - ^ZAP 2
+            }
+          ELSE {
+            - RANDOM {
+              - CHAT "Was ist?"
+              - CHAT "Ich bin schwer besch<&auml>ftigt!"
+              - CHAT "Nicht jetzt, Neuling!"
+              }
+            }
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Sieghurt' {
+            - CHAT "Wenn ihr hier warten wollt, auch gut."
+            - WAIT 3
+            - CHAT "Aber die Genehmigung stellt sich nicht von alleine aus, sucht besser Sieghurt im Marktviertel."
+            }
+          ELSE {
+            - CHAT "Wie? Sieghurt hat keinen Tabak mehr? Wir haben einen Vertrag mit ihm!"
+            - WAIT 4
+            - CHAT "Zu 'Stinky Pete' hat er Euch geschickt? Ich denke er meint den Meister Pietro, der das Basislager in der Parallelwelt organisiert."
+            - WAIT 5
+            - CHAT "Sieghurt und Pietro haben sich ja schon immer gegenseitig aufgezogen. Aber dass er Neulingen so etwas erz<&auml>hlt..."
+            }
+        - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Oh, Ihr habt den Tabak mitgebracht! Ausgezeichnet!"
+        - WAIT 3
+        - CHAT "Ich habe in der Zwischenzeit den B<&uuml>rgermeister <&uuml>berreden k<&ouml>nnen Eure Baugenehmigung zu unterzeichnen!" 
+        - WAIT 5
+        - CHAT "Lasst mich kurz das Wichtigste zu den Baugr<&uuml>nden auf Ituria erl<&auml>utern!"
+        - WAIT 4
+        - CHAT "Am Einfachsten findet Ihr ein freies Grundst<&uuml>ck, wenn ihr <&uuml>ber die Livemap sucht."
+        - WAIT 4
+        - NARRATE "<&b>Die Livemap findet Ihr unter http://www.craftasy.de:8123<&b>."
+        - WAIT 3
+        - CHAT "Ihr k<&ouml>nnt auch einfach das N<&auml>chstgelegene nehmen, wenn Euch die Lage gleich ist. Aber <&uuml>berlegt Euch das gut!"
+        - WAIT 5
+        - NARRATE "<&b>Mit dem Befehl <&f>/gs<&b> k<&ouml>nnt Ihr Euch Koordinaten eines freien Grundst<&uuml>cks zeigen lassen."
+        - WAIT 5
+        - CHAT "Sobald Ihr ein freies Grundst<&uuml>ck gefunden habt, dass Euch gef<&auml>llt, d<&uuml>rft Ihr es reservieren."
+        - WAIT 4
+        - NARRATE "<&b>Stellt Euch auf ein freies Grundst<&uuml>ck und tippt erneut <&f>/gs<&b> ein. Best<&auml>tigt die Auswahl mit '<&f>Ja<&b>'."
+        - WAIT 4
+        - NARRATE "<&b>Ihr k<&ouml>nnt sofort darauf bauen. Meldet Euch zur Best<&auml>tigung innerhalb von <&f>3 Tagen<&b> bei einem <&4>Ratsmitglied<&b>!"
+        - WAIT 5
+        - NARRATE "<&c>Nicht best<&auml>tigte Grundst<&uuml>cke k<&ouml>nnen fristlos entfernt werden!"
+        - WAIT 4
+        - CHAT "Nat<&uuml>rlich erwarten wir hier auf Ituria einen gewissen Standard. Aber das sollte kein Problem f<&uuml>r Euch darstellen, oder?"
+        - WAIT 5
+        - CHAT "Am Besten schaut Ihr Euch die anderen H<&auml>user auf Ituria an, dann f<&auml>llt Euch sicher etwas Passendes ein."
+        - WAIT 4
+        - CHAT "Aber genug der Erkl<&auml>rungen:"
+        - WAIT 2
+        - CHAT "Hiermit erkl<&auml>re ich, Kraft meines verliehenen Amtes, Euch, <player.name>, offiziell zum Neueinwohner Iturias!"
+        - EXECUTE as_server 'lp user <player.name> parent add neuling'
+        - ^FLAG PLAYER Tutorial_Liste:!
+        - ^ZAP 'step:1' 's@Tutorial_Tempelwache'
+        - ^ZAP 'step:1' 's@Tutorial_Portalwache'
+        - ^ZAP 'step:1' 's@Tutorial_Thorben'
+        - ^ZAP 'step:1' 's@Tutorial_Karolus'
+        - ^ZAP 'step:1' 's@Tutorial_Egmont'
+        - ^ZAP 'step:1' 's@Tutorial_Sieghurt'
+        - ^ZAP 'step:1' 's@Tutorial_Pietro'
+        - ^ZAP 'step:1' 's@Tutorial_Chrys'
+        - ^FLAG PLAYER 'AktiveQuests:<-:Tutorial'
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - ^FLAG PLAYER 'FertigeQuests:->:Tutorial'
+        - NARRATE format:quest_complete "Tutorial"
+        - WAIT 4
+        - CHAT "Ach, bevor ich es vergesse. Von B<&auml>ckerin Frida mit Gru<&chr[00DF]> an alle Neulinge."
+        - WAIT 3
+        - NARRATE format:item_given "15 Brote"
+        - GIVE 297 QTY:15 
+        - DISENGAGE
+
+Tutorial_Sieghurt:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - INGROUP default
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+            Script:
+            - ENGAGE
+            - CHAT "KAUFT HOOOLZ, GUTES HOOOLZ! BESTE WARE AUS ARBORIA!" 
+            - WAIT 3
+            - CHAT "FRISCH AUS QUADESH - SAAAND! FRISCHER SAND AUS QUADEEEESH!"
+            - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> contains 'T_Egmont' {
+            - CHAT "MELOOOONEEEN, SPRITZIGE MELOOO..."
+            - WAIT 3
+            - CHAT "... Oh, hallo! Mit wem habe ich denn hier die Ehre?"
+            - WAIT 4
+            - CHAT "Etwa ein neuer Kunde? M<&ouml>chtet Ihr Euren Shop von mir anpreisen lassen?"
+            - WAIT 4
+            - NARRATE "<&b>Mitglieder der Community k<&ouml>nnen im Marktviertel ein Shopgrundst<&uuml>ck erwerben."
+            - WAIT 4
+            - CHAT "... Achso, ihr seid der neue Laufbursche des Stadtverwalters. Ja, die Sache mit dem Tabak..."
+            - WAIT 4
+            - CHAT "Es scheint in letzter Zeit Schwierigkeiten in Tiuacen zu geben, wir warten schon Tage auf die neue Lieferung."
+            - WAIT 5
+            - CHAT "... Wie?! Eure Baugenehmigung steht auf dem Spiel? Das kann ich nat<&uuml>rlich nicht verantworten!"
+            - WAIT 5
+            - CHAT "... Mh..."
+            - WAIT 2
+            - CHAT "Wisst Ihr was, der olle Stinky Pete hat sicher noch ein wenig Tabak auf Lager."
+            - WAIT 4
+            - CHAT "Und er schuldet mir noch was. Er ist nicht der angenehmste Kerl, aber er steht zu seinem Wort."
+            - WAIT 5
+            - CHAT "Ich f<&uuml>rchte, es ist Eure einzige Chance heute noch an Tabak zu kommen."
+            - WAIT 4
+            - CHAT "Ihr findet ihn im Basislager der Parallelwelt, das er verwaltet. Lauft schnell!"
+            - ^FLAG PLAYER 'Tutorial_Liste:->:T_Sieghurt'
+            - ^ZAP 'step:3' 's@Tutorial_Portalwache'
+            - ^ZAP 'step:3' 's@Tutorial_Karolus'
+            - ^ZAP 2
+            }
+          ELSE {
+            - RANDOM {
+              - CHAT "MELOOOONEEEN, SPRITZIGE MELOOONEN AUS SHINSHUUUU!"
+              - CHAT "NUR DER BESTE DRECK AUS CALDEEERAAAA, JETZT ZUGREIFEN!"
+              - CHAT "SPITZHACKEN! EXTRASTARKE SPITZHACKEN AUS DEN SCHMIEDEN HAMMERFALLS!"
+              }
+            }
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Pietro' {
+            - CHAT "Der alte Stinky Pete verwaltet das Lager der Parallelwelt."
+            - WAIT 3
+            - CHAT "Die werdet Ihr doch wohl alleine wiederfinden."
+            }
+          ELSE {
+            - CHAT "Wie ich sehe habt ihr den Alten <&uuml>berlebt."
+            - WAIT 3
+            - CHAT "Jetzt solltet Ihr den Tabak aber auch noch ausliefern, meint Ihr nicht?"
+            }
+        - DISENGAGE
+
+Tutorial_Pietro:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - INGROUP default
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> contains 'T_Sieghurt' {
+            - CHAT "... Was wollt Ihr?"
+            - WAIT 3
+            - CHAT "Pff... Sieghurt der alte Schreihals, also... soso, Tabak..."
+            - WAIT 4
+            - CHAT "Da... nehmt das Zeug einfach. Aber glaubt nicht, dass Ihr bei mir immer schnorren k<&ouml>nntet!"
+            - WAIT 5
+            - NARRATE format:item_given "<&b>ein Paket <&d>Tabak"
+            - ^FLAG PLAYER 'Tutorial_Liste:->:T_Pietro'
+            - ^ZAP 'step:3' 's@Tutorial_Egmont'
+            - ^ZAP 'step:7' 's@Tutorial_Tempelwache'
+            - ^ZAP 'step:4' 's@Tutorial_Thorben'
+            - ^ZAP 'step:4' 's@Tutorial_Chrys'
+            - ^ZAP 2
+            }
+          ELSE {
+            - RANDOM {
+              - CHAT "Hrmmpf...!"
+              - CHAT "...!"
+              - CHAT "... geht!"
+              }
+            }
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+          - ENGAGE
+          - CHAT "... hrrmpf!"
+          - WAIT 2
+          - CHAT "Ihr habt was Ihr wolltet, jetzt zieht Leine!"
+          - DISENGAGE
+
+Tutorial_Chrys:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - INGROUP default
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Portalwache' {
+            - CHAT "Huch wer seid Ihr denn?"
+            - WAIT 2
+            - CHAT "Wie seid Ihr an der Wache vor dem Portal vorbeigekommen?"
+            }
+          ELSE {
+            - CHAT "Hallo Fremdling! Was wollt ihr hier beim Parallelweltlager?"
+            - WAIT 3
+            - CHAT "Der S<&uuml>dhafen? Na, den werdet Ihr hier nicht finden."
+            }
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Karolus' {
+            - CHAT "Ihr sucht Geiz und Gier? Da seid Ihr aber ganz sch<&ouml>n vom Weg abgekommen."
+            - WAIT 4
+            - CHAT "Fragt doch den Z<&ouml>llner Thorben noch einmal danach."
+            }
+          ELSE {
+            - CHAT "Ihr scheint Euch ganz sch<&ouml>n verlaufen zu haben."
+            - WAIT 3
+            - CHAT "Das Rathaus ist sicher nicht in der Parallelwelt versteckt."
+            }
+        - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Tutorial_Liste].as_list> !contains 'T_Sieghurt' {
+            - CHAT "Na, wenn Ihr zum Markt wollt m<&uuml>sst Ihr schon in der Hauptwelt bleiben."
+            - WAIT 4
+            - CHAT "Hier gibt es nur Monster und Landschaft so weit das Auge reicht."
+            }
+          ELSE {
+            - CHAT "STINKY PETE?! Welch unglaubliche Frechheit!"
+            - WAIT 3
+            - CHAT "Wie k<&ouml>nnt Ihr es nur wagen, den Namen des ehrw<&uuml>rdigen Meister Pietro so zu verunglimpfen!"
+            - WAIT 4
+            - CHAT "ICH SOLLTE... ICH... ICH! Mir fehlen die Worte!"
+            }
+        - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ah <player.name>! Ihr hattet also die Ehre den Meister kennenzulernen!"
+        - WAIT 4
+        - CHAT "Welch gro<&chr[00DF]>herziger Mann er doch ist! Ihr habt ja solch ein Gl<&uuml>ck, dass er Euch einige seiner kostbaren Worte geschenkt hat!"
+        - DISENGAGE

@@ -1,0 +1,190 @@
+quest_command:
+    type: command
+    debug: false
+    name: quest
+    description: Zeigt aktuelle und abgeschlossene Quests sowie die Zahl der abgeschlossenen Quests an.
+    usage: /quest
+    script:
+    - NARRATE "<&3><&m>---------------<&l> <&3><&m>--<&6><&l> Quest-Tagebuch <&3><&m>----<&l> <&3><&m>-------------"
+    - IF <player.has_flag[AktiveQuests]> {
+        - IF <player.flag[AktiveQuests].as_list> contains 'Tutorial' {
+            - NARRATE format:quest_active "Tutorial"
+            - NARRATE format:quest_npc "Tempelwache"
+            - NARRATE format:quest_descritption "Macht Euch mit den wichtigen Personen und Geb<&auml>uden Iturias vertraut"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Dringende Lieferung' {
+            - NARRATE format:quest_active "Dringende Lieferung"
+            - NARRATE format:quest_npc "Frida"
+            - NARRATE format:quest_descritption "Liefert Backwaren an Boris, Karolus und Willibald"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Einkauf f<&uuml>r Chrys' {
+            - NARRATE format:quest_active "Einkauf f<&uuml>r Chrys"
+            - NARRATE format:quest_npc "Chrys"
+            - NARRATE format:quest_descritption "Besorgt Tukalschoko von Borold, Krabbelminen von Golo und Pfeilsch<&auml>fte von Theobald"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Spinnenbeine f<&uuml>r Chrys' {
+            - NARRATE format:quest_active "Spinnenbeine f<&uuml>r Chrys"
+            - NARRATE format:quest_npc "Chrys"
+            - NARRATE format:quest_descritption "T<&ouml>tet 10 Spinnen f<&uuml>r Chrys"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Jagd auf die hungrigen Zombies' {
+            - NARRATE format:quest_active "Jagd auf die hungrigen Zombies"
+            - NARRATE format:quest_npc "Chrys"
+            - NARRATE format:quest_descritption "T<&ouml>tet 20 Zombies f<&uuml>r Chrys"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Entsch<&auml>rfung' {
+            - NARRATE format:quest_active "Entsch<&auml>rfung"
+            - NARRATE format:quest_npc "Chrys"
+            - NARRATE format:quest_descritption "T<&ouml>tet 5 Creeper f<&uuml>r Chrys"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister' {
+            - NARRATE format:quest_active "Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister"
+            - NARRATE format:quest_npc "Chrys"
+            - NARRATE format:quest_descritption "T<&ouml>tet 30 Tintenfische f<&uuml>r Chrys"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Skelette f<&uuml>r Chrys ausmerzen' {
+            - NARRATE format:quest_active "Skelette f<&uuml>r Chrys ausmerzen"
+            - NARRATE format:quest_npc "Chrys"
+            - NARRATE format:quest_descritption "T<&ouml>tet 15 Skelette f<&uuml>r Chrys"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Raus aus dem Knast' {
+            - NARRATE format:quest_active "Raus aus dem Knast"
+            - If <player.flag[Sozialakte].as_list> contains 'Schl<&auml>gertyp' {
+                - NARRATE format:quest_npc "Portalwache"
+                }
+            - If <player.flag[Sozialakte].as_list> contains 'Sittenstrolch' {
+                - NARRATE format:quest_npc "Thorben"
+                }
+            - If <player.flag[Sozialakte].as_list> contains 'St<&ouml>renfried' {
+                - NARRATE format:quest_npc "Willibald"
+                }
+            - If <player.flag[Sozialakte].as_list> contains 'Bombenleger' {
+                - NARRATE format:quest_npc "Borold"
+                }
+            - NARRATE quest_descritption "Entkomme aus dem Gef<&auml>ngnis"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Eine wei<&chr[00DF]>e Weste' {
+            - NARRATE format:quest_active "Eine wei<&chr[00DF]>e Weste"
+            - If <player.flag[FertigeQuests].as_list> contains 'Der erste Kontakt' || <player.flag[AktiveQuests]> contains 'Der erste Kontakt' {
+                - NARRATE format:quest_npc "Herbert" 
+                - NARRATE format:quest_descritption "S<&auml>ubert Eure Sozialakte bei Trudi"
+                }
+              ELSE {
+                - NARRATE format:quest_npc "Jonny"
+                - NARRATE format:quest_descritption "S<&auml>ubert Eure Sozialakte bei Jonny oder Trudi"
+                }
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Der erste Kontakt' {
+            - NARRATE format:quest_active "Der erste Kontakt"
+            - NARRATE format:quest_npc "Vogel"
+            - NARRATE format:quest_descritption "Findet den Kontaktmann Eures Zellengenossen"
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        
+        - If <player.flag[AktiveQuests].as_list> contains 'Die Katakomben' {
+            - NARRATE format:quest_active "Die Katakomben"
+            - If <player.flag[FertigeQuests].as_list> contains 'Die Katakomben' {
+                - NARRATE format:quest_npc "Boris"
+                - NARRATE format:quest_descritption "Findet neue Sch<&auml>tze und bringt sie Boris"
+                }
+              ELSE {
+                - NARRATE format:quest_npc "Reine Neugier"
+                - NARRATE format:quest_descritption "Erkundet den Dungeon 'Die Katakomben'"
+                }
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        
+        - If <player.flag[AktiveQuests].as_list> contains 'Die alte Villa' {
+            - NARRATE format:quest_active "Die alte Villa"
+            - If <player.flag[Dungeon_Kuchencanyon_Liste].as_list> contains 'Vlad' || <player.flag[FertigeQuests].as_list> contains 'Die alte Villa' {
+                - NARRATE format:quest_npc "Vlad Finster"
+                - NARRATE format:quest_descritption "Besorgt eine Flasche 'Bluchenfelser Seelensaft' aus der Villa im Nordwesten"
+                }
+              ELSE {
+                - NARRATE format:quest_npc "Reine Neugier"
+                - NARRATE format:quest_descritption "Erkundet den Dungeon 'Die alte Villa'"
+                }
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Die Turmruine' {
+            - NARRATE format:quest_active "Die Turmruine"
+            - If <player.flag[Dungeon_Pilzhoehle_Liste].as_list> contains 'Tempelwache' || <player.flag[FertigeQuests].as_list> contains 'Die Turmruine' {
+                - NARRATE format:quest_npc "Tempelwache"
+                - NARRATE format:quest_descritption "Besorgt einen Schlaftrank aus der Turmruine im Südwesten"
+                }
+              ELSE {
+                - NARRATE format:quest_npc "Reine Neugier"
+                - NARRATE format:quest_descritption "Erkundet den Dungeon 'Die Turmruine'"
+                }
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        - If <player.flag[AktiveQuests].as_list> contains 'Der antike Schrein' {
+            - NARRATE format:quest_active "Der antike Schrein"
+            - If <player.flag[Dungeon_Schrein_Liste].as_list> contains 'Bahrim' {
+                - NARRATE format:quest_npc "Bahrim"
+                - NARRATE format:quest_descritption "Erkundet den Dungeon 'Der alte Schrein'"
+                }
+              ELSE If <player.flag[FertigeQuests].as_list> contains 'Der antike Schrein' {
+                - NARRATE format:quest_npc "Bahrim"
+                - NARRATE format:quest_descritption "Verbannt den Unnennbaren"
+                }
+              ELSE {
+                - NARRATE format:quest_npc "Reine Neugier"
+                - NARRATE format:quest_descritption "Erkundet den Dungeon 'Der alte Schrein'"
+                }
+            - NARRATE "<&3><&m>-----------------------------------------------------"
+            }
+        }
+      ELSE {
+        - NARRATE format:quest_active "<&f>---"
+        }
+    - IF <player.has_flag[FertigeQuests]> {
+        - NARRATE "<&a><&l>Q<&2>| <&7>Erfolgreich abgeschlossene Quests: <&b><player.flag[FertigeQuests].as_list.comma_separated>"
+        }
+      ELSE {
+        - NARRATE "<&a><&l>Q<&2>| <&7>Erfolgreich abgeschlossene Quests: <&f>---"
+        }
+    - IF <player.has_flag[QuestCounter]> {
+        - NARRATE "<&a><&l>Q<&2>| <&7>Anzahl erfolgreich abgeschlossener Quests: <&b><player.flag[QuestCounter].as_int>"
+        }
+      ELSE {
+        - NARRATE "<&a><&l>Q<&2>| <&7>Anzahl erfolgreich abgeschlossener Quests: <&f>---"
+        }
+    - IF <player.has_flag[Sozialakte]> {
+        - NARRATE "<&a><&l>Q<&2>| <&7>Eintr<&auml>ge in Eurer Sozialakte: <&b><player.flag[Sozialakte].as_list.comma_separated>"
+        }
+      ELSE {
+        - NARRATE "<&a><&l>Q<&2>| <&7>Eintr<&auml>ge in Eurer Sozialakte: <&f>---"
+        }
+    - NARRATE "<&3><&m>-----------------------------------------------------"
+
+quest_active:
+  type: format
+  format: "<&a><&l>Q<&2>| <&7>Aktive Quest: <&9><text>"
+
+quest_npc:
+  type: format
+  format: "<&a><&l>Q<&2>| <&7>Questgeber: <&a><text>"
+
+quest_descritption:
+  type: format
+  format: "<&a><&l>Q<&2>| <&7>Auftrag: <&b><text>"
+
+Quest_Reset:
+  type: task
+  script:
+  - flag player AktiveQuests:!
+  - flag player FertigeQuests:!
+  - flag player QuestCounter:!
+  - flag player Sozialakte:!
+  - narrate "<&b>Alle Questeintr<&auml>ge entfernt!"

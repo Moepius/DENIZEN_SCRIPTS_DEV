@@ -1,0 +1,33 @@
+﻿dhelp_page_worldguard2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "---------- <&6><&l> WorldGuard <&3><&m>- --------"
+  - ^run dhelp_command_variables 'def:rg info <&lt>Region<&gt>|rg info|Informationen zur eigenen Region\n<&b>Alias<&co> <&e>/region info' instantly player:<player>
+  - ^run dhelp_command_variables 'def:rg addmember <&lt>Region<&gt> <&lt>Spieler1<&gt> [Spieler2]...|rg addmember|Fügt <&e>Spieler1<&f>(+ [Spieler2]+ ...) eigenen Regionen hinzu\n<&b>Alias<&co> <&e>/region addmember' instantly player:<player>
+  - ^run dhelp_command_variables 'def:rg removemember <&lt>Region<&gt> <&lt>Spieler1<&gt> [Spieler2]...|rg removemember|Trägt <&e>Spieler<&f>(+ [Spieler2]+ ...) aus eigenen Regionen aus\n<&b>Alias<&co> <&e>/region removemember' instantly player:<player>
+  - ^run dhelp_command_variables 'def:rg removemember <&lt>Region<&gt> -a|rg removemember -a|Trägt <&e>alle<&r> Spieler aus eigenen Regionen aus\n<&b>Alias<&co> <&e>/region removemember -a' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Spieler können nur durch <&o>Owner<&b> einer Region ein- und"
+  - ^narrate format:dhelp_text "ausgetragen werden."
+  - ^run dhelp_footer_last def:worldguard|2 instantly player:<player>      
+        
+
+dhelp_page_worldguard1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "---------- <&6><&l> WorldGuard <&3><&m>- --------"
+  - ^run dhelp_action 'def:<&a><&l>Linksklick<&e> mit <&a>Leder<&e> in der Hand|Zeigt zutreffende Regionen an geklickter\nStelle und eigene Bauberechtigung' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Die Bauwelten sind durch WorldGuard gesichtert. Wer"
+  - ^narrate format:dhelp_text "Baurechte hat, kann auch Kisten nutzen. Ihr könnt euch über"
+  - ^run dhelp_topic_at_start 'def:LandLord|Chunks kaufen|landlord1|in der <&6>unbekannten Weite<&b> WG-Regionen absichern.' instantly player:<player>
+  - ^narrate format:dhelp_text "Spieler ab <&a><&chr[2749]> Grasmücke<&b> dürfen in dieser Welt überall, außer" 
+  - ^narrate format:dhelp_text "in Eurer Region bauen. Baut doch mal etwas gemeinsam <&co>)"
+  - if <player.has_permission[worldguard.region.(addmember|removemember).own.*]> {
+    - ^run dhelp_footer_first def:worldguard|2 instantly player:<player>
+    }
+    else {
+    - ^narrate format:dhelp_footer_single ""
+    }

@@ -1,0 +1,26 @@
+exit_command:
+    type: command
+    debug: false
+    name: exit
+    description: Bringt den Benutzer vom Dungeon zu dessen Eingang.
+    usage: /exit
+    script:
+    - IF <player.location.is_within[cu@Katakomben]> {
+        - teleport <player> -28,72,-65,world
+        }
+      ELSE IF <player.location.is_within[cu@Kuchencanyon]> {
+        - teleport <player> -93,75,-211,world
+        }
+      ELSE IF <player.location.is_within[cu@Pilzhoehle]> {
+        - teleport <player> -178,95,44,world
+        }
+      ELSE IF <player.location.is_within[cu@Schrein]> {
+        - teleport <player> 301.5,66,-240.5,world
+        }
+      ELSE IF <player.location.is_within[cu@Gefaengnisturm]> {
+        - teleport <player> 400.5,88,-10.5,world
+        }
+      ELSE {
+        - NARRATE "<&c>Dieser Befehl kann nur in einem Dungeon eingesetzt werden!"
+        }
+

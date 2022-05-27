@@ -1,0 +1,20 @@
+cheat_command:
+    type: command
+    debug: false
+    name: cheat
+    description: Gibt dem Spieler f<&uuml>r 100 Silberlinge 1 Enderperle
+    usage: /cheat
+    script:
+    - IF <player.location.is_within[cu@Katakomben]> || <player.location.is_within[cu@Kuchencanyon]> || <player.location.is_within[cu@Pilzhoehle]> || <player.location.is_within[cu@Schrein]> {
+        - IF <player.money> >= 100 {
+            - GIVE i@ender_pearl quantity:1 
+            - TAKE MONEY QTY:100 
+            - NARRATE "<&b>Ihr erhaltet f<&uuml>r <&c>100 Silberlinge <&b>eine <&d>Enderperle <&b>."
+            }
+          ELSE {
+            - NARRATE "<&b>Euch fehlt das Kleingeld eine Enderperle zu ercheaten!"
+            }
+        }
+      ELSE {
+        - NARRATE "<&c>Dieser Befehl kann nur in einem Dungeon eingesetzt werden!"
+        }

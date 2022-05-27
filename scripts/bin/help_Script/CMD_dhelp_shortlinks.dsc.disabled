@@ -1,0 +1,72 @@
+command_shortlink_homepage:
+    type: command
+    debug: false
+    name: homepage
+    description: Zeigt Forenlink an
+    usage: /forum
+    aliases:
+    - forum
+    - hp
+    - web
+    script:
+    - NARRATE format:c_info "Homepage <&e>http://www.craftasy.de"
+    
+command_shortlink_voiceserver:
+    type: command
+    debug: false
+    name: voiceserver
+    aliases:
+    - ts
+    - voice
+    - teamspeak
+    description: Zeigt Voiceserver an
+    script:
+    - NARRATE format:c_info "Teamspeak-IP <&e>craftasy.de"
+    - NARRATE format:c_info_2 "Discordserver <&e>https://discord.gg/GVHrmf9"
+    - if <player.has_permission[group.free_04]> || <player.has_permission[group.mitglied]> {
+      - NARRATE format:c_info_2 "Um über Discord zu chatten: <&e>/discord link"
+      }
+    
+command_shortlink_steam:
+    type: command
+    debug: false
+    name: steam
+    aliases:
+    - steamgruppe
+    description: Zeigt Steamgruppe an
+    script:
+    - NARRATE format:c_info "Steam <&e>http://steamcommunity.com/groups/craftasyDE"
+    
+command_shortlink_livemap:
+    type: command
+    debug: false
+    name: livemap
+    aliases:
+    - map
+    - karte
+    description: Zeigt Livemaplink an
+    script:
+    - NARRATE format:c_info "Dynmap <&e>http://www.craftasy.de:8123"
+    
+command_shortlink_vote:
+  type: command
+  debug: false
+  name: vote
+  description: Votes anzeigen
+  usage: /vote [Spieler]
+  aliases:
+   - votes
+  script:
+  - if <context.args.size> = 1 {
+          - define spieler <context.args.get[1]>  
+          - if <server.flag[VotifierPlayers].as_list> !contains p@<player[[spieler]].uuid> {
+            - narrate format:c_vote "<&e><context.args.get[1]> <&b>hat noch nie gevotet."
+            }
+            else {
+            - narrate format:c_vote "<&e><context.args.get[1]> <&b>hat bisher <&6><player[<[spieler]>].flag[votes].as_int> Mal<&b> gevotet."
+            }
+          }
+  - if <context.args.size> != 1 {
+          - narrate format:c_vote "Ihr habt bisher <&6><player.flag[votes].as_int> Mal<&b> für uns gevotet." 
+          }
+  - narrate format:c_vote2 "Votelink <&e>https://goo.gl/3L79vL <&f>"

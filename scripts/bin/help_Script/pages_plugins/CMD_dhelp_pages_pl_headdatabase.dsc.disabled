@@ -1,0 +1,33 @@
+﻿dhelp_page_headdatabase2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- <&6><&l> HeadDatabase <&3><&m> --------"
+  - ^run dhelp_command 'def:hdb|Datenbank öffnen\n<&b>Alias<&co> <&e>/headdb' instantly player:<player>
+  - ^run dhelp_command 'def:hdb random|Gibt einen zufälligen Kopf aus der Datenbank\n<&b>Alias<&co> <&e>/headdb random' instantly player:<player>
+  - ^run dhelp_command_variables 'def:hdb s <&lt>Suchbegriff<&gt>|hdb s|Durchsucht Datenbank nach <&e><&lt>Suchbegriff<&gt>\n<&b>Alias<&co> <&e>/headdb search' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Mitglieder haben in der Creativewelt Zugriff auf die Datenbank."
+  - ^run dhelp_footer_last def:headdatabase|2 instantly player:<player>
+  
+dhelp_page_headdatabase1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- <&6><&l> HeadDatabase <&3><&m> --------"
+  - ^narrate format:dhelp_text "Stellenweise sind auf Craftasy dekorative Köpfe als Miniblöcke"
+  - ^narrate format:dhelp_text "verbaut. Auch unsere Amorstandkreationen erhalten ihr"
+  - ^narrate format:dhelp_text "Antlitz aus dieser Datenbank, die neben den tausenden"
+  - ^narrate format:dhelp_text "vorgegebenen Köpfe auch einige Eigenkreationen enthält."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Ausgewählte Köpfe können zu besonderen Anlässen erworben"
+  - ^narrate format:dhelp_text "werden."
+  - if <player.has_permission[headdb.open]> {
+    - ^run dhelp_footer_first def:headdatabase|2 instantly player:<player>
+    }
+    else {
+    - ^narrate format:dhelp_footer_single ""
+    }
+
+
+

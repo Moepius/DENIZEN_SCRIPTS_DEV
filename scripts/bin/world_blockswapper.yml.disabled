@@ -1,0 +1,175 @@
+blockswapper_world:
+  type: world
+  debug: true
+  events:
+    on player right clicks block with Blockswapper:
+      - narrate "<context.location> <context.location.material> <context.location.material.before[,]>"
+      - choose <context.location.material.before[,]>:
+        - case "m@oak_log":
+          - modifyblock <player.location.cursor_on> oak_log_ball
+        - case "m@oak_log_north":
+          - modifyblock <player.location.cursor_on> oak_log_ball
+        - case "m@oak_log_east":
+          - modifyblock <player.location.cursor_on> oak_log_ball
+        #===================================================
+        - case "m@spruce_log":
+          - modifyblock <player.location.cursor_on> spruce_log_ball
+        - case "m@spruce_log_north":
+          - modifyblock <player.location.cursor_on> spruce_log_ball
+        - case "m@spruce_log_east":
+          - modifyblock <player.location.cursor_on> spruce_log_ball
+        #===================================================
+        - case "m@birch_log":
+          - modifyblock <player.location.cursor_on> birch_log_ball
+        - case "m@birch_log_north":
+          - modifyblock <player.location.cursor_on> birch_log_ball
+        - case "m@birch_log_east":
+          - modifyblock <player.location.cursor_on> birch_log_ball
+        #===================================================
+        - case "m@jungle_log":
+          - modifyblock <player.location.cursor_on> jungle_log_ball
+        - case "m@jungle_log_north":
+          - modifyblock <player.location.cursor_on> jungle_log_ball
+        - case "m@jungle_log_east":
+          - modifyblock <player.location.cursor_on> jungle_log_ball
+        #===================================================
+        - case "m@acacia_log":
+          - modifyblock <player.location.cursor_on> acacia_log_ball
+        - case "m@acacia_log_north":
+          - modifyblock <player.location.cursor_on> acacia_log_ball
+        - case "m@acacia_log_east":
+          - modifyblock <player.location.cursor_on> acacia_log_ball
+        #===================================================
+        - case "m@darkoak_log":
+          - modifyblock <player.location.cursor_on> darkoak_log_ball
+        - case "m@darkoak_log_north":
+          - modifyblock <player.location.cursor_on> darkoak_log_ball
+        - case "m@darkoak_log_east":
+          - modifyblock <player.location.cursor_on> darkoak_log_ball
+        #===================================================
+        - case "m@stone_doubleslab":
+          - modifyblock <player.location.cursor_on> double_step,8
+        #===================================================
+        - case "m@sandstone_doubleslab":
+          - modifyblock <player.location.cursor_on> double_step,9
+        - case "m@sandstone":
+          - modifyblock <player.location.cursor_on> double_step,9
+        - case "m@chiseled_sandstone":
+          - modifyblock <player.location.cursor_on> double_step,9
+        - case "m@smooth_sandstone":
+          - modifyblock <player.location.cursor_on> double_step,9
+        #===================================================
+        - case "m@huge_mushroom_1":
+          - if <player.is_sneaking> {
+            - if <context.location.add[1,0,0].material> contains huge_mushroom_1 || <context.location.add[0,0,1].material> contains huge_mushroom_1 || <context.location.sub[1,0,0].material> contains huge_mushroom_1 || <context.location.sub[0,0,1].material> contains huge_mushroom_1 {
+                - if <player.location.direction> == southeast {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_1,1
+                    }
+                  else if <player.location.direction> == south {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_1,2
+                    }
+                  else if <player.location.direction> == southwest {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_1,3
+                    }
+                  else if <player.location.direction> == east {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_1,4
+                    }
+                  else if <player.location.direction> == west {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_1,6
+                    }
+                  else if <player.location.direction> == northeast {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_1,7
+                    }
+                  else if <player.location.direction> == north {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_1,8
+                    }
+                  else if <player.location.direction> == northwest {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_1,9
+                    }
+                }
+              }
+            else {
+              - modifyblock <player.location.cursor_on> huge_mushroom_1,15
+              }
+        #===================================================
+        - case "m@huge_mushroom_2":
+          - if <player.is_sneaking> {
+            - if <context.location.add[1,0,0].material> contains huge_mushroom_2 || <context.location.add[0,0,1].material> contains huge_mushroom_2 || <context.location.sub[1,0,0].material> contains huge_mushroom_2 || <context.location.sub[0,0,1].material> contains huge_mushroom_2 {
+                - if <player.location.direction> == southeast {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_2,1
+                    }
+                  else if <player.location.direction> == south {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_2,2
+                    }
+                  else if <player.location.direction> == southwest {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_2,3
+                    }
+                  else if <player.location.direction> == east {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_2,4
+                    }
+                  else if <player.location.direction> == west {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_2,6
+                    }
+                  else if <player.location.direction> == northeast {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_2,7
+                    }
+                  else if <player.location.direction> == north {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_2,8
+                    }
+                  else if <player.location.direction> == northwest {
+                    - modifyblock <player.location.cursor_on> huge_mushroom_2,9
+                    }
+                }
+              }
+            else {
+              - modifyblock <player.location.cursor_on> huge_mushroom_2,15
+              }
+        #===================================================
+        - default:
+          - narrate "<&7><&l>C<&8>| <&7>Dieser Block ist bereits schön genug."
+          - queue clear
+      - playsound <player> sound:ENTITY_SLIME_SQUISH pitch:1.5
+      - playeffect <context.location> effect:SLIME quantity:40 data:1 offset:0.0
+      - take i@Blockswapper
+
+Blockswapper:
+  type: item
+  debug: false
+  material: i@rotten_flesh
+  display name: <&e>Schlammkur
+  lore:
+    - <&3><&o>Craftasy Item
+    - <&7>Ersetzt Block mit alternativer Variante.
+    - <&f><&o>Damit seht auch Ihr gut aus!
+    
+  recipe: 
+  - i@air|i@bone_meal|i@air
+  - i@brown_mushroom|i@rotten_flesh|i@red_mushroom
+  - i@air|i@bowl|i@air
+  
+command_giveblockswapper:
+  type: command
+  debug: false
+  name: gblockswapper
+  aliases:
+  - gswap
+  usage: /gswap
+  permission: denizen.*
+  description: testing
+  script:
+  - if <context.args.size> != 1 {
+    - give i@Blockswapper
+    }
+    else {
+    - define spieler <context.args.first>
+    - if <server.list_online_players> !contains p@<p@<[spieler]>.uuid> {
+      - narrate "<[spieler]> ist nicht online."
+      }
+      else {
+      - foreach <server.list_online_players> {
+        - if <[value]> == p@<p@<[spieler]>.uuid> {
+          - give i@Blockswapper to:in@player[holder=<p@<[spieler]>.uuid>]
+          }
+        }
+      }
+    }

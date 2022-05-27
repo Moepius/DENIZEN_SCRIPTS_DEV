@@ -1,0 +1,44 @@
+﻿dhelp_page_landlord3:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------------<&6><&l> LandLord <&3><&m>----------"
+  - ^narrate format:dhelp_text "ungeclaimten Chunks frei entfalten."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Das Ziel ist nicht, möglichst viele Chunks zu claimen, sondern"
+  - ^narrate format:dhelp_text "miteinander die Welt zu gestalten."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&a>Niemand sollte Griefing fürchten. Wir bannen konsequent"
+  - ^narrate format:dhelp_text "<&a>und setzen ggf. entstandene Schäden zurück."
+  - ^run dhelp_footer_last def:landlord|3 instantly player:<player>
+
+dhelp_page_landlord2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------------<&6><&l> LandLord <&3><&m>----------"
+  - ^run dhelp_command_variables 'def:land unfriend <&lt>Spieler<&gt>|land unfriend|Nehmt <&e><&lt>Spieler<&gt><&r> Baurechte für Euren Chunk, in dem Ihr steht\n<&b>Alias<&co> <&e>/ll unfriend<&f>, <&e>/landlord unfriend<&f>' instantly player:<player>
+  - ^run dhelp_command_variables 'def:land friendall <&lt>Spieler<&gt>|land friendall|Gebt <&e><&lt>Spieler<&gt><&r> Baurechte für alle Chunks, die Euch gehören\n<&b>Alias<&co> <&e>/ll friendall<&f>, <&e>/landlord friendall<&f>' instantly player:<player>
+  - ^run dhelp_command_variables 'def:land unfriendall <&lt>Spieler<&gt>|land unfriendall|Nehmt <&e><&lt>Spieler<&gt><&r> Baurechte für alle Chunks, die Euch gehören\n<&b>Alias<&co> <&e>/ll unfriendall<&f>, <&e>/landlord unfriendall<&f>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Mit LandLord können Regionen chunkweise gesichert werden."
+  - ^narrate format:dhelp_text "Als <&8>[<&7>Neuling<&8>]<&b> müsst Ihr mindestens einen Chunk kaufen,"  
+  - ^narrate format:dhelp_text "um in der <&e>unbekannten Weite<&b> mit dem Bauen zu beginnen."
+  - ^narrate format:dhelp_text "Als <&2>[<&a>Spieler<&2>]<&b> dürft Ihr Euch später auch in..."    
+  - ^run dhelp_footer def:landlord|3 instantly player:<player>
+
+dhelp_page_landlord1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------------<&6><&l> LandLord <&3><&m>----------"
+  - ^run dhelp_command 'def:land map|Blendet LandLord-Minimap ein\n<&b>Alias<&co> <&e>/ll map<&f>, <&e>/landlord map<&f>' instantly player:<player>
+  #- ^run dhelp_command 'def:land map|a b' instantly player:<player>
+  - ^run dhelp_command 'def:land info|Ruft Informationen zum Chunk, in dem Ihr steht, ab\nZeigt Chunkgrenzen\n<&b>Alias<&co> <&e>/ll claim<&f>, <&e>/landlord claim<&f>' instantly player:<player>
+  - ^run dhelp_command 'def:land claim|Kauft den freien Chunk, in dem Ihr steht\nAktuelle Chunknummer ist mit Taste F3 einsehbar\n<&b>Alias<&co> <&e>/ll claim<&f>, <&e>/landlord claim<&f>' instantly player:<player>
+  - ^run dhelp_command 'def:land unclaim|Verkauft Euren Chunk, in dem Ihr steht\nAktuelle Chunknummer ist mit Taste F3 einsehbar\n<&b>Alias<&co> <&e>/ll unclaim<&f>, <&e>/landlord unclaim<&f>' instantly player:<player>
+  - ^run dhelp_command 'def:land list|Listet Eure Chunks\n<&b>Alias<&co> <&e>/ll list<&f>, <&e>/landlord list<&f>' instantly player:<player>
+  - ^run dhelp_command 'def:land friends|Listet Spieler mit Baurechten f<&uuml>r Euren Chunk, in dem Ihr steht\n<&b>Alias<&co> <&e>/ll friends<&f>, <&e>/landlord friends<&f>' instantly player:<player>
+  - ^run dhelp_command 'def:land manage|Verwaltet Euren Chunk, in dem Ihr steht\n<&b>Alias<&co> <&e>/ll manage<&f>, <&e>/landlord manage<&f>' instantly player:<player>
+  - ^run dhelp_command_variables 'def:land addfriend <&lt>Spieler<&gt>|land addfriend|Gebt <&e><&lt>Spieler<&gt><&r> Baurechte für Euren Chunk, in dem Ihr steht\n<&b>Alias<&co> <&e>/ll addfriend<&f>, <&e>/landlord addfriend<&f>' instantly player:<player>
+  - ^run dhelp_footer_first def:landlord|3 instantly player:<player>

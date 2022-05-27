@@ -1,0 +1,224 @@
+﻿dhelp_page_mcmmo_items:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------- --<&6><&l> mcMMO-Items <&3><&m>---- -----"
+  - ^run dhelp_item 'def:Chimaera-Wing        <&7><&chr[25B6]><&3> Teleportitem (Bett/eig. Spawnpunkt)|<&a>Chimaera-Wings <&f>teleportieren zu Eurem\nBett/Spawn, wenn sie unter freiem Himmel\naktiviert werden.\n<&b><&l>Crafting<&co><&r>\n<&8><&chr[2588]><&chr[2588]><&f><&chr[2592]>  <&7>•<&f> <&chr[2592]> <&7>Feder<&r>\n<&8><&chr[2588]><&f><&chr[2592]><&chr[2592]>\n<&8><&chr[2588]><&f><&chr[2592]><&chr[2592]>  <&7>•<&7> Anordnung egal' instantly player:<player>
+  - ^run dhelp_topic 'def:<&a>Fluxspitzhacke       <&7><&chr[25B6]><&b> Spezialwerkzeug des <&3><&chr[2749]> <&6>Smeltingskills|<&a>Fluxspitzhacken<&r> haben, abhängig von\nEurem Smeltinglevel, die Chance Erze\nsofort einzuschmelzen.\n<&b><&l>Crafting<&co><&r>\n<&7>Eine beliebige, intakte Spitzhacke im Ofen schmelzen.|mcmmo_skills3' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Die mcMMO-Items können durch jeden gecraftet werden, die"
+  - ^narrate format:dhelp_text "Verwendung ist aber teils mit dem assoziierten Skill verbunden."
+  - ^narrate format:dhelp_footer_single ""
+
+dhelp_page_mcmmo_stats:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- -<&6><&l> mcMMO-Stats <&3><&m>------- --"
+  - ^run dhelp_command 'def:mcstats|Zeigt Skill- und Powerlevel' instantly player:<player>
+  - ^run dhelp_command 'def:mcrank|Zeigt Euer Skillranking' instantly player:<player>
+  - ^run dhelp_command_variables 'def:mctop [Skill] [Seite]|mctop|Zeigt Topspieler insgesamt oder zum angegebenen <&e>[Skill]' instantly player:<player>
+  - ^run dhelp_command_variables 'def:inspect <&lt>Spieler<&gt>|inspect|Zeigt die mcStats des <&e>Spielers<&f> in Eurer Nähe' instantly player:<player>
+  - ^narrate ""
+  - ^run dhelp_command 'def:mcsb keep|Zeigt das eingeblendete mcScoreboard dauerhaft\n<&b>Alias<&co> <&e>/mcscoreboard keep' instantly player:<player>
+  - ^run dhelp_command 'def:mcsb clear|Blendet das mcScoreboard wieder aus\n<&b>Alias<&co> <&e>/mcscoreboard clear' instantly player:<player>
+  - ^run dhelp_command_variables 'def:mcsb time <&lt>n<&gt>|mcsb time|Blendet mcScoreboard nach <&e><&lt>n<&gt><&f> Sekunden aus\n<&b>Alias<&co> <&e>/mcscoreboard time' instantly player:<player>
+  - ^narrate format:dhelp_footer_single ""
+       
+dhelp_page_mcmmo_party_teleport:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------<&6><&l> mcMMO-Partyteleport <&3><&m>-----"
+  - ^run dhelp_command_variables 'def:ptp <&lt>Spieler<&gt>|ptp|Partyteleportanfrage an <&e>Spieler<&f> senden.\n<&e>Spieler<&f> muss in Eurer Party sein und Ptp erlauben.\n<&b>Alias<&co> <&e>/partyteleport' instantly player:<player>
+  - ^run dhelp_command 'def:ptp accept|Partyteleportanfrage annehmen.' instantly player:<player>
+  - ^run dhelp_command 'def:ptp acceptall|Partyteleportanfragen immer automatisch annehmen.' instantly player:<player>
+  - ^run dhelp_command 'def:ptp toggle|Partyteleport zu Euch untersagen/erlauben' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Partyteleport ist ab einem Partylevel von <&e>200<&b> verfügbar."
+  - ^narrate format:dhelp_footer_single ""
+
+dhelp_page_mcmmo_party_chat:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "--------<&6><&l> mcMMO-Partychat <&3><&m>---- --"
+  - ^run dhelp_command 'def:pc|Partychannel betreten/verlassen<\u000a><&b>Alias<&co> <&e>/partychat' instantly player:<player>
+  - ^run dhelp_command_variables 'def:pc <&lt>message<&gt>|pc|Sendet Nachricht in euren Partychannel<\u000a><&b>Alias<&co> <&e>/partychat<&b>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Nachrichten im <&c>mcMMO<&b>-Partychat können nur von Mitgliedern"
+  - ^narrate format:dhelp_text "Eurer Party gelesen werden."
+  - ^run dhelp_topic 'def:mcMMO-Spielerparty|Befehle, Wie gr<&uuml>nde ich eine Party?|mcmmo_party1' instantly player:<player>
+  - ^narrate format:dhelp_footer_single ""
+
+dhelp_page_mcmmo_party_manage3:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "---- <&6><&l> mcMMO-Partyverwaltung <&3><&m>- --"
+  - ^run dhelp_command_variables 'def:party alliance invite <&lt>Spieler<&gt>|party alliance invite|Ladet <&e><&lt>Spieler<&gt>s<&r> Party in eine Allianz ein.\n<&e><&lt>Spieler<&gt><&f> muss Anführer seiner Party sein.\nPvP ist für Spieler innerhalb einer Allianz aus.' instantly player:<player>
+  - ^run dhelp_command 'def:party alliance accept|Allianzeinladung annehmen.' instantly player:<player>
+  - ^run dhelp_command 'def:party alliance disband|Allianz auflösen.' instantly player:<player>
+  - ^narrate "<&b>"
+  - ^narrate format:dhelp_text "Spieler alliierter Partys können sich im PvP nicht verletzen."
+  - ^run dhelp_footer_last def:mcmmo_party_manage|3 instantly player:<player> 
+
+dhelp_page_mcmmo_party_manage2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "---- <&6><&l> mcMMO-Partyverwaltung <&3><&m>- --"
+  - ^run dhelp_command_variables 'def:party itemshare <&lt>none<&chr[239C]>equal<&chr[239C]>random<&gt>|party itemshare|Aufteilung gefarmter Items unter nahen Partyspielern.\n<&e>None<&f><&co> Keine Aufteilung\n<&e>Equal<&f><&co> Aufteilung nach Wert\n<&e>Random<&f><&co> Zufällige Aufteilung\n\n<&b>Default<&co> <&e>None' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party itemshare <&lt>Kategorie<&gt> <&lt>true<&chr[239C]>false<&gt>|party itemshare|Einstellung, welche Itemkategorien geteilt werden.\n<&b>Gültige Kategorien<&co>\n<&e>loot<&f>, <&e>mining<&f>, <&e>herbalism<&f>, <&e>woodcutting<&f>, <&e>misc\n\n<&b>Default<&co> <&e>true<&f> (alle Kategorien)' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party party xpshare <&lt>none<&chr[239C]>equal<&gt>|party xpshare|Aufteilung erhaltener mcMMO-XP unter Partyspielern.\n<&e>None<&f><&co> Keine Aufteilung\n<&e>Equal<&f><&co> Gleiche Aufteilung\n\n<&b>Default<&co> <&e>None' instantly player:<player>
+  - ^narrate "<&b>"
+  - ^narrate format:dhelp_text "Der Radius für Partyboni und -sharing beträgt <&e>75<&b> Block."
+  - ^narrate format:dhelp_text "Bei <&e>10 Spielern<&b> in der Nähe wird der maximale"
+  - ^narrate format:dhelp_text "XP-Sharing-Bonus von <&e>50% <&b>erreicht."
+  - ^run dhelp_footer def:mcmmo_party_manage|3 instantly player:<player> 
+
+        
+dhelp_page_mcmmo_party_manage1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "---- <&6><&l> mcMMO-Partyverwaltung <&3><&m>- --"
+  - ^run dhelp_command_variables 'def:party create <&lt>Name<&gt> [Passwort]|party create|Erstellt eine neue Party namens <&e>Name<&f>.\nOptional könnt Ihr ein Passwort setzen.' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party <&lt>lock<&chr[239C]>unlock<&gt>|party lock|Öffnet oder schließt Eure Party.\nSpieler können geschlossenen Partys ohne\nPasswort nur mit Einladung beitreten.\n<&b>Default<&co> <&e>Geschlossen' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party password [Passwort]|party password|Setzt/ändert Eurer Partypasswort.\nLasst <&e>Passwort<&f> aus, um die\nPasswortsicherung zu entfernen.' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party invite <&lt>Spieler<&gt>|party invite|Ladet <&e>Spieler<&f> in Eure Party ein.' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party kick <&lt>Spieler<&gt>|party kick|Wirft <&e>Spieler<&f> aus Eurer Party.' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party rename <&lt>Name<&gt>|party rename|Gebt Eurer Party einen neuen <&e>Namen<&f>.' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party owner <&lt>Spieler<&gt>|party owner|Übertragt Eure Party an <&e>Spieler<&f>.\n<&b>Alias<&co> <&e>/party leader' instantly player:<player>
+  - ^run dhelp_command 'def:party disband|Löscht Eure Party.' instantly player:<player>
+  - ^run dhelp_footer_first def:mcmmo_party_manage|3 instantly player:<player> 
+
+dhelp_page_mcmmo_party2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------<&6><&l> mcMMO-Party <&3><&m>---------"
+  - ^narrate format:dhelp_text "Spieler einer Party und deren Allianzen können einander im"
+  - ^narrate format:dhelp_text "PvP nicht verletzen. Abhängig von den Einstellungen durch"
+  - ^narrate format:dhelp_text "den Anführer, werden alle oder nur bestimmte gefarmte Items"
+  - ^narrate format:dhelp_text "und/oder mcMMO-XP unter nahen Spielern geteilt."
+  - ^narrate format:dhelp_text "Mit XP-Sharing erhaltet Ihr einen XP-Boost, abhängig von"
+  - ^narrate format:dhelp_text "der Anzahl an Partyspielern in Eurer Nähe."
+  - ^narrate ""
+  - ^run dhelp_command_at_end 'def:Die Einstellungen seht Ihr unter - |party|<&c>mcMMO<&3>-Partyinformation<&f>' instantly player:<player>
+  - ^run dhelp_footer_last def:mcmmo_party|2 instantly player:<player>
+
+  - ^narrate "<&b>Spieler einer Party und deren Allianzen können einander im"
+        - ^narrate "<&b>PvP nicht verletzen. Abhängig von den Einstellungen durch"
+        - ^narrate "<&b>den Anführer, werden alle oder nur bestimmte gefarmte Items"
+        - ^narrate "<&b>und/oder mcMMO-XP unter nahen Spielern geteilt."
+        - ^narrate "<&b>Mit XP-Sharing erhaltet Ihr einen XP-Boost, abhängig von"
+        - ^narrate "<&b>der Anzahl an Partyspielern in Eurer Nähe."
+        - ^execute as_server 'tellraw <player.name> [{"text":"<&b>Die Einstellungen seht Ihr unter - "},{"text":"<&e>/party","hoverEvent":{"action":"show_text","value":"<&c>mcMMO<&3>-Partyinformation<&f>"},"clickEvent":{"action":"suggest_command","value":"/party"}}]'
+        
+  
+dhelp_page_mcmmo_party1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------<&6><&l> mcMMO-Party <&3><&m>---------"
+  - ^run dhelp_topic 'def:mcMMO-Partyverwaltung|Befehle zum Erstellen und Verwalten einer Party|mcmmo_party_manage1' instantly player:<player>
+  - ^run dhelp_topic 'def:mcMMO-Partychat|Befehle zum Chatten in Eurer Party|mcmmo_party_chat' instantly player:<player>
+  - ^if <player.has_permission[mcmmo.commands.ptp]> {
+    - ^run dhelp_topic 'def:mcMMO-Partyteleport|Befehle zum Teleport in Eurer Party|mcmmo_party_teleport' instantly player:<player>
+    }
+  - ^narrate ""
+  - ^run dhelp_command 'def:party|Informationen zur aktuellen Party\n<&b>Alias<&co> <&e>/party info' instantly player:<player>
+  - ^run dhelp_command_variables 'def:party join <&lt>Spieler<&gt> [Passwort]|party join|Tretet des Party des gewählten <&e>Spielers<&f> bei.\nDie Party muss dafür offen oder mit einem\nEuch bekannten Passwort gesichert sein.' instantly player:<player>
+  - ^run dhelp_command 'def:party quit|Verlasst Eure aktuelle Party.\nWart Ihr der Anführer, erhält ein anderer Spieler diesen Status.\n<&b>Alias<&co> <&e>/party q<&f>, <&e>/party leave' instantly player:<player>
+  - ^run dhelp_command 'def:party accept|Nehmt eine erhaltene Partyeinladung an.' instantly player:<player>
+  - ^run dhelp_footer_first def:mcmmo_party|2 instantly player:<player>
+  
+dhelp_page_mcmmo_skills5:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- --<&6><&l> mcMMO-Skills <&3><&m>---- ----"
+  - ^run dhelp_command_no_slash 'def:Taming|taming|<&e>XP<&co> <&f>Zähmen, Tier kämpfen lassen\n<&b>Aktiv<&co> <&f>Hunde, Katzen, Pferde beschwören\n<&b>Passiv<&co> <&f>Verbesserte Tierstats' instantly player:<player>
+  - ^run dhelp_command_variables 'def:mobhealth <&lt>disabled<&chr[239C]>hearts<&chr[239C]>bar<&gt>|mobhealth hearts|Moblebensanzeige für den PvE\n<&e>Disabled<&f><&co> Keine Anzeige\n<&e>Hearts<&f><&co> Anzeige als Herzen\n<&e>Bar<&f><&co> Anzeige als Leiste\n\n<&b>Default<&co> <&e> Disabled' instantly player:<player>
+  - ^run dhelp_action 'def:<&a><&l>Ducken + Linksklick<&e> mit <&a><&lt>Futter<&gt><&e> auf den Boden|Ein Tier mit mcMMO beschw<&ouml>ren\n<&a>10 Knochen<&f><&co> Hund\n<&a>10 Fische<&f><&co> Katze\n<&a>10 <&Auml>pfel<&f><&co> Pferd\nEinige Tiere haben eine begrenzte Lebenszeit' instantly player:<player>
+  - ^run dhelp_action 'def:<&a><&l>Linksklick<&e> mit <&a>Knochen<&e> auf ein mcMMO-Tier|Zeigt Besitzer und Gesundheit des Tieres' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Die ausf<&uuml>hrlicheren Erkl<&auml>rungen findet Ihr jeweils im"
+  - ^narrate format:dhelp_text "<&c>mcMMO<&b>-eigenen Guide <&a>(Englisch)<&b>."
+  - ^run dhelp_footer_last def:mcmmo_skills|5 instantly player:<player>
+
+dhelp_page_mcmmo_skills4:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- --<&6><&l> mcMMO-Skills <&3><&m>---- ----"
+  - ^run dhelp_command_no_slash 'def:Acrobatics|acrobatics|<&e>XP<&co> <&f>Herunterfallen\n<&b>Passiv<&co> <&f>Reduzierter Fallschaden,\nAusweichen' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Archery|archery|<&e>XP<&co> <&f>Mobs mit Bogen jagen\n<&b>Passiv<&co> <&f>mehr Bogenschaden,\nGegner desorientieren,\nPfeile aus Leichen bergen' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Axes|axes|<&e>XP<&co> <&f>Mobs mit Axt jagen\n<&b>Ability<&co> <&a>Skull Splitter\n<&b>Passiv<&co> <&f>Flächenschaden,\nRüstungsschaden, Krit. Treffer' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Swords|swords|<&e>XP<&co> <&f>Mobs mit Schwert jagen\n<&b>Ability<&co> <&a>Serrated Strikes\n<&b>Passiv<&co> <&f>Flächenschaden,\nBlutungsschaden, besseres Blocken' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Unarmed|unarmed|<&e>XP<&co> <&f>Mobs mit der bloßen Faust jagen\n<&b>Ability<&co> <&a>Berserk\n<&b>Aktiv<&co> <&f>Mit Berserk Stonebrick verändern\n<&b>Passiv<&co> <&f>Gegner entwaffnen, eigene Waffe\nfester halten, Pfeile abwehren' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "PvP, sowie Mobs aus Spawnern geben keine XP."
+  - ^run dhelp_footer def:mcmmo_skills|5 instantly player:<player>
+
+dhelp_page_mcmmo_skills3:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- --<&6><&l> mcMMO-Skills <&3><&m>---- ----"
+  - ^run dhelp_command_no_slash 'def:Alchemy|alchemy|<&e>XP<&co> <&f>Tränke brauen\n<&b>Passiv<&co> <&f>Braugeschwindigkeit,\nMehr Brauzutaten und Tränke' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Repair|repair|<&e>XP<&co> <&f>Am Eisenblock reparieren\n<&b>Gebrauch<&co> <&f>Rechtsklick mit Item auf Eisenblock\n<&b>Passiv<&co> <&f>weniger Materialverbrauch,\nChance verzauberte Gegenstände reparieren' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Salvage|salvage|<&e>XP<&co> <&f>Repair + Fishing leveln\n<&b>Gebrauch<&co> <&f>Rechtsklick mit Item auf Goldblock\n<&b>Passiv<&co> <&f>Material zurückerhalten,\nChance Verzauberungen aus Items zu erhalten' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Smelting|smelting|<&e>XP<&co> <&f>Repair + Mining leveln\n<&b>Aktiv<&co> <&a>Fluxspitzhacke\n<&b>Passiv<&co> <&f>Brennstoffeffektivität,\nmehr Ressourcen durch Schmelzen,\nVanilla-XP-Boost' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Die <&a>Fluxspitzhacke<&b> (Smelting) wird durch Verbrennen einer"
+  - ^narrate format:dhelp_text "unbeschädigten Spitzhacke hergestellt. Sie funktioniert erst,"
+  - ^narrate format:dhelp_text "wenn der Effekt durch Leveling freigeschaltet wurde."
+  - ^run dhelp_footer def:mcmmo_skills|5 instantly player:<player>
+
+dhelp_page_mcmmo_skills2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- --<&6><&l> mcMMO-Skills <&3><&m>---- ----"
+  - ^run dhelp_command_no_slash 'def:Excavation|excavation|<&e>XP<&co> <&f>Graben\n<&b>Werkzeug<&co> <&f>Schaufel\n<&b>Ability<&co> <&a>Giga Drill Breaker\n<&b>Passiv<&co> <&f>Doppeldrops, Schätze' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Fishing|fishing|<&e>XP<&co> <&f>Angeln\n<&b>Werkzeug<&co> <&f>Angel\n<&b>Aktiv<&co> <&f>Mobs können für ihr Loot geangelt werden,\nbeim Eisfischen bohrt sich die Angel durchs Eis\n<&b>Passiv<&co> <&f>bessere Schätze, weniger Fallen,\nfischige Nahrung regeneriert mehr' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Herbalism|herbalism|<&e>XP<&co> <&f>Pflanzen ernten\n<&b>Werkzeug<&co> <&f>Hacke, Hand\n<&b>Ability<&co> <&a>Green Terra\n<&b>Aktiv<&co> <&f>Mit Samen/Pilzen Dreck/Pflasterstein/Steinziegel begrünen\n<&b>Passiv<&co> <&f>Doppeldrops, autom. Nachpflanzen, Schätze,\npflanzl. Nahrung regeneriert mehr' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Mining|mining|<&e>XP<&co> <&f>Minenarbeit\n<&b>Werkzeug<&co> <&f>Spitzhacke\n<&b>Ability<&co> <&a>Super Breaker\n<&b>Aktiv<&co> <&f>Bonus beim Mining mit TNT\n<&b>Passiv<&co> <&f>Doppeldrops, größerer TNT-Radius,\nweniger Schaden durch TNT' instantly player:<player>
+  - ^run dhelp_command_no_slash 'def:Woodcutting|woodcutting|<&e>XP<&co> <&f>Bäume fällen\n<&b>Werkzeug<&co> <&f>Axt\n<&b>Ability<&co> <&a>Tree Feller\n<&b>Passiv<&co> <&f>Doppeldrops, Blätter mit\nAxt schneller entfernen' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Die aktiven Fertigkeiten dieser Farmingskills geben Euch mehr"
+  - ^narrate format:dhelp_text "Drops als ihr über den passiven Effekt erhaltet."
+  - ^run dhelp_footer def:mcmmo_skills|5 instantly player:<player>
+
+dhelp_page_mcmmo_skills1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------- --<&6><&l> mcMMO-Skills <&3><&m>---- ----"
+  - ^run dhelp_command_variables 'def:<&lt>Skill<&gt>|acrobatics|Zeigt euren aktuellen Skilllevel, sowie\ndetaillierte Infos zum gewählten <&e><&lt>Skill<&gt><&r> <&a>(Englisch)\n<&b>Skills<&co>\n<&e>Acrobatics, <&e>Alchemy<&f>, <&e>Archery<&f>, <&e>Axes<&f>,\n<&e>Excavation<&f>, <&e>Fishing<&f>, <&e>Herbalism<&f>, <&e>Mining<&f>,\n<&e>Repair<&f>, <&e>Salvage<&f>, <&e>Smelting<&f>, <&e>Swords<&f>,\n<&e>Taming<&f>, <&e>Unarmed<&f>, <&e>Woodcutting' instantly player:<player>
+  - ^run dhelp_command_variables 'def:<&lt>Skill<&gt> ? [Seite]|acrobatics ? 2|Detaillierter Skillguide <&a>(Englisch)\n<&b>Skills<&co>\n<&e>Acrobatics, <&e>Alchemy<&f>, <&e>Archery<&f>, <&e>Axes<&f>,\n<&e>Excavation<&f>, <&e>Fishing<&f>, <&e>Herbalism<&f>, <&e>Mining<&f>,\n<&e>Repair<&f>, <&e>Salvage<&f>, <&e>Smelting<&f>, <&e>Swords<&f>,\n<&e>Taming<&f>, <&e>Unarmed<&f>, <&e>Woodcutting' instantly player:<player>
+  - ^run dhelp_command 'def:mcability|Aktivierung der Spezialfertigkeiten\ndurch Rechtsklick ein-/ausschalten' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Skills haben aktive Fertigkeiten und/oder passive Effekte."
+  - ^narrate format:dhelp_text "Die Fertigkeiten sind mit <&3>(ABILITY)<&b> gekennzeichnet und werden"
+  - ^narrate format:dhelp_text "über einen <&a>Rechtsklick<&b> angewählt und mit <&a>Linksklick<&b> ausgeführt."
+  - ^narrate format:dhelp_text "Der angewählte Skill hängt vom Werkzeug in Eurer Hand ab."
+  - ^run dhelp_footer_first def:mcmmo_skills|5 instantly player:<player>
+
+dhelp_page_mcmmo:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "-------------<&6><&l> mcMMO <&3><&m>-------- ----"
+  - ^run dhelp_topic 'def:mcMMO-Skills|Befehle, Tipps, Guide|mcmmo_skills1' instantly player:<player>
+  - ^run dhelp_topic 'def:mcMMO-Spielerparty|Befehle, Wie gr<&uuml>nde ich eine Party?|mcmmo_party1' instantly player:<player>
+  - ^run dhelp_topic 'def:mcMMO-Statistik|Befehle|mcmmo_stats' instantly player:<player>
+  - ^run dhelp_topic 'def:mcMMO-Items|<&a>Chimaera-Wing<&r>, Craftingrezepte, Tipps|mcmmo_items' instantly player:<player>
+  - ^narrate ""
+  - ^run dhelp_command_at_end 'def:Englischsprachige Hilfe des Plugins<&co>|mcmmo help|<&c>mcMMO<&3>-Hilfe<&f> aufrufen' instantly player:<player>
+  - ^narrate format:dhelp_text "Deutschsprachige Info<&co><&e> https://goo.gl/ZJFYP2<&b> (<&d>by MagicChaos<&b>)"
+  - ^narrate format:dhelp_text "Kurzerklärung und Befehle unter obigen Themen."
+  - ^narrate format:dhelp_footer_single ""
+ 

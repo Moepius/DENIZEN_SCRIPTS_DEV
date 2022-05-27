@@ -1,0 +1,15 @@
+﻿dhelp_page_fireworkfiesta:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "---------<&6><&l> FireworkFiesta <&3><&m>--------"
+  - ^narrate format:dhelp_text "FireworkFiesta fügt dem Spiel spannende Feuerwerkitems hinzu"
+  - ^narrate format:dhelp_text "die zu besonderen Anlässen, wie Silvester, erstanden und das"
+  - ^narrate format:dhelp_text "ganze Jahr benutzt werden können."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Ob Skillshotböller, Feuerwerksbatterie, Motivraketen oder ein"
+  - ^narrate format:dhelp_text "Ritt auf <&c><&l>Hot Seat<&b> - FireworkFiesta macht einfach nur Spaß."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Mulchos Twitterdemo<&co> <&e>https://goo.gl/aM7G41"
+  - ^narrate format:dhelp_footer_single ""
+  

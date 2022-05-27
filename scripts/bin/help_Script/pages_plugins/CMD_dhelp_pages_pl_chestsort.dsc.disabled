@@ -1,0 +1,31 @@
+dhelp_page_chestsort1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "---------<&l>-<&r><&6><&l> ChestSort <&3><&m>----------<&l>-<&3><&m>"
+  #- ^narrate format:dhelp_text "<&d>ChestSort ersetzt ab <&e>1.16.3<&d> AutomaticInventory<&b>"
+  - ^run dhelp_command 'def:sort|Toggled die <&o>automatische<&r> Kistensortierung\n<&b>Alias<&co> <&e>/chestsort' instantly player:<player>
+  - ^run dhelp_command 'def:isort|Toggled die <&o>automatische<&r> Inventarsortierung\n<&b>Alias<&co> <&e>/invsort' instantly player:<player>
+  - ^run dhelp_command_variables 'def:isort <&lt>hotbar<&chr[239C]>all<&gt>|autosort|Toggled <&o>automatische<&r> Sortierung der Hotbar<&chr[239C]>des kompletten Inventars\n<&b>Alias<&co> <&e>/invsort <&lt>hotbar<&chr[239C]>all<&gt>' instantly player:<player>
+  - ^run dhelp_command 'def:sort hotkeys|Öffnet das Hotkeymenü\n<&b>Alias<&co> <&e>/chestsort hotkeys' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Solltet Ihr einen Inventarmod (z.B. InvTweaks) nutzen,"
+  - ^narrate format:dhelp_text "empfehlen wir ChestSort zu deaktivieren."
+  - ^narrate format:dhelp_text "<&3>Hilfe zu den Hotkeys auf der nächsten Seite."
+  - ^run dhelp_footer_first def:chestsort|2 instantly player:<player>
+  #- ^narrate format:dhelp_footer_single ""
+
+dhelp_page_chestsort2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "---------<&l>-<&r><&6><&l> ChestSort <&3><&m>----------<&l>-<&3><&m>"
+  - ^narrate format:dhelp_text "Hotkeys werden IM geöffnetem Inventar benutzt. Es gibt zum"
+  - ^narrate format:dhelp_text "manuellen Auslösen der Sortierung mehrere Möglichkeiten:"
+  - ^run dhelp_action 'def:<&a><&l>Mittelklick<&e> auf irgendeinen Inventarslot|Sortiert das geklickte Inventar' instantly player:<player>
+  - ^run dhelp_action 'def:<&a><&l>Ducken + Linksklick<&e> einen leeren Slot|Sortiert das geklickte Inventar' instantly player:<player>
+  - ^run dhelp_action 'def:<&a><&l>Doppelklick links<&e> einen leeren Slot|Sortiert das geklickte Inventar' instantly player:<player>
+  - ^run dhelp_action 'def:<&a><&l>Ducken + Rechtsklick<&e> einen leeren Slot|Sortiert das geklickte Inventar' instantly player:<player>
+  - ^narrate ""
+  - ^run dhelp_footer_last def:chestsort|2 instantly player:<player>
+  #- ^narrate format:dhelp_footer_single ""

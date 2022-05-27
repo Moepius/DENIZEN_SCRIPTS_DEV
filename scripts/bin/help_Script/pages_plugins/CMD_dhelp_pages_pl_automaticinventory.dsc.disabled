@@ -1,0 +1,16 @@
+dhelp_page_automaticinventory:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------ <&6><&l> AutomaticInventory <&3><&m>------"
+  - ^run dhelp_action 'def:<&a><&l>Ducken + Linksklick<&e> auf eine Kiste|Ablage aller, in diese Kiste passender, Items aus Eurem Inventar' instantly player:<player>
+  - ^run dhelp_command_variables 'def:autosort <&lt>chests<&chr[239C]>inventory<&gt>|autosort|Automatische Sortierung ein-/ausschalten' instantly player:<player>
+  - ^run dhelp_command 'def:depositall|Alle Items aus Eurem Inventar in\npassende Kisten in der Umgebung ablegen\n<&b>Radius<&co><&e> ~20 Block' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Wir bieten eine serverseitige Inventarsortierung an. Wenn Ihr"
+  - ^narrate format:dhelp_text "Inventarmods (z.B. InvTweaks) benutzen wollt, empfehlen wir"
+  - ^narrate format:dhelp_text "AutomaticInventory zu deaktivieren."
+  - ^narrate format:dhelp_tip "Kisten mit <&e>*<&a> im Namen werden nicht sortiert."
+  #- ^run dhelp_footer_first def:automaticinventory|2 instantly player:<player>
+  - ^narrate format:dhelp_footer_single ""
+

@@ -1,0 +1,410 @@
+dhelp_page_guide_npc3:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^run dhelp_topic_at_start 'def:Dungeons|Adventuremap|guide_worlds5|sind abgeschlossene Maps in denen Ihr im' instantly player:<player>
+  - ^narrate format:dhelp_text "Abenteuermodus komplexe Quests erledigt. Dabei fallen aber"
+  - ^narrate format:dhelp_text "natürlich auch die Belohnungen höher aus."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Innerhalb eines Dungeons habt Ihr Zugriff auf folgende"
+  - ^narrate format:dhelp_text "exklusiven Befehle"
+  - ^narrate ""
+  - ^run dhelp_command 'def:exit|Teleportiert Euch zum Eingang des Dungeons' instantly player:<player>
+  - ^run dhelp_command 'def:cheat|Gibt Euch für 100 Silberlinge eine Enderperle' instantly player:<player>
+  - ^run dhelp_footer_last def:guide_npc|3 instantly player:<player>
+
+dhelp_page_guide_npc2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Quests sind Aufträge, die Ihr von NPCs oder durch das"
+  - ^run dhelp_topic_in_mid 'def:Betreten eines|Dungeons|Adventuremap|guide_worlds5|erhaltet. Neben Abenteuer und' instantly player:<player>
+  - ^narrate format:dhelp_text "Spielspaß winken dabei manchmal auch Belohnungen."
+  - ^narrate ""
+  - ^run dhelp_command 'def:quest|Öffnet Euer Quest-Tagebuch' instantly player:<player>
+  - ^run dhelp_footer def:guide_npc|3 instantly player:<player>
+
+dhelp_page_guide_npc1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "NPCs sind Nicht-Spieler-Charaktere, mit denen Ihr interagieren"
+  - ^narrate format:dhelp_text "könnt. Manche wollen einfach nur mit Euch plaudern, andere"
+  - ^narrate format:dhelp_text "haben spannende Quests für Euch. Einige sind zudem sehr"
+  - ^narrate format:dhelp_text "leicht reizbar und werfen Euch ins Gefängnis."
+  - ^run dhelp_footer_first def:guide_npc|3 instantly player:<player>
+
+dhelp_page_guide_teleport2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Notiert Euch Koordinaten oder setzt Euch Markierungen" 
+  - ^narrate format:dhelp_text "mit einer Minimapmod, falls Ihr am Anfang den Überblick" 
+  - ^narrate format:dhelp_text "verliert." 
+  - ^run dhelp_topic_in_mid 'def:Über die|Dynmap|Dynamische Onlinekarte|dynmap|könnt Ihr ebefalls Euren Standort und' instantly player:<player>
+  - ^narrate format:dhelp_text "Eure geclaimten Chunks in den Bauwelten finden." 
+  - ^run dhelp_footer_last def:guide_teleport|2 instantly player:<player>
+  
+dhelp_page_guide_teleport1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Wir benutzen auf Craftasy keine Teleportbefehle, wie /warp," 
+  - ^narrate format:dhelp_text "/home oder /tp. Wir bieten aber einige craft- und baubare" 
+  - ^narrate format:dhelp_text "Alternativen, um Euch schnell von A nach B zu befördern." 
+  - ^narrate ""
+  - ^run dhelp_topic 'def:ColorPortals|<&b>Guide<&co><&r> Eigene Portale bauen|colorportals1' instantly player:<player>
+  - ^run dhelp_item 'def:<&a>Chimaera-Wing|<&a>Chimaera-Wings <&f>teleportieren zu Eurem<&nl>Bett/Spawn, wenn sie unter freiem Himmel<&nl>aktiviert werden.<&nl><&b><&l>Crafting<&co><&r><&nl><&8><&chr[2588]><&chr[2588]><&f><&chr[2592]>  <&7>•<&f> <&chr[2592]> <&7>Feder<&r><&nl><&8><&chr[2588]><&f><&chr[2592]><&chr[2592]><&nl><&8><&chr[2588]><&f><&chr[2592]><&chr[2592]>  <&7>•<&7> Anordnung egal' instantly player:<player>
+  - ^run dhelp_item 'def:<&a>Enderstaub|<&a>Enderstaub <&f>teleportiert Euch zu einem<&nl>bereits erkundetem Außenposten.<&nl><&b><&l>Crafting<&co><&r><&nl><&8><&chr[2588]><&chr[2588]><&3><&chr[2592]>  <&7>•<&3> <&chr[2592]> <&7>Enderperle<&r><&nl><&8><&chr[2588]><&3><&chr[2592]><&chr[2592]><&nl><&8><&chr[2588]><&3><&chr[2592]><&chr[2592]>  <&7>•<&7> Anordnung egal' instantly player:<player>
+  - ^run dhelp_command 'def:spawn|Teleportiert Euch zum Spawn.<&nl><&c>Dieser Befehl steht NUR Neulingen<&nl>zur Verfügung!<&r>' instantly player:<player>
+  - ^run dhelp_footer_first def:guide_teleport|2 instantly player:<player>
+
+dhelp_page_guide_build2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Außenposten. Sucht Euch den Weg nach Außen und verlasst" 
+  - ^narrate format:dhelp_text "die geschützte Zone, um freie Chunks zu finden." 
+  - ^run dhelp_topic_in_mid 'def:Alternativ, nutzt die|Colorportals|Erklärung, Anleitung|colorportals1|um Euch etwas weiter' instantly player:<player>
+  - ^narrate format:dhelp_text "vom Außenposten zu entfernen. Gute Plätze lassen sich leicht" 
+  - ^run dhelp_topic_in_mid 'def:über die|Dynmap|Dynamische Onlinekarte|dynmap|ausfindig machen' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Habt Ihr einen geeigneten Platz gefunden, könnt ihr diesen" 
+  - ^run dhelp_topic_in_mid 'def:mit|LandLord|Befehle, <&b>Guide<&co><&r> Chunks kaufen|landlord1|kaufen, sofern er nicht bereits besetzt ist.' instantly player:<player>
+  - ^run dhelp_footer_last def:guide_build|2 instantly player:<player>
+
+dhelp_page_guide_build1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&6>Farmen" 
+  - ^narrate format:dhelp_text "Alle Spieler farmen Ihr Material in der Parallelwelt."
+  - ^narrate format:dhelp_text "Diese ist in jedem Außenposten über ein gekennzeichnetes"
+  - ^run dhelp_topic_at_end 'def:Portal erreichbar -|Die Parallelwelt|Erklärung|guide_worlds2' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&6>Bauen"
+  - ^narrate format:dhelp_text "Ihr spawnt nach Freischaltung direkt in einem der Außenposten"
+  - ^run dhelp_topic_at_end 'def:der Freebuildwelt -|Die unbekannte Weite|Erklärung|guide_worlds1' instantly player:<player>
+  - ^narrate format:dhelp_text "Der Spawn befindet sich meistens im Innenbereich eines"
+  - ^run dhelp_footer_first def:guide_build|2 instantly player:<player>
+  #- ^narrate format:dhelp_footer_single ""
+  
+dhelp_page_guide_worlds5:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&6><&l>Dungeons <&3>(Adventuremap)"
+  - ^narrate format:dhelp_text "Innerhalb dieser Welt befindet Ihr Euch im Abenteuermodus"
+  - ^narrate format:dhelp_text "und Euer Inventar wird gespeichert und geleert, bis ihr"
+  - ^narrate format:dhelp_text "den Dungeon wieder verlasst."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Ihr findet an verschieden Orten Terra Thusundeas Zugänge"
+  - ^narrate format:dhelp_text "zu Dungeons. Sie sind meist mit komplexen Quests von"
+  - ^run dhelp_topic_at_start 'def:NPCs|Nicht-Spieler-Charaktere|guide_npc1|verbunden und winken mit Belohnungen.' instantly player:<player>
+  - ^run dhelp_footer_last def:guide_worlds|5 instantly player:<player>
+
+dhelp_page_guide_worlds4:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&6><&l>Nether <&3>und <&6><&l>End <&3>(Farmwelten)"
+  - ^narrate format:dhelp_text "Beide Welten werden wie die <&6>Parallelwelt<&b> bei Bedarf neu"
+  - ^narrate format:dhelp_text "generiert. Vom Bauen in diesen Welten raten wir daher ab."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Ein Zugang zum Nether findet sich in jedem Außenposten."
+  - ^narrate format:dhelp_text "Über das Endportal wird zu gegebenen Zeiten informiert."
+  - ^run dhelp_footer def:guide_worlds|5 instantly player:<player>
+
+
+dhelp_page_guide_worlds3:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&6><&l>Terra Thusundea <&3>(Bauwelt)"
+  - ^narrate format:dhelp_text "Unsere älteste Map, die seit 2011 in Betrieb ist, wird von"
+  - ^narrate format:dhelp_text "<&3>[<&b>Mitgliedern<&3>]<&b> in Projekten organisiert bebaut."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Mitmachen ist grundsätzlich möglich; über Mitarbeiter"
+  - ^narrate format:dhelp_text "entscheiden vorallem die jeweiligen Projektleiter. Eine"
+  - ^narrate format:dhelp_text "Bewerbung ist ab <&a><&chr[2749]> Grasmücke<&b> mit Baureferenzen möglich."
+  - ^run dhelp_topic 'def:Homepage|Forum, Galerie, Informationen|homepage' instantly player:<player>
+  - ^run dhelp_footer def:guide_worlds|5 instantly player:<player>
+  
+dhelp_page_guide_worlds2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&6><&l>Parallelwelt <&3>(Farmwelt)"
+  - ^narrate format:dhelp_text "Diese Welt ist zum Abbauen da und wird gelegentlich"
+  - ^narrate format:dhelp_text "erneuert. Bauen ist nicht verboten, aber wir raten davon ab."
+  - ^narrate format:dhelp_text "Was gefunden wird, darf mitgenommen werden."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Griefing wird per se nicht sanktioniert, wir behalten es uns"
+  - ^narrate format:dhelp_text "vor, auffällig unsoziale Spieler vom Server zu entfernen."
+  - ^run dhelp_footer def:guide_worlds|5 instantly player:<player>
+
+dhelp_page_guide_worlds1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&6><&l>Die unbekannte Weite <&3>(Bauwelt)"
+  - ^narrate format:dhelp_text "Auf unserer Freebuildkarte ist freies Bauen angesagt."
+  - ^narrate format:dhelp_text "<&7>[Neulinge]<&b> in eigens geclaimten Landstücken, <&a>[Spieler]<&b> auch in"
+  - ^narrate format:dhelp_text "unbesetztem Land."
+  - ^narrate format:dhelp_text "Spieler sind ermutigt zusammen mit anderen Spielern große und"
+  - ^narrate format:dhelp_text "kleine Projekt zu planen und gestalten."
+  - ^narrate format:dhelp_text "Es wird alles geloggt, Griefing kann zurückgesetzt werden."
+  - ^narrate format:dhelp_text "<&2><&l>Hinweis<&co><&a> Exzessives Farmen und Mining ist nicht erwünscht."
+  - ^run dhelp_footer_first def:guide_worlds|5 instantly player:<player>
+
+## ADD LATER
+dhelp_page_guide_outposts2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Ihr könnt Außenposten als Schnellreisepunkte freischalten,"
+  - ^narrate format:dhelp_text "indem Ihr sie erkundet. Sobald Ihr einen Außenposten erkundet"
+  - ^narrate format:dhelp_text "habt, könnt mit <&a>Enderstaub<&b> jederzeit dorthin zurückkehren."
+  - ^narrate format:dhelp_text "Das Item wird verbraucht."
+  - ^narrate ""
+  - ^run dhelp_topic 'def:Craftingrezepte|Schnellreiseitems craften|crafting1' instantly player:<player>
+  - ^run dhelp_footer_last def:guide_outposts|2 instantly player:<player>
+
+dhelp_page_guide_outposts1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Die Außenposten sind die Stützpunkte der unbekannten Weite."
+  - ^narrate format:dhelp_text "Neue Spieler spawnen beim jeweils aktiven Außenposten, der"
+  - ^narrate format:dhelp_text "auf der Dynmap mit einem Sternchen markiert ist. "
+  - ^narrate ""
+  - ^narrate format:dhelp_text "In den Außenposten findet Ihr Portale in die Parallelwelt und"
+  - ^narrate format:dhelp_text "den Nether. Ferner ist jeweils ein Händler vor Ort, der einige"
+  - ^narrate format:dhelp_text "Items ankauft und Nahrungsmittel verkauft."
+  - ^narrate format:dhelp_text "Es spawnen keine Monster in den Außenposten."
+  - ^run dhelp_footer_first def:guide_outposts|2 instantly player:<player>
+  #- ^narrate format:dhelp_footer_single ""
+
+dhelp_page_guide_ranks7:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Stammspieler, die seit Anbeginn der Zeit dabei sind"
+  - ^narrate format:dhelp_text "und bei einem aktiven Projekt auf unserer Projektkarte"
+  - ^narrate format:dhelp_text "teilnehmen sind im Chat in helltürkis ? gekennzeichnet."
+  - ^narrate format:dhelp_text "Diese Spieler sind als <&l>[Mitglied]<&b> aufgeführt."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&4>Administratoren<&b> sind in der Tabliste und im Chathover"
+  - ^narrate format:dhelp_text "dunkelrot markiert. Sonstige Funktionen sind nur im Hover des"
+  - ^narrate format:dhelp_text "Spielers vermerkt."
+  - ^run dhelp_footer_last def:guide_ranks|7 instantly player:<player>
+
+
+dhelp_page_guide_ranks6:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&5><&chr[2749]> <&7><&l>[?] Unentdeckt [?]"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> [?]"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&9><&chr[2749]> <&7><&l>[?] Unentdeckt [?]"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> [?]"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&3><&chr[2749]> <&7><&l>[?] Unentdeckt [?]"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> [?]"
+  - ^run dhelp_footer def:guide_ranks|7 instantly player:<player>
+
+dhelp_page_guide_ranks5:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&6><&chr[2749]> <&7><&l>[?] Unentdeckt [?]"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> [?]"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&c><&chr[2749]> <&7><&l>[?] Unentdeckt [?]"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> [?]"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&d><&chr[2749]> <&7><&l>[?] Unentdeckt [?]"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> [?]"
+  - ^run dhelp_footer def:guide_ranks|7 instantly player:<player>
+
+dhelp_page_guide_ranks4:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&a><&chr[2749]> <&l>Grasmücke<&3> ab hier seit Ihr <&2>[<&a>Spieler<&2>]<&l><&3> Spielzeit<&co><&l>  <&6>1 Tag"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> Bauen außerhalb der Claims im Freebuild, <&e>/spawn <&b>deaktiviert"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&2><&chr[2749]> <&l>Smaragdspint<&l>     <&3>                       Spielzeit<&co><&l>  <&6>3 Tage"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> 10 Landclaims, Bewerbung für Terra Thusundea möglich"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&e><&chr[2749]> <&l>Zitronenstelze<&l>        <&3>                 Spielzeit<&co> <&6>15 Tage"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> ArtDeko-Schulung bei Interesse, <&e>/workbench<&b>"
+  - ^run dhelp_footer def:guide_ranks|7 instantly player:<player>
+
+dhelp_page_guide_ranks3:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&8><&chr[2749]> <&l>Kohlmeise <&8>[<&7>1. Neulingsgruppe<&8>]"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> kein Hunger, 1 Landclaim"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&7><&chr[2749]> <&l>Steinwälzer <&7>[2. Neulingsgruppe]    <&l>  <&3>Spielzeit<&co> <&6>1 Stunde"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> Hunger ist nun an, 2 Landclaims"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&f><&chr[2749]> <&l>Schneehuhn <&f>[<&7>3. Neulingsgruppe<&f>]  <&l>   <&3>Spielzeit<&co> <&6>6 Stunden"
+  - ^narrate format:dhelp_text "<&7><&chr[25B6]><&b> Zugang zum Nether, 5 Landclaims"
+  - ^run dhelp_footer def:guide_ranks|7 instantly player:<player>
+
+
+dhelp_page_guide_ranks2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&8><&l>[<&7><&l>Gast<&8><&l>]"
+  - ^narrate format:dhelp_text "Gäste dürfen alle Bauwelten besuchen und sich frei"
+  - ^narrate format:dhelp_text "bewegen, nehmen aber nicht am Spielgeschehen teil."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Auf der Karte <&6>Terra Thusundea<&b> haben alle Spieler außer"
+  - ^narrate format:dhelp_text "den <&3>[<&b>Mitgliedern<&3>]<&b> Gastrechte."
+  - ^narrate ""
+  - ^run dhelp_topic 'def:Welten|<&b>Guide<&co><&r> Craftasys Welten erklärt|guide_worlds' instantly player:<player>
+  - ^run dhelp_footer def:guide_ranks|7 instantly player:<player>
+  
+dhelp_page_guide_ranks1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&c><&l>Vorweg<&co> <&c>Es gibt keine Ränge etc. zu kaufen."
+  - ^narrate ""
+  - ^narrate format:dhelp_tip "Die Gruppe eines Spielers sieht man, wenn man im Chat"
+  - ^narrate format:dhelp_text "<&a>mit der Maus über dessen Namen fährt."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Hier findet Ihr eine kurze Übersicht über alle Gruppen."
+  - ^narrate format:dhelp_text "Der Gruppenaufstieg in den <&3><&chr[2749]>-Gruppen<&b> erfolgt automatisch."
+  - ^run dhelp_footer_first def:guide_ranks|7 instantly player:<player>
+
+dhelp_page_guide_economy2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Items bei den Händlern in den Außenposten, durch Quests und"
+  - ^narrate format:dhelp_text "durch Voten verdienen. Händler in den Außenposten kaufen"
+  - ^narrate format:dhelp_text "Sand, Kies und Pflasterstein an."
+  - ^narrate ""
+  - ^run dhelp_topic 'def:iConomy|Befehle|economy' instantly player:<player>
+  - ^run dhelp_topic 'def:Showcase|Befehle, <&b>Guide<&co><&r> Items kaufen/verkaufen|showcase1' instantly player:<player>
+  - ^run dhelp_topic 'def:Voting|Stimmt für uns ab!|voting1' instantly player:<player>
+  - ^run dhelp_topic 'def:Außenposten|Erklärung|guide_outposts' instantly player:<player>
+  - ^run dhelp_footer_last def:guide_economy|2 instantly player:<player> 
+ 
+dhelp_page_guide_economy1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Wirtschaftssimulation spielt bei uns keine Rolle. Über unsere"
+  - ^narrate format:dhelp_text "Währung <&7>Silberlinge<&b> und <&c>Kupferstücke<&b> regeln wir lediglich die"
+  - ^narrate format:dhelp_text "Verteilung einiger Items und den Verkauf von Land an Neulinge."
+  - ^narrate ""
+  - ^narrate format:dhelp_tip "Ihr könnt auf dem Server Vanillaitems ganz normal"
+  - ^narrate format:dhelp_text "<&a>farmen und Eure Spielweise autark gestalten."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Geld lässt sich auf dem Server durch Verkauf von einigen"
+  - ^run dhelp_footer_first def:guide_economy|2 instantly player:<player>
+  
+dhelp_page_guide_chat:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Der Chat auf Craftasy ist interaktiv. Fahrt mit Eurer Maus"
+  - ^narrate format:dhelp_text "darüber, um Infos und andere nützliche Dinge zu erfahren."
+  - ^narrate ""
+  - ^run dhelp_topic 'def:ChatControl Pro|Befehle, Erkl<&auml>rung, private Nachrichten|chatcontrolpro' instantly player:<player>
+  - ^run dhelp_topic 'def:mcMMO-Partychat|Befehle zum Chatten in Eurer Party|mcmmo_party_chat' instantly player:<player>
+  #- ^run dhelp_footer_first def:guide|2 instantly player:<player>
+  - ^narrate format:dhelp_footer_single ""
+  
+  
+dhelp_page_guide_commands2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "<&l>Beispiel<&co><&b> Ihr findet diesen Befehl um Partys beizutreten."
+  - ^narrate format:dhelp_text "<&e>/party join <&lt>Spieler<&gt> [Passwort]"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&6>fatJesus<&b>' Party ist offen und hat kein Passwort<&co>"
+  - ^narrate format:dhelp_text "<&3>Euer Befehl    ? <&e>/party join <&6>fatJesus"
+  - ^narrate format:dhelp_text "<&6>Grazzok<&b>s Party ist offen er verrät Euch das PW <&a>12345<&b><&co>"
+  - ^narrate format:dhelp_text "<&3>Euer Befehl    ? <&e>/party join <&6>Grazzok <&a>12345"  
+  - ^run dhelp_footer_last def:guide_commands|2 instantly player:<player>
+
+dhelp_page_guide_commands1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^narrate format:dhelp_text "Beispiel, wie ein Befehl in der Hilfe aussehen könnte<&co>"
+  - ^narrate format:dhelp_text "<&e>/befehl <&lt>Parameter1<&gt> [Parameter2<&chr[239C]>Parameter3]"
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Die Klammern sind folgendermaßen zu interpretieren<&co>"
+  - ^narrate format:dhelp_text "<&e><&lt><&f>a<&e><&gt><&b>          Ihr müsst <&f><&l>a<&b> angeben."
+  - ^narrate format:dhelp_text "<&e>[<&f>a<&e>]<&l>  <&b>        Ihr könnt <&f><&l>a<&b> zusätzlich angeben."
+  - ^narrate format:dhelp_text "<&e><&lt><&f>a<&e><&chr[239C]><&f>b<&e><&gt><&b>/<&e>[<&f>a<&e><&chr[239C]><&f>b<&e>]<&b> Wählt zwischen <&f><&l>a<&b> oder <&f><&l>b<&b> für diesen Parameter."
+  - ^run dhelp_footer_first def:guide_commands|2 instantly player:<player>
+  
+dhelp_page_guide2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^run dhelp_topic 'def:Rezepte<&l><&r>             <&7><&chr[25B6]><&3> Servereigene Craftingrezepte|<&b>Link<&co><&r> Craftingrezepte|crafting1' instantly player:<player>
+  #- ^run dhelp_topic 'def:Welten<&l> <&r>              <&7><&chr[25B6]><&b> Welche Welten gibt es?|<&b>Guide<&co><&r> Craftasys Welten erklärt|guide_worlds1' instantly player:<player>
+  #- ^run dhelp_topic 'def:Außenposten<&l>    <&r>  <&7><&chr[25B6]><&3> Wofür sind sie gut?|<&b>Guide<&co><&r> Heimatinseln in der unbekannten Weite|guide_outposts1' instantly player:<player>
+  #- ^run dhelp_topic 'def:Spielergruppen<&l>   <&r><&7><&chr[25B6]><&b> Gibt es Ränge?|<&b>Guide<&co><&r> Gruppenaufstieg|guide_ranks1' instantly player:<player>
+  - ^run dhelp_topic 'def:Wirtschaft<&l>     <&r>    <&7><&chr[25B6]><&b> Brauche ich Geld?|<&b>Guide<&co><&r> Geld verdienen oder autark versorgen|guide_economy1' instantly player:<player>
+  #- ^run dhelp_topic 'def:Chat<&l>      <&r>          <&7><&chr[25B6]><&b> Wie funktioniert der Chat?|<&b>Guide<&co><&r> Privatnachrichten, Partychat|guide_chat' instantly player:<player>
+  #- ^run dhelp_topic 'def:Befehle<&l>      <&r>      <&7><&chr[25B6]><&3> Was bedeuten <&e><&lt><&gt><&3> und <&e>[]<&3>?|<&b>Guide<&co><&r> Befehlshilfe verstehen|guide_commands1' instantly player:<player>
+  - ^run dhelp_topic 'def:NPCs<&l><&r>                 <&7><&chr[25B6]><&3> Sollte ich Quests machen?|<&b>Guide<&co><&r> NPCs und Quests|guide_npc1' instantly player:<player>
+  - ^run dhelp_footer_last def:guide|2 instantly player:<player>
+  #- ^narrate format:dhelp_footer_single ""  
+
+dhelp_page_guide1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "----------- <&6><&l> Handbuch <&3><&m>------ ----"
+  - ^run dhelp_topic 'def:Baurechte          <&7><&chr[25B6]><&3> Wo darf ich bauen und farmen?|<&b>Guide<&co><&r> Bau-und Farmregeln|guide_build1' instantly player:<player>
+  - ^run dhelp_topic 'def:Welten<&l> <&r>              <&7><&chr[25B6]><&b> Welche Welten gibt es?|<&b>Guide<&co><&r> Craftasys Welten erklärt|guide_worlds1' instantly player:<player>
+  - ^run dhelp_topic 'def:Außenposten<&l>    <&r>  <&7><&chr[25B6]><&3> Wofür sind sie gut?|<&b>Guide<&co><&r> Heimatinseln in der unbekannten Weite|guide_outposts1' instantly player:<player>
+  - ^run dhelp_topic 'def:Spielergruppen<&l>   <&r><&7><&chr[25B6]><&b> Gibt es Ränge?|<&b>Guide<&co><&r> Gruppenaufstieg|guide_ranks1' instantly player:<player>
+  #- ^run dhelp_topic 'def:Wirtschaft<&l>     <&r>    <&7><&chr[25B6]><&3> Brauche ich Geld?|<&b>Guide<&co><&r> Geld verdienen oder autark versorgen|guide_economy1' instantly player:<player>
+  - ^run dhelp_topic 'def:Chat<&l>      <&r>          <&7><&chr[25B6]><&3> Wie funktioniert der Chat?|<&b>Guide<&co><&r> Privatnachrichten, Partychat|guide_chat' instantly player:<player>
+  - ^run dhelp_topic 'def:Schnellreise<&l>  <&r>     <&7><&chr[25B6]><&b> Kann ich mich teleportieren?|<&b>Guide<&co><&r> Items, Portale, Befehle|guide_teleport1' instantly player:<player>
+  - ^run dhelp_topic 'def:Befehle<&l>      <&r>      <&7><&chr[25B6]><&3> Was bedeuten <&e><&lt><&gt><&3> und <&e>[]<&3>?|<&b>Guide<&co><&r> Befehlshilfe verstehen|guide_commands1' instantly player:<player>
+  - ^run dhelp_footer_first def:guide|2 instantly player:<player>
+  #- ^narrate format:dhelp_footer_single ""

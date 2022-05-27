@@ -1,0 +1,29 @@
+﻿dhelp_page_colorportals2:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "--------- <&6><&l> ColorPortals <&3><&m>-<&l>--<&3><&m>------"
+  - ^narrate format:dhelp_text "<&7>•<&b> Wie gezeigt einen <&a>Rahmen aus einer Wollfarbe<&b> bauen."
+  - ^narrate format:dhelp_text "<&7>•<&b> Innen einen <&c>Knopf<&b> und eine <&d>Druckplatte<&b> anbringen."
+  - ^narrate format:dhelp_text "<&a><&chr[2588]><&2><&chr[2588]><&a><&chr[2588]><&7>•<&b> Am Wollblock oben in der Mitte ein <&2>Schild<&b> setzen:"
+  - ^narrate format:dhelp_text "<&a><&chr[2588]><&c><&chr[2592]><&a><&chr[2588]><&7>•<&b> Zeile <&3><&chr[278A]><&co> <&f>Namen des Portals <&b>(frei wählbar)"
+  - ^narrate format:dhelp_text "<&a><&chr[2588]><&d><&chr[2592]><&a><&chr[2588]><&7>•<&b> Zeile <&3><&chr[278B]><&co> <&f>Gewünschter Kanal <&b>(z.B. 42)"
+  - ^narrate format:dhelp_text "<&a><&chr[2588]><&chr[2588]><&chr[2588]><&7>•<&b> Zeile <&3><&chr[278C]><&b> und <&3><&chr[278D]><&b> freilassen."
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&a>An jedem Außenposten findet Ihr Beispielportale."
+  - ^run dhelp_footer_last def:colorportals|2 instantly player:<player>
+
+dhelp_page_colorportals1:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "--------- <&6><&l> ColorPortals <&3><&m>-<&l>--<&3><&m>------"
+  - ^narrate format:dhelp_text "ColorPortals können ohne Befehl von jedem benutzt,"
+  - ^narrate format:dhelp_text "eingerichtet und wieder zerstört werden."
+  - ^narrate format:dhelp_text "ColorPortals können alle Entitys transportieren."
+  - ^narrate format:dhelp_text "(Tiere, Mobs, Items, Loren etc.) "
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&a>Portale aus gleichfarbiger Wolle, auf demselben Kanal"
+  - ^narrate format:dhelp_text "<&a>verbinden sich automatisch miteinander. (Maximal 5 Portale)"
+  - ^narrate format:dhelp_text "<&3>Bauanleitung auf der n<&auml>chsten Seite."
+  - ^run dhelp_footer_first def:colorportals|2 instantly player:<player>     

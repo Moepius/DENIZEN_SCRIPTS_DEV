@@ -1,0 +1,15 @@
+﻿dhelp_page_artdeko:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------------<&6><&l> ArtDeko <&3><&m>------------"
+  - ^narrate format:dhelp_text "Mit ArtDeko verfügt unser Server über einen leistungsstarken"
+  - ^narrate format:dhelp_text "Armorstandeditor. Dieser ermöglicht uns interessante Szenen"
+  - ^narrate format:dhelp_text "und komplexere Objekte direkt im Spiel zu gestalten."  
+  - ^narrate ""
+  - ^narrate format:dhelp_text "<&a>Da ArtDeko-Arbeiten nur in fertigen Projekten sinn haben,"
+  - ^narrate format:dhelp_text "<&a>bieten wir Schulungen in Kooperation mit <&6><&l>Minecraft-Corp<&a> und"
+  - ^narrate format:dhelp_text "<&a>Mulchos Stammserver <&6><&l>Blockempirium<&a> nur für Stammspieler an."
+  - ^narrate format:dhelp_text "Galerie<&co> <&e>https://goo.gl/QLPx25"
+  - ^narrate format:dhelp_footer_single ""
+    

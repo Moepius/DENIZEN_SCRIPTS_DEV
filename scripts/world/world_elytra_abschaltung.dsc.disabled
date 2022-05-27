@@ -1,0 +1,32 @@
+# Schaltet die Nutzung von Rakten während dem Gleitflug mit Elytras ab
+# Kann man entsprechender Permission umgangen werden
+# permissions: craftasy.denizen.world.elytra_abschaltung_umgehen
+# flags: elytra_abschaltung_error_gesehen
+
+# TODO: weiter anpassen, flags hinzufügen/permissions für bypass etc.
+# TODO: englisch Übersetzung, Config mit data script
+
+elytra_abschaltung:
+    type: world
+    debug: false
+    events:
+        on player right clicks block with:firework_rocket in:world:
+            - if !<player.gliding> || !<player.gamemode> == creative || !<player.has_permission[craftasy.denizen.world.elytra_abschaltung_umgehen]>:
+                - stop
+            - else:
+                - determine passively cancelled
+                - if !<player.has_flag[elytra_abschaltung_error_gesehen]>:
+                    - flag <player> elytra_abschaltung_error_gesehen expire:15s
+                    - narrate format:c_warn "Der Raketenantrieb für Elytras ist in dieser Welt abgeschaltet."
+                - else:
+                    - stop
+        on player right clicks block with:firework_rocket "in:Terra Nova":
+            - if !<player.gliding> || !<player.gamemode> == creative || !<player.has_permission[craftasy.denizen.world.elytra_abschaltung_umgehen]>:
+                - stop
+            - else:
+                - determine passively cancelled
+                - if !<player.has_flag[elytra_abschaltung_error_gesehen]>:
+                    - flag <player> elytra_abschaltung_error_gesehen expire:15s
+                    - narrate format:c_warn "Der Raketenantrieb für Elytras ist in dieser Welt abgeschaltet."
+                - else:
+                    - stop

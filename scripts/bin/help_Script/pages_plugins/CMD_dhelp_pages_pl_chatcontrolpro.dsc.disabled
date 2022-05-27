@@ -1,0 +1,28 @@
+﻿dhelp_page_chatcontrolpro_pm:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------ --<&6><&l> ChatControl Pro <&3><&m>--- ---"
+  - ^run dhelp_command_variables 'def:msg <&lt>Spieler<&gt> <&lt>Nachricht<&gt>|msg|Private Nachricht an <&e><&lt>Spieler<&gt><&f> senden\n<&b>Alias: <&e>/tell<&b>,<&e> /t<&b>,<&e> /whisper<&b>,<&e> /pm<&b>,<&e> /pn<&b>' instantly player:<player>
+  - ^run dhelp_command 'def:r|Antwortet auf die letzte PN<\u000a><&b>Alias: <&e>/reply<&b>' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Privatnachrichten können nur von Euch und dem Empfänger"
+  - ^narrate format:dhelp_text "gelesen werden. Durch einen Klick auf einen Spielernamen im"
+  - ^narrate format:dhelp_text "Chat wird direkt <&e>/msg <&lt>Spieler<&gt><&b> Eure Chatzeile kopiert."
+  - ^narrate format:dhelp_footer_single ""
+  
+dhelp_page_chatcontrolpro:
+  type: task
+  debug: false
+  script:
+  - ^narrate format:dhelp_header "------ --<&6><&l> ChatControl Pro <&3><&m>--- ---"
+  - ^run dhelp_command 'def:notify|Schaltet die Chatbenachrichtigung ein/aus\nErhaltet ein akustisches Signal, wenn\nEuer Name erwähnt wird.\n<&b>Default<&co> <&e>Eingeschaltet' instantly player:<player>
+  - ^run dhelp_topic 'def:Privatnachrichten|Befehle für private Nachrichten|chatcontrolpro_pm' instantly player:<player>
+  - ^narrate ""
+  - ^narrate format:dhelp_text "Wenn ihr über den Chat mit der Maus fahrt erhaltet Ihr"
+  - ^narrate format:dhelp_text "verschiedene Informationen. Durch <&a>Linksklick<&b> auf einen Namen"
+  - ^narrate format:dhelp_text "können Privatnachrichten an den Spieler veschickt werden."
+  - ^narrate format:dhelp_text "Probiert es aus."
+  - ^run dhelp_topic_at_end 'def:<&a>Nutzt für Privatgespräche bitte <&6>PN<&a>s oder den|Partychat|mcMMO-Partychat|mcmmo_party_chat' instantly player:<player>
+  - ^narrate format:dhelp_footer_single ""
+  

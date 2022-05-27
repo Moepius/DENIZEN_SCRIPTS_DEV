@@ -1,0 +1,147 @@
+npcequip_item:
+  type: item
+ 
+    # Must be a valid dItem (EG i@red_wool or i@potion,8226) See 'dItem' for more information.
+  material: i@iron_axe
+ 
+    # The 'custom name' can be anything you wish. Use color tags to make colored custom names.
+  display name: test
+ 
+    # Lore lines can make items extra unique. This is a list, so multiple entries will result in multiple lores.
+    # If using a replaceable tag, they are filled in when the item script is given/created/dropped/etc.
+    ##lore:
+    ##- item
+    ##- ...
+  
+    # If you want an item to be damaged on creation, you can change its durability.
+  durability: 12
+    
+  flags:
+    - HIDE_ENCHANTMENTS
+    - HIDE_ATTRIBUTES
+    - HIDE_DESTROYS
+    - HIDE_PLACED_ON
+    - HIDE_POTION_EFFECTS
+    - HIDE_UNBREAKABLE
+    
+    # Each line must specify a valid Bukkit enchantment. See 'enchantments' for more information.
+    ##enchantments:
+    ##- enchantment_name:level
+    ##- ...
+ 
+    # You can specify the items required to craft your item. For an empty slot, use i@air.
+    ##recipe:
+    ##- i@item|i@item|i@item
+    ##- i@item|i@item|i@item
+    ##- i@item|i@item|i@item
+ 
+    # You can specify a material that can be smelted into your item.
+    # Note: This can overwrite existing furnace recipes.
+    # Additional note: This does not support dynamic data currently, only specific material types can be used as a recipe.
+    ##furnace_recipe: i@item
+ 
+    # You can specify a list of materials that make up a shapeless recipe.
+    # Note: This can overwrite existing shapeless recipes.
+    ##shapeless_recipe: i@item|...
+ 
+
+npcequip_command:
+  type: command
+  debug: true
+  name: npcequip
+  aliases:
+  - npce
+  usage: "/npcequip [slot] [item]"
+  permission: denizen.*
+  description: Equip NPC with stuff
+  tab complete: 
+  - determine li@
+  script:
+    - choose "<c.args.get[1]||null>":
+      - case help:
+        - inject locally path:help
+      - default:
+        - inject locally path:equip
+      #- narrate "<npc_equip> <npc_slot> <context.arg.[1]> <context.arg.[2]>"
+      #- if <context.args.is_empty> {
+      #  - equip npc_equip head:<player.item_in_hand>
+      #  - narrate "<&a>Equipped <&e><npc_equip.name><&a> with <&f><player.item_in_hand.formatted><&a>.
+      #  }
+      #  else { 
+      #  - narrate "fail"
+      #  }
+      #}
+      #else {
+      #- narrate "<&c>Error<&co> You are not looking at a NPC!<&r>"
+      #}
+  help:
+    - narrate "<&8><&m>-------------------- <&a><&l> NPC<&e><&l>equip <&8><&m>-------------------- "
+    - narrate "<&e>Usage<&co> <&a>/npcequip <&f>[slot] [item]<&r>"
+    - narrate "<&e>Alias<&co> <&a>/npce"
+    - narrate "<&e>Valid slots<&co> <&a>hand<&8>|<&2>offhand<&8>|<&a>chest<&8>|<&2>legs<&8>|<&a>boots<&8>|<&2>head<&7> Default<&co> <&a>head"
+    - narrate "<&e>Valid items<&co> <&f>Use MC-material names. <&7>Default<&co> <&a>Item in hand"
+    
+  equip:
+    - narrate "<player.target.is_npc>"
+    - if <player.target.is_npc> == true {
+        - define npc_equip <player.target>
+        - narrate "%npc_equip%"
+        - if <c.args.get[1]||null> != null {
+          - if <c.args.get[2]||null> != null {
+            - if <server.list_materials> !contains i@<c.args.get[2]> {
+              - narrate "<&c>Error<&co> This is not a valid material-name!<&r>" 
+              }
+              else {
+              - define npc_item i@<c.args.get[2]>
+              - narrate "%npc_item%"
+              }
+            }
+          else {
+            - narrate "pling"
+            - if <li@head|hand|offhand|chest|legs|boots> !contains <c.args.get[1]> {
+              - define npc_slot head
+              }
+              else {
+              - define npc_slot <c.args.get[1]>
+              }
+            - narrate "%npc_slot%"
+            - equip npc_equip %npc_slot%:<player.item_in_hand>
+            - narrate "<&a>Equipped <&e><%npc_equip%.name><&a> with <&f><player.item_in_hand><&a> [<&e>%npc_slot%<&a>]."
+            
+            }
+          
+         #######################################
+          }
+          else {          
+            - equip npc_equip head:<player.item_in_hand>
+            - narrate "<&a>Equipped <&e><%npc_equip%.name><&a> with <&f><player.item_in_hand.formatted><&a> [<&e>head<&a>]."     
+          }
+      }
+      else {
+      - narrate "<&c>Error<&co> You are not looking at a NPC!<&r>"
+      }
+      
+   
+#command_freerang:
+#  type: command
+#  debug: false
+#  name: freerang
+#  aliases:
+#  - rang
+#  - rank
+#  usage: /rang
+#  permission: denizen.*
+#  description: testing
+#  script:
+    #else if <context.args.first> == 'support' || <context.args.first> == 'plugins' {
+#      - ^narrate "<&3><&m>----------------- <&6><&l> Craftasy-Ränge <&3><&m>------------------"
+#      - ^narrate ""
+#      - ^narrate "<&c>Alle Ränge auf Craftasy sind <&4><&l>nicht<&c> käuflich erwerbbar."
+#      - ^narrate ""
+#      - ^narrate "<&b>Die Hochstufung erfolgt automatisch, sobald Ihr die"
+#      - ^narrate "<&b>Voraussetzungen erfüllt. Seid Ihr aktiv dabei, ist der"
+#      - ^narrate "<&b>entscheidene Faktor Eure Spielzeit."
+#      - ^narrate ""
+#      - ^execute as_server 'tellraw <player.name> [{"text":"<&3>Neulingsränge <&l><&gt><&gt><&gt>","hoverEvent":{"action":"show_text","value":"Nächste Seite"},"clickEvent":{"action":"run_command","value":"/hilfe rang2"}}]'
+#      - ^execute as_server 'tellraw <player.name> [{"text":"<&3><&m>-------------------- "},{"text":"<&7> <&l><&lt><&lt><&lt>"},{"text":" <&3>|<&6>1/3<&3>| "},{"text":"<&e><&l><&gt><&gt><&gt> ","hoverEvent":{"action":"show_text","value":"Nächste Seite"},"clickEvent":{"action":"run_command","value":"/hilfe rang2"}},{"text":"<&3><&m>--------------------"}]'
+#         #}

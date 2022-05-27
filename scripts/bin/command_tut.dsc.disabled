@@ -1,0 +1,92 @@
+tut_main:
+  type: command
+  debug: true
+  name: tut
+  description: Spieloptionen
+  usage: /tut <&lt>Option<&gt>
+  aliases: 
+  script:
+#    Gast bleiben
+    - IF <context.args.first> == 'gast' {
+        - CHAT targets:<player> talkers:<npc[Tempelwache]> "Natürlich, <player.name>!"
+        - WAIT 1
+        - CHAT talkers:<npc[Tempelwache]> targets:<player> "Schaut Euch um, solange Ihr möchtet. Kommt wieder zu mir, wenn Ihr Euch anders entschieden habt."
+        - ^execute as_server 'tellraw <player.name> [{"text":"<&b>Unsere Regeln gelten auch für Gäste - "},{"text":"<&3>❉ <&6>Regeln","hoverEvent":{"action":"show_text","value":"Welche Regeln gibt es?"},"clickEvent":{"action":"run_command","value":"/hilfe regeln"}}]'
+        }
+#     Freebuildspieler werden
+      ELSE IF <context.args.first> == 'freebuild' {
+        - if <player.groups.as_list.contains[Free_01]> {
+            - ^narrate "<&c>Ihr seid bereits Freebuildspieler."
+            }
+          else {
+            - CHAT talkers:<npc[Tempelwache]> targets:<player> "Großartig, <player.name>!"
+            - WAIT 1
+            - CHAT talkers:<npc[Tempelwache]> targets:<player> "Ich werde Euch zum Außenposten in der unbekannten Weite schicken." 
+            - WAIT 2
+            - CHAT talkers:<npc[Tempelwache]> targets:<player> "Von da an liegt es an Euch, die neue Welt zu erkunden, besiedeln und nach Euren Wünschen zu formen."
+            - WAIT 3
+            - CHAT talkers:<npc[Tempelwache]> targets:<player> "Seid Ihr Euch ganz sicher?"
+            - WAIT 2
+            - ^narrate "<&3><&m>-----------------------------------------------------"
+            - ^narrate ""
+            - ^execute as_server 'tellraw <player.name> {"text":"<&3>❉ <&a>Ja, ich möchte die unbekannte Weite erkunden.","hoverEvent":{"action":"show_text","value":"Zum Freebuild"},"clickEvent":{"action":"run_command","value":"/tut ja"}}'
+            - ^execute as_server 'tellraw <player.name> {"text":"<&3>❉ <&c>Nein, ich habe es mir anders überlegt.","hoverEvent":{"action":"show_text","value":"Gast bleiben"},"clickEvent":{"action":"run_command","value":"/tut nein"}}'
+            - ^narrate ""
+            - ^narrate "<&3><&m>-----------------------------------------------------"
+            - ^narrate "<&b>Mit der Bestätigung werdet Ihr Freebuildspieler und zum"
+            - ^narrate "<&b>aktuellen Spawn der Freebuildwelt geschickt."
+            }
+        }
+      ELSE IF <context.args.first> == 'nein' {
+        - if <player.groups.as_list.contains[Free_01]> {
+            - ^narrate "<&c>Ihr seid bereits Freebuildspieler."
+            }
+          else {
+            - CHAT talkers:<npc[Tempelwache]> targets:<player> "Kein Problem, <player.name>!"
+            - WAIT 1
+            - CHAT talkers:<npc[Tempelwache]> targets:<player> "Ihr dürft Euch als Gast so lange umsehen wie ihr wünscht." 
+            - WAIT 2
+            - CHAT talkers:<npc[Tempelwache]> targets:<player> "Gebt Bescheid, wenn Ihr es Euch anders überlegt."
+            }
+        }
+      ELSE IF <context.args.first> == 'ja' {
+        - if <player.groups.as_list.contains[Free_01]> {
+            - ^narrate "<&c>Ihr seid bereits Freebuildspieler."
+            }
+          else {
+            - CHAT talkers:<npc[Tempelwache]> targets:<player> "Gute Reise, <player.name>!"
+            - EXECUTE as_server 'lp user <player.name> parent set free_01'
+            - WAIT 2
+            - EXECUTE as_server 'cmi spawn <player.name>'
+            ## SPAWN UPDATE
+            ##- EXECUTE as_server 'lp user <player.name> permission set dspawn.teljazan true'
+            ##- EXECUTE as_player 'setchf'
+            - EXECUTE as_server 'give <player.name> feather 1 0 {display: {Name: "§6Chimaera Wing",Lore: ["mcMMO Item","§7Teleports you to your bed."]}}'
+            - EXECUTE as_server 'team join Yneuling <player.name>'
+            - playsound <player> sound:UI_TOAST_CHALLENGE_COMPLETE
+            - ^narrate '<&3><&m>------------------<&6> <&l>Gruppenaufstieg!<&3> <&m>-----------------'
+            - ^narrate '<&b>Ihr seid nun <&8>[<&7>Neuling<&8>]<&b>, <&e><player.name><&b>. Glückwunsch!'
+            - ^execute as_server 'tellraw <player.name> [{"text":"<&8><&chr[2749]> <&l>Gast","hoverEvent":{"action":"show_text","value":"Zeige Info zu dieser Gruppe"},"clickEvent":{"action":"suggest_command","value":"/Gast "}},{"text":" <&b><&m>--<&b><&l><&gt> "},{"text":"<&8><&chr[2749]> <&l>Kohlmeise","hoverEvent":{"action":"show_text","value":"Zeige Info zu dieser Gruppe"},"clickEvent":{"action":"suggest_command","value":"/Kohlmeise "}}]'
+            - ^narrate ''
+            - ^narrate '<&2><&l>Boni<&2><&co> <&e>1 <&6>mcMMO<&a>-ChimaeraWing<&2>, <&e>+1 <&a>Landclaim<&2>, <&e>Hunger<&a> ist 1h <&c>AUS'
+            - ^narrate '<&3><&m>--------------------------------------------<&l>-<&3><&m>--------'
+            - WAIT 5
+            - ^execute as_server 'tellraw <player.name> [{"text":"<&b>Ihr kommt nicht weiter? - "},{"text":"<&e>/hilfe","hoverEvent":{"action":"show_text","value":"Hilfemenü aufrufen"},"clickEvent":{"action":"run_command","value":"/hilfe"}}]'
+            - ^execute as_server 'tellraw <player.name> [{"text":"<&b>Orientierung verloren? - "},{"text":"<&e>/livemap","hoverEvent":{"action":"show_text","value":"Livemap aufrufen"},"clickEvent":{"action":"run_command","value":"/livemap"}}]'
+            - ^execute as_server 'tellraw <player.name> [{"text":"<&3>Tipp<&co> <&b>Neue Spieler brauchen zum Bauen eine Region.","hoverEvent":{"action":"show_text","value":"Hilfemenü aufrufen"},"clickEvent":{"action":"run_command","value":"/hilfe sicherung"}}]'
+            }
+        }
+#     Als Mitglied bewerben        
+        ELSE IF <context.args.first> == 'bewerbung' { 
+          - CHAT talkers:<npc[Tempelwache]> targets:<player> "Nichts leichter als das, <player.name>!"
+          - WAIT 2
+          - CHAT talkers:<npc[Tempelwache]> targets:<player> "Schreibt eine kurze Bewerbung im Forum oder meldet Euch im Teamspeak bei einem Teammitglied."
+          - WAIT 3
+          - CHAT talkers:<npc[Tempelwache]> targets:<player> "Ein Administrator wird Euch für die Einführungsquest oder einen Bewerbungsbau freischalten."
+          - WAIT 3
+          - CHAT talkers:<npc[Tempelwache]> targets:<player> "Beachtet, dass wir nur Spieler ab 18 Jahren als Mitglieder aufnehmen."
+          - WAIT 3
+          - CHAT talkers:<npc[Tempelwache]> targets:<player> "Spieler ab 14 Jahren dürfen bei uns im Freebuild spielen."
+          - NARRATE "<&b>Info, Regeln und Bewerbung im Forum - <&e>www.craftasy.de"
+          }
+      
