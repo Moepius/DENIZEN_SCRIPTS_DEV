@@ -66,9 +66,6 @@ seltool_command:
     - spheretool
     - ptool
     - polygontool
-    - wand
-    # NOTE: Remove the below alias if you want the WorldEdit "//wand" command to give you a WorldEdit wand instead of a SelTool
-    - /wand
     permission: selector_tool.seltool
     description: Gets a selector tool.
     usage: /seltool (type)
