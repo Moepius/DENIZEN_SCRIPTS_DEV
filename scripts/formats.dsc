@@ -1,7 +1,31 @@
 ##########################################################################
-## FORMATE                                                              ##
+## FORMATS                                                              ##
 ##########################################################################
 
+##========================================================================
+## NPC Formats
+##========================================================================
+
+npc_talk:
+  type: format
+  format: "<&f>[<&a><&l>NPC<&f>] | <&a><npc.name><&f> | <&b><[text]>"
+npc_talk_absatz:
+  type: format
+  format: "<&f>[<&a><&l>NPC<&f>] | <&a><npc.name><&f>:"
+
+##========================================================================
+## Information Formats
+##========================================================================
+
+c_info:
+  type: format
+  debug: false
+  format: "<&b><&l>[<&6><&l>i<&b><&l>]<&b> <[text]>"
+
+c_warn:
+  type: format
+  debug: false
+  format: "<&c><&l>[<&6><&l>i<&c><&l>]<&c> <[text]>"
 
 ##========================================================================
 ## Layout Formats
@@ -43,9 +67,7 @@ task_format:
 
 #   Information Formats
     - narrate format:c_info Information
-    - narrate format:c_info_2 Information
     - narrate format:c_warn Warnung
-    - narrate format:c_warn_2 Warnung
     - narrate format:headerMitText "Info"
     - narrate format:headerOhneText <empty>
     - narrate format:footerOhneText <empty>

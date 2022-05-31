@@ -22,9 +22,9 @@ command_shortlink_voiceserver:
     description: Zeigt Voiceserver an
     script:
     - NARRATE format:c_info "Teamspeak-IP <&e>craftasy.de"
-    - NARRATE format:c_info_2 "Discordserver <&e>https://discord.gg/GVHrmf9"
+    - NARRATE format:c_info "Discordserver <&e>https://discord.gg/GVHrmf9"
     - if <player.has_permission[group.free_04]> || <player.has_permission[group.mitglied]> {
-      - NARRATE format:c_info_2 "Um über Discord zu chatten: <&e>/discord link"
+      - NARRATE format:c_info "Um über Discord zu chatten: <&e>/discord link"
       }
     
 command_shortlink_steam:
