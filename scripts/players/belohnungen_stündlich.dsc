@@ -1,5 +1,5 @@
 #
-# Craftasy dwarp
+# Craftasy rewards
 # author: Moepius
 # version: 0.0.7
 #

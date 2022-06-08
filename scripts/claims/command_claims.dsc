@@ -37,6 +37,7 @@ task_kolonie_gruenden:
     type: task
     definitions: player|location
     script:
+        - narrate "kolonie geründet"
         # Zone speichern
         # Erweiterte Zone setzen (für Partikeleffekte im Zentrum)
         # Flagge setzen, mit Interaktionsblock
