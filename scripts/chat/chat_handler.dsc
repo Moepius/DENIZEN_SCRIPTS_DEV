@@ -8,80 +8,91 @@
 #
 #
 
-# chat_handler:
-#     type: world
-#     debug: false
-#     events:
-#         on player chats:
-#         - determine passively cancelled
-#         # TODO: instert spam protection (count times player chats, if > x, then cancel)
-#         ####################################
-#         # Handling cases
-#         ####################################
-#         - if <player.has_flag[player.flag.muted]>:
-#             - ratelimit <player> 10s
-#             - narrate format:c_warn "Ihr wurdet stummgeschaltet."
-#             - stop
-#         - if !<player.has_flag[player.flag.rules_accepted]>:
-#             - ratelimit <player> 10s
-#             - narrate format:c_warn "Akzeptiert zunächst unsere Regeln, damit ihr den Chat nutzen könnt."
-#             - stop
-#         - if <player.has_flag[player.flag.spammed]>:
-#             - ratelimit <player> 10s
-#             - narrate format:c_warn "Ihr schreibt zu viel, bitte warten."
-#             - stop
-#         ###################################
-#         # Building the message
-#         ####################################
-#         - definemap player_format:
-#             prefix: <element[Testpräfix].on_hover[Infos zum Präfix]>
-#             name: <player.name.on_hover[<&b>Klicken, für Privatnachricht].on_click[pn <player.name> ].type[SUGGEST_COMMAND]>
-#             suffix: <&b>Testsuffix
-#         - announce "<&f>[<[player_format.prefix]><&f>] <[player_format.name]> <[player_format.suffix]> <&f><&co><context.message.parse_color>"
-
-
-command_pn:
-    type: command
+chat_handler:
+    type: world
     debug: true
-    name: pn
-    description: "Private Nachricht an einen Spieler"
-    usage: /pn <&lt>Spieler<&gt> <&lt>Nachricht<&gt>
-    aliases:
-    - pm
-    - msg
-    - message
-    tab completions:
-        1: <server.online_players.parse[name]>
-    script:
+    events:
+        on player chats:
+        - determine passively cancelled
+        - flag <player> player.flag.chat_counter:++ expire:15s
+        - if <player.flag[player.flag.chat_counter]> >= 10:
+            - flag <player> player.flag.spammed expire:30s
+            - flag <player> player.flag.chat_counter:0
         ####################################
         # Handling cases
         ####################################
-        - define target <server.match_player[<context.args.first>].if_null[null]>
-        - if !<player.has_permission[craftasy.denizen.player.command.pn]>:
-            - narrate format:c_warn "Ihr habt keine Berechtigung, diesen Befehl zu nutzen."
-            - stop
         - if <player.has_flag[player.flag.muted]>:
-            - ratelimit <player> 10s
+            - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr wurdet stummgeschaltet."
             - stop
-        - if <context.args.is_empty>:
-            - narrate format:c_warn "Ihr müsst einen Spieler angeben."
+        - if !<player.has_permission[craftasy.denizen.player.chat.use]>:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Akzeptiert zunächst unsere Regeln, damit ihr den Chat nutzen könnt."
             - stop
-        - if <context.args[1]> == <context.player.name>:
-            - narrate format:c_warn "Ihr könnt Euch selbst keine Nachricht senden."
+        - if <player.has_flag[player.flag.spammed]>:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Ihr schreibt zu viel, bitte warten."
             - stop
-        - if !<[target].is_truthy>:
-            - narrate format:c_warn "Kein gültiger Spieler oder nicht online."
-            - stop
-        - if !<[target].has_flag[player.flag.muted]>:
-            - narrate format:c_warn "Der Spieler ist stummgeschaltet."
-            - stop
-        - if <context.args.size> < 2:
-            - narrate format:c_warn "Ihr müsst eine Nachricht angeben."
-            - stop
-        ####################################
+        ###################################
         # Building the message
         ####################################
-        - define message "<context.raw_args.after[<context.args.first> ]>"
-        - narrate targets:<[target]> "<&a><player.name> <&b>zu Euch<&f><&co> <[message]>"
-        - narrate "<&b>Ihr zu <&a><[target].name><&f><&co> <[message]>"
+        - definemap player_format:
+            prefix: <element[<player.flag[player.flag.rankcolor]><player.flag[player.flag.ranksymbol]>].on_hover[<script[data_rank_info].parsed_key[legende.rankinfo]>]>
+            name: <player.name.on_hover[<&b>Klicken, für Privatnachricht].on_click[/pn <player.name> ].type[SUGGEST_COMMAND]>
+            suffix: <element[Suffix].on_hover[Infos zum Suffix]>
+        - announce "<&f><&l>[<[player_format.prefix]><&f><&l>] <player.flag[player.flag.rankcolor]><[player_format.name]> <player.flag[player.flag.suffixcolor]><[player_format.suffix]><&f><&co> <context.message.parse_color>"
+
+
+#ex narrate <player.flag[datakey_test].parsed_key[legende.rankname]> um einzelne Daten aus dem data script zu ziehen
+
+data_rank_info:
+    type: data
+    debug: true
+    besucher:
+        rankcolor: <&7>
+        ranksymbol: •
+        rankname: Besucher
+        rankinfo: <&7><&l>Gast<&nl><&b>Neuer Spieler, nicht freigeschaltet.<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    veraltet:
+        rankcolor: <&7>
+        ranksymbol: ❈
+        rankname: Veraltet
+        rankinfo: <&7><&l>Veraltet<&nl><&b>Spieler, der noch nicht vom alten Rangsystem konvertiert wurde.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    vagabund:
+        rankcolor: <&a>
+        ranksymbol: ✲
+        rankname: Vagabund
+        rankinfo: <&a><&l>Vagabund<&nl><&b>Neuer Spieler, freigeschaltet und Tutorial abgeschlossen.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    pfadfinder:
+        rankcolor: <&2>
+        ranksymbol: ❊
+        rankname: Pfadfinder
+        rankinfo: <&2><&l>Pfadfinder<&nl><&b>Spieler, die mindestens 15 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    pionier:
+        rankcolor: <&b>
+        ranksymbol: ❉
+        rankname: Pionier
+        rankinfo: <&b><&l>Pionier<&nl><&b>Spieler, die mindestens 45 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    entdecker:
+        rankcolor: <&3>
+        ranksymbol: ❈
+        rankname: Entdecker
+        rankinfo: <&3><&l>Entdecker<&nl><&b>Spieler, die mindestens 125 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    siedler:
+        rankcolor: <&d>
+        ranksymbol: ✶
+        rankname: Siedler
+        rankinfo: <&d><&l>Siedler<&nl><&b>Stammspieler, die mindestens 500 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    gruender:
+        rankcolor: <&5>
+        ranksymbol: ✷
+        rankname: Gründer
+        rankinfo: <&5><&l>Gründer<&nl><&b>Stammspieler, die mindestens 1000 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    legende:
+        rankcolor: <&6>
+        ranksymbol: ✸
+        rankname: Legende
+        rankinfo: <&6><&l>Legende<&nl><&b>Stammspieler, die mindestens 2000 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+
+
+# konvertierte Spieler müssen zusätzlich 15 Stunden spielen, um den nächsten Rang zu erhalten

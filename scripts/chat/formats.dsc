@@ -25,7 +25,7 @@ c_info:
 c_warn:
   type: format
   debug: false
-  format: "<&c><&l>[<&6><&l>i<&c><&l>]<&c> <[text]>"
+  format: "<&c><&l>[<&f><&l>i<&c><&l>]<&c> <[text]>"
 
 ##========================================================================
 ## Layout Formats
