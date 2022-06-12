@@ -1,0 +1,1 @@
+# TODO: info for when players join first time

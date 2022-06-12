@@ -1,8 +1,8 @@
-messageOfTheDay:
+task_motd:
     type: task
-    definitions: player|message
+    definitions: player
     script:
-        - if !<player.has_flag[motd_gelesen]>:
+        - if !<[player].has_flag[motd_gelesen]> || !<player.has_permission[craftasy.denizen.task.motd]> || !<[player].has_flag[player.flag.no_motd]>:
             - wait 3s
             - run chatsounds_standard
             - narrate format:headerMitText "Wichtige Information"
@@ -16,6 +16,6 @@ messageOfTheDay:
             - narrate "<&c>Euer Inventar + Enderchest in Kisten!"
             - narrate <empty>
             - narrate format:footerOhneText <empty>
-            - flag <player> motd_gelesen expire:12h
+            - flag <[player]> motd_gelesen expire:12h
         - else:
             - stop
