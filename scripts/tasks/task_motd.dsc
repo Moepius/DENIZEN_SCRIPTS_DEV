@@ -2,7 +2,8 @@ task_motd:
     type: task
     definitions: player
     script:
-        - if !<[player].has_flag[motd_gelesen]> || !<player.has_permission[craftasy.denizen.task.motd]> || !<[player].has_flag[player.flag.no_motd]>:
+    # TODO: add later, && <player.has_permission[craftasy.denizen.task.motd]> && !<[player].has_flag[player.flag.no_motd]>
+        - if !<[player].has_flag[motd_gelesen]>:
             - wait 3s
             - run chatsounds_standard
             - narrate format:headerMitText "Wichtige Information"

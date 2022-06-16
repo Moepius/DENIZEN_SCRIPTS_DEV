@@ -17,10 +17,11 @@ world_rank_handler:
                 - flag <player> player.flag.no_motd
                 - stop
         - if !<player.has_flag[player.flag.rank_converted]>:
-            - run task_player_not_converted def:<player>
             - flag <player> player.flag.rank.data:<script[data_rank_info].parsed_key[veraltet]>
             - flag <player> player.flag.rank.name:veraltet
             - flag <player> player.flag.no_motd
+            - wait 2s
+            - run task_player_not_converted def:<player>
         - else:
             - run task_player_rank_update def:<player>
             - flag <player> player.flag.no_motd:!
@@ -42,7 +43,7 @@ task_player_not_converted:
     type: task
     definitions: player
     script:
-        - narrate "Testbegrüßung für Spieler, die ihren Rang noch nicht konvertiert haben." targets:<[player]>
+        - narrate "<&b>Testbegrüßung für Spieler, die ihren Rang noch nicht konvertiert haben." targets:<[player]>
 
 data_rank_info:
     type: data
@@ -103,3 +104,6 @@ data_title_info:
     spieler:
         titlename: Spieler
         titleinfo: <&7>Ein Spieler
+    administrator:
+        titlename: Administrator
+        titleinfo: <&c>Ein Administrator

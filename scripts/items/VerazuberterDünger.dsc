@@ -13,6 +13,7 @@
 #
 
 # TODO: Script verbessern und ergänzen
+# TODO: Cooldown einbauen
 
 # Item, um Schematics zu platzieren
 # Zugehöriges World Script, das die Schematics bei Rechtsklick platziert unter World Scripts "item_duenger_handler.dsc" auffindbar.
