@@ -101,9 +101,9 @@ data_rank_info:
 data_title_info:
     type: data
     debug: true
-    spieler:
-        titlename: Spieler
+    player:
+        titlename: <&7>Spieler
         titleinfo: <&7>Ein Spieler
-    administrator:
-        titlename: Administrator
-        titleinfo: <&c>Ein Administrator
+    admin:
+        titlename: <&c>Administrator
+        titleinfo: <&c>
