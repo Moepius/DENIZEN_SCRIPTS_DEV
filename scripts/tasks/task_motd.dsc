@@ -4,8 +4,7 @@ task_motd:
     script:
     # TODO: add later, && <player.has_permission[craftasy.denizen.task.motd]> && !<[player].has_flag[player.flag.no_motd]>
         - if !<[player].has_flag[motd_gelesen]>:
-            - wait 3s
-            - run chatsounds_standard
+            - run chatsounds_standard def:<[player]>
             - narrate format:headerMitText "Wichtige Information"
             - narrate <empty>
             - narrate "<&3>Wir arbeiten intensiv an neuen Features für den Server."

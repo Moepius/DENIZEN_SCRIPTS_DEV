@@ -47,7 +47,7 @@ task_player_not_converted:
 
 data_rank_info:
     type: data
-    debug: true
+    debug: false
     besucher:
         rankcolor: <&7>
         ranksymbol: •
@@ -100,7 +100,7 @@ data_rank_info:
 
 data_title_info:
     type: data
-    debug: true
+    debug: false
     player:
         titlename: <&7>Spieler
         titleinfo: <&7>Ein Spieler

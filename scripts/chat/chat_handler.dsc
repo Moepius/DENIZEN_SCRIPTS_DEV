@@ -10,7 +10,7 @@
 
 chat_handler:
     type: world
-    debug: true
+    debug: false
     events:
         on player chats:
         - determine passively cancelled
