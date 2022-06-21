@@ -1,4 +1,6 @@
 # TODO: Integration in alle Scripte, die es benötigen
+# TODO: Verhindern, dass SPieler Teleport umgehen (zB indem sie rückwärts laufen)
+# TODO: Player Definition übergeben
 
 # permission: craftasy.denizen.task.noenter.bypass
 # flags:

@@ -1,5 +1,6 @@
 task_motd:
     type: task
+    debug: false
     definitions: player
     script:
     # TODO: add later, && <player.has_permission[craftasy.denizen.task.motd]> && !<[player].has_flag[player.flag.no_motd]>

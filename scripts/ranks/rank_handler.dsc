@@ -28,6 +28,7 @@ world_rank_handler:
 
 task_player_join_first_time:
     type: task
+    debug: false
     definitions: player
     script:
         - narrate "Willkommen auf Craftasy!" targets:<[player]>
@@ -35,12 +36,14 @@ task_player_join_first_time:
 
 task_player_rank_update:
     type: task
+    debug: false
     definitions: player
     script:
         - narrate "Rangupdate im Gange ..." targets:<[player]>
 
 task_player_not_converted:
     type: task
+    debug: false
     definitions: player
     script:
         - narrate "<&b>Testbegrüßung für Spieler, die ihren Rang noch nicht konvertiert haben." targets:<[player]>

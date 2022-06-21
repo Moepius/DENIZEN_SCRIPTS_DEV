@@ -14,8 +14,8 @@ spieler_joinandquit_standard:
         - playsound <[value]> sound:BLOCK_NOTE_BLOCK_CHIME volume:1 pitch:1.5
         - playsound <[value]> sound:BLOCK_NOTE_BLOCK_BELL volume:1 pitch:1.5
         - narrate format:c_info targets:<[value]> "<&a><player.name> <&b>betritt den Server."
-        - wait 3s
-        - run task_motd def:<player>
+      - wait 3s
+      - run task_motd def:<player>
       on player quits:
       - determine none passively
       - foreach <server.online_players>:
