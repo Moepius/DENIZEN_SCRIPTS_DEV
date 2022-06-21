@@ -5,7 +5,7 @@ auto_restarter_world:
         on system time 03:00:
         - run auto_restarter_task
         on player logs in server_flagged:restart_happening:
-        - determine "Gekickt: Der Server wird aktuell neu gestartet!"
+        - determine "kicked: Der Server wird aktuell neu gestartet!"
 
 auto_restarter_task:
     type: task
