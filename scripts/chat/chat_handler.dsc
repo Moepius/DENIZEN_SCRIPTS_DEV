@@ -49,5 +49,6 @@ chat_handler:
 # Befehl, um SPieler mit spezifischem Datakey zu flaggen:
 # flag <player> player.flag.rank.name:name
 # flag <player> player.flag.title.name:name
+# bzw.: flag <server.match_player[spieler]> player.flag.title.name:name
 
 
