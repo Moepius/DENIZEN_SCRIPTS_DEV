@@ -20,3 +20,10 @@ chatsounds_error:
     script:
         - ratelimit <[player]> 10s
         - playsound <[player]> sound:item_shield_block pitch:1
+
+chatsounds_settings:
+    type: task
+    definitions: player
+    script:
+        - ratelimit <[player]> 10s
+        - playsound <[player]> sound:block_sculk_sensor_clicking_stop volume:1 pitch:1
