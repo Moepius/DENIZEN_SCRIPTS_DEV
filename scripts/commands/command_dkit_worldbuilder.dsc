@@ -52,6 +52,8 @@ item_worldbuilder_duenger_waldboden:
     - <empty>
 
 #TODO: Error in Konsole fixen
+#TODO: SHIFT + LINKSKLICK Dichte erhöhen
+#TODO: Testen ob unter tall_seagrass auch Wasser ist
 
 item_worldbuilder_duenger_waldboden_handler:
     type: world
@@ -75,31 +77,31 @@ item_worldbuilder_duenger_waldboden_handler:
                 #
                 # place blocks with coordinates from surface finder
                 #
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[200]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[200]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> grass no_physics
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[200]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[200]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> fern no_physics
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[15]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[15]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> brown_mushroom no_physics
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[1]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[1]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> oxeye_daisy no_physics
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[2]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[2]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> azure_bluet no_physics
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[1]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[1]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> white_tulip no_physics
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[1]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[1]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> blue_orchid no_physics
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[2]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[2]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> cornflower no_physics
-                - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[15].random[1]> as:block:
+                - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[1]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> allium no_physics
 
@@ -122,7 +124,7 @@ item_worldbuilder_duenger_seegras:
     - <&7>| Seegras Radius |
     - <&7>Radius mit <&a>SHIFT <&7>+ <&a>RECHTSKLICK <&7>einstellen
     - <empty>
-
+#TODO: mehr Blöcke hinzufügen auf denen Seegras platziert werden kann
 item_worldbuilder_duenger_seegras_handler:
     type: world
     debug: false
@@ -130,11 +132,12 @@ item_worldbuilder_duenger_seegras_handler:
         on player right clicks block with:item_worldbuilder_duenger_seegras:
         - if <player.is_sneaking>:
             - playsound chatsounds_settings def:<player>
-            - if <player.flag[player.flag.item.seegrasradius]> > 50:
-                - flag <player> item_worldbuilder_duenger_seegras:30 expire:3h
+            - if <player.flag[player.flag.item.seegrasradius]> == 50:
+                #- flag <player> player.flag.item.seegrasradius:!
+                - flag <player> player.flag.item.seegrasradius:10 expire:3h
             - else:
-                - flag <player> item_worldbuilder_duenger_seegras:+:10 expire:3h
-            - narrate format:c_info "Der Dünger wurde auf den Radius <&a><player.flag[item_worldbuilder_duenger_seegras]> <&b>eingestellt."
+                - flag <player> player.flag.item.seegrasradius:+:10 expire:3h
+            - narrate format:c_info "Der Dünger wurde auf den Radius <&a><player.flag[player.flag.item.seegrasradius]> <&b>eingestellt."
         on player right clicks !gravel|sand|dirt|stone with:item_worldbuilder_duenger_seegras:
             - ratelimit <player> 15s
             - run chatsounds_error def:<player>
@@ -152,40 +155,51 @@ item_worldbuilder_duenger_seegras_handler:
             - if !<player.has_flag[player.flag.item.seegrasradius]>:
                 - flag <player> player.flag.item.seegrasradius:30 expire:3h
             - flag <player> player.flag.duenger.cooldown expire:2s
-            - else:
                 #
                 # place blocks with coordinates from surface finder 10, 20 , 30, 50
                 #
-                - if <player.flag[player.flag.item.seegrasradius]> == 10:
-                    - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[10].random[120]> as:block:
-                        - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> seagrass no_physics
-                    - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[10].random[40]> as:block:
-                        - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> seagrass no_physics
-                            - modifyblock <[block].above.above> seagrass[half=top] no_physics
-                - if <player.has_flag[player.flag.item.seegrasradius]> == 20:
-                    - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[20].random[120]> as:block:
-                        - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> seagrass no_physics
-                    - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[20].random[40]> as:block:
-                        - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> seagrass no_physics
-                            - modifyblock <[block].above.above> seagrass[half=top] no_physics
-                - if <player.has_flag[player.flag.item.seegrasradius]> == 30:
-                    - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[30].random[120]> as:block:
-                        - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> seagrass no_physics
-                    - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[30].random[40]> as:block:
-                        - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> seagrass no_physics
-                            - modifyblock <[block].above.above> seagrass[half=top] no_physics
-                - if <player.has_flag[player.flag.item.seegrasradius]> == 50:
-                    - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[50].random[120]> as:block:
-                        - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> seagrass no_physics
-                    - foreach <context.location.find.surface_blocks[grass_block|dirt|podzol|stone].within[50].random[40]> as:block:
-                        - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> seagrass no_physics
-                            - modifyblock <[block].above.above> seagrass[half=top] no_physics
-
+            - if <player.flag[player.flag.item.seegrasradius]> == 10:
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[10].random[300]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> seagrass no_physics
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[10].random[150]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> tall_seagrass no_physics
+                    - if <[block].add[0,2,0].material.name> == water:
+                        - modifyblock <[block].add[0,2,0]> tall_seagrass[half=top] no_physics
+            - if <player.flag[player.flag.item.seegrasradius]> == 20:
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[20].random[600]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> seagrass no_physics
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[20].random[300]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> tall_seagrass no_physics
+                    - if <[block].add[0,2,0].material.name> == water:
+                        - modifyblock <[block].add[0,2,0]> tall_seagrass[half=top] no_physics
+            - if <player.flag[player.flag.item.seegrasradius]> == 30:
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[30].random[1200]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> seagrass no_physics
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[30].random[600]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> tall_seagrass no_physics
+                    - if <[block].add[0,2,0].material.name> == water:
+                        - modifyblock <[block].add[0,2,0]> tall_seagrass[half=top] no_physics
+            - if <player.flag[player.flag.item.seegrasradius]> == 40:
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[40].random[2000]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> seagrass no_physics
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[40].random[1000]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> tall_seagrass no_physics
+                    - if <[block].add[0,2,0].material.name> == water:
+                        - modifyblock <[block].add[0,2,0]> tall_seagrass[half=top] no_physics
+            - if <player.flag[player.flag.item.seegrasradius]> == 50:
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[50].random[4000]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> seagrass no_physics
+                - foreach <context.location.find_blocks[gravel|sand|dirt|stone].within[50].random[2000]> as:block:
+                    - if <[block].above.material.name> == water:
+                        - modifyblock <[block].above> tall_seagrass no_physics
+                    - if <[block].add[0,2,0].material.name> == water:
+                        - modifyblock <[block].add[0,2,0]> tall_seagrass[half=top] no_physics
