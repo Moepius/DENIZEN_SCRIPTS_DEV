@@ -26,4 +26,4 @@ chatsounds_settings:
     definitions: player
     script:
         - ratelimit <[player]> 10s
-        - playsound <[player]> sound:block_sculk_sensor_clicking_stop volume:1 pitch:1
+        - playsound <[player]> sound:block_sculk_sensor_clicking_stop pitch:1
