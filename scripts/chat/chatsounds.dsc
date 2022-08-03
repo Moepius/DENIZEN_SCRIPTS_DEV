@@ -25,5 +25,5 @@ chatsounds_settings:
     type: task
     definitions: player
     script:
-        - ratelimit <[player]> 10s
+        - ratelimit <[player]> 5s
         - playsound <[player]> sound:block_sculk_sensor_clicking_stop pitch:1
