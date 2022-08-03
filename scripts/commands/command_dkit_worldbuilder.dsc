@@ -147,7 +147,7 @@ item_worldbuilder_duenger_seegras_handler:
                 - flag <player> player.flag.item.seegrasdichte:10 expire:3h
             - else:
                 - flag <player> player.flag.item.seegrasdichte:+:10 expire:3h
-            - narrate format:c_info "Der Dünger wurde auf die Dichte <&a><player.flag[player.flag.item.seegrasradius]><&pc> <&b>eingestellt."
+            - narrate format:c_info "Der Dünger wurde auf die Dichte <&a><player.flag[player.flag.item.seegrasdichte]><&pc> <&b>eingestellt."
         on player right clicks !gravel|sand|dirt|stone with:item_worldbuilder_duenger_seegras:
             - if <player.is_sneaking>:
                 - stop
