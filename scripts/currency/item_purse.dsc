@@ -2,8 +2,14 @@
 
 # Items for storing money
 
+# Spieler kann immer nur einen Geldbeutel im Inventar haben
+# Items im Geldbeutel sind an den Geldbeutel geknüpft, nicht den Spieler
+# Wenn Spieler einen Geldbeutel droppt, dessen Inhalt zählen und flag mit Vermögen entsprechend verringern
+# 
 
-item_geldbeutel_klein:
+
+
+item_purse_small:
   type: item
   material: player_head
   display name: <&3><&l>kleiner Geldbeutel
@@ -21,7 +27,7 @@ item_geldbeutel_klein:
     - <&f><&m>---------------------------
     - <&7>GEWÖHNLICH <&6>★<&7>☆☆☆☆
 
-item_geldbeutel_mittel:
+item_purse_medium:
   type: item
   material: player_head
   display name: <&3><&l>normaler Geldbeutel
@@ -39,7 +45,7 @@ item_geldbeutel_mittel:
     - <&f><&m>---------------------------
     - <&2>UNGEWÖHNLICH <&6>★★<&7>☆☆☆
 
-item_geldbeutel_gross:
+item_purse_large:
   type: item
   material: player_head
   display name: <&3><&l>großer Geldbeutel

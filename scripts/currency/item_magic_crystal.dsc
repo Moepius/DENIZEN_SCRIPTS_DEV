@@ -2,10 +2,10 @@
 
 #
 
-item_fokuskristall:
+item_magic_crystal:
     type: item
-    material: amethyst_shard
-    display name: <&d><&l>Fokuskristall
+    material: amethyst_cluster
+    display name: <&d><&l>Magischer Kristall
     mechanisms:
         hides: <list[ENCHANTS|ITEM_DATA]>
     enchantments:
@@ -14,8 +14,8 @@ item_fokuskristall:
     - <empty>
     - <&d>Selten und schwer zu beschaffen,
     - <&d>können die mit arkaner Energie
-    - <&d>aufgeladenen Fokuskristalle
-    - <&d>für viele Zwecke verwendet werden.
+    - <&d>aufgeladenen Kristalle für
+    - <&d>viele Zwecke verwendet werden.
     - <empty>
     - <&f><&m>---------------------------
     - <&7>Ab Rang: <&a>Vagabund

@@ -12,7 +12,7 @@ koloniebanner_placement:
     type: world
     debug: true
     events:
-        on player places koloniebanner:
+        on player places banner:
             # Permission test
             - if !<player.has_permission[craftasy.denizen.claims.koloniebanner_platzieren]>:
                 - determine passively cancelled
