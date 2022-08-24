@@ -13,10 +13,11 @@ item_energyfocus:
     - <&d>Selten und schwer zu beschaffen,
     - <&d>können die mit thaumaturgischer Energie
     - <&d>aufgeladenen Kristalle für viele
-    - <&d>Zwecke verwendet werden.
+    - <&d>Zwecke verwendet werden. Von hohem Wert
+    - <&d>und (unaufgeladen) eine beliebte Ressource
+    - <&d>für den Handel.
     - <empty>
-    - <&f><&m>---------------------------
-    - <&7>Ab Rang: <&a>Vagabund
+    - <&f><&m>----------------------------------
     - <&7>Zutat: <&2><&chr[2714]> Herstellbar: <&2><&chr[2714]>
-    - <&f><&m>---------------------------
+    - <&f><&m>----------------------------------
     - <&2>Währung

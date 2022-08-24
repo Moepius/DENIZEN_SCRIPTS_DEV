@@ -1,6 +1,8 @@
+
+
 # server trade currency
 
-item_kupferstuecke:
+item_copperling:
     type: item
     material: beetroot_seeds
     display name: <&e><&l>Kupferstücke
@@ -10,17 +12,16 @@ item_kupferstuecke:
     - sharpness:1
     lore:
     - <empty>
-    - <&7>Von geringem Wert, jedoch weit
-    - <&7>verbreitet und akzeptiert.
-    - <&7>Häufig auch als "Klimper" bekannt.
+    - <&7>Von geringem Wert, aber sehr weit
+    - <&7>verbreitet und fast überall akzeptiert.
+    - <&7>Werden auch als <&dq>Klipser<&dq> bezeichnet.
     - <empty>
-    - <&f><&m>---------------------------
-    - <&7>Ab Rang: <&a>Vagabund
+    - <&f><&m>----------------------------------
     - <&7>Zutat: <&c><&chr[274C]><&7> Herstellbar: <&c><&chr[274C]><&7>
-    - <&f><&m>---------------------------
-    - <&f>Handelswährung
+    - <&f><&m>----------------------------------
+    - <&2>Währung
 
-item_silberling:
+item_silverling:
     type: item
     material: iron_nugget
     display name: <&f><&l>Silberling
@@ -33,13 +34,12 @@ item_silberling:
     - <&7>Häufig akzeptiertes Zahlungs-
     - <&7>mittel und bei Händlern erste Wahl.
     - <empty>
-    - <&f><&m>---------------------------
-    - <&7>Ab Rang: <&a>Vagabund
+    - <&f><&m>----------------------------------
     - <&7>Zutat: <&c><&chr[274C]><&7> Herstellbar: <&c><&chr[274C]><&7>
-    - <&f><&m>---------------------------
-    - <&f>Handelswährung
+    - <&f><&m>----------------------------------
+    - <&2>Währung
 
-item_goldstueck:
+item_goldling:
     type: item
     material: gold_nugget
     display name: <&6><&l>Goldstück
@@ -52,8 +52,7 @@ item_goldstueck:
     - <&7>Von hohem Wert und beim gut
     - <&7>situierten Volke gerne gesehen.
     - <empty>
-    - <&f><&m>---------------------------
-    - <&7>Ab Rang: <&a>Vagabund
+    - <&f><&m>----------------------------------
     - <&7>Zutat: <&c><&chr[274C]><&7> Herstellbar: <&c><&chr[274C]><&7>
-    - <&f><&m>---------------------------
-    - <&f>Handelswährung
+    - <&f><&m>----------------------------------
+    - <&2>Währung

@@ -21,3 +21,8 @@
 
 # Testen welche Items gedroppt wurden (Silberlinge, Kupfer, Kristalle) und deren jeweilige Anzahl
     # flag "Vermögen" oder so ähnlich um Anzahl der Items verringern
+    # player.flag.currency.total_amount
+    # player.flag.currency.inventory_amount
+
+
+# Procedure Währung Amount Update, wird immer aufgerufen wenn sich was am Geld ändert
