@@ -26,3 +26,33 @@
 
 
 # Procedure Währung Amount Update, wird immer aufgerufen wenn sich was am Geld ändert
+
+
+proc_calculate_currency:
+    type: procedure
+    definitions: copperling_amount|silverling_amount|goldling_amount
+    script:
+    - define silverling_mul <[silverling_amount].mul[64]>
+    - define goldling_mul <[silverling_mul].mul[64]>
+    - define total_amount <[copperling_amount].add[<[silverling_mul]>].add[<[goldling_mul]>]>
+    - determine <[total_amount]>
+
+task_update_currency_amount:
+    type: task
+    # get every currency item amounts from purses of all sizes, from player inventory and bank depot
+    # names example: pss - purse small copper
+    definitions: player|psc|pss|psg|pmc|pms|pmg|plc|pls|plg|inv_copper|inv_silver|inv_gold|bank_amount
+    script:
+        # calculate total money amounts with conversions
+        - define purse_small_total <proc[proc_calculate_currency].context[<[psc]>|<[pss]>|<[psg]>]>
+        - define purse_medium_total <proc[proc_calculate_currency].context[<[pmc]>|<[pms]>|<[pmg]>]>
+        - define purse_large_total <proc[proc_calculate_currency].context[<[plc]>|<[pls]>|<[plg]>]>
+        - define inventory_total <[inv_copper].add[<[inv_silver]>].add[<[inv_gold]>]>
+        - define total <[purse_small_total].add[<[purse_medium_total]>].add[<[purse_large_total]>].add[<[inventory_total]>].add[<[bank_amount]>]>
+        # flag player with total amount
+        - flag <[player]> player.flag.currency.money_total:<[total]>
+
+    # player.flag.currency.money_total
+    # player.flag.currency.purse_total
+    # 
+

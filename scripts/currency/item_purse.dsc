@@ -37,26 +37,41 @@ purse_handler:
         - inventory open destination:<[inventory]>
     on player closes *_purse_inventory:
       - define contents <context.inventory.list_contents>
-      - inventory flag slot:hand item.purse.inventory:<[contents]>
-      - inventory flag slot:hand item.purse.randomm_uuid:<util.random_uuid>
       - define item <player.item_in_hand.script.name>
       # count quantity of currency items in inventory
       - define copperling <context.inventory.quantity_item[item_copperling]>
       - define silverling <context.inventory.quantity_item[item_silverling]>
       - define goldling <context.inventory.quantity_item[item_goldling]>
       - define crystal <context.inventory.quantity_item[item_energyfocus]>
+      # flag purse with contents, uuid and currency amounts
+      - inventory flag slot:hand item.purse.inventory:<[contents]>
+      - inventory flag slot:hand item.purse.randomm_uuid:<util.random_uuid>
+      - inventory flag slot:hand item.purse.currency.copperling_amount:<[copperling]>
+      - inventory flag slot:hand item.purse.currency.copperling_amount:<[silverling]>
+      - inventory flag slot:hand item.purse.currency.copperling_amount:<[goldling]>
+      - inventory flag slot:hand item.purse.currency.copperling_amount:<[crystal]>
+      # flag player with currency amounts per purse
       - choose <[item]>:
           - case item_purse_small:
-            - narrate "Geld: <[copperling]> <[silverling]> <[goldling]> <[crystal]>"
-            #- flag <player> player.currency.purse_small_amount_copperling:<[money]>
-            #- flag <player> player.currency.crystals.amount
+            - flag <player> player.currency.purse_small_amount:<proc[proc_calculate_currency].context[<[copperling]>|<[silverling]>|<[goldling]>]>
+            - flag <player> player.currency.crystals.purse_small_amount:<[crystal]>
             #<script[item_copperling].name>
           - case item_purse_medium:
-            - flag <player> player.currency.purse_medium_amount
-            - flag <player> player.currency.crystals.amount
+            - flag <player> player.currency.purse_medium_amount:<proc[proc_calculate_currency].context[<[copperling]>|<[silverling]>|<[goldling]>]>
+            - flag <player> player.currency.crystals.purse_medium_amount:<[crystal]>
           - case item_purse_large:
-            - flag <player> player.currency.purse_large_amount
-            - flag <player> player.currency.crystals.amount
+            - flag <player> player.currency.purse_large_amount:<proc[proc_calculate_currency].context[<[copperling]>|<[silverling]>|<[goldling]>]>
+            - flag <player> player.currency.crystals.purse_large_amount:<[crystal]>
+      - run 
+    on player drops item_purse_*:
+      
+
+    on player breaks block with:item_purse_*:
+      - determine cancelled
+    on player left clicks block with:item_purse_*:
+      - determine cancelled
+
+
 
 # Inventory Sizes
 
