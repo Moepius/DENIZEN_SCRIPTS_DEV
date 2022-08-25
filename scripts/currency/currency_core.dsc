@@ -1,4 +1,4 @@
-# handles all the things happening when a player is receiving or dropping currency items
+# handles all the things calculating and updating currency stuff
 
 
 # TODO: nicht freigeschaltete Spieler können Silberlinge und Co. nicht aufnehmen, selbiges für Geldbeutel
@@ -19,7 +19,7 @@
 
 # Wenn Spieler ein Währungs Item verliert (droppt)
 
-# Testen welche Items gedroppt wurden (Silberlinge, Kupfer, Kristalle) und deren jeweilige Anzahl
+# Testen welche Items gedroppt wurden und deren jeweilige Anzahl
     # flag "Vermögen" oder so ähnlich um Anzahl der Items verringern
     # player.flag.currency.total_amount
     # player.flag.currency.inventory_amount
@@ -27,32 +27,43 @@
 
 # Procedure Währung Amount Update, wird immer aufgerufen wenn sich was am Geld ändert
 
-
+# calculate total currency money amount wih conversions (without gulden)
 proc_calculate_currency:
     type: procedure
-    definitions: copperling_amount|silverling_amount|goldling_amount
+    definitions: groschen_amount|taler_amount
     script:
-    - define silverling_mul <[silverling_amount].mul[64]>
-    - define goldling_mul <[silverling_mul].mul[64]>
-    - define total_amount <[copperling_amount].add[<[silverling_mul]>].add[<[goldling_mul]>]>
+    - define taler_conv <[taler_amount].mul[64]>
+    - define total_amount <[groschen_amount].add[<[taler_conv]>]>
     - determine <[total_amount]>
+
+# calculate total money amount stored in purses
+proc_calculate_currency_purse_total:
+    type: procedure
+    definitions: purse_small|purse_medium|purse_large
+    script:
+    - define total <[purse_small].add[<[purse_medium]>].add[<[purse_large]>]>
+    - determine <[total]>
 
 task_update_currency_amount:
     type: task
     # get every currency item amounts from purses of all sizes, from player inventory and bank depot
     # names example: pss - purse small copper
-    definitions: player|psc|pss|psg|pmc|pms|pmg|plc|pls|plg|inv_copper|inv_silver|inv_gold|bank_amount
+    definitions: player|purse_amount|inventory_amount|bank_amount
     script:
-        # calculate total money amounts with conversions
-        - define purse_small_total <proc[proc_calculate_currency].context[<[psc]>|<[pss]>|<[psg]>]>
-        - define purse_medium_total <proc[proc_calculate_currency].context[<[pmc]>|<[pms]>|<[pmg]>]>
-        - define purse_large_total <proc[proc_calculate_currency].context[<[plc]>|<[pls]>|<[plg]>]>
-        - define inventory_total <[inv_copper].add[<[inv_silver]>].add[<[inv_gold]>]>
-        - define total <[purse_small_total].add[<[purse_medium_total]>].add[<[purse_large_total]>].add[<[inventory_total]>].add[<[bank_amount]>]>
+        # calculate total money amounts
+        - define total <[purse_amount].add[<[inventory_amount]>].add[<[bank_amount]>]>
         # flag player with total amount
         - flag <[player]> player.flag.currency.money_total:<[total]>
 
     # player.flag.currency.money_total
     # player.flag.currency.purse_total
-    # 
+    # player.flag.currency.inventory_total
+    # player.flag.currency.bank_total
+    # player.currency.bank.amount
+    # player.currency.money.amount
+    # player.currency.crystals.amount
+
+# player picks up item_currency_*:
+
+
 
