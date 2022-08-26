@@ -15,6 +15,7 @@ purse_handler:
       - determine passively cancelled
       - ratelimit <player> 1t
       - define item <context.item.script.name>
+      - narrate "Geldbeutel geöffnet"
       - flag <player> player.flag.currency.purse_opened
       # has item a purse flag?
       # no: open empty dummy inventory
@@ -73,12 +74,24 @@ purse_handler:
       - determine cancelled
     on player left clicks block with:item_purse_*:
       - determine cancelled
-    on player drags item_purse_*:
+    on player drags in inventory flagged:player.flag.currency.purse_opened:
       # if player has the purse currently open, don't let him drag the purse item around
-      - if !<player.has_flag[player.flag.currency.purse_opened]>:
+      - narrate "event drag"
+      - if <context.item.script.name.advanced_matches[item_currency_*]>:
+        - narrate "Spieler drags item item_currency_* or air"
         - stop
       - else:
-        - determine cancelled
+        - determine passively cancelled
+        - narrate "Spieler drags anderes item als item_currency_*"
+
+    on player clicks in inventory flagged:player.flag.currency.purse_opened:
+      - narrate "event click"
+      - if <context.item.script.name.advanced_matches[item_currency_*]> || <context.cursor_item.script.name.advanced_matches[item_currency_*]>:
+        - narrate "Spieler clicks item item_currency_* or air"
+        - stop
+      - else:
+        - determine passively cancelled
+        - narrate "Spieler clicks anderes item als item_currency_*"
 
 # Inventory Sizes
 
