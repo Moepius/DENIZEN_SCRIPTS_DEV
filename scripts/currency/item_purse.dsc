@@ -49,25 +49,64 @@ purse_handler:
       - define groschen <context.inventory.quantity_item[item_currency_groschen]>
       - define taler <context.inventory.quantity_item[item_currency_taler]>
       - define crystal <context.inventory.quantity_item[item_currency_energyfocus]>
-      # flag purse with contents and uuid (for unique item data)
+      # flag purse with contents, amount and uuid (for unique item data)
       - inventory flag slot:hand item.purse.inventory:<[contents]>
       - inventory flag slot:hand item.purse.randomm_uuid:<util.random_uuid>
+      - inventory flag slot:hand item.purse.currency_amount.groschen:<context.inventory.quantity_item[item_currency_groschen]>
+      - inventory flag slot:hand item.purse.currency_amount.taler:<context.inventory.quantity_item[item_currency_taler]>
+      - inventory flag slot:hand item.purse.currency_amount.energyfocus:<context.inventory.quantity_item[item_currency_energyfocus]>
       # flag player with currency amounts per purse
       - choose <[item]>:
           - case item_purse_small:
-            - flag <player> player.currency.purse_small_amount:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
-            - flag <player> player.currency.crystals.purse_small_amount:<[crystal]>
+            - flag <player> player.currency.purse_small_amount:+:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+            - flag <player> player.currency.crystals.purse_small_amount:+:<[crystal]>
           - case item_purse_medium:
-            - flag <player> player.currency.purse_medium_amount:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
-            - flag <player> player.currency.crystals.purse_medium_amount:<[crystal]>
+            - flag <player> player.currency.purse_medium_amount:+:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+            - flag <player> player.currency.crystals.purse_medium_amount:+:<[crystal]>
           - case item_purse_large:
-            - flag <player> player.currency.purse_large_amount:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
-            - flag <player> player.currency.crystals.purse_large_amount:<[crystal]>
+            - flag <player> player.currency.purse_large_amount:+:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+            - flag <player> player.currency.crystals.purse_large_amount:+:<[crystal]>
       - define purse_amount <proc[proc_calculate_currency_purse_total].context[<player.flag[player.currency.purse_small_amount]>|<player.flag[player.currency.purse_medium_amount]>|<player.flag[player.currency.purse_large_amount]>]>
       - run task_update_currency_amount def:<player>|<[purse_amount]>|<player.flag[player.flag.currency.inventory_total]>|<player.flag[player.flag.currency.bank_total]>
     on player drops item_purse_*:
       # placeholder
-      - determine cancelled
+      - define item <context.item.script.name>
+      - define groschen <context.item.flag[item.purse.currency_amount.groschen]>
+      - define taler <context.item.flag[item.purse.currency_amount.taler]>
+      - define crystal <context.item.flag[item.purse.currency_amount.energyfocus]>
+      # flag player with purse contents and subtract them from his money amount
+      # TODO: Nicht pro Geldbeutel flaggen ... nach jeder Interaktion ganzes Inventar durchsuchen und Items zählen und flaggen
+      - choose <[item]>:
+        - case item_purse_small:
+          - flag <player> player.currency.purse_small_amount:-:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+          - flag <player> player.currency.crystals.purse_small_amount:-:<[crystal]>
+        - case item_purse_medium:
+          - flag <player> player.currency.purse_medium_amount:-:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+          - flag <player> player.currency.crystals.purse_medium_amount:-:<[crystal]>
+        - case item_purse_large:
+          - flag <player> player.currency.purse_large_amount:-:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+          - flag <player> player.currency.crystals.purse_large_amount:-:<[crystal]>
+      - define purse_amount <proc[proc_calculate_currency_purse_total].context[<player.flag[player.currency.purse_small_amount]>|<player.flag[player.currency.purse_medium_amount]>|<player.flag[player.currency.purse_large_amount]>]>
+      - run task_update_currency_amount def:<player>|<[purse_amount]>|<player.flag[player.flag.currency.inventory_total]>|<player.flag[player.flag.currency.bank_total]>
+    on player picks up item_purse_*:
+      # placeholder
+      - define item <context.item.script.name>
+      - define groschen <context.item.flag[item.purse.currency_amount.groschen]>
+      - define taler <context.item.flag[item.purse.currency_amount.taler]>
+      - define crystal <context.item.flag[item.purse.currency_amount.energyfocus]>
+      # flag player with purse contents and subtract them from his money amount
+      - choose <[item]>:
+        - case item_purse_small:
+          - flag <player> player.currency.purse_small_amount:+:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+          - flag <player> player.currency.crystals.purse_small_amount:+:<[crystal]>
+        - case item_purse_medium:
+          - flag <player> player.currency.purse_medium_amount:-:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+          - flag <player> player.currency.crystals.purse_medium_amount:+:<[crystal]>
+        - case item_purse_large:
+          - flag <player> player.currency.purse_large_amount:+:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
+          - flag <player> player.currency.crystals.purse_large_amount:+:<[crystal]>
+      - define purse_amount <proc[proc_calculate_currency_purse_total].context[<player.flag[player.currency.purse_small_amount]>|<player.flag[player.currency.purse_medium_amount]>|<player.flag[player.currency.purse_large_amount]>]>
+      - run task_update_currency_amount def:<player>|<[purse_amount]>|<player.flag[player.flag.currency.inventory_total]>|<player.flag[player.flag.currency.bank_total]>
 
     # handling player interactions
     on player breaks block with:item_purse_*:

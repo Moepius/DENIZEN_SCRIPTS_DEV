@@ -65,5 +65,25 @@ task_update_currency_amount:
 
 # player picks up item_currency_*:
 
+update_currency_events:
+    type: world
+    debug: true
+    events:
+        on delta time secondly every:5:
+        - define player <server.online_players>
+        - foreach <[player]> as:player:
+            - run 
+
+update_currency_task:
+    type: task
+    definitions: player
+    script:
+        - define groschen <[player].inventory.quantity_item[item_currency_groschen]>
+        - define taler <[player].inventory.quantity_item[item_currency_taler]>
+        - define crystal <[player].inventory.quantity_item[item_currency_energyfocus]>
+        - define small_purse <[player].inventory.quantity_item[item_purse_small]>
+        - define small_purse <[player].inventory.quantity_item[item_purse_medium]>
+        - define small_purse <[player].inventory.quantity_item[item_purse_large]>
+
 
 
