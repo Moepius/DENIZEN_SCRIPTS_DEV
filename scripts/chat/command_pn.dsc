@@ -54,5 +54,7 @@ command_pn:
         ####################################
         - define message "<context.raw_args.after[<context.args.first> ]>"
         - run chatsounds_important def:<[target]>
-        - narrate targets:<[target]> "<&b><&l>[<&6><&l>PN<&b><&l>] <&a><player.name.on_hover[<&b>Klicken, zum antworten].on_click[/pn <player.name> ].type[SUGGEST_COMMAND]> <&b>zu Euch<&f><&co> <[message]>"
+        - narrate targets:<[target]> "<&b><&l>[<&6><&l>PN<&b><&l>] <&a><player.name.on_hover[<&b>Klicken, zum antworten].on_click[/pn <player.name> ].type[SUGGEST_COMMAND]> <&b>➤<&f><&co> <[message]>"
         - narrate "<&b><&l>[<&6><&l>PN<&b><&l>] <&b>Ihr zu <&a><[target].name.on_hover[<&b>Klicken, für weitere Nachricht].on_click[/pn <[target].name> ].type[SUGGEST_COMMAND]><&f><&co> <[message]>"
+
+        # Sender <&b>➤ Empfänger
