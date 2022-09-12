@@ -1,3 +1,6 @@
+#TODO: flags/permissions
+#TODO: Verknüpfung verschiedene Spielwelten
+
 command_nightvision:
     type: command
     debug: true

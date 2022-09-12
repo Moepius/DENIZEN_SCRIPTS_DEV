@@ -44,10 +44,10 @@ itemframe_tool_world:
     debug: false
     events:
         # usage
-        on player damages *_item_frame with:itemframe_tool_item:
+        on player damages item_frame|glow_item_frame with:itemframe_tool_item:
         - determine passively cancelled
         - adjust <context.entity> visible:true
-        on player right clicks *_item_frame with:itemframe_tool_item:
+        on player right clicks item_frame|glow_item_frame with:itemframe_tool_item:
         - determine passively cancelled
         - adjust <context.entity> visible:false
         # prevention
