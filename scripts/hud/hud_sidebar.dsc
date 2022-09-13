@@ -20,10 +20,10 @@ magic_sidebar_config:
     lines:
     - "<&f><&m>-----------------------"
     - "<&3>➤ <&b><&l>Spielwelt: <&f><player.location.world.name>"
-    - "<&3>➤ <&b><&l>Standort: <&f><player.location.simple.before_last[,].replace[,].with[<&b>,<&f>]>"
-    - "<&3>➤ <&b><&l>Börse: <&6>❖ <&e><player.flag[player.flag.currency.money_total].if_null[0]> <&6>ᛔ <&e><player.flag[player.currency.bank.amount].if_null[0]> <&5>✦ <&d><player.flag[player.currency.crystals.amount].if_null[0]>"
-    - "<&3>➤ <&b><&l>Rang: <script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.rankcolor]><script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.ranksymbol]> <script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.rankname]>"
-    - "<&3>➤ <&b><&l>Spielzeit: <&f><duration[<player.statistic[PLAY_ONE_MINUTE]>t].formatted>"
+    - "<&3>➤ <&f><player.location.simple.before_last[,].replace[,].with[<&b>,<&f>]>"
+    - "<&3>➤ <&6>❖ <&e><player.flag[player.flag.currency.money_total].if_null[0]> <&6>ᛔ <&e><player.flag[player.currency.bank.amount].if_null[0]> <&5>✦ <&d><player.flag[player.currency.crystals.amount].if_null[0]>"
+    - "<&3>➤ <script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.rankcolor]><script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.ranksymbol]> <script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.rankname]>"
+    
     - "<&f><&m>-----------------------"
 # ------------------------- End of configuration -------------------------
 
