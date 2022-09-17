@@ -19,7 +19,7 @@ purse_handler:
       - flag <player> player.flag.currency.purse_opened
       # has item a purse flag?
       # no: open empty dummy inventory
-      - if !<context.item.has_flag[item.purse.inventory]>:
+      - if !<context.item.has_flag[item.currency.purse.inventory_contents]>:
         - choose <[item]>:
           - case item_purse_small:
             - inventory open destination:small_purse_inventory
@@ -36,7 +36,7 @@ purse_handler:
             - define inventory <inventory[medium_purse_inventory]>
           - case item_purse_large:
             - define inventory <inventory[large_purse_inventory]>
-        - adjust <[inventory]> contents:<context.item.flag[item.purse.inventory]>
+        - adjust <[inventory]> contents:<context.item.flag[item.currency.purse.inventory_contents]>
         - inventory open destination:<[inventory]>
     # when player closes the purse, flag item with contents and currency amounts and the player too
     on player closes *_purse_inventory:
@@ -50,7 +50,7 @@ purse_handler:
       - define taler <context.inventory.quantity_item[item_currency_taler]>
       - define crystal <context.inventory.quantity_item[item_currency_energyfocus]>
       # flag purse with contents, amount and uuid (for unique item data)
-      - inventory flag slot:hand item.purse.inventory:<[contents]>
+      - inventory flag slot:hand item.currency.purse.inventory_contents:<[contents]>
       - inventory flag slot:hand item.purse.randomm_uuid:<util.random_uuid>
       - inventory flag slot:hand item.purse.currency_amount.groschen:<context.inventory.quantity_item[item_currency_groschen]>
       - inventory flag slot:hand item.purse.currency_amount.taler:<context.inventory.quantity_item[item_currency_taler]>

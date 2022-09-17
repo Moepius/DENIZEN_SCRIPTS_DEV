@@ -1,3 +1,35 @@
+# TODO
+
+- Add docs to every script
+- Set all flag names to fit the flag name convention
+
+# Notes
+
+## flag scaffold
+
+targets (object where flag is stored):
+- player
+- server
+- item
+- location
+- inventory
+- npc
+
+categories (based on script folders):
+- core
+- command
+- items
+- currency
+- rank
+- world
+- chat
+- claims
+- skill
+- quest
+- npc
+
+**<flag_target>.<flag_category>.[<flag_subcategory/ies>].<flag_usecase/name>**
+
 # Tag Collection
 
 ## Player Tags
