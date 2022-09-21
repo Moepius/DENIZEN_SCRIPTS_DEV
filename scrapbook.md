@@ -5,6 +5,28 @@
 
 # Notes
 
+- Locking Skills: when a player joins and is in survival/not another game mode he gets a flag like `player.core.experience.enabled`  
+which allows him to level up in skills etc.
+- Otherwise he gets the flag `player.core.experience.disabled` and some events will be cancelled with flagged argument  
+example:  
+`player absorbs experience flagged:player.core.experience.disabled:  
+  - determine cancelled`
+
+**Stuff to disable**:
+
+- gaining experience (orbs)
+- eating
+- healing
+- opening enderchest
+- dropping items
+- trading
+- picking up items
+- gainig/loosing money
+- gaining skill experience
+- killing mobs (without command)
+- entering survival gameplay zones (kolonie, avarus)
+- ...
+
 ## flag scaffold
 
 targets (object where flag is stored):
