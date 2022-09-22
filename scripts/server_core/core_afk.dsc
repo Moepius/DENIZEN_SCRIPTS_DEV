@@ -39,12 +39,15 @@ afk_events:
   events:
     on system time secondly every:1:
       - foreach <server.online_players> as:p:
-        - if <[p].has_permission[zc.afk.ignore]>:
-          - foreach next
         - if !<[p].has_flag[player.core.afk]> || <[p].flag[player.core.afk.location]> != <[p].location.block>:
           - run toggle_afk def:false player:<[p]>
         - else if <[p].flag[player.core.afk.time].from_now.in_minutes> > 5:
           - run toggle_afk def:true player:<[p]>
+          - if <[p].flag[player.core.afk.time].from_now.in_minutes> > 15:
+            - if <[p].has_permission[player.core.afk.bypass]>:
+                - foreach next
+            - else:
+                - kick <[p]> "reason:Ihr wart zu lange AFK"
     on player clicks block flagged:player.core.afk:
       - run toggle_afk def:false
     on player chats flagged:player.core.afk:

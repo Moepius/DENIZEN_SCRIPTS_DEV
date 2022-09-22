@@ -28,3 +28,7 @@
 
 ## Permissions
 
+#### core
+
+- player.core.afk.bypass | bypass AFK kicking
+
