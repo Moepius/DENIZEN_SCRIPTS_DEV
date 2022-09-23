@@ -5,12 +5,24 @@
 
 # Notes
 
+### Protection
 - Locking Skills: when a player joins and is in survival/not another game mode he gets a flag like `player.core.experience.enabled`  
 which allows him to level up in skills etc.
 - Otherwise he gets the flag `player.core.experience.disabled` and some events will be cancelled with flagged argument  
 example:  
 `player absorbs experience flagged:player.core.experience.disabled:  
   - determine cancelled`
+
+### teleport Pillars
+
+- Teleport to fixed destinations that have a monument (pillars) using advanced soul magic
+- Monuments mostly ruined
+- Player gets burned when touching blocks of ruined monuments (which are not working anymore)
+
+### colonies
+
+- leveling colonies up can only be done once a day
+- firework effects when leveling up and colonizing
 
 **Stuff to disable**:
 
