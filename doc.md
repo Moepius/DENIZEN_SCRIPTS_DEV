@@ -23,6 +23,10 @@
 - player.core.afk.location | where player is afk right now
 - player.core.afk.time | how long a player is afk
 
+#### skills
+
+- player.skill.level.total | combined levels in all skills
+
 
 ## Notes
 
