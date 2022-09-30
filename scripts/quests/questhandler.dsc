@@ -25,3 +25,11 @@
 # Einmal angenommene Quests werden markiert, solange diese aktiv sind. Wird eine Quest abgeschlossen, kann diese erneut begonnen
 # werden. Abgebrochene oder abgeschlossene Quests werden ebenfalls als "freigeschaltet" markiert und können jederzeit begonnen werden.
 # Sollte eine andere Quest aktiv sein, geht deren Fortschritt verloren, um kein Durcheinander zu erzeugen.
+
+quests_events:
+    type: world
+    enabled: false
+    events:
+        on player joins:
+        - if <player.has_flag[enabled_error]>:
+            - narrate "Fehler! Script sollte ausgeschaltet sein"

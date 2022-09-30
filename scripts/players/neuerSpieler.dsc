@@ -3,6 +3,7 @@
 NeuerSpielerJoin:
     type: world
     debug: false
+    enabled: false
     events:
         after player joins:
         - playsound <player> sound:ENTITY_EXPERIENCE_ORB_PICKUP pitch:1

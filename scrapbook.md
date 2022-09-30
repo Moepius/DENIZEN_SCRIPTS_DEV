@@ -7,7 +7,7 @@
 
 #### unicode symbols
 
-⚔, 🗡, ☠, ⊚, ❖, ⌛, ᛔ, ✦, ⛏
+⚔, 🗡, ☠, ⊚, ❖, ⌛, ᛔ, ✦, ⛏, 🔥, ⚡, ✺
 
 ### Protection
 - Locking Skills: when a player joins and is in survival/not another game mode he gets a flag like `player.core.experience.enabled`  

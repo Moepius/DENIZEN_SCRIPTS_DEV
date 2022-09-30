@@ -4,9 +4,10 @@
 # flags: firstjoin_infosangezeigt (wird gesetzt wenn Willkommensnachrichtem beim ersten join usw. einmal durchgelaufen sind, bevor irgendwelche anderen Chats ausgeführt werden sollten)
 #
 
-NeuerSpielerJoin:
+gast_rules_not_accepted:
     type: world
     debug: false
+    enabled: false
     events:
         on player enters area_note_spawnportal:
             - run task_no_enter "def:craftasy.denizen.ranks.rules_accepted|Akzeptiert zunächst unsere Regeln!"

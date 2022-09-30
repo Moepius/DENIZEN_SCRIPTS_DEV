@@ -16,3 +16,11 @@
 
 # https://meta.denizenscript.com/Docs/Search/time
 
+core_gameplay:
+    type: world
+    enabled: false
+    events:
+        on player joins:
+        - if <player.has_flag[enabled_error]>:
+            - narrate "Fehler! Script sollte ausgeschaltet sein"
+

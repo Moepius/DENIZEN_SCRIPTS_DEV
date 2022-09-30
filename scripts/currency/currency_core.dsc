@@ -37,12 +37,6 @@ proc_calculate_currency:
     - determine <[total_amount]>
 
 # calculate total money amount stored in purses
-proc_calculate_currency_purse_total:
-    type: procedure
-    definitions: purse_small|purse_medium|purse_large
-    script:
-    - define total <[purse_small].add[<[purse_medium]>].add[<[purse_large]>]>
-    - determine <[total]>
 
 task_update_currency_amount:
     type: task

@@ -69,10 +69,10 @@ item_currency_gulden:
     - <&f><&m>----------------------------------
     - <&2>Währung
 
-item_currency_energyfocus:
+item_currency_crystal:
     type: item
     material: amethyst_cluster
-    display name: <&d><&l>Energiefokus
+    display name: <&d><&l>Kristall <&f>(unaufgeladen)
     mechanisms:
         hides: <list[ENCHANTS|ITEM_DATA]>
     lore:
@@ -85,7 +85,7 @@ item_currency_energyfocus:
     - <&d>für den Handel.
     - <empty>
     - <&f><&m>----------------------------------
-    - <&7>Zutat: <&2><&chr[2714]> Herstellbar: <&2><&chr[2714]>
+    - <&7>Zutat: <&2><&chr[2714]> <&7>Herstellbar: <&2><&chr[2714]>
     - <&f><&m>----------------------------------
     - <&2>Währung
 
