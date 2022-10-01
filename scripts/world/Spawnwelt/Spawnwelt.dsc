@@ -4,6 +4,7 @@
 spawnwelt:
     type: world
     debug: false
+    enabled: false
     events:
     #flag players for entering/leaving the areas
         on player enters area_note_portalraum-dungeon:

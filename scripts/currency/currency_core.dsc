@@ -61,7 +61,8 @@ task_update_currency_amount:
 
 update_currency_events:
     type: world
-    debug: true
+    debug: false
+    enabled: false
     events:
         on delta time secondly every:5:
         - define player <server.online_players>

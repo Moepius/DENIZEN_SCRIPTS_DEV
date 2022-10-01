@@ -1,6 +1,7 @@
 auto_restarter_world:
     type: world
     debug: false
+    enabled: false
     events:
         on system time 03:00:
         - run auto_restarter_task
