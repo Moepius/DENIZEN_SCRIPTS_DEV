@@ -1,5 +1,6 @@
 # test for if a player is afk and handling stuff
 # TODO: disable actions when player is afk (receiving private Messages, getting hurt by players, collecting experience orbs and skills, etc.)
+# TODO: scrollabale offhand with virtual inventory
 
 is_afk:
   type: procedure
@@ -42,7 +43,7 @@ afk_events:
       - foreach <server.online_players> as:p:
         - if !<[p].has_flag[player.core.afk]> || <[p].flag[player.core.afk.location]> != <[p].location.block>:
           - run toggle_afk def:false player:<[p]>
-        - else if <[p].flag[player.core.afk.time].from_now.in_minutes> > 3:
+        - else if <[p].flag[player.core.afk.time].from_now.in_minutes> > 10:
           - run toggle_afk def:true player:<[p]>
           - if <[p].flag[player.core.afk.time].from_now.in_minutes> > 30:
             - if <[p].has_permission[player.core.afk.bypass]>:

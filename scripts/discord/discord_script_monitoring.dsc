@@ -11,7 +11,7 @@ error_handler_conf:
     # Shows errors that crop up in any scripts that get run
     show_script_errors: true
     # If you would like to turn off error reporting for things like the /ex command, set to false
-    show_nonscript_errors: true
+    show_nonscript_errors: false
     # Shows full stacktraces that get thrown by any plugin
     show_stacktraces: true
     # Snip stacktraces after this many lines of output (set to <= 0 to show all)
