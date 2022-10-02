@@ -1,6 +1,5 @@
 # test for if a player is afk and handling stuff
 # TODO: disable actions when player is afk (receiving private Messages, getting hurt by players, collecting experience orbs and skills, etc.)
-# TODO: scrollabale offhand with virtual inventory
 
 is_afk:
   type: procedure
@@ -31,9 +30,11 @@ toggle_afk:
     - if <[state]>:
       - narrate format:c_info "Ihr seid nun <&a>AFK<&b>."
       - narrate format:c_info "<player.name> ist nun <&a>AFK<&b>." targets:<server.online_players.exclude[<player>]>
+      - flag <player> player.core.afk.isafk
     - else:
       - narrate format:c_info "Ihr seid nicht mehr <&a>AFK<&b>."
       - narrate format:c_info "<player.name> ist nicht länger <&a>AFK<&b>." targets:<server.online_players.exclude[<player>]>
+      - flag <player> player.core.afk.isafk:!
 
 afk_events:
   type: world
@@ -58,3 +59,15 @@ afk_events:
       - run toggle_afk def:false
     on player quits:
       - flag <player> player.core.afk:!
+
+afk_restrictions:
+  type: world
+  debug: false
+  events:
+    on player absorbs experience:
+      - if <player.has_flag[player.core.afk.isafk]>:
+        - determine cancelled
+    on player damages block:
+      - if <player.has_flag[player.core.afk.isafk]>:
+        - determine cancelled
+    

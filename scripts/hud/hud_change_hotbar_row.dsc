@@ -1,3 +1,4 @@
+
 #######################################
 # scrollabe inventory
 #######################################
@@ -78,14 +79,14 @@ scrollable_inventory_task:
 
 
 #######################################
-# scrollabe offhand
+# offhand inventory
 #######################################
 
-scrollable_offhand_events:
+swappable_offhand_events:
     type: world
-    debug: false
+    debug: true
     # flags
-
+    inventory_contents: player.hud.swappable_inventory.inventory_contents
     # permissions
     use_offhand_scrolling: craftasy.denizen.hud.offhand_scroll
 
@@ -97,7 +98,30 @@ scrollable_offhand_events:
         - if !<player.has_permission[craftasy.denizen.hud.offhand_scroll]>:
             - stop
         - determine cancelled passively
-        # loop through items in virtual offhand inventory
-        # stuff
+        - inventory open d:swappable_offhand_inventory
 
         # add/remove items in offhand inventory
+        # TODO: prefill inventory with item_gui_filler_black, while keeping slot 3 - 7 usable
+        # TODO: when player close inventory, item in slot 3 will be set to be the ofhand item
+        # TODO: when player opens inventory, slot 3 will be updated with currently hold offhand item
+        # TODO: find a good button for scrolling through the inventory
+        on player closes swappable_offhand_inventory:
+            - flag <player> <script.data_key[inventory_contents]>:<context.inventory.list_contents>
+        on player opens swappable_offhand_inventory:
+            - if !<player.has_flag[<script.data_key[inventory_contents]>]>:
+                - stop
+
+
+swappable_offhand_inventory:
+    type: inventory
+    debug: false
+    inventory: chest
+    title: quick-menu
+    slots:
+    - [item_gui_filler_black] [item_gui_filler_black] [] [] [] [] [] [item_gui_filler_black] [item_gui_filler_black]
+
+item_gui_filler_black:
+  type: item
+  material: black_stained_glass_pane
+  display name: <&sq>
+

@@ -4,7 +4,7 @@ command_pn:
     type: command
     debug: true
     name: pn
-    description: "Private Nachricht an einen Spieler"
+    description: Private Nachricht an einen Spieler
     usage: /pn <&lt>Spieler<&gt> <&lt>Nachricht<&gt>
     aliases:
     - pm
@@ -29,13 +29,17 @@ command_pn:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr müsst einen Spieler angeben."
             - stop
-        - if <context.args[1]> == <context.player.name>:
+        - if <context.args[1]> == <player.name>:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr könnt Euch selbst keine Nachricht senden."
             - stop
         - if !<[target].is_truthy>:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Kein gültiger Spieler oder nicht online."
+            - stop
+        - if <[target].has_flag[player.core.afk.isafk]>:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Der Spieler ist <&a>AFK<&c>."
             - stop
         - if <[target]> == <player>:
             - run chatsounds_error def:<player>

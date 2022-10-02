@@ -39,7 +39,7 @@ chat_handler:
         - define title "<script[data_title_info].parsed_key[<player.flag[player.flag.title.name]>.titlename].if_null[no data!]>"
         - definemap player_format:
             prefix: <element[<script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.rankcolor]><script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.ranksymbol]>].on_hover[<script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.rankinfo]>]>
-            name: <script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.rankcolor]><player.name.on_hover[<[title]><&nl><&b>Klicken, für Privatnachricht].on_click[/pn <player.name> ].type[SUGGEST_COMMAND]>
+            name: <script[data_rank_info].parsed_key[<player.flag[player.flag.rank.name]>.rankcolor]><player.name.on_hover[<[title]> <player.has_flag[player.core.afk.isafk].if_true[<&b>| <&cAFK>].if_false[<&b>| <&a>aktiv]><&nl><&b>Klicken, für Privatnachricht].on_click[/pn <player.name> ].type[SUGGEST_COMMAND]>
         - announce "<&f><&lb.bold><[player_format.prefix]><&f><&rb.bold> <[player_format.name]><&f><&co> <context.message.parse_color>"
 
 
@@ -50,5 +50,4 @@ chat_handler:
 # flag <player> player.flag.rank.name:name
 # flag <player> player.flag.title.name:name
 # bzw.: flag <server.match_player[spieler]> player.flag.title.name:name
-
 
