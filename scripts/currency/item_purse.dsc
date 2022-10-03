@@ -95,7 +95,7 @@ purse_handler:
       - else:
         - determine passively cancelled
         - narrate "Spieler drags anderes item als item_currency_*"
-
+    # TODO: fix events using events from hud_change_hotbar_row script
     on player clicks in inventory flagged:player.currency.purse.open:
       - narrate "event click"
       - if <context.item.script.name.advanced_matches[item_currency_*]> || <context.cursor_item.script.name.advanced_matches[item_currency_*]>:
