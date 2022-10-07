@@ -87,6 +87,7 @@ swappable_offhand_events:
     debug: true
     # flags
     inventory_contents: player.hud.swappable_inventory.inventory_contents
+    temp_firstitem: player.hud.swappable_inventory.temp_firstitem
     inventory_open: player.hud.swappable_inventory.inventory_open
     inventory_doubleclick_test: player.hud.swappable_inventory.inventory_doubleclick_test
     # permissions
@@ -100,13 +101,24 @@ swappable_offhand_events:
         - if !<player.has_permission[craftasy.denizen.hud.offhand_scroll]>:
             - stop
         - determine cancelled passively
-        - flag <player> <script.data_key[inventory_doubleclick_test]>:++ expire:1.5s
+        - flag <player> <script.data_key[inventory_doubleclick_test]>:++ expire:0.2s
         # test for double click action
         - if <player.flag[<script.data_key[inventory_doubleclick_test]>]> > 1:
             # open offhand inventory
             - inventory open d:swappable_offhand_inventory
             - flag <player> <script.data_key[inventory_open]>
         - else:
+            - if !<player.has_flag[<script.data_key[inventory_contents]>]>:
+                - stop
+            - if <player.open_inventory> == <inventory[swappable_offhand_inventory]>:
+                - narrate "<&c>offhand Inventar geöffnet"
+                - stop
+            - define firstitem <player.flag[<script.data_key[inventory_contents]>].get[1]>
+            - flag <player> <script.data_key[temp_firstitem]>:<[firstitem]>
+            - flag <player> <script.data_key[inventory_contents]>:<-:<player.flag[<script.data_key[temp_firstitem]>]>
+            - flag <player> <script.data_key[inventory_contents]>:->:<player.flag[<script.data_key[temp_firstitem]>]>
+            - flag <player> <script.data_key[temp_firstitem]>:!
+            - adjust <player> item_in_offhand:<player.flag[<script.data_key[inventory_contents]>].get[1]>
             # cycle through offhand items in inventory
             - narrate "single click!"
 
@@ -118,11 +130,8 @@ swappable_offhand_events:
         on player opens swappable_offhand_inventory:
             - inventory set o:<player.item_in_offhand> slot:3
         # handling player interactions
-        on player drags in swappable_offhand_inventory:
-        - if !<context.item.script.name.advanced_matches[item_gui_filler_black]>:
-            - stop
-        - else:
-            - determine cancelled
+        on player drags item_gui_filler_black in swappable_offhand_inventory:
+        - determine cancelled
         on player clicks item_gui_filler_black in swappable_offhand_inventory:
         - determine cancelled
 

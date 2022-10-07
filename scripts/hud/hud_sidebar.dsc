@@ -17,6 +17,7 @@ magic_sidebar_config:
     # with a specified width and scroll speed (characters shifted per second).
     # Note that width must always be less than the line's actual length.
     # There should also be at least one normal line that's as wide as the width, to prevent the sidebar resizing constantly.
+    # TODO: make lines configurable via GUI settings (toggle lines on/off)
     lines:
     - "<&2>⚑ <&a><player.location.simple.before_last[,].replace[,].with[<&2>,<&a>]>"
     - "<&6>❖ <&e><player.flag[player.flag.currency.money_total].if_null[0]> <&6>ᛔ <&e><player.flag[player.currency.bank.amount].if_null[0]> <&5>✦ <&d><player.flag[player.currency.crystals.amount].if_null[0]>"
