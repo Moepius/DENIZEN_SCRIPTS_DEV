@@ -1,4 +1,12 @@
 
+inventory_tools_config:
+    type: data
+    # set to true/false to enable/disable functions
+    scrollable_inventory_enabled: true
+    swappable_offhand_enabled: true
+
+
+
 #######################################
 # scrollabe inventory
 #######################################
@@ -8,7 +16,7 @@
 scrollable_inventory_events:
     type: world
     debug: false
-
+    enabled: <script[inventory_tools_config].data_key[scrollable_inventory_enabled]>
     # flags
     row_changed: player.hud.hotbar_row.row_changed
     hotbar: player.hud.hotbar_row.current_hotbar
@@ -84,9 +92,11 @@ scrollable_inventory_task:
 
 # TODO: find a way cancelling players from using swapping while offhand inventory is opened
 
+
 swappable_offhand_events:
     type: world
     debug: true
+    enabled: <script[inventory_tools_config].data_key[swappable_offhand_enabled]>
     # flags
     inventory_contents: player.hud.swappable_inventory.inventory_contents
     temp_firstitem: player.hud.swappable_inventory.temp_firstitem
@@ -126,7 +136,7 @@ swappable_offhand_events:
             - flag <player> <script.data_key[inventory_contents]>:->:<player.flag[<script.data_key[temp_firstitem]>]>
             - flag <player> <script.data_key[temp_firstitem]>:!
             - adjust <player> item_in_offhand:<player.flag[<script.data_key[inventory_contents]>].get[1]>
-        # add/remove items in offhand inventory
+        # add/remove items in offhand inventory and flag player with inventory contents
         on player closes swappable_offhand_inventory:
             - flag <player> <script.data_key[inventory_contents]>:<context.inventory.list_contents.exclude[<item[item_gui_filler_black]>]>
             - flag <player> <script.data_key[inventory_open]>:!
