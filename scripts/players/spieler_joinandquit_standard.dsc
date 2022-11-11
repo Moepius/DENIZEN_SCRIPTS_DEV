@@ -4,11 +4,13 @@
 # Abhängigkeiten: Task-Script task_motd
 #
 
+# TODO: other message if the player logs in again after a long time not showing up (half a year)
+
 spieler_joinandquit_standard:
     type: world
     debug: false
     events:
-      on player joins:
+      after player joins:
       - determine none passively
       - foreach <server.online_players>:
         - playsound <[value]> sound:BLOCK_NOTE_BLOCK_CHIME volume:1 pitch:1.5

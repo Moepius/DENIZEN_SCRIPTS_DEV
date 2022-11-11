@@ -13,6 +13,8 @@ chat_handler:
     debug: false
     events:
         on player chats:
+        - if <player.has_flag[player.core.chat_interaction.interactionmode]>:
+            - stop
         - determine passively cancelled
         - flag <player> player.flag.chat_counter:++ expire:15s
         - if <player.flag[player.flag.chat_counter]> >= 10:

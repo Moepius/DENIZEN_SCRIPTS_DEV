@@ -5,6 +5,10 @@
 
 # Notes
 
+### Claiming System (Colonies)
+
+- teleport scrolls have expensive crafting recipes, with a higher skill in crafting and upgraded claim they get cheaper
+
 #### unicode symbols
 
 ⚔, 🗡, ☠, ⊚, ❖, ⌛, ᛔ, ✦, ⛏, 🔥, ⚡, ✺
@@ -67,6 +71,10 @@ categories (based on script folders):
 - npc
 
 **<flag_target>.<flag_category>.[<flag_subcategory/ies>].<flag_usecase/name>**
+
+## flags
+
+player.core.chat_interaction.interactionmode - used to disable chat controlling when player interacts with the chat (using search through chat, submitting reports, etc.)
 
 # Tag Collection
 
