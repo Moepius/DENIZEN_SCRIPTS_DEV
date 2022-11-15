@@ -24,6 +24,12 @@ creative_pickblock:
             - else:
                 - determine cancelled passively
                 - inventory set slot:hand origin:<context.location.material.item>
+        on player damages item_frame|glow_item_frame flagged:dcreative.active:
+            - if !<player.is_sneaking>:
+                - stop
+            - else:
+                - determine cancelled passively
+                - inventory set slot:hand origin:<context.entity>
 
 creative_command:
     type: command
