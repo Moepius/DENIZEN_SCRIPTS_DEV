@@ -9,11 +9,14 @@
 #                                                                                        #
 ##########################################################################################
 
-# TODO: add pick block feature for middle mouse click
 # TODO: make bonemeal and stuff infinite, right now it gets consumed when using
 # TODO: add support for entities (item frames) for pick block action
-# TODO: 
+# TODO: add delete inv button so that players can remove the whole inv while in creative
+# TODO: add buttons in crafting slots for deleting inv, opening creative menu, settings and switching to crafting
+# TODO: SHIFT + right-click gives player 64 of that block
+# TODO: block getting experience orbs
 
+## already implemented further down, delete
 creative_pickblock:
     type: world
     debug: true
@@ -30,6 +33,8 @@ creative_pickblock:
             - else:
                 - determine cancelled passively
                 - inventory set slot:hand origin:<context.entity>
+
+
 
 creative_command:
     type: command
@@ -64,6 +69,9 @@ creative_handlers:
     - if <[item].material.name> == air:
         - stop
     events:
+        on player prepares anvil craft item flagged:dcreative.active:
+            - announce format:c_debug "anvil craft item event triggered! Cost: <context.repair_cost> Player: <player.name>"
+            - determine 0
         on server start server_flagged:dcreative.inventories:
         - foreach <server.flag[dcreative.inventories]> as:note_name:
             - note remove as:<[note_name]>
