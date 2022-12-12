@@ -19,6 +19,7 @@ world_rank_handler:
         - if !<player.has_flag[player.flag.rank_converted]>:
             - flag <player> player.flag.rank.data:<script[data_rank_info].parsed_key[veraltet]>
             - flag <player> player.flag.rank.name:veraltet
+            - flag <player> player.flag.title.name:player
             - flag <player> player.flag.no_motd
             - wait 2s
             - run task_player_not_converted def:<player>
@@ -96,7 +97,26 @@ data_rank_info:
         ranksymbol: ✸
         rankname: Legende
         rankinfo: <&6><&l>Legende<&nl><&b>Stammspieler, die mindestens 2000 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
-
+    legende_2:
+        rankcolor: <&6>
+        ranksymbol: ✸
+        rankname: Legende II
+        rankinfo: <&6><&l>Legende <&f><&lb><&6><&l>II<&f><&rb><&nl><&b>Stammspieler, die mindestens 2500 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    legende_3:
+        rankcolor: <&6>
+        ranksymbol: ✸
+        rankname: Legende III
+        rankinfo: <&6><&l>Legende <&f><&lb><&6><&l>III<&f><&rb><&nl><&b>Stammspieler, die mindestens 3000 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    legende_4:
+        rankcolor: <&6>
+        ranksymbol: ✸
+        rankname: Legende IV
+        rankinfo: <&6><&l>Legende <&f><&lb><&6><&l>IV<&f><&rb><&nl><&b>Stammspieler, die mindestens 4000 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
+    legende_5:
+        rankcolor: <&6>
+        ranksymbol: ⦑✸⦒
+        rankname: Legende V
+        rankinfo: <&6><&l>Legende <&f><&lb><&6><&l>V<&f><&rb><&nl><&b>Stammspieler, die mindestens 5000 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------<&nl><&b>Mehr Infos in unserem Wiki <&a><&n>craftasy.de/wiki<&b>.
 
 # konvertierte Spieler müssen zusätzlich 15 Stunden spielen, um den nächsten Rang zu erhalten
 

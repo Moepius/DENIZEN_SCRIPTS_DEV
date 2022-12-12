@@ -44,7 +44,7 @@ afk_events:
       - foreach <server.online_players> as:p:
         - if !<[p].has_flag[player.core.afk]> || <[p].flag[player.core.afk.location]> != <[p].location.block>:
           - run toggle_afk def:false player:<[p]>
-        - else if <[p].flag[player.core.afk.time].from_now.in_minutes> > 10:
+        - else if <[p].flag[player.core.afk.time].from_now.in_minutes> > 6:
           - run toggle_afk def:true player:<[p]>
           - if <[p].flag[player.core.afk.time].from_now.in_minutes> > 30:
             - if <[p].has_permission[player.core.afk.bypass]>:
