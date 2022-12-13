@@ -70,4 +70,3 @@ afk_restrictions:
     on player damages block:
       - if <player.has_flag[player.core.afk.isafk]>:
         - determine cancelled
-    

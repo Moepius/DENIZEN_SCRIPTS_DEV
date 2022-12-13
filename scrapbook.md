@@ -83,7 +83,7 @@ player.core.chat_interaction.interactionmode - used to disable chat controlling 
 ### Statistics
 
 - <duration[<player.statistic[PLAY_ONE_MINUTE]>t].formatted>
-  shows players playtime
+  shows players playtime (measured by server)
 
 ### Flag Stuff
 
