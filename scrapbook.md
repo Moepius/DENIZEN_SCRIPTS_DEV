@@ -3,6 +3,12 @@
 - Add docs to every script
 - Set all flag names to fit the flag name convention
 
+# IDEAS
+
+## custom mobs
+
+- group of black magicians on horses luring for travellers, 2 bandits with close range attacks, one magician with long range spells
+
 # Notes
 
 ### Claiming System (Colonies)

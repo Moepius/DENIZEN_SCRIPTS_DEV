@@ -59,10 +59,10 @@ playtime_set_command:
     - ptimeset
     tab completions:
         1: <server.online_players.parse[name]>
-        2: Zahl (Sekunden)
+        2: int(seconds)
     script:
         # initial checks
-        - if <context.args.get[1].is_empty>:
+        - if <context.args.is_empty>:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr müsst einen Spieler angeben."
             - stop
@@ -86,3 +86,4 @@ playtime_set_command:
             - stop
         # set playtime
         - flag <[player_matched]> player.core.playtime.total:<context.args.get[2]>
+        - narrate format:c_info "Spielzeit von <&a><[player_matched].name><&b> auf <&a><duration[<context.args.get[2]>s].formatted><&b> gesetzt."
