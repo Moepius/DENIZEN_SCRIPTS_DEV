@@ -1,5 +1,20 @@
 # spielt sounds ab, während ein Spieler in der Spawnwelt ist
 # notes: area_note_spawnwelt_brunnen, area_note_spawnwelt, area_note_portalraum-dungeon, area_note_spawnwelt_zentrum
+# TODO: Schaden/Effekt/Malus wenn Spieler in der Nähe des Einschlags
+# TODO: Bei Betreten des Lochs, statt Portal, Denizen Partikel und Schaden Event o.ä.
+# TODO: flags etc. anpassen
+# TODO: portal areas hinzufügen + Mechaniken
+
+hideplayers_handler:
+    type: world
+    debug: true
+    enabled: true
+    events:
+        on player enters area_hortusmanium:
+        - flag <player> player.worlds.area.in_hortusmanium
+        ## Remove debug, when done
+        - narrate format:c_debug "Event: player enters area_hortusmanium, Mechanism: hide_from_players, gesetzt."
+        - adjust <player> hide_from_players
 
 spawnwelt:
     type: world
@@ -68,5 +83,4 @@ spawnwelt:
                     - playsound <[Spieler]> sound:ambient_soul_sand_valley_mood volume:0.5
                 - repeat 1:
                     - stop
-            # TODO: Schaden/Effekt/Malus wenn Spieler in der Nähe des Einschlags
-            # TODO: Bei Betreten des Lochs, statt Portal, Denizen Partikel und Schaden Event o.ä.
+           

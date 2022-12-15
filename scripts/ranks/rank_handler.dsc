@@ -1,7 +1,3 @@
-
-
-
-
 world_rank_handler:
     type: world
     debug: false
