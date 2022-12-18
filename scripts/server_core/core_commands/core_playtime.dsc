@@ -2,7 +2,7 @@
 
 playtime_handler:
     type: world
-    debug: true
+    debug: false
     enabled: true
     events:
         on system time secondly:
@@ -15,7 +15,7 @@ playtime_handler:
 
 playtime_command:
     type: command
-    debug: true
+    debug: false
     name: pt
     description: get a players playtime
     usage: /pt
@@ -50,7 +50,7 @@ playtime_command:
 
 playtime_set_command:
     type: command
-    debug: true
+    debug: false
     name: ptset
     description: set a players playtime
     usage: /ptset
