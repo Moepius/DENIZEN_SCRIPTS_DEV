@@ -1,4 +1,20 @@
 # handles portals in worlds
+# permission named with craftasy.denizen.portals.use_<context.area.note_name> ... last bit is name of the area
+# locations named with teleportlocation_<context.area.note_name> ... last bit is name of the area
+
+# generating area flag: /ex flag server server.worlds.portals.notedareas:<list[<cuboid[areaname]>|<cuboid[areaname]>|...]>
+# adding new area: /ex flag server server.worlds.portals.notedareas:|:<cuboid[areaname]>
+
+debug_test_portals:
+    type: command
+    debug: false
+    name: debugportals
+    description: debuggin' portals
+    usage: /debugportals
+    script:
+        #- define areas <server.flag[server.worlds.portals.notedareas]>
+        - foreach <server.flag[server.worlds.portals.notedareas].as[cuboid].note_name> as:areaname:
+            - narrate format:c_debug <[areaname]>
 
 portal_handler:
     type: world
@@ -8,22 +24,20 @@ portal_handler:
         # entering of portals
         ############################################
         # Spawn-Portalraum (Hortus Manium)
-        on player enters area_portals_spawn-portalraum:
-        - run portal_checker def:<player>|craftasy.denizen.portals.use_spawn_portalraum
+        on player enters area_portals_*:
         - flag <player> player.worlds.portals.isteleporting
-        - narrate format:c_debug "warp test"
-        - run portal_enter_task def:<player>|location_portals_spawn-portalraum
-        on player enters area_portals_portalraum-spawn:
-        - run portal_checker def:<player>|craftasy.denizen.portals.use_portalraum-spawn
-        - flag <player> player.worlds.portals.isteleporting
-        - narrate format:c_debug "warp test"
-        - run portal_enter_task def:<player>|location_portals_portalraum-spawn
+        - run portal_checker def:<player>|craftasy.denizen.portals.use_<context.area.note_name>
+        - run portal_enter_task def:<player>|teleportlocation_<context.area.note_name>
+        - narrate format:c_debug "Portal betreten! <context.area.note_name>"
+        on player exits area_portals_*:
+        - flag <player> player.worlds.portals.isteleporting:!
         on delta time secondly:
-        - define locations <cuboid[area_portals_spawn-portalraum].blocks.parse[center]>
-        - repeat 4:
-            - playeffect effect:town_aura at:<[locations]> visibility:50
-            - wait 5t
-
+        - define areas <server.flag[server.worlds.portals.notedareas]>
+        - foreach <[areas]> as:areaname:
+            - define locations <cuboid[<[areaname]>].blocks.parse[center]>
+            - repeat 4:
+                - playeffect effect:town_aura at:<[locations]> visibility:50
+                - wait 5t
 portal_checker:
     type: task
     debug: false
