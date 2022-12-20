@@ -39,11 +39,11 @@ hortusmanium_handler:
                 - playsound <[Spieler]> sound:BLOCK_CONDUIT_AMBIENT pitch:1
             # particles Hortus Manium
             - foreach <list[1].pad_right[2000]>:
-                - playeffect effect:white_ash at:<cuboid[area_hortusmanium].random> visibility:100 quantity:10
+                - playeffect effect:white_ash at:<cuboid[area_hortusmanium].random> visibility:50 quantity:10
             - foreach <list[1].pad_right[1500]>:
-                - playeffect effect:sculk_soul at:<cuboid[area_hortusmanium].random> visibility:100 quantity:1 velocity:0,0.1,0
+                - playeffect effect:sculk_soul at:<cuboid[area_hortusmanium].random> visibility:50 quantity:1 velocity:0,0.1,0
             - foreach <list[1].pad_right[800]>:
-                - playeffect effect:SOUL at:<cuboid[area_hortusmanium_zentrum_seelenschlund].random> visibility:100 quantity:1 velocity:0,0.1,0
+                - playeffect effect:SOUL at:<cuboid[area_hortusmanium].random> visibility:50 quantity:1 velocity:0,0.1,0
             # particles seelenschlund
             - foreach <list[1].pad_right[100]>:
                 - playeffect effect:SOUL at:<cuboid[area_hortusmanium_zentrum_seelenschlund].random> visibility:100 quantity:1 velocity:0,0.1,0
