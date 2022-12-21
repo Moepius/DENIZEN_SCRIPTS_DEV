@@ -17,14 +17,14 @@ hortusmanium_handler:
         on player exits area_portalraum_dungeon:
             - flag <player> player.worlds.area.in_portalraum_dungeoneingang:!
         on player enters area_hortusmanium_zentrum:
+            - narrate format:c_debug "player enters area_hortusmanium_zentrum"
             - flag <player> player.worlds.area.in_hortusmanium_zentrum
-        on player exits area_hortusmanium_zentrum:
+        after player exits area_hortusmanium_zentrum:
+            - narrate format:c_debug "player exits area_hortusmanium_zentrum"
             - flag <player> player.worlds.area.in_hortusmanium_zentrum:!
         # flag player for entering portal room
         on player enters area_hortusmanium:
             - flag <player> player.worlds.area.in_hortusmanium
-            ## Remove debug, when done
-            - narrate format:c_debug "Event: player enters area_hortusmanium, Mechanism: hide_from_players, gesetzt."
             - adjust <player> hide_from_players
             - playsound <player> sound:AMBIENT_SOUL_SAND_VALLEY_LOOP
         on player exits area_hortusmanium:
@@ -73,44 +73,43 @@ hortusmanium_handler:
                         - playsound <[Spieler]> sound:AMBIENT_SOUL_SAND_VALLEY_LOOP
         # ambient sound for portal room
         on system time secondly every:20:
-            - define Spieler <server.online_players_flagged[player.worlds.area.in_hortusmanium]>
+            - define player <server.online_players_flagged[player.worlds.area.in_hortusmanium]>
             - repeat 1:
-                - foreach <[Spieler]> as:Spieler:
-                    - playeffect effect:SOUL at:<location[velnias_location].add[1,2,0]> quantity:6 targets:<[Spieler]>
-                    - playsound <[Spieler]> sound:ambient_nether_wastes_mood volume:0.5
+                - foreach <[player]> as:player:
+                    - playeffect effect:SOUL at:<location[velnias_location].add[1,2,0]> quantity:6 targets:<[player]>
+                    - playsound <[player]> sound:ambient_nether_wastes_mood volume:0.5
                 - repeat 1:
-                    - foreach <[Spieler]> as:Spieler:
-                        - playeffect effect:SOUL at:<location[velnias_location].add[0,3,1]> quantity:15 targets:<[Spieler]>
-                        - playsound <[Spieler]> sound:ambient_soul_sand_valley_mood
+                    - foreach <[player]> as:player:
+                        - playeffect effect:SOUL at:<location[velnias_location].add[0,3,1]> quantity:15 targets:<[player]>
+                        - playsound <[player]> sound:ambient_soul_sand_valley_mood
                 - repeat 1:
-                    - foreach <[Spieler]> as:Spieler:
-                        - playeffect effect:SOUL at:<location[velnias_location].add[0,3,1]> quantity:8 targets:<[Spieler]>
-                        - playsound <[Spieler]> sound:ambient_soul_sand_valley_additions
+                    - foreach <[player]> as:player:
+                        - playeffect effect:SOUL at:<location[velnias_location].add[0,3,1]> quantity:8 targets:<[player]>
+                        - playsound <[player]> sound:ambient_soul_sand_valley_additions
                 - stop
         # play some effect at the portalroom center
-        on system time secondly every:60:
-            - define Spieler <server.online_players_flagged[player.worlds.area.in_hortusmanium_zentrum]>
-            - random:
-                - repeat 1:
-                    - announce format:c_debug "Hortus Manium Blitz ausgelöst."
-                    - playsound <[Spieler]> sound:entity_evoker_prepare_attack pitch:0.1
-                    - playeffect effect:soul_fire_flame at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:1 targets:<[Spieler]>
-                    - wait 0.9s
-                    - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[0,-50,0]>
-                    - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[4,-50,-3]>
-                    - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[-5,-50,6]>
-                    - foreach <list[1].pad_right[550]>:
-                        - playeffect effect:SOUL at:<cuboid[area_hortusmanium_zentrum_seelenschlund].random> visibility:100 quantity:1
-                    - foreach <list[1].pad_right[550]>:
-                        - playeffect effect:smoke at:<cuboid[area_hortusmanium_zentrum_seelenschlund].random> visibility:100 quantity:1
-                    - playeffect effect:smoke at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:5 targets:<[Spieler]>
-                    - playsound <[Spieler]> sound:entity_illusioner_prepare_blindness
-                    - wait 0.7s
-                    - playeffect effect:SOUL at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:2 targets:<[Spieler]>
-                    - playsound <[Spieler]> sound:particle_soul_escape volume:5
-                    - wait 2t
-                    - playsound <[Spieler]> sound:particle_soul_escape volume:5
-                    - wait 1s
-                    - playsound <[Spieler]> sound:ambient_soul_sand_valley_mood volume:0.5
-                - repeat 1:
-                    - stop
+        on system time secondly every:100:
+            - define player <server.online_players_flagged[player.worlds.area.in_hortusmanium_zentrum]>
+            - foreach <[player]> as:target:
+                - narrate format:c_debug "Hortus Manium Blitz ausgelöst."
+                - playsound <[target]> sound:entity_evoker_prepare_attack pitch:0.1
+                - playeffect effect:soul_fire_flame at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:1
+            - wait 0.9s
+            - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[0,-50,0]>
+            - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[4,-50,-3]>
+            - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[-5,-50,6]>
+            - foreach <list[1].pad_right[550]>:
+                - playeffect effect:SOUL at:<cuboid[area_hortusmanium_zentrum_seelenschlund].random> visibility:100 quantity:1 targets:<[player]>
+            - foreach <list[1].pad_right[550]>:
+                - playeffect effect:smoke at:<cuboid[area_hortusmanium_zentrum_seelenschlund].random> visibility:100 quantity:1
+            - playeffect effect:smoke at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:5 targets:<[player]>
+            - foreach <[player]> as:target:
+                - playsound <[target]> sound:entity_illusioner_prepare_blindness
+                - wait 0.7s
+                - playeffect effect:SOUL at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:2 targets:<[player]>
+                - playsound <[target]> sound:particle_soul_escape volume:5
+                - wait 2t
+                - playsound <[target]> sound:particle_soul_escape volume:5
+                - wait 1s
+                - playsound <[target]> sound:ambient_soul_sand_valley_mood volume:0.5
+
