@@ -36,7 +36,7 @@ portal_handler:
         - foreach <[areas]> as:areaname:
             - define locations <cuboid[<[areaname]>].blocks.parse[center]>
             - repeat 4:
-                - playeffect effect:town_aura at:<[locations]> visibility:50
+                - playeffect effect:town_aura at:<[locations]> visibility:40
                 - wait 5t
 portal_checker:
     type: task
