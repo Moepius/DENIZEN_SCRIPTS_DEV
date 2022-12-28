@@ -4,6 +4,7 @@
 
 # generating area flag: /ex flag server server.worlds.portals.notedareas:<list[<cuboid[areaname]>|<cuboid[areaname]>|...]>
 # adding new area: /ex flag server server.worlds.portals.notedareas:|:<cuboid[areaname]>
+# areas: area_portals_avarusprojektportalraum-parallelwelt, area_portals_avarusprojektportalraum-spawn
 
 debug_test_portals:
     type: command
@@ -25,10 +26,14 @@ portal_handler:
         ############################################
         # Spawn-Portalraum (Hortus Manium)
         on player enters area_portals_*:
+        # remove 1 Seelenheil from player
+        # TODO: permission check, no removal of seelenheil if no permission
+        - flag <player> player.core.seelenheil.amount:-:1
         - flag <player> player.worlds.portals.isteleporting
         - run portal_checker def:<player>|craftasy.denizen.portals.use_<context.area.note_name>
         - run portal_enter_task def:<player>|teleportlocation_<context.area.note_name>
         - narrate format:c_debug "Portal betreten! <context.area.note_name>"
+        - narrate format:c_debug "1 Seelenheil abgezogen, Wert: <player.flag[player.core.seelenheil.amount].if_null[0]>"
         on player exits area_portals_*:
         - flag <player> player.worlds.portals.isteleporting:!
         on delta time secondly:

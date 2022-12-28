@@ -31,7 +31,8 @@ hortusmanium_handler:
             - flag <player> player.worlds.area.in_hortusmanium:!
             - adjust <player> show_to_players
         on player enters area_hortusmanium_zentrum_seelenschlund:
-            - adjust <player> velocity:0,5,0
+            - wait 0.5s
+            - adjust <player> velocity:0,3,0
         on system time secondly:
             # sounds dungeoneingang
             - define Spieler <server.online_players_flagged[player.worlds.area.in_portalraum_dungeoneingang]>

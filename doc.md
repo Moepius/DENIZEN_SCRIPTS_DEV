@@ -22,6 +22,8 @@
 - player.core.afk.state | afk state of player
 - player.core.afk.location | where player is afk right now
 - player.core.afk.time | how long a player is afk
+- player.core.seelenheil.amount | amount of players seelenheil (0 min and 100 max)
+- player.core.fokus.amount | amount of players fokus points (mana, 0 min and 100 max)
 
 #### skills
 
