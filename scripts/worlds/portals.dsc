@@ -4,7 +4,10 @@
 
 # generating area flag: /ex flag server server.worlds.portals.notedareas:<list[<cuboid[areaname]>|<cuboid[areaname]>|...]>
 # adding new area: /ex flag server server.worlds.portals.notedareas:|:<cuboid[areaname]>
-# areas: area_portals_avarusprojektportalraum-parallelwelt, area_portals_avarusprojektportalraum-spawn
+# /ex note <player.location> as:teleportlocation_
+# areas: area_portals_avarusprojektportalraum-parallelwelt, area_portals_avarusprojektportalraum-spawn, area_portals_portalraum-parallelwelt, area_portals_parallelwelt-portalraum
+# area_portals_parallelwelt-avarusprojektportalraum, area_portals_avarusprojektportalraum-parallelwelt
+# locations: 
 
 debug_test_portals:
     type: command
@@ -14,7 +17,7 @@ debug_test_portals:
     usage: /debugportals
     script:
         #- define areas <server.flag[server.worlds.portals.notedareas]>
-        - foreach <server.flag[server.worlds.portals.notedareas].as[cuboid].note_name> as:areaname:
+        - foreach <server.flag[server.worlds.portals.notedareas]> as:areaname:
             - narrate format:c_debug <[areaname]>
 
 portal_handler:
