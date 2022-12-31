@@ -13,6 +13,37 @@ currency_item_handler:
     on player left clicks block with:item_currency_*:
         - determine cancelled
 
+# convert currencies into other currencies
+currency_parser:
+    type: procedure
+    debug: true
+    data:
+        currency:
+            groschen: <&7>❖
+            taler: <&7>❖
+            gulden: <&6>❖
+    definitions: amount
+    script:
+    - foreach <script.parsed_key[data.currency]> key:currency as:icon:
+        #Do the math. Do not show icons if there's nothing to parse.
+        - if <[amount]> == 0:
+            - define amount <[amount].round_down.div[100]>
+            - foreach next
+        #If the it's the last item, don't divide it anymore.
+        - if <[currency]> == gulden:
+            - define currencies:->:<[icon]><[amount].mul[100]>
+            - foreach next
+        #Add .round to prevent decimals in the groschen value.
+        - define currencies:->:<[icon]><[amount].mod[1].mul[100].round>
+        - define amount <[amount].round_down.div[100]>
+    - determine <[currencies].space_separated>
+
+test_task:
+    type: task
+    definitions: amount
+    script:
+    - narrate format:c_info <proc[currency_parser].context[<[amount]>]>
+
 # server main trade currencies
 
 item_currency_groschen:
@@ -72,7 +103,7 @@ item_currency_gulden:
 item_currency_crystal:
     type: item
     material: amethyst_cluster
-    display name: <&d><&l>Kristall <&f>(unaufgeladen)
+    display name: <&d><&l>Kristall
     mechanisms:
         hides: <list[ENCHANTS|ITEM_DATA]>
     lore:
@@ -81,8 +112,8 @@ item_currency_crystal:
     - <&d>können die mit thaumaturgischer Energie
     - <&d>aufgeladenen Kristalle für viele
     - <&d>Zwecke verwendet werden. Von hohem Wert
-    - <&d>und (unaufgeladen) eine beliebte Ressource
-    - <&d>für den Handel.
+    - <&d>und eine beliebte Ressource für
+    - <&d>den Handel mit Kennern.
     - <empty>
     - <&f><&m>----------------------------------
     - <&7>Zutat: <&2><&chr[2714]> <&7>Herstellbar: <&2><&chr[2714]>

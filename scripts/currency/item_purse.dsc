@@ -26,7 +26,7 @@ purse_handler:
         - inventory open destination:purse_inventory
       # yes: get contents from item flag and display them in inventory
       - else:
-        - define inventory <inventory[purse_inventory]>
+        - define inventory <inventory[item_purse_inventory]>
         - adjust <[inventory]> contents:<context.item.flag[item.currency.purse.inventory_contents]>
         - inventory open destination:<[inventory]>
     # when player closes the purse, flag item with contents and currency amounts and the player too
