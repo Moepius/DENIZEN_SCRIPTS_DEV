@@ -89,8 +89,10 @@ hortusmanium_handler:
                         - playsound <[player]> sound:ambient_soul_sand_valley_additions
                 - stop
         # play some effect at the portalroom center
-        on system time secondly every:100:
+        on system time secondly every:120:
+        # TODO: exclude players who have guest rank from damage
             - define player <server.online_players_flagged[player.worlds.area.in_hortusmanium_zentrum]>
+            - define damagetargets <location[location_hortusmanium_zentrum_seelenschlund].find_entities.within[14]>
             - foreach <[player]> as:target:
                 - narrate format:c_debug "Hortus Manium Blitz ausgelöst."
                 - playsound <[target]> sound:entity_evoker_prepare_attack pitch:0.1
@@ -105,12 +107,15 @@ hortusmanium_handler:
                 - playeffect effect:smoke at:<cuboid[area_hortusmanium_zentrum_seelenschlund].random> visibility:100 quantity:1
             - playeffect effect:smoke at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:5 targets:<[player]>
             - foreach <[player]> as:target:
+                - adjust <[damagetargets]> freeze_duration:12s
                 - playsound <[target]> sound:entity_illusioner_prepare_blindness
                 - wait 0.7s
+                - hurt <[damagetargets]> 3
                 - playeffect effect:SOUL at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:2 targets:<[player]>
                 - playsound <[target]> sound:particle_soul_escape volume:5
                 - wait 2t
                 - playsound <[target]> sound:particle_soul_escape volume:5
                 - wait 1s
+                - hurt <[damagetargets]> 4
                 - playsound <[target]> sound:ambient_soul_sand_valley_mood volume:0.5
 
