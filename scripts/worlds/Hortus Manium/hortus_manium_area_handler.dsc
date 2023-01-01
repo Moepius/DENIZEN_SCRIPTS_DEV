@@ -98,9 +98,6 @@ hortusmanium_handler:
                 - playsound <[target]> sound:entity_evoker_prepare_attack pitch:0.1
                 - playeffect effect:soul_fire_flame at:<location[location_hortusmanium_zentrum_seelenschlund].add[0,-11,0].points_around_y[radius=10;points=300]> visibility:500 quantity:1
             - wait 0.9s
-            - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[0,-50,0]>
-            - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[4,-50,-3]>
-            - strike no_damage <location[location_hortusmanium_zentrum_seelenschlund].add[-5,-50,6]>
             - foreach <list[1].pad_right[550]>:
                 - playeffect effect:SOUL at:<cuboid[area_hortusmanium_zentrum_seelenschlund].random> visibility:100 quantity:1 targets:<[player]>
             - foreach <list[1].pad_right[550]>:
