@@ -9,6 +9,10 @@
 
 - group of black magicians on horses luring for travellers, 2 bandits with close range attacks, one magician with long range spells
 
+## custom spells
+
+- Thaumaturgische Singularität: Endagme spell, consumes all focus (mana) at once. Kills all standard mobs in a radius instantly and deals huge damage to bosses and strong mobs
+
 # Notes
 
 ### Claiming System (Colonies)
@@ -76,9 +80,10 @@ categories (based on script folders):
 - quest
 - npc
 
-**<flag_target>.<flag_category>.[<flag_subcategory/ies>].<flag_usecase/name>**
-
 ## flags
+
+Correct Flag-Format:
+**<flag_target>.<flag_category>.[<flag_subcategory/ies>].<flag_usecase/name>**
 
 player.core.chat_interaction.interactionmode - used to disable chat controlling when player interacts with the chat (using search through chat, submitting reports, etc.)
 
@@ -93,8 +98,12 @@ player.core.chat_interaction.interactionmode - used to disable chat controlling 
 
 ### Flag Stuff
 
-- <player.flag[player.flag.currency.money_total].if_null[0]>
-  Shows players total money amount (needs flag player.flag.currency.money_total)
+- <player.flag[player.flag.currency.groschen_total].if_null[0]>
+  Shows players total Groschen amount (needs flag player.flag.currency.money_total)
+- <player.flag[player.flag.currency.taler_total].if_null[0]>
+  Shows players total Taler amount (needs flag player.flag.currency.money_total)
+- <player.flag[player.flag.currency.gulden_total].if_null[0]>
+  Shows players total Gulden amount (needs flag player.flag.currency.money_total)
 - <player.flag[player.currency.bank.amount].if_null[0]>
   Shows players total money in bank amount (needs flag player.currency.bank.amount)
 - <player.flag[player.currency.crystals.amount].if_null[0]>

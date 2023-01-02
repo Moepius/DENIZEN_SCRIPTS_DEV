@@ -111,7 +111,7 @@ item_purse_inventory:
   type: inventory
   debug: false
   inventory: chest
-  title: <&3><&l>Geldbörse <&6>❖ <&5>✦
+  title: <&3><&l>Geldbörse
   size: 18
 
 # Item Script Containers
