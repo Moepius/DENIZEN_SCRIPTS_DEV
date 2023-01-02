@@ -76,6 +76,7 @@ teleportanker:
 teleportanker_placement:
     type: world
     debug: true
+    enabled: false
     events:
         on player places teleportanker:
             # Permission test
@@ -169,6 +170,7 @@ teleportanker_placement:
 teleportanker_use:
     type: world
     debug: true
+    enabled: false
     events:
         on player right clicks chiseled_polished_blackstone with:gold_ingot location_flagged:teleportanker_uuid:
             - define playeruuid <player.uuid>
@@ -243,6 +245,7 @@ teleportanker_use_arrival_task:
 teleportanker_break:
     type: world
     debug: true
+    enabled: false
     events:
         on player breaks chiseled_polished_blackstone location_flagged:teleportanker_uuid:
             - define playeruuid <player.uuid>
@@ -322,6 +325,7 @@ teleportanker_coordinates:
 teleportanker_area:
     type: world
     debug: true
+    enabled: false
     events:
         # particle effects every second aorund anchor for players in wider area around it
         on player enters teleportanker_1_cuboid_*:

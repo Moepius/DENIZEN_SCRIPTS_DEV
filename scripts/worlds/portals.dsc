@@ -31,12 +31,16 @@ portal_handler:
         on player enters area_portals_*:
         # remove 1 Seelenheil from player
         # TODO: permission check, no removal of seelenheil if no permission
-        - flag <player> player.core.seelenheil.amount:-:1
+        # TODO: if check, is target location in same world? no: remove 1 seelenheil, yes: do nothing
+        # remove 1 Seelenheil if player travels between worlds
+        - if <context.area.world.name> != <location[teleportlocation_<context.area.note_name>].world.name>:
+            - narrate format:c_debug "Area: <context.area.world.name> Target: <location[teleportlocation_<context.area.note_name>].world.name>"
+            - flag <player> player.core.seelenheil.amount:-:1
+            - narrate format:c_debug "1 Seelenheil abgezogen, Wert: <player.flag[player.core.seelenheil.amount].if_null[0]>"
         - flag <player> player.worlds.portals.isteleporting
         - run portal_checker def:<player>|craftasy.denizen.portals.use_<context.area.note_name>
         - run portal_enter_task def:<player>|teleportlocation_<context.area.note_name>
         - narrate format:c_debug "Portal betreten! <context.area.note_name>"
-        - narrate format:c_debug "1 Seelenheil abgezogen, Wert: <player.flag[player.core.seelenheil.amount].if_null[0]>"
         on player exits area_portals_*:
         - flag <player> player.worlds.portals.isteleporting:!
         on delta time secondly:
