@@ -20,8 +20,8 @@ magic_sidebar_config:
     # TODO: make lines configurable via GUI settings (toggle lines on/off)
     lines:
     - "<&2>⚑ <&a><player.location.simple.before_last[,].replace[,].with[<&2>,<&a>]>"
-    - "<&f><&l>Φ <&7><player.flag[player.flag.currency.groschen_total].if_null[0]> <&6>❖ <&e><player.flag[player.flag.currency.taler_total].if_null[0]>"
-    - "<&6>ᛔ <&e><player.flag[player.flag.currency.gulden_total].if_null[0]> <&5>✦ <&d><player.flag[player.flag.currency.crystal_total].if_null[0]>"
+    - "<&f>Φ <&7><player.flag[player.flag.currency.currency_groschen_total].if_null[0]> <&6>❖ <&e><player.flag[player.flag.currency.currency_taler_total].if_null[0]>"
+    - "<&6>ᛔ <&e><player.flag[player.flag.currency.currency_gulden_total].if_null[0]> <&5>✦ <&d><player.flag[player.flag.currency.currency_crystal_total].if_null[0]>"
     - "<&3>⛏ <&b><player.flag[player.skill.level.total].if_null[0]>"
     - "<&1>⌚ <&9>0"
     - " <&f><&m>----------------"
