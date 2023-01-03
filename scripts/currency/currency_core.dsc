@@ -75,8 +75,6 @@ currency_groschen:
         hides: <list[ENCHANTS|ITEM_DATA]>
     enchantments:
     - sharpness:1
-    flags:
-        no_crafting: no_crafting
     lore:
     - <empty>
     - <&7>Fast überall akzeptiertes Zahlungs-
@@ -95,8 +93,6 @@ currency_taler:
         hides: <list[ENCHANTS|ITEM_DATA]>
     enchantments:
     - sharpness:1
-    flags:
-        no_crafting: no_crafting
     lore:
     - <empty>
     - <&7>Von höherem Wert und beim gut
@@ -115,8 +111,6 @@ currency_gulden:
         hides: <list[ENCHANTS|ITEM_DATA]>
     enchantments:
     - sharpness:1
-    flags:
-        no_crafting: no_crafting
     lore:
     - <empty>
     - <&7>Von sehr hohem Wert. Zum Gebrauch

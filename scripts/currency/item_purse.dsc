@@ -74,7 +74,6 @@ purse_handler:
         # TODO: Test if current purse has enough space
         # TODO: add picked up money amount to purse
       # placeholder
-      
       # flag player with purse contents and add them from his money amount
       - flag <player> player.currency.purse.money_amount:+:<proc[proc_calculate_currency].context[<[groschen]>|<[taler]>]>
       - flag <player> player.currency.purse.crystals_amount:+:<[crystal]>
@@ -122,9 +121,6 @@ item_purse:
   display name: <&3><&l>Geldbörse
   mechanisms:
     skull_skin: a7e64789-a18e-4f59-a304-c3a5ca8f8819|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODc1ZTc5NDg4ODQ3YmEwMmQ1ZTEyZTcwNDJkNzYyZTg3Y2UwOGZhODRmYjg5YzM1ZDZiNWNjY2I4YjlmNGJlZCJ9fX0=
-  flags:
-    no_crafting: no_crafting
-    uuid: <util.random_uuid>
   lore:
     - <empty>
     - <&3>Praktische Geldbörse mit

@@ -1,9 +1,10 @@
 # event handler to listen for global events that involve multiple scripts and core features
 
+# TODO: turned off!
 core_listener:
     type: world
     debug: false
-    enabled: true
+    enabled: false
     events:
         # stops all custom items with flag "no_crafting" from beeing used in recipes
         on item recipe formed:

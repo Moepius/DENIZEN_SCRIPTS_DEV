@@ -32,7 +32,11 @@ hortusmanium_handler:
             - adjust <player> show_to_players
         on player enters area_hortusmanium_zentrum_seelenschlund:
             - wait 0.5s
-            - adjust <player> velocity:0,3,0
+            - cast slow_falling duration:10h hide_particles no_ambient no_icon <player>
+            - cast darkness duration:10h hide_particles no_ambient no_icon <player>
+        on player exits area_hortusmanium_zentrum_seelenschlund:
+            - cast slow_falling remove <player>
+            - cast darkness remove <player>
         on system time secondly:
             # sounds dungeoneingang
             - define Spieler <server.online_players_flagged[player.worlds.area.in_portalraum_dungeoneingang]>

@@ -6,7 +6,7 @@
 # adding new area: /ex flag server server.worlds.portals.notedareas:|:<cuboid[areaname]>
 # /ex note <player.location> as:teleportlocation_
 # areas: area_portals_avarusprojektportalraum-parallelwelt, area_portals_avarusprojektportalraum-spawn, area_portals_portalraum-parallelwelt, area_portals_parallelwelt-portalraum
-# area_portals_parallelwelt-avarusprojektportalraum, area_portals_avarusprojektportalraum-parallelwelt
+# area_portals_parallelwelt-avarusprojektportalraum, area_portals_avarusprojektportalraum-parallelwelt, area_portals_ruine-portalraum, area_portals_portalraum-ruine
 # locations:
 
 debug_test_portals:
