@@ -3,7 +3,7 @@
 
 command_setlocation:
     type: command
-    debug: true
+    debug: false
     name: setlocation
     description: Setzt eine neue Denizen Location am Standort des Spielers
     usage: /setlocation <&lt>Name<&gt>

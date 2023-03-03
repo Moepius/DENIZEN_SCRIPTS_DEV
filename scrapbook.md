@@ -1,3 +1,8 @@
+# commandblock inputs
+
+/summon area_effect_cloud ~ ~ ~ {CustomNameVisible:1b,Duration:2147483647,CustomName:'["",{"text":"Orbis","bold":true,"color":"gold"},"%newline%",{"text":"Moraira","color":"white"}]'}
+
+
 # TODO
 
 - Add docs to every script

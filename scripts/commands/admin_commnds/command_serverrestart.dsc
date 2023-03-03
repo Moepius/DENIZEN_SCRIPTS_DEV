@@ -1,6 +1,6 @@
 command_serverrestart:
     type: command
-    debug: true
+    debug: false
     name: serverrestart
     description: Kickt alle Spieler und startet den Server neu
     usage: /serverrestart

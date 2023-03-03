@@ -10,6 +10,8 @@ vacuum_placeholder_item:
     - test item
     - <&c>Admin Tool
 
+# TODO: check einbauen ob genug Platz um den Spieler herum (Skill kann nicht in beengten Räumen eingesetzt werden)
+
 
 Vorpal_Vacuum_Charge:
     type: world

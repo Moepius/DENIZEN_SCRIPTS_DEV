@@ -32,3 +32,4 @@ NeuerSpielerJoin:
 
 
 
+# /ex playsound <player> sound:MUSIC_END pitch:0.4

@@ -11,7 +11,7 @@ error_handler_conf:
     # Shows errors that crop up in any scripts that get run
     show_script_errors: true
     # If you would like to turn off error reporting for things like the /ex command, set to false
-    show_nonscript_errors: false
+    show_nonscript_errors: true
     # Shows full stacktraces that get thrown by any plugin
     show_stacktraces: true
     # Snip stacktraces after this many lines of output (set to <= 0 to show all)
@@ -61,7 +61,7 @@ debug_alert:
 
 error_handlers:
   type: world
-  debug: false
+  debug: true
   build_estimated_script:
     # Called when the show_full_script option is set to false
     - define "script_builder:->:(last command run: <[last_command]>)"

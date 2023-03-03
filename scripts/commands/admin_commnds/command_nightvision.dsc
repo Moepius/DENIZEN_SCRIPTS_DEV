@@ -3,7 +3,7 @@
 
 command_nightvision:
     type: command
-    debug: true
+    debug: false
     name: nightvision
     description: Gibt dem Spieler Nachtsicht
     usage: /nightvision
