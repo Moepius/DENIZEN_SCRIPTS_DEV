@@ -1,9 +1,53 @@
 
+
 inventory_tools_config:
     type: data
     # set to true/false to enable/disable functions
     scrollable_inventory_enabled: true
     swappable_offhand_enabled: true
+
+# settings commands
+scrollable_inventory_command:
+    type: command
+    debug: false
+    name: scrollinv
+    description: Schaltet das Scroll-Funktion für das Inventar ein/aus.
+    usage: /scrollinv
+    aliases:
+    - scv
+    script:
+        - if !<player.has_permission[craftasy.denizen.commands.scrollinv]>:
+            - playsound <player> sound:item_shield_block pitch:1
+            - ratelimit <player> 10s
+            - narrate format:c_warn "Ihr habt keine Berechtigung, diesen Befehl zu verwenden."
+            - stop
+        - if <player.has_flag[player.settings.scrollableinv.off]>:
+            - flag <player> player.settings.scrollableinv.off:!
+            - narrate format:c_info "Scrollbares Inventar eingeschaltet."
+        - else:
+            - flag <player> player.settings.scrollableinv.off
+            - narrate format:c_info "Scrollbares Inventar abgeschaltet."
+
+swappable_offhand__command:
+    type: command
+    debug: false
+    name: swapoffhand
+    description: Schaltet das Scroll-Funktion für das Inventar ein/aus.
+    usage: /swapoffhand
+    aliases:
+    - swo
+    script:
+        - if !<player.has_permission[craftasy.denizen.commands.swappoffhandinv]>:
+            - playsound <player> sound:item_shield_block pitch:1
+            - ratelimit <player> 10s
+            - narrate format:c_warn "Ihr habt keine Berechtigung, diesen Befehl zu verwenden."
+            - stop
+        - if <player.has_flag[player.settings.swappableoffhandinv.off]>:
+            - flag <player> player.settings.swappableoffhandinv.off:!
+            - narrate format:c_info "Offhand Inventar eingeschaltet."
+        - else:
+            - flag <player> player.settings.swappableoffhandinv.off
+            - narrate format:c_info "Offhand Inventar abgeschaltet."
 
 
 
@@ -36,6 +80,8 @@ scrollable_inventory_events:
         - if !<player.is_sneaking>:
             - stop
         - if !<player.has_permission[craftasy.denizen.hud.inventory_scroll]>:
+            - stop
+        - if <player.has_flag[player.settings.scrollableinv.off]>:
             - stop
         - determine cancelled passively
         # "down" scroll, from last to first slot
@@ -110,6 +156,8 @@ swappable_offhand_events:
         # tests
         - if <player.has_flag[<script.data_key[inventory_open]>]>:
             - determine cancelled passively
+        - if <player.has_flag[player.settings.swappableoffhandinv.off]>:
+            - stop
         - if !<player.is_sneaking>:
             - stop
         - if !<player.has_permission[craftasy.denizen.hud.offhand_scroll]>:
