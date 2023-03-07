@@ -24,3 +24,28 @@ core_gameplay:
         - if <player.has_flag[enabled_error]>:
             - narrate "Fehler! Script sollte ausgeschaltet sein"
 
+# allows placing of "hanging" blocks in need of support like ladders, and allows plant items to be placed on more blocks than sil types
+cancel_physics:
+  type: world
+  debug: false
+  events:
+# Changes the block that was clicked to the item that is currently held (grass/fern)
+    after player right clicks stone|cobblestone|gravel|stone_bricks|cracked_stone_bricks|andesite with:grass|tall_grass|dead_bush|fern:
+    - if <player.has_permission[craftasy.denizen.dblock.physicscancel]>:
+      - modifyblock <context.location.up> <player.item_in_hand.material.name>
+      - take iteminhand quantity:1
+    - else:
+      - stop
+# disables block physics (dropping the item), unless the supporting block is removed
+    on grass|fern physics:
+    - if <context.location.below.material.name> == air:
+      - stop
+    - else:
+      - determine cancelled
+
+#disables physics for ladders and rails (breaking)
+    on rail physics:
+      - determine cancelled
+    on block physics adjacent:ladder|*_carpet:
+      - determine cancelled
+

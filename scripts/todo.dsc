@@ -5,6 +5,7 @@
 ###### Chat:
 
 # TODO: add function to ignore other players (no see of pns/public messages), except admins
+# TODO: Mail-Funktion, Spieler die AFK oder offline sind können Botschaften erhalten. Sie erhalten Benachrichtigung sobald sie wieder da/online sind und können die Nachricht abrufen
 
 ###### Tutorial:
 
