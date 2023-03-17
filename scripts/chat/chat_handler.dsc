@@ -133,7 +133,7 @@ chat_formatting:
           color: <&d>
           symbol: ✶
           info: <&d><&l>Siedler<&nl><&b>Stammspieler, die mindestens 500 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------
-        gruender:
+        Gruender:
           color: <&5>
           symbol: ✷
           info: <&5><&l>Gründer<&nl><&b>Stammspieler, die mindestens 1000 Stunden<&nl><&b>auf unserem Server verbracht haben.<&nl><&f>--------------------
