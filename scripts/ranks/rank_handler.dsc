@@ -17,9 +17,14 @@ rank_update_command:
         2: <list[Besucher|Veraltet|Vagabund]>
     script:
         # initial checks
+        - define player_matched <server.match_offline_player[<context.args.first>].if_null[null]>
         - if <context.args.is_empty>:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr müsst einen Spieler angeben."
+            - stop
+        - if !<[player_matched].is_truthy>:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Kein gültiger Spieler."
             - stop
         - if <context.args.size> < 2:
             - run chatsounds_error def:<player>
@@ -29,6 +34,6 @@ rank_update_command:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr habt keine Berechtigung, diesen Befehl zu nutzen."
             - stop
-        - flag <context.args.first> player.rank.data_name:<context.args.get[2]>
+        - flag <[player_matched]> player.rank.data_name:<context.args.get[2]>
         - narrate format:c_info "Rang des Spielers gesetzt: <&a><context.args.get[2]><&b>"
 
