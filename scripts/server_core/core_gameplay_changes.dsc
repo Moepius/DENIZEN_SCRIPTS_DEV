@@ -43,7 +43,7 @@ cancel_physics:
     - else:
       - determine cancelled
 
-#disables physics for ladders and rails (breaking)
+#disables physics for ladders, rails and carpets (breaking)
     on rail physics:
       - determine cancelled
     on block physics adjacent:ladder|*_carpet:

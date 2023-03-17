@@ -100,4 +100,7 @@
 
 ######## Dungeons
 
+######## Logging
+
+# Save important player data to YAML files very day (playtime, skill-levels, quest progress, etc.)
 

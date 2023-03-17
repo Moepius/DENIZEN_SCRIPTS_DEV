@@ -19,6 +19,9 @@
 
 - player.status.rules_not_accepted | has not accepted the server rules
 
+### rank
+
+- player.rank.
 #### core
 
 - player.core.status.not_unlocked | player not unlocked for playing on the server, disables most custom functions. Main gatekeeping flag!
