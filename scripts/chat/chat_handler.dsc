@@ -43,13 +43,19 @@ chat_formatting:
       - define messages <server.flag[server.chat.history].if_null[<list>]>
       - define channel_buttons <server.flag[server.chat.buttons].if_null[<empty>]>
 
+      #### the message with buttons ####
       - determine message:<n.repeat[100]><[messages].separated_by[<&r><n>]><n><[channel_buttons]>
+
+    # disable/remove this line to enable errors again (prevents server from crashing due to repeated errors)
+    on script generates error:
+      - determine cancelled if:<context.script.name.contains_any_text[chat]>
 
   sub_paths:
     chat_button_cache:
       - define buttons <list>
       - foreach <script.parsed_key[data.buttons]> as:button_data:
-        - define button <[button_data.format].on_click[/<[button_data.command]>]>
+        #### how the buttons should look (texts via data container "data.buttons") ####
+        - define button <[button_data.format].on_hover[<[button_data.hover]>].on_click[/<[button_data.command]>]>
         - define buttons <[buttons].include_single[<[button]>]>
 
       - flag server server.chat.buttons:<[buttons].space_separated>
@@ -59,9 +65,9 @@ chat_formatting:
     rank_text_cache:
       - define more_info <script.parsed_key[data.more_info]>
       - define all_rank_data <script.parsed_key[data.rank_data.ranks]>
-
+      #### how the rank prefixes should look (data taken from "data.rank_data") ####
       - foreach <[all_rank_data]> key:rank_name as:rank_data:
-        - define rank_text <[rank_data.color]><[rank_data.symbol]><[rank_name]>
+        - define rank_text "<[rank_data.color]><[rank_data.symbol]> <[rank_name]>"
 
         - define rank_formatted <[rank_text].on_hover[<[rank_data.info]><n><[more_info.text]>]>
         # change this line ^ to this v if you want to open link on clicking rank
@@ -81,15 +87,19 @@ chat_formatting:
       rules:
         format: <&3><&lb><&b>Regeln<&3><&rb>
         command: rules
+        hover: <&b>Ruft unsere Serverregeln auf.
       guide:
         format: <&3><&lb><&b>Guide<&3><&rb>
         command: guide
+        hover: <&b>Ruft das Hilfe-Menü auf.
       support:
         format: <&3><&lb><&b>Support<&3><&rb>
         command: support
+        hover: <&b>Ruft das Support-Menü auf.
       afk:
         format: <&3><&lb><&b>AFK<&3><&rb>
         command: afk
+        hover: <&b>Setzt Euch <&a>AFK<&b>.
 
     player_chat:
       format:
