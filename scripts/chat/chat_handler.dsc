@@ -32,7 +32,8 @@ chat_formatting:
       - flag server server.chat.history[1]:<- if:<server.flag[server.chat.history].size.is_more_than[50].if_null[false]>
       - define messages <server.flag[server.chat.history].if_null[<list>]>
       - define channel_buttons <server.flag[server.chat.buttons].if_null[<empty>]>
-      - narrate playerchat/<n.repeat[100]><[messages].separated_by[<&r><n>]><n><[channel_buttons]> targets:<server.online_players> from:<player.uuid>
+      #### the message with buttons (also in "player receives message event") ####
+      - narrate playerchat/<n.repeat[100]><[messages].separated_by[<&r><n>]><n.repeat[2]><[channel_buttons]> targets:<server.online_players> from:<player.uuid>
 
     on player receives message:
       - stop if:<context.message.starts_with[playerchat/]>
@@ -43,7 +44,7 @@ chat_formatting:
       - define messages <server.flag[server.chat.history].if_null[<list>]>
       - define channel_buttons <server.flag[server.chat.buttons].if_null[<empty>]>
 
-      #### the message with buttons ####
+      #### the message with buttons (also in "player chats event") ####
       - determine message:<n.repeat[100]><[messages].separated_by[<&r><n>]><n><[channel_buttons]>
 
     # disable/remove this line to enable errors again (prevents server from crashing due to repeated errors)
