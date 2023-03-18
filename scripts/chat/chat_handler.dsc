@@ -45,7 +45,7 @@ chat_formatting:
       - define channel_buttons <server.flag[server.chat.buttons].if_null[<empty>]>
 
       #### the message with buttons (also in "player chats event") ####
-      - determine message:<n.repeat[100]><[messages].separated_by[<&r><n>]><n><[channel_buttons]>
+      - determine message:<n.repeat[100]><[messages].separated_by[<&r><n>]><n.repeat[2]><[channel_buttons]>
 
     # disable/remove this line to enable errors again (prevents server from crashing due to repeated errors)
     on script generates error:
