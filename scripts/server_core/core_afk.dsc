@@ -1,5 +1,16 @@
 # test for if a player is afk and handling stuff
-# TODO: disable actions when player is afk (receiving private Messages, getting hurt by players, collecting experience orbs and skills, etc.)
+# TODO: disable actions when player is afk (receiving private Messages, getting hurt by players, collecting experience orbs and skills, items, etc.)
+
+afk_command_example:
+  type: command
+  debug: false
+  name: afk
+  description: shit
+  usage: /afk
+  script:
+    - narrate format:c_info "<player.name> hat sich <&a>AFK<&b> gesetzt." targets:<server.online_players.exclude[<player>]>
+    - narrate format:c_info "Ihr seid nun <&a>AFK<&b>." targets:<player>
+    - flag <player> player.core.afk.state:true
 
 is_afk:
   type: procedure
@@ -28,11 +39,11 @@ toggle_afk:
       - stop
     - flag <player> player.core.afk.state:<[state]>
     - if <[state]>:
-      - narrate format:c_info "Ihr seid nun <&a>AFK<&b>."
+      - narrate format:c_info "Ihr seid nun <&a>AFK<&b>." targets:<player>
       - narrate format:c_info "<player.name> ist nun <&a>AFK<&b>." targets:<server.online_players.exclude[<player>]>
       - flag <player> player.core.afk.isafk
     - else:
-      - narrate format:c_info "Ihr seid nicht mehr <&a>AFK<&b>."
+      - narrate format:c_info "Ihr seid nicht mehr <&a>AFK<&b>." targets:<player>
       - narrate format:c_info "<player.name> ist nicht länger <&a>AFK<&b>." targets:<server.online_players.exclude[<player>]>
       - flag <player> player.core.afk.isafk:!
 
@@ -57,8 +68,11 @@ afk_events:
       - run toggle_afk def:false
     on command flagged:player.core.afk:
       - run toggle_afk def:false
+    on player joins:
+      - flag <player> player.core.afk.state:false
     on player quits:
-      - flag <player> player.core.afk:!
+      - flag <player> player.core.afk.state:false
+      - flag <player> player.core.afk.isafk:!
 
 afk_restrictions:
   type: world

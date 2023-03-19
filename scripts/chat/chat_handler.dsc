@@ -68,7 +68,8 @@ chat_formatting:
       - define all_rank_data <script.parsed_key[data.rank_data.ranks]>
       #### how the rank prefixes should look (data taken from "data.rank_data") ####
       - foreach <[all_rank_data]> key:rank_name as:rank_data:
-        - define rank_text "<[rank_data.color]><[rank_data.symbol]> <[rank_name]>"
+        #### rank prefix text ####
+        - define rank_text <[rank_data.color]><[rank_data.symbol]>
 
         - define rank_formatted <[rank_text].on_hover[<[rank_data.info]><n><[more_info.text]>]>
         # change this line ^ to this v if you want to open link on clicking rank
@@ -187,8 +188,8 @@ player_name_format:
     - define player_name <script[chat_formatting].parsed_key[data.player_chat.format.name]>
     - define hover <script[chat_formatting].parsed_key[data.player_chat.format.hover]>
     - define suggest_command <script[chat_formatting].parsed_key[data.player_chat.format.suggest_command]>
-
-    - determine "<[player_prefix]><&f> ⎜ <[player_name].on_hover[<[hover]>].on_click[<[suggest_command]>].type[suggest_command]>"
+    #### formatting of the full player prefix ####
+    - determine "<&7><util.time_now.format[HH:mm]> <[player_prefix]><&f> ⎜ <[player_name].on_hover[<[hover]>].on_click[<[suggest_command]>].type[suggest_command]>"
 
     # short instant version
     # - determine "<script.parsed_key[data.player_chat.format.prefix]><&f> ⎜ <script.parsed_key[data.player_chat.format.name].on_hover[<script.parsed_key[data.player_chat.format.hover]>].on_click[<script.parsed_key[data.player_chat.format.suggest_command]>].type[suggest_command]>"
@@ -217,13 +218,4 @@ chat_update_command:
     - run chat_formatting.sub_paths.chat_button_cache
     - run chat_formatting.sub_paths.rank_text_cache
     - flag server chat.cached
-
-afk_command_example:
-  type: command
-  debug: false
-  name: afk
-  description: shit
-  usage: /afk
-  script:
-    - announce format:c_info "<player.name> hat sich als <&a>AFK <&b>gesetzt."
 
