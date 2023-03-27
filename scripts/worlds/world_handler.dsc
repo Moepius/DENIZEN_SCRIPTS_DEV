@@ -5,7 +5,8 @@ world_handler:
     # data:
     events:
         on server prestart:
-            - foreach <server.worlds> as:world:
-                - createworld <[world].name>
-                - adjust <[world]> keep_spawn:true
-                - announce to_console "Welt -<[world].name>- wurde geladen!"
+            - define worldlist <list[world|avarus|hortusmanium|orbis|creative|baumschule|schematic|avarus_nether|avarus_the_end|world_nether|world_the_end|avarus_abbau|parallelwelt]>
+            - foreach <[worldlist]> as:world:
+                - createworld <[world]>
+                - adjust <world[<[world]>]> keep_spawn:true
+                - announce to_console "Welt <[world].name> wurde geladen!"
