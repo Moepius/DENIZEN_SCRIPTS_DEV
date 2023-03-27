@@ -1,5 +1,6 @@
 # teleports the player to a specific location
 # TODO: tpworld command, tpplayer command, back command
+# TODO: "Tolkiers Pfeil" Tool, siehe Discord
 
 command_teleport:
     type: command
