@@ -38,6 +38,12 @@ command_teleport:
             - narrate format:c_warn "Ihr müsst gültige Koordinaten eingeben."
             - stop
         - if <context.args.size> < 4:
+            - cast blindness duration:2s hide_particles no_ambient no_icon <player>
+            - playsound <player> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
+            - playeffect effect:SPELL_WITCH at:<player.location> visibility:500 quantity:120 offset:1.5
             - teleport <player> <location[<context.args.get[1]>,<context.args.get[2]>,<context.args.get[3]>,<player.location.world>]>
         - else:
+            - cast blindness duration:2s hide_particles no_ambient no_icon <player>
+            - playsound <player> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
+            - playeffect effect:SPELL_WITCH at:<player.location> visibility:500 quantity:120 offset:1.5
             - teleport <player> <location[<context.args.get[1]>,<context.args.get[2]>,<context.args.get[3]>,<world[<context.args.get[4]>]>]>
