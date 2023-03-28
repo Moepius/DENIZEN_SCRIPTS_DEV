@@ -4,7 +4,7 @@ command_flyspeed:
     type: command
     debug: false
     name: flyspeed
-    description: teleport to a player location
+    description: adjust your flyspeed
     usage: /flyspeed
     aliases:
     - fs
@@ -23,6 +23,10 @@ command_flyspeed:
         - if !<context.args.get[1].is_integer>:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr müsst eine Ganzzahl angeben."
+            - stop
+        - if <context.args.get[1]> < 1 || <context.args.get[1]> > 9:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Ihr müsst eine Ganzzahl zwischen 1 und 9 angeben."
             - stop
         - adjust <player> fly_speed:0.<context.args.get[1]>
         - narrate format:c_info "Geschwindigkeit auf <&a><context.args.get[1]><&b> gesetzt."
