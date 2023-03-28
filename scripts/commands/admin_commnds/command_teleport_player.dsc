@@ -1,4 +1,4 @@
-# teleports the player to a specific location
+# teleports the player to another player
 
 command_teleport_player:
     type: command
