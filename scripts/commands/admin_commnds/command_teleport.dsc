@@ -14,6 +14,7 @@ command_teleport:
         1: x
         2: y
         3: z
+        # TODO: replace with server flag of enabled worlds
         4: <server.worlds.formatted>
     script:
         # initial checks
@@ -31,7 +32,7 @@ command_teleport:
             - stop
         - if <context.args.size> > 4:
             - run chatsounds_error def:<player>
-            - narrate format:c_warn "Gebt folgende Parameter an: x y z Weltname(optional)"
+            - narrate format:c_warn "Gebt folgende Parameter an: x y z (Weltname)"
             - stop
         - if !<context.args.get[1].is_integer> || !<context.args.get[2].is_integer> || !<context.args.get[3].is_integer>:
             - run chatsounds_error def:<player>
