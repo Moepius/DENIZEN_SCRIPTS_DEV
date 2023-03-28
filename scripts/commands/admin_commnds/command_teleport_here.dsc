@@ -25,6 +25,10 @@ command_teleport_here:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Kein gültiger Spieler oder nicht online."
             - stop
+        - if <[player_matched]> == <player>:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Nein"
+            - stop
         - narrate format:c_info "<&a><player.name> <&b>teleportiert Euch zu sich." targets:<[player_matched]>
         - wait 1.5s
         - cast blindness duration:2s hide_particles no_ambient no_icon <[player_matched]>

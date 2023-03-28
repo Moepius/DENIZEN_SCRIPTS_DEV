@@ -25,6 +25,10 @@ command_teleport_player:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Kein gültiger Spieler oder nicht online."
             - stop
+        - if <[player_matched]> == <player>:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Nein"
+            - stop
         - cast blindness duration:2s hide_particles no_ambient no_icon <player>
         - playsound <player> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
         - playeffect effect:SPELL_WITCH at:<player.location> visibility:500 quantity:120 offset:1.5
