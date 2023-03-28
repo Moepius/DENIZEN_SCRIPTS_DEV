@@ -17,6 +17,10 @@ command_teleport:
         4: <server.worlds.formatted>
     script:
         # initial checks
+        - if !<player.has_permission[craftasy.denizen.command.teleport]>:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Ihr habt keine Berechtigung, diesen Befehl zu nutzen."
+            - stop
         - if <context.args.is_empty>:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr müsst ein Ziel angeben."
@@ -32,10 +36,6 @@ command_teleport:
         - if !<context.args.get[1].is_integer> || !<context.args.get[2].is_integer> || !<context.args.get[3].is_integer>:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr müsst gültige Koordinaten eingeben."
-            - stop
-        - if !<player.has_permission[craftasy.denizen.comannd.teleport]>:
-            - run chatsounds_error def:<player>
-            - narrate format:c_warn "Ihr habt keine Berechtigung, diesen Befehl zu nutzen."
             - stop
         - if <context.args.size> < 4:
             - teleport <player> <location[<context.args.get[1]>,<context.args.get[2]>,<context.args.get[3]>,<player.location.world>]>
