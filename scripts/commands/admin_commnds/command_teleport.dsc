@@ -10,6 +10,7 @@ command_teleport:
     usage: /teleport
     aliases:
     - tp
+    - tppos
     tab completions:
         1: x
         2: y
