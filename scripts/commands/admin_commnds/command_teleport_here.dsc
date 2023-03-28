@@ -1,4 +1,5 @@
 # teleports another player to the player
+# TODO: protection against cheating ... player needs bo sent back to his original location where he came from automatically
 
 command_teleport_here:
     type: command
