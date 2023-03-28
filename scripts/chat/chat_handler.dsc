@@ -7,8 +7,6 @@
 chat_formatting:
   type: world
   debug: false
-  #### don't forget to enable
-  enabled: false
   events:
     on server start server_flagged:!chat.cached:
       - run chat_formatting.sub_paths.chat_button_cache
@@ -30,20 +28,30 @@ chat_formatting:
         - stop
 
       - define text "<player.proc[player_name_format]><&f><&co> <context.message.parse_color>"
-      - flag server server.chat.history:->:<[text]>
+      - definemap data:
+          text: <[text]>
+          time: <util.time_now.epoch_millis>
+      - flag server server.chat.history:->:<[data]>
       - flag server server.chat.history[1]:<- if:<server.flag[server.chat.history].size.is_more_than[50].if_null[false]>
       - define messages <server.flag[server.chat.history].if_null[<list>]>
       - define channel_buttons <server.flag[server.chat.buttons].if_null[<empty>]>
       #### the message with buttons (also in "player receives message event") ####
-      - narrate playerchat/<n.repeat[100]><[messages].separated_by[<&r><n>]><n.repeat[2]><[channel_buttons]> targets:<server.online_players> from:<player.uuid>
+      - foreach <server.online_players> as:player:
+        - define data.uuid <[player].uuid>
+        - define per_player_messages <[messages].include[<[player].flag[server.chat.history].if_null[<list>]>].sort_by_value[get[time]].parse[get[text]].if_null[<list>]>
+        - narrate playerchat/<n.repeat[100]><[per_player_messages].separated_by[<&r><n>]><n.repeat[2]><[channel_buttons]> targets:<[player]> from:<player.uuid>
 
     on player receives message:
       - stop if:<context.message.starts_with[playerchat/]>
 
       # ██ [ Verwenden Sie das Chat-Format des Spielers               ] ██
-      - flag server server.chat.history:->:<context.message> if:<context.system_message>
-      - flag server server.chat.history[1]:<- if:<server.flag[server.chat.history].size.is_more_than[50].if_null[false]>
-      - define messages <server.flag[server.chat.history].if_null[<list>]>
+      - definemap data:
+          text: <context.message>
+          time: <util.time_now.epoch_millis>
+          uuid: <player.uuid>
+      - flag player server.chat.history:->:<[data]> if:<context.system_message>
+      - flag player server.chat.history[1]:<- if:<server.flag[server.chat.history].size.is_more_than[50].if_null[false]>
+      - define messages <server.flag[server.chat.history].if_null[<list>].include[<player.flag[server.chat.history].if_null[<list>]>].sort_by_value[get[time]].parse[get[text]].if_null[<list>]>
       - define channel_buttons <server.flag[server.chat.buttons].if_null[<empty>]>
 
       #### the message with buttons (also in "player chats event") ####
@@ -55,6 +63,11 @@ chat_formatting:
 
   sub_paths:
     chat_button_cache:
+      # - this just hard resets after a /chat_update
+      # - foreach <server.online_players> as:player:
+      #   - flag <[player]> server:!
+      # - flag server server:!
+      # - announce "chat cleared"
       - define buttons <list>
       - foreach <script.parsed_key[data.buttons]> as:button_data:
         #### how the buttons should look (texts via data container "data.buttons") ####
@@ -63,7 +76,7 @@ chat_formatting:
 
       - flag server server.chat.buttons:<[buttons].space_separated>
 
-      - narrate "<&a>Chat-Schaltflächen aktualisiert und zwischengespeichert!"
+      - narrate "<&a>Chat-Schaltflächen aktualisiert und zwischengespeichert!" targets:<player>
 
     rank_text_cache:
       - define more_info <script.parsed_key[data.more_info]>
@@ -196,14 +209,6 @@ player_name_format:
     # short instant version
     # - determine "<script.parsed_key[data.player_chat.format.prefix]><&f> ⎜ <script.parsed_key[data.player_chat.format.name].on_hover[<script.parsed_key[data.player_chat.format.hover]>].on_click[<script.parsed_key[data.player_chat.format.suggest_command]>].type[suggest_command]>"
 
-add_chat_history:
-  type: task
-  debug: false
-  definitions: text
-  script:
-    - flag server server.chat.history:->:<[text]>
-    - flag server server.chat.history[1]:<- if:<server.flag[server.chat.history].size.is_more_than[50].if_null[false]>
-
 chat_update_command:
   type: command
   debug: false
@@ -220,4 +225,3 @@ chat_update_command:
     - run chat_formatting.sub_paths.chat_button_cache
     - run chat_formatting.sub_paths.rank_text_cache
     - flag server chat.cached
-
