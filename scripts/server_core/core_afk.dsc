@@ -71,8 +71,7 @@ afk_events:
     on player joins:
       - flag <player> player.core.afk.state:false
     on player quits:
-      - flag <player> player.core.afk.state:false
-      - flag <player> player.core.afk.isafk:!
+      - flag <player> player.core.afk:!
 
 afk_restrictions:
   type: world
