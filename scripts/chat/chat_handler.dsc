@@ -196,7 +196,7 @@ chat_formatting:
 
 player_name_format:
   type: procedure
-  debug: false
+  debug: true
   definitions: player
   script:
     # long, verbose version
@@ -212,7 +212,7 @@ player_name_format:
 
 chat_update_command:
   type: command
-  debug: false
+  debug: true
   name: chat_update
   description: Chatdaten aktualisieren
   usage: /chat_update

@@ -28,7 +28,6 @@ item_teleportpillar_ituria:
     - <&3>teleportieren.
     - <empty>
     - <&f><&m>---------------------------
-    - <&7>Ab Rang: <&a>Vagabund
     - <&7>Zutat: <&c><&chr[274C]><&7> Herstellbar: <&2><&chr[2714]>
     - <&f><&m>---------------------------
     - <&3>SELTEN <&6>★★★<&7>☆☆

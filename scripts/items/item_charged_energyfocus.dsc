@@ -14,7 +14,6 @@ item_charged_energyfocus:
     - <&d>bei falscher Handhabe gefährlich.
     - <empty>
     - <&f><&m>---------------------------
-    - <&7>Ab Rang: <&a>Vagabund
     - <&7>Zutat: <&2><&chr[2714]> Herstellbar: <&2><&chr[2714]>
     - <&f><&m>---------------------------
     - <&5>Thaumaturgie
