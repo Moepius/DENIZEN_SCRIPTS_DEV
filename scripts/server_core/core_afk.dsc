@@ -29,7 +29,7 @@ toggle_afk:
     - if !<player.has_flag[player.core.afk]>:
       - flag <player> player.core.afk.state:false
       - flag <player> player.core.afk.time:<util.time_now>
-    - flag <player> player.core.afk.location:<player.location.block>
+      - flag <player> player.core.afk.location:<player.location.block>
     - if <[state]||null> == null:
       - define state <player.flag[player.core.afk.state].not>
     - if !<[state]>:
@@ -77,9 +77,7 @@ afk_restrictions:
   type: world
   debug: false
   events:
-    on player absorbs experience:
-      - if <player.has_flag[player.core.afk.isafk]>:
-        - determine cancelled
-    on player damages block:
-      - if <player.has_flag[player.core.afk.isafk]>:
-        - determine cancelled
+    on player absorbs experience flagged:player.core.afk.isafk:
+      - determine cancelled
+    on player damages block flagged:player.core.afk.isafk:
+      - determine cancelled
