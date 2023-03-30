@@ -29,7 +29,7 @@ toggle_afk:
     - if !<player.has_flag[player.core.afk]>:
       - flag <player> player.core.afk.state:false
       - flag <player> player.core.afk.time:<util.time_now>
-      - flag <player> player.core.afk.location:<player.location.block>
+    - flag <player> player.core.afk.location:<player.location.block>
     - if <[state]||null> == null:
       - define state <player.flag[player.core.afk.state].not>
     - if !<[state]>:
@@ -69,7 +69,7 @@ afk_events:
     on command flagged:player.core.afk:
       - run toggle_afk def:false
     on player joins:
-      - flag <player> player.core.afk.state:false
+      - run toggle_afk def:false
     on player quits:
       - flag <player> player.core.afk:!
 
