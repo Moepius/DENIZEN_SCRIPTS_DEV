@@ -7,7 +7,7 @@
 chat_formatting:
   type: world
   debug: false
-  enabled: true
+  enabled: false
   events:
     on server start server_flagged:!chat.cached:
       - run chat_formatting.sub_paths.chat_button_cache
