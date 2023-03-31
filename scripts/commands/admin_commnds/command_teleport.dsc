@@ -15,8 +15,7 @@ command_teleport:
         1: x
         2: y
         3: z
-        # TODO: replace with server flag of enabled worlds
-        4: <server.worlds.formatted>
+        4: <list[<server.flag[server.worlds.enabled_worlds]>]>
     script:
         # initial checks
         - if !<player.has_permission[craftasy.denizen.command.teleport]>:
