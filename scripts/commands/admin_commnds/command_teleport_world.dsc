@@ -10,7 +10,7 @@ command_teleport_world:
     - tpw
     tab completions:
         # TODO: replace with server flag of enabled worlds
-        1: <server.flag[server.worlds.enabled_worlds]>
+        1: <server.flag[server.worlds.enabled_worlds].formatted>
     script:
         - define worldname <context.args.first>
         - define world <world[<[worldname]>]>
@@ -23,7 +23,10 @@ command_teleport_world:
             - run chatsounds_error def:<player>
             - narrate format:c_warn "Ihr müsst eine Welt angeben."
             - stop
-        - if <server.flag[server.worlds.enabled_worlds].contains_any[<[worldname]>]>
+        - if !<server.flag[server.worlds.enabled_worlds].contains_any[<[worldname]>]>:
+            - run chatsounds_error def:<player>
+            - narrate format:c_warn "Ihr müsst eine geladene Welt angeben."
+            - stop
         - if !<player.has_flag[player.commands.teleport.backlocations.<[world]>]>:
             - playsound <player> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
             - teleport <player> <[world].spawn_location>
