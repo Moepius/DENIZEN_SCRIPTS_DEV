@@ -1,4 +1,5 @@
-# 
+# with left-clicking: teleport to the block you are looking at (up to 250 blocks away)
+# right-clicking: clip through a wall you are looking at
 
 item_teleport_arrow:
     type: item
@@ -24,37 +25,41 @@ item_teleport_arrow:
 
 item_teleport_arrow_handler:
     type: world
-    debug: false
+    debug: true
     events:
         on player right clicks block with:item_teleport_arrow:
             - determine cancelled passively
-            - define targetblock <player.cursor_on_solid[250]>
+            - define targetblock <player.cursor_on[250]>
             - define targetbehindblock <[targetblock].backward>
-            - if <[targetbehindblock]> == air && <[targetbehindblock].above> == air:
-                - cast blindness duration:2s hide_particles no_ambient no_icon <player>
+            - if <[targetbehindblock].material.name> == air && <[targetbehindblock].above.material.name> == air:
                 - playsound <player> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
                 - playeffect effect:SPELL_WITCH at:<player.location> visibility:500 quantity:120 offset:1.5
-                - teleport <player> <[targetbehindblock]>
+                - teleport <player> <[targetbehindblock]> relative
             # test if the block behind the targeted block is air and also the block above that
-                # yes: teleport the player to that location (wall clip)
+                # yes: teleport the player to that location (clip through a wall)
                 # no: error message
         on player left clicks block with:item_teleport_arrow:
             - determine cancelled passively
-            - define targetblock <player.cursor_on_solid[250]>
+            - define targetblock <player.cursor_on[250]>
             - define targetlocation <[targetblock].forward>
-            - if <[targetlocation]> == air && <[targetlocation].above> == air:
-                - cast blindness duration:2s hide_particles no_ambient no_icon <player>
+            - if <[targetlocation].material.name> == air && <[targetlocation].above.material.name> == air:
                 - playsound <player> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
                 - playeffect effect:SPELL_WITCH at:<player.location> visibility:500 quantity:120 offset:1.5
-                - teleport <player> <[targetlocation]>
-            # teleport player to next air block near the block is looking at when clicking (up to 100 blocks)
+                - teleport <player> <[targetlocation]> relative
+            # teleport player to next air block near the block he is looking at when clicking (up to 250 blocks)
+        #
+        # handling use cases
         on player drops item_teleport_arrow:
             - determine cancelled passively
             - take item:<context.item>
+        on player places item_teleport_arrow:
+        - determine cancelled
+        on player breaks block with:item_teleport_arrow:
+        - determine cancelled
 
 command_teleport_arrow:
     type: command
-    debug: false
+    debug: true
     name: tolkiers_pfeil
     description: Gives you <&dq>Tolkiers Pfeil<&dq>
     usage: /tolkiers_pfeil
