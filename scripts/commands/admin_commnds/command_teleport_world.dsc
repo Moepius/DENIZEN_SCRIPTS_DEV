@@ -10,7 +10,7 @@ command_teleport_world:
     - tpw
     tab completions:
         # TODO: replace with server flag of enabled worlds
-        1: <server.flag[server.worlds.enabled_worlds].formatted>
+        1: <list[<server.flag[server.worlds.enabled_worlds]>]>
     script:
         - define worldname <context.args.first>
         - define world <world[<[worldname]>]>
