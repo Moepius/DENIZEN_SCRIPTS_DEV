@@ -51,7 +51,7 @@ chat_formatting:
           time: <util.time_now.epoch_millis>
           uuid: <player.uuid>
       - flag player server.chat.history:->:<[data]> if:<context.system_message>
-      - flag player server.chat.history[1]:<- if:<server.flag[server.chat.history].size.is_more_than[50].if_null[false]>
+      - flag player server.chat.history[1]:<- if:<player.flag[server.chat.history].size.is_more_than[50].if_null[false]>
       - define messages <server.flag[server.chat.history].if_null[<list>].include[<player.flag[server.chat.history].if_null[<list>]>].sort_by_value[get[time]].parse[get[text]].if_null[<list>]>
       - define channel_buttons <server.flag[server.chat.buttons].if_null[<empty>]>
 
