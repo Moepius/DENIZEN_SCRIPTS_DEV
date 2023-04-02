@@ -100,6 +100,10 @@
 
 ######## Dungeons
 
+######## Blaupausen
+
+# Vorgefertigte Display Entity Module für Dekorationen - Craftingrezepte für Survival und Menüpunkt für Creative
+
 ######## Logging
 
 # Save important player data to YAML files very day (playtime, skill-levels, quest progress, etc.)
