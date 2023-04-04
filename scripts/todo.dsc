@@ -108,3 +108,10 @@
 
 # Save important player data to YAML files very day (playtime, skill-levels, quest progress, etc.)
 
+######## Options
+
+# AFK Nachrichten abschaltbar
+# Chatsounds abstellbar
+# MOTD abschaltbar
+# Tipps & Tricks abschaltbar
+
