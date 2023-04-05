@@ -25,7 +25,7 @@ debug_test_portals:
 portal_handler:
     type: world
     debug: false
-    enabled: true
+    enabled: false
     events:
         # entering of portals
         ############################################

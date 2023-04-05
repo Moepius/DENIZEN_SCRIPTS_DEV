@@ -7,7 +7,7 @@ core_error:
     debug: false
     definitions: player|message
     script:
-        - narrate format:c_info <[message]>
+        - narrate format:c_warn <[message]>
         - ratelimit <[player]> 10s
         - playsound <[player]> sound:item_shield_block pitch:1
 

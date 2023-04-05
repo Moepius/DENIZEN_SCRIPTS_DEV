@@ -1,5 +1,14 @@
 # all language files for German
 
+lang_test:
+    type: task
+    debug: false
+    definitions: player
+    script:
+        - narrate "Error Text:"
+        - narrate <empty>
+        - run core_error def:<[player]>|<script[<player.flag[player.settings.language]>].data_key[error.no_player]>
+
 de:
     type: data
     # standard feedback messages
