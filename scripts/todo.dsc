@@ -115,3 +115,15 @@
 # MOTD abschaltbar
 # Tipps & Tricks abschaltbar
 
+######### Wettersystem
+
+# https://meta.denizenscript.com/Docs/Search/downfall
+# Wetter ändert sich nicht mehr von alleine (Gamerule), eigenes Wetter einstellen
+# Wetter: Meteoritenschauer
+# Wetter: schweres Gewitter
+# Wetter: Ascheregen
+# Wetter: Orkan/schwerer Sturm
+# Wetter: Nieselregen (evtl. mit Tropfenpartikeln)
+# NPC, der einem das Wettter vorhersagt
+# Wetter beeinflusst Wachstum von Pflanzen
+
