@@ -31,3 +31,7 @@ de:
         wrong_language: Gebt entweder <&a>de <&c>oder <&a>en <&c>an.
         language_set_one: Eure Sprache wurde auf <&a>
         language_set_two: <&b>gesetzt.
+    # category: teleport
+    command_back:
+        no_backlocations: Ihr habt keine Orte an welche Ihr zurückkehren könntet.
+        location_not_valid: gebt einen gültigen Ort an zu dem Ihr Euch teleportieren wollt.

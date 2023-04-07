@@ -33,3 +33,7 @@ en:
         wrong_language: Please use either <&a>de <&c>or <&a>en <&c>as input.
         language_set_one: You have set your language settings to <&a>
         language_set_two:  <&b>.
+    # category: teleport
+    command_back:
+        no_backlocations: You have no locations to go back to.
+        location_not_valid: Please provide a valid location to teleport back to.
