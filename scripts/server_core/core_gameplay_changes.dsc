@@ -49,3 +49,20 @@ cancel_physics:
     on block physics adjacent:ladder|*_carpet:
       - determine cancelled
 
+# With rightcklick + sneaking, players can open a shulker box from their inventory. Kinda like a backpack.
+rightclick_shulker_inventory:
+    type: world
+    debug: false
+    events:
+        on player right clicks block with:*_shulker_box|shulker_box:
+          - if <player.is_sneaking>:
+            - determine cancelled passively
+            - playsound <player.location> sound:block_shulker_box_open
+            - inventory open "d:generic[title=<player.item_in_hand.display.if_null[Shulker Box]>;contents=<player.item_in_hand.inventory_contents>]"
+            - flag <player> shulker_box
+        on player flagged:shulker_box drops *_shulker_box|shulker_box:
+          - determine cancelled
+        on player flagged:shulker_box closes inventory:
+          - define items <context.inventory.list_contents>
+          - inventory adjust slot:hand inventory_contents:<[items]>
+          - flag <player> shulker_box:!

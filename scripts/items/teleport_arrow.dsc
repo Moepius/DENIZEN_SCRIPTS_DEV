@@ -29,33 +29,15 @@ item_teleport_arrow_handler:
     events:
         on player right clicks block with:item_teleport_arrow:
             - determine cancelled passively
-            - define targetblock <player.cursor_on[250]>
-            - define targetbehindblock <[targetblock].backward>
-            - if <[targetbehindblock].material.name> == air && <[targetbehindblock].above.material.name> == air:
-                - playsound <player> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
-                - playeffect effect:SPELL_WITCH at:<player.location> visibility:500 quantity:120 offset:1.5
-                - teleport <player> <[targetbehindblock]> relative
-            # test if the block behind the targeted block is air and also the block above that
-                # yes: teleport the player to that location (clip through a wall)
-                # no: error message
+            - determine cancelled passively
+            - run teleport_arrow_rightclick def:<player>
         on player left clicks block with:item_teleport_arrow:
             - determine cancelled passively
-            - define targetblock <player.cursor_on[250]>
-            - define targetlocation <[targetblock].forward>
-            - if <[targetlocation].material.name> == air && <[targetlocation].above.material.name> == air:
-                - playsound <player> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
-                - playeffect effect:SPELL_WITCH at:<player.location> visibility:500 quantity:120 offset:1.5
-                - teleport <player> <[targetlocation]> relative
-            # teleport player to next air block near the block he is looking at when clicking (up to 250 blocks)
-        #
-        # handling use cases
-        on player drops item_teleport_arrow:
-            - determine cancelled passively
-            - take item:<context.item>
-        on player places item_teleport_arrow:
-        - determine cancelled
+            - run teleport_arrow_leftclick def:<player>
+        after player drops item_teleport_arrow:
+            - remove <context.entity>
         on player breaks block with:item_teleport_arrow:
-        - determine cancelled
+            - determine cancelled
 
 command_teleport_arrow:
     type: command
@@ -78,3 +60,25 @@ command_teleport_arrow:
         # give player 1 item_teleport_arrow
         - narrate format:c_info "Ihr erhaltet die Kraft des Gottes <&a>Tolkier<&b>. Erzittert!"
         - give item_teleport_arrow
+
+teleport_arrow_leftclick:
+    type: task
+    debug: true
+    definitions: player
+    script:
+        - define hit <[player].eye_location.ray_trace[range=150;entities=*;ignore=<player>;fluids=true;nonsolids=true]||null>
+        - if <[hit]> != null:
+            - playsound <[player]> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
+            - playeffect effect:SPELL_WITCH at:<[player].location> visibility:500 quantity:120 offset:1.5
+            - teleport <[player]> <[hit].forward[1].with_pose[<[player]>]> relative
+
+teleport_arrow_rightclick:
+    type: task
+    debug: true
+    definitions: player
+    script:
+        - define hit <[player].eye_location.ray_trace[range=150;entities=*;ignore=<player>;fluids=true;nonsolids=true]||null>
+        - if <[hit]> != null && <[hit].backward[1].material.name> == air:
+            - playsound <[player]> sound:ENTITY_ENDERMAN_TELEPORT pitch:1
+            - playeffect effect:SPELL_WITCH at:<[player].location> visibility:500 quantity:120 offset:1.5
+            - teleport <[player]> <[hit].backward[1].with_pose[<[player]>]> relative
