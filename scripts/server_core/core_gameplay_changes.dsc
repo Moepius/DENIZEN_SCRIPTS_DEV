@@ -66,3 +66,11 @@ rightclick_shulker_inventory:
           - define items <context.inventory.list_contents>
           - inventory adjust slot:hand inventory_contents:<[items]>
           - flag <player> shulker_box:!
+        on player flagged:shulker_box drags *_shulker_box|shulker_box:
+          - determine cancelled
+        on player flagged:shulker_box drags in inventory:
+          - if <context.item.advanced_matches[shulker_box|*_shulker_box]>:
+            - determine cancelled
+        on player flagged:shulker_box clicks in inventory:
+          - if <context.item.advanced_matches[shulker_box|*_shulker_box]>:
+            - determine cancelled
