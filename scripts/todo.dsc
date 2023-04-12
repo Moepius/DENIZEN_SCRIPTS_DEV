@@ -122,9 +122,12 @@
 # Wetter ändert sich nicht mehr von alleine (Gamerule), eigenes Wetter einstellen
 # Wetter: Meteoritenschauer (in Sphäre der Erdenmutter mit langsamen Tempo, selten in Orbis)
 # Wetter: schweres Gewitter (mehr Blitze, stärkerer Regen)
-# Wetter: Ascheregen (Vulkangebiete, Sphären mit "böser" Atmosphäre)
+# Wetter: Blutregen/Todesnebel (Sphären mit "böser" Atmosphäre), Malus versch. Art für Spieler - ggf. Boni für Spieler mit bestimmten Göttern
+# Wetter: Ascheregen (Vulkangebiete, Sphären mit "böser" Atmosphäre), weht in eine Richtung - macht Spieler langsamer oder schneller je nachdem wohin er läuft
 # Wetter: Orkan/schwerer Sturm (Windgeräusche, mehr Regen)
-# Wetter: Hitze/Dürre (Pflanzen vertrocknen schnell, Blätter verfärben sich ggf.)
+# Wetter: Hitze/Dürre (Pflanzen vertrocknen schnell, Blätter verfärben sich ggf.), Malus für Rüstungen in Wüsten
+# Wetter: Sandsturm
+# Wetter: Blizzard und Schneestürme
 # Wetter: Nieselregen (evtl. mit Tropfenpartikeln)
 # Wetter: Blutmond
 # Wetter: Nebel
