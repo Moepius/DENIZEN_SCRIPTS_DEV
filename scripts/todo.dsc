@@ -119,7 +119,7 @@
 
 # https://meta.denizenscript.com/Docs/Search/downfall
 # Wetter ändert sich nicht mehr von alleine (Gamerule), eigenes Wetter einstellen
-# Wetter: Meteoritenschauer
+# Wetter: Meteoritenschauer (in Sphäre der Erdenmutter mit langsamen Temp, selten in Orbis)
 # Wetter: schweres Gewitter
 # Wetter: Ascheregen
 # Wetter: Orkan/schwerer Sturm
