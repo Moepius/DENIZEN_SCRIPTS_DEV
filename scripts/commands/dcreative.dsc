@@ -19,7 +19,7 @@
 ## already implemented further down, delete
 creative_pickblock:
     type: world
-    debug: true
+    debug: false
     events:
         on player left clicks block flagged:dcreative.active type:!air:
             - if !<player.is_sneaking>:
@@ -55,6 +55,7 @@ creative_command:
         - flag <player> dcreative.active
         - adjust <player> can_fly:true
         - narrate "Spielmodus auf Baumodus gesetzt."
+
 creative_handlers:
     type: world
     debug: false

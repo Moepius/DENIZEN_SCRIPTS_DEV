@@ -31,3 +31,6 @@ command_back:
             - stop
         # get the name of the saved backlocation of the player flag and match it with the saved backlocations with the actual location info
         # some flag like server.core.playerlocations.backlocation.<player.uuid>.<[locationname]>:<player.location>
+
+# https://paste.denizenscript.com/View/100571 notiz
+# thread: https://discord.com/channels/315163488085475337/1011711170048163890/1011711411283566643
