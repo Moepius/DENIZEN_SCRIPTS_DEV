@@ -117,13 +117,17 @@
 
 ######### Wettersystem
 
+# Beeinflusst NPC Dialoge, manche NPCs nur bei bestimmtem Wetter an Orten
 # https://meta.denizenscript.com/Docs/Search/downfall
 # Wetter ändert sich nicht mehr von alleine (Gamerule), eigenes Wetter einstellen
-# Wetter: Meteoritenschauer (in Sphäre der Erdenmutter mit langsamen Temp, selten in Orbis)
-# Wetter: schweres Gewitter
-# Wetter: Ascheregen
-# Wetter: Orkan/schwerer Sturm
+# Wetter: Meteoritenschauer (in Sphäre der Erdenmutter mit langsamen Tempo, selten in Orbis)
+# Wetter: schweres Gewitter (mehr Blitze, stärkerer Regen)
+# Wetter: Ascheregen (Vulkangebiete, Sphären mit "böser" Atmosphäre)
+# Wetter: Orkan/schwerer Sturm (Windgeräusche, mehr Regen)
+# Wetter: Hitze/Dürre (Pflanzen vertrocknen schnell, Blätter verfärben sich ggf.)
 # Wetter: Nieselregen (evtl. mit Tropfenpartikeln)
+# Wetter: Blutmond
+# Wetter: Nebel
 # NPC, der einem das Wettter vorhersagt
 # Wetter beeinflusst Wachstum von Pflanzen
 
