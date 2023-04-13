@@ -40,3 +40,59 @@ duenger_leer:
         hides: ITEM_DATA
     lore:
     - <empty>
+
+duenger_valid_items:
+    type: data
+    items:
+        - seagrass
+        - sea_pickle
+        - oak_sapling
+        - spruce_sapling
+        - birch_sapling
+        - jungle_sapling
+        - acacia_sapling
+        - dark_oak_sapling
+        - mangrove_sapling
+        - grass
+        - tall_grass
+        - fern
+        - large_fern
+        - azalea
+        - flowering_azalea
+        - dead_bush
+        - dandelion
+        - poppy
+        - blue_orchid
+        - allium
+        - azure_bluet
+        - red_tulip
+        - orange_tulip
+        - white_tulip
+        - pink_tulip
+        - oxeye_daisy
+        - cornflower
+        - lily_of_the_valley
+        - sunflower
+        - lilac
+        - rose_bush
+        - peony
+        - wither_rose
+        - spore_blossom
+        - brown_mushroom
+        - red_mushroom
+        - crimson_fungus
+        - warped_fungus
+        - crimson_roots
+        - warped_roots
+        - nether_sprouts
+        - weeping_vines
+        - twisting_vines
+        - sugar_cane
+        - kelp
+        - moss_carpet
+        - big_dripleaf
+        - small_dripleaf
+        - bamboo
+        - chorus_plant
+        - chorus_flower
+        - cactus
