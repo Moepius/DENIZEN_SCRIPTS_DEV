@@ -18,6 +18,13 @@ command_duenger:
         - if !<player.has_flag[player.commands.duenger.items_selected]>:
             - flag <player> player.commands.duenger.items_selected:duenger_leer|duenger_leer|duenger_leer|duenger_leer|duenger_leer
         - inventory open d:duenger_inventory
+        # <script[duenger_valid_items].data_key[items].as[list]>
+        # <ListTag.replace[(regex:)<element>].with[<element>]>
+        # Intensität konsistent indem Wiederholungen der PFlanzversuche mit Anzahl der gefunden Blöcke multipliziert wird, oder ein bestimmter Prozentsatz der gefundenen Blöcke durchgegangen wird
+
+        # Modus
+        # Intensität item item item item item
+        # Radius
 
 duenger_inventory:
     type: inventory
@@ -40,6 +47,14 @@ duenger_leer:
         hides: ITEM_DATA
     lore:
     - <empty>
+
+duenger_handler:
+    type: world
+    debug: true
+    enabled: true
+    events:
+        on player clicks !air in duenger_inventory:
+            - narrate "Klick!"
 
 duenger_valid_items:
     type: data
