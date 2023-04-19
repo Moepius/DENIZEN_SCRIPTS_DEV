@@ -107,14 +107,29 @@ duenger_valid_items:
         - chorus_flower
         - cactus
 
+#################### INVENTORY ITEMS ####################
+
+
 duenger_leer:
     type: item
-    material: gray_stained_glass_pane
-    display name: <empty>
+    material: gray_concrete
+    display name: <&sp>
     mechanisms:
         hides: ITEM_DATA
     lore:
     - <empty>
+
+duenger_item_1:
+    type: item
+    material: green_concrete
+    display name: <&3><&l>[<&6><&l>Item 1<&3><&l>]
+    mechanisms:
+        hides: ITEM_DATA
+    lore:
+    - <&b>Radius einstellen (10 bis 100 Block)
+    - <&f><&m>----------
+    - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
+    - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
 
 duenger_radius:
     type: item
