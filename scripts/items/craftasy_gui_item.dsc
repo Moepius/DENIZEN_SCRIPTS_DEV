@@ -18,7 +18,7 @@ craftasy_gui_item:
     skull_skin: 22db6f45-8f8a-4192-936d-6a5d039279d7|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmRhNDgyNjcwYWQ3NDQ2NjA4MTg4M2ZlN2VkZDQ4ZGVjMjdhNjk4YTlhNTJjNGY4NzAzMTBiYTAzNWFjZjY5NiJ9fX0=
     hides: ENCHANTS
   enchantments:
-  - sharpness:4
+  - sharpness:1
   lore:
     - <&f><&m>----------
     - <&3>➤ <&a>RECHTSKLICK<&b>, um Menü zu öffnen.

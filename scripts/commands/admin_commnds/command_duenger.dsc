@@ -3,7 +3,7 @@ command_duenger:
     type: command
     debug: false
     name: duenger
-    description: teleport to your last location
+    description: open the duenger GUI
     usage: /duenger
     aliases:
     - du
@@ -39,14 +39,6 @@ duenger_inventory:
     - [air] [] [] [] [] [] [] [] [air]
     - [air] [air] [air] [air] [air] [air] [air] [air] [air]
 
-duenger_leer:
-    type: item
-    material: gray_stained_glass_pane
-    display name: <empty>
-    mechanisms:
-        hides: ITEM_DATA
-    lore:
-    - <empty>
 
 duenger_handler:
     type: world
@@ -55,6 +47,9 @@ duenger_handler:
     events:
         on player clicks !air in duenger_inventory:
             - narrate "Klick!"
+            -
+        on player opens duenger_inventory:
+            - narrate "test"
 
 duenger_valid_items:
     type: data
@@ -111,3 +106,58 @@ duenger_valid_items:
         - chorus_plant
         - chorus_flower
         - cactus
+
+duenger_leer:
+    type: item
+    material: gray_stained_glass_pane
+    display name: <empty>
+    mechanisms:
+        hides: ITEM_DATA
+    lore:
+    - <empty>
+
+duenger_radius:
+    type: item
+    material: player_head
+    display name: <&3><&l>[<&6><&l>Radius<&3><&l>]
+    mechanisms:
+        skull_skin: 22db6f45-8f8a-4192-936d-6a5d039279d7|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmRhNDgyNjcwYWQ3NDQ2NjA4MTg4M2ZlN2VkZDQ4ZGVjMjdhNjk4YTlhNTJjNGY4NzAzMTBiYTAzNWFjZjY5NiJ9fX0=
+    lore:
+    - <&b>Radius einstellen (10 bis 100 Block)
+    - <&f><&m>----------
+    - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
+    - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
+
+duenger_intensity:
+    type: item
+    material: player_head
+    display name: <&3><&l>[<&6><&l>Intensität<&3><&l>]
+    mechanisms:
+        skull_skin: 22db6f45-8f8a-4192-936d-6a5d039279d7|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmRhNDgyNjcwYWQ3NDQ2NjA4MTg4M2ZlN2VkZDQ4ZGVjMjdhNjk4YTlhNTJjNGY4NzAzMTBiYTAzNWFjZjY5NiJ9fX0=
+    lore:
+    - <&b>Intensität einstellen (0 bis 100)
+    - <&f><&m>----------
+    - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
+    - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
+
+duenger_mode_water:
+    type: item
+    material: player_head
+    display name: <&3><&l>[<&6><&l>Modus<&3><&l>]
+    mechanisms:
+        skull_skin: 041b4e25-2cec-4506-9a3c-92495a847454|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODhhMGY3YmQzZDU4YzU4ZmI5NWU0OGIyYjQ0OTIzZjVlYWEyYzFkNTRkY2Q3MmZhN2NlZmNiYmMxZDRjODFhZCJ9fX0=
+    lore:
+    - <&b><&l>MODUS: <&a>WASSER
+    - <&f><&m>----------
+    - <&3>➤ <&a>LINKSKLICK<&b>, um Modus zu wechseln.
+
+duenger_mode_air:
+    type: item
+    material: player_head
+    display name: <&3><&l>[<&6><&l>Modus<&3><&l>]
+    mechanisms:
+        skull_skin: 0ff1bd99-7b14-48e8-98c5-868a5ce9494f|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjE0ODUzNDkwMDZlZDFjOTFiNzk1OWFmZjQ0ZjMzMGRkYWMzNWUzZDlhOTllNGE4MjA1MWY5ODZlY2RhNDc1NSJ9fX0=
+    lore:
+    - <&b><&l>MODUS: <&a>NORMAL
+    - <&f><&m>----------
+    - <&3>➤ <&a>LINKSKLICK<&b>, um Modus zu wechseln.
