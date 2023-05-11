@@ -65,10 +65,14 @@ duenger_handler:
     debug: true
     enabled: true
     events:
-        on player clicks in duenger_inventory:
+        on player left clicks in duenger_inventory:
             - narrate "Klick! <context.slot>"
             - if <list[12|13|14|15|16].contains_any[<context.slot>]>:
-                
+                - if !<list[<script[duenger_valid_items].data_key[items].as[list]>].contains_any[<context.cursor_item.material.name.if_null[air]>]>:
+                    - stop
+                #- run core_settings def:<player>|"Auswahl geändert"
+                - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<context.cursor_item.material.name.if_null[duenger_leer]>
+                - inventory set o:<context.cursor_item.material.name.if_null[duenger_leer]> slot:<context.slot> d:duenger_inventory
         on player opens duenger_inventory:
             - narrate "Dünger Inventar geöffnet"
 
