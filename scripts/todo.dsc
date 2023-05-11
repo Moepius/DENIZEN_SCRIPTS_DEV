@@ -15,6 +15,8 @@
 ####### player tools and functions:
 
 #TODO: /spawn command available with cooldown for Besucher and veraltet ranks, players have to use consumable item for teleporting to spawn
+# Spieler können Leitern hängend unter sich platzieren beim Klettern https://youtu.be/KqS27JcbrCQ 6min
+# Einige der Features des Datapcks "Vanilla Refresh" https://modrinth.com/datapack/vanilla-refresh
 
 ###### Ränge:
 
@@ -106,7 +108,7 @@
 
 ######## Logging
 
-# Save important player data to YAML files very day (playtime, skill-levels, quest progress, etc.)
+# Save important player data to YAML files every day (playtime, skill-levels, quest progress, etc.)
 
 ######## Options
 

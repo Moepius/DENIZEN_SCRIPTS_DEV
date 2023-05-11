@@ -1,7 +1,15 @@
-gui_events:
+gui_generic_events:
     type: world
     enabled: false
     events:
-        on player joins:
-        - if <player.has_flag[enabled_error]>:
-            - narrate "Fehler! Script sollte ausgeschaltet sein"
+        on player clicks gui_close in inventory:
+            - playsound <player> sound:block_sculk_sensor_clicking volume:1 pitch:0.1
+            - inventory close
+
+
+gui_close:
+    type: item
+    material: barrier
+    display name: <&f><&l>[<&c><&l>Schließen<&f><&l>]
+    lore:
+    - <&f>Menü schließen

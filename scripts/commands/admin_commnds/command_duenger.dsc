@@ -10,13 +10,19 @@ command_duenger:
     script:
         # initial checks
         - if !<player.has_permission[craftasy.denizen.command.duenger]>:
-            - run core_error def:<player>|<script.parsed_key[messages].data_key[error.no_permission]>
+            - run core_error def:<player>|<script[messages].parsed_key[error.no_permission]>
             - stop
-        - if !<context.args.is_empty>::
-            - run core_error def:<player>|<script.parsed_key[messages].data_key[error.no_args]>
+        - if !<context.args.is_empty>:
+            - run core_error def:<player>|<script[messages].parsed_key[error.no_args]>
             - stop
         - if !<player.has_flag[player.commands.duenger.items_selected]>:
-            - flag <player> player.commands.duenger.items_selected:duenger_leer|duenger_leer|duenger_leer|duenger_leer|duenger_leer
+            - flag <player> player.commands.duenger.items_selected.slot12:duenger_leer
+            - flag <player> player.commands.duenger.items_selected.slot13:duenger_leer
+            - flag <player> player.commands.duenger.items_selected.slot14:duenger_leer
+            - flag <player> player.commands.duenger.items_selected.slot15:duenger_leer
+            - flag <player> player.commands.duenger.items_selected.slot16:duenger_leer
+        - if !<player.has_flag[player.commands.duenger.mode_selected]>:
+            - flag <player> player.commands.duenger.mode_selected:duenger_mode_air
         - inventory open d:duenger_inventory
         # <script[duenger_valid_items].data_key[items].as[list]>
         # <ListTag.replace[(regex:)<element>].with[<element>]>
@@ -26,6 +32,17 @@ command_duenger:
         # Intensität item item item item item
         # Radius
 
+du_reset:
+    type: command
+    debug: false
+    name: du_reset
+    description: debug
+    usage: /du_reset
+    script:
+        # reset flags
+        - flag <player> player.commands.duenger.items_selected:!
+        - flag <player> player.commands.duenger.mode_selected:!
+
 duenger_inventory:
     type: inventory
     debug: true
@@ -33,11 +50,14 @@ duenger_inventory:
     title: <&f><&l>Superdünger
     gui: true
     procedural items:
-    - define items <player.flag[player.commands.duenger.items_selected]>
+    - define items <player.flag[player.commands.duenger.items_selected].values>
+    #- define items <list[<[flag].slot12>|<[flag].slot13>|<[flag].slot14>|<[flag].slot15>|<[flag].slot16>]>
+    - define mode <player.flag[player.commands.duenger.mode_selected]>
+    - determine <list[<[items]>|<[mode]>]>
     slots:
-    - [air] [air] [air] [air] [air] [air] [air] [air] [air]
-    - [air] [] [] [] [] [] [] [] [air]
-    - [air] [air] [air] [air] [air] [air] [air] [air] [air]
+    - [duenger_radius] [air] [air] [air] [air] [air] [air] [air] [air]
+    - [duenger_intensity] [air] [] [] [] [] [] [air] [air]
+    - [] [air] [air] [air] [air] [air] [air] [air] [gui_close]
 
 
 duenger_handler:
@@ -45,11 +65,12 @@ duenger_handler:
     debug: true
     enabled: true
     events:
-        on player clicks !air in duenger_inventory:
-            - narrate "Klick!"
-            -
+        on player clicks in duenger_inventory:
+            - narrate "Klick! <context.slot>"
+            - if <list[12|13|14|15|16].contains_any[<context.slot>]>:
+                
         on player opens duenger_inventory:
-            - narrate "test"
+            - narrate "Dünger Inventar geöffnet"
 
 duenger_valid_items:
     type: data
