@@ -1,7 +1,7 @@
 
 command_duenger:
     type: command
-    debug: false
+    debug: true
     name: duenger
     description: open the duenger GUI
     usage: /duenger
@@ -15,6 +15,7 @@ command_duenger:
         - if !<context.args.is_empty>:
             - run core_error def:<player>|<script[messages].parsed_key[error.no_args]>
             - stop
+        # flag player with default inv
         - if !<player.has_flag[player.commands.duenger.items_selected]>:
             - flag <player> player.commands.duenger.items_selected.slot12:duenger_leer
             - flag <player> player.commands.duenger.items_selected.slot13:duenger_leer
@@ -47,7 +48,7 @@ duenger_inventory:
     type: inventory
     debug: true
     inventory: chest
-    title: <&f><&l>Superdünger
+    title: <&f><&l>Superdünger Einstellungen
     gui: true
     procedural items:
     - define items <player.flag[player.commands.duenger.items_selected].values>
@@ -68,9 +69,9 @@ duenger_handler:
             - if <list[12|13|14|15|16].contains_any[<context.slot>]>:
                 - if !<list[<script[duenger_valid_items].data_key[items].as[list]>].contains_any[<context.cursor_item.material.name.if_null[air]>]>:
                     - stop
-                #- run core_settings def:<player>|"Auswahl geändert"
+                - run core_settings "def:<player>|Auswahl geändert"
                 - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<context.cursor_item.material.name.if_null[duenger_leer]>
-                - inventory update d:<player.open_inventory>
+                - inventory set d:<player.open_inventory> o:<context.cursor_item.material.name.if_null[duenger_leer]> s:<context.slot>
         on player opens duenger_inventory:
             - narrate "Dünger Inventar geöffnet"
 
@@ -199,3 +200,21 @@ duenger_mode_air:
     - <&b><&l>MODUS: <&a>NORMAL
     - <&f><&m>----------
     - <&3>➤ <&a>LINKSKLICK<&b>, um Modus zu wechseln.
+
+superduenger:
+    type: item
+    material: bone_meal
+    display name: <gold><bold>Superdünger
+    enchantments:
+    - vanishing_curse:1
+    mechanisms:
+        hides: ENCHANTS
+    lore:
+    - <empty>
+    - <&a>Rechtsklick: <&3>Pflanzen
+    - <&a>Linksklick + Schleichen: <&3>Menü öffnen
+    - <empty>
+    - <&f><&m>----------------------------------
+    - <&7>Zutat: <&c><&chr[274C]><&7> Herstellbar: <&c><&chr[274C]><&7>
+    - <&f><&m>----------------------------------
+    - <&c>Admin Tool

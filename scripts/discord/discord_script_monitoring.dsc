@@ -61,7 +61,7 @@ debug_alert:
 
 error_handlers:
   type: world
-  debug: true
+  debug: false
   build_estimated_script:
     # Called when the show_full_script option is set to false
     - define "script_builder:->:(last command run: <[last_command]>)"
