@@ -53,7 +53,7 @@ duenger_inventory:
     procedural items:
     - define items <player.flag[player.commands.duenger.items_selected].values>
     - define mode <player.flag[player.commands.duenger.mode_selected]>
-    - determine <list[<[items]>|<[mode]>]>
+    - determine <[items].include[<[mode]>]>
     slots:
     - [duenger_radius] [air] [air] [air] [air] [air] [air] [air] [air]
     - [duenger_intensity] [air] [] [] [] [] [] [air] [air]
@@ -66,8 +66,8 @@ duenger_handler:
     enabled: true
     events:
         on player left clicks in duenger_inventory:
-            - if <list[12|13|14|15|16].contains_any[<context.slot>]>:
-                - if !<list[<script[duenger_valid_items].data_key[items].as[list]>].contains_any[<context.cursor_item.material.name.if_null[air]>]>:
+            - if <list[12|13|14|15|16].contains[<context.slot>]>:
+                - if !<script[duenger_valid_items].data_key[items].as[list].contains[<context.cursor_item.material.name.if_null[air]>]>:
                     - stop
                 - run core_settings "def:<player>|Auswahl geändert"
                 - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<context.cursor_item.material.name.if_null[duenger_leer]>
