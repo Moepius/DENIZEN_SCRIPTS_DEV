@@ -24,6 +24,10 @@ command_duenger:
             - flag <player> player.commands.duenger.items_selected.slot16:duenger_leer
         - if !<player.has_flag[player.commands.duenger.mode_selected]>:
             - flag <player> player.commands.duenger.mode_selected:duenger_mode_air
+        - if !<player.has_flag[player.commands.duenger.radius]>:
+            - flag <player> player.commands.duenger.radius:30
+        - if !<player.has_flag[player.commands.duenger.intensity]>:
+            - flag <player> player.commands.duenger.radius:30
         - inventory open d:duenger_inventory
         # <script[duenger_valid_items].data_key[items].as[list]>
         # <ListTag.replace[(regex:)<element>].with[<element>]>
@@ -65,6 +69,7 @@ duenger_handler:
     debug: true
     enabled: true
     events:
+    # - flag <player> the_flag:<player.flag[the_flag].add[10].min[100]>
         on player left clicks in duenger_inventory:
             - if <list[12|13|14|15|16].contains[<context.slot>]>:
                 - if !<script[duenger_valid_items].data_key[items].as[list].contains[<context.cursor_item.material.name.if_null[air]>]>:
@@ -131,6 +136,21 @@ duenger_valid_items:
         - chorus_flower
         - cactus
 
+duenger_valid_blocks:
+    type: data
+    blocks:
+    - grass_block
+    - podzol
+    - dirt
+    - coarse_dirt
+    - gravel
+    - moss_block
+    - crimson_nylium
+    - warped_nylium
+    - rooted_dirt
+    - mud
+    - muddy_mangrove_roots
+    - mycelium
 #################### INVENTORY ITEMS ####################
 
 
