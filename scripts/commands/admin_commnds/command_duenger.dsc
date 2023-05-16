@@ -88,7 +88,7 @@ superduenger_rightclick:
         - define found_blocks <[clicked_block].find_blocks[<[valid_blocks]>].within[<[radius]>]>
         - if !<[valid_blocks].contains[<[clicked_block].material.name.if_null[air]>]>:
             - stop
-        - foreach <[found_blocks].random[<[found_blocks].size.mul[0.<[intensity]>].round_down>]> as:block:
+        - foreach <[found_blocks].random[<[found_blocks].size.mul[0.<[intensity]>].round>]> as:block:
             - if <[block].above.material.name> == air:
                 - define plant <[player].flag[player.commands.duenger.items_selected].values.exclude[duenger_leer].random>
                 - modifyblock <[block].above> <[plant]> no_physics
