@@ -15,6 +15,8 @@ command_duenger:
         - if !<context.args.is_empty>:
             - run core_error def:<player>|<script[messages].parsed_key[error.no_args]>
             - stop
+        # TODO: test if player already has item
+        - give superduenger
         - run superduenger_leftclick def:<player>
         # <script[duenger_valid_items].data_key[items].as[list]>
         # <ListTag.replace[(regex:)<element>].with[<element>]>
@@ -68,12 +70,11 @@ duenger_handler:
             - narrate "Dünger Inventar geöffnet"
         on player right clicks block with:superduenger:
             - determine cancelled passively
-            - determine cancelled passively
-            - run teleport_arrow_rightclick def:<player>
+            - run superduenger_rightclick def:<player>|<context.location>
         on player left clicks block with:superduenger:
             - determine cancelled passively
             - if <player.is_sneaking>:
-                - run teleport_arrow_leftclick def:<player>
+                - run superduenger_leftclick def:<player>
         after player drops superduenger:
             - remove <context.entity>
         on player breaks block with:superduenger:
@@ -85,13 +86,17 @@ superduenger_rightclick:
     definitions: player|clicked_block
     script:
         - if !<script[duenger_valid_blocks].data_key[blocks].as[list].contains[<[clicked_block].material.name.if_null[air]>]>:
+            - narrate "kein valider Block" targets:<[player]>
             - stop
+        - narrate "Block gefunden" targets:<[player]>
+
 superduenger_leftclick:
     type: task
     debug: true
     definitions: player
     script:
         # flag player with default inv
+        - narrate "leftclick action" targets:<[player]>
         - if !<[player].has_flag[player.commands.duenger.items_selected]>:
             - flag <[player]> player.commands.duenger.items_selected.slot12:duenger_leer
             - flag <[player]> player.commands.duenger.items_selected.slot13:duenger_leer
