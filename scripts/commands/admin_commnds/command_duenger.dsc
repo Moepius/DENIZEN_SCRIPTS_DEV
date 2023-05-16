@@ -15,20 +15,7 @@ command_duenger:
         - if !<context.args.is_empty>:
             - run core_error def:<player>|<script[messages].parsed_key[error.no_args]>
             - stop
-        # flag player with default inv
-        - if !<player.has_flag[player.commands.duenger.items_selected]>:
-            - flag <player> player.commands.duenger.items_selected.slot12:duenger_leer
-            - flag <player> player.commands.duenger.items_selected.slot13:duenger_leer
-            - flag <player> player.commands.duenger.items_selected.slot14:duenger_leer
-            - flag <player> player.commands.duenger.items_selected.slot15:duenger_leer
-            - flag <player> player.commands.duenger.items_selected.slot16:duenger_leer
-        - if !<player.has_flag[player.commands.duenger.mode_selected]>:
-            - flag <player> player.commands.duenger.mode_selected:duenger_mode_air
-        - if !<player.has_flag[player.commands.duenger.radius]>:
-            - flag <player> player.commands.duenger.radius:30
-        - if !<player.has_flag[player.commands.duenger.intensity]>:
-            - flag <player> player.commands.duenger.radius:30
-        - inventory open d:duenger_inventory
+        - run superduenger_leftclick def:<player>
         # <script[duenger_valid_items].data_key[items].as[list]>
         # <ListTag.replace[(regex:)<element>].with[<element>]>
         # Intensität konsistent indem Wiederholungen der PFlanzversuche mit Anzahl der gefunden Blöcke multipliziert wird, oder ein bestimmter Prozentsatz der gefundenen Blöcke durchgegangen wird
@@ -79,6 +66,46 @@ duenger_handler:
                 - inventory set d:<player.open_inventory> o:<context.cursor_item.material.name.if_null[duenger_leer]> s:<context.slot>
         on player opens duenger_inventory:
             - narrate "Dünger Inventar geöffnet"
+        on player right clicks block with:superduenger:
+            - determine cancelled passively
+            - determine cancelled passively
+            - run teleport_arrow_rightclick def:<player>
+        on player left clicks block with:superduenger:
+            - determine cancelled passively
+            - if <player.is_sneaking>:
+                - run teleport_arrow_leftclick def:<player>
+        after player drops superduenger:
+            - remove <context.entity>
+        on player breaks block with:superduenger:
+            - determine cancelled
+
+superduenger_rightclick:
+    type: task
+    debug: true
+    definitions: player|clicked_block
+    script:
+        - if !<script[duenger_valid_blocks].data_key[blocks].as[list].contains[<[clicked_block].material.name.if_null[air]>]>:
+            - stop
+superduenger_leftclick:
+    type: task
+    debug: true
+    definitions: player
+    script:
+        # flag player with default inv
+        - if !<[player].has_flag[player.commands.duenger.items_selected]>:
+            - flag <[player]> player.commands.duenger.items_selected.slot12:duenger_leer
+            - flag <[player]> player.commands.duenger.items_selected.slot13:duenger_leer
+            - flag <[player]> player.commands.duenger.items_selected.slot14:duenger_leer
+            - flag <[player]> player.commands.duenger.items_selected.slot15:duenger_leer
+            - flag <[player]> player.commands.duenger.items_selected.slot16:duenger_leer
+        - if !<[player].has_flag[player.commands.duenger.mode_selected]>:
+            - flag <[player]> player.commands.duenger.mode_selected:duenger_mode_air
+        - if !<[player].has_flag[player.commands.duenger.radius]>:
+            - flag <[player]> player.commands.duenger.radius:30
+        - if !<[player].has_flag[player.commands.duenger.intensity]>:
+            - flag <[player]> player.commands.duenger.radius:30
+        # open settings menu
+        - inventory open d:duenger_inventory
 
 duenger_valid_items:
     type: data
