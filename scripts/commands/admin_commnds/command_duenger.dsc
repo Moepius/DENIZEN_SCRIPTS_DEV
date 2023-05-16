@@ -15,17 +15,14 @@ command_duenger:
         - if !<context.args.is_empty>:
             - run core_error def:<player>|<script[messages].parsed_key[error.no_args]>
             - stop
-        # TODO: test if player already has item
-        - give superduenger
+        # give item, if not already in inv
+        - if <player.inventory.quantity_item[superduenger]> == 0:
+            - give superduenger
         - run superduenger_leftclick def:<player>
         # <script[duenger_valid_items].data_key[items].as[list]>
         # <ListTag.replace[(regex:)<element>].with[<element>]>
-        # Intensität konsistent indem Wiederholungen der PFlanzversuche mit Anzahl der gefunden Blöcke multipliziert wird, oder ein bestimmter Prozentsatz der gefundenen Blöcke durchgegangen wird
 
-        # Modus
-        # Intensität item item item item item
-        # Radius
-
+# debug command
 du_reset:
     type: command
     debug: false
@@ -51,7 +48,6 @@ duenger_inventory:
     - [duenger_radius] [air] [air] [air] [air] [air] [air] [air] [air]
     - [duenger_intensity] [air] [] [] [] [] [] [air] [air]
     - [] [air] [air] [air] [air] [air] [air] [air] [gui_close]
-
 
 duenger_handler:
     type: world
@@ -80,22 +76,30 @@ duenger_handler:
         on player breaks block with:superduenger:
             - determine cancelled
 
+# rightclick action for planting in the set radius with set intensity
 superduenger_rightclick:
     type: task
     debug: true
     definitions: player|clicked_block
     script:
-        - if !<script[duenger_valid_blocks].data_key[blocks].as[list].contains[<[clicked_block].material.name.if_null[air]>]>:
-            - narrate "kein valider Block" targets:<[player]>
+        - define valid_blocks <script[duenger_valid_blocks].data_key[blocks].as[list]>
+        - define radius <[player].flag[player.commands.duenger.radius]>
+        - define intensity <[player].flag[player.commands.duenger.intensity]>
+        - define found_blocks <[clicked_block].find_blocks[<[valid_blocks]>].within[<[radius]>]>
+        - if !<[valid_blocks].contains[<[clicked_block].material.name.if_null[air]>]>:
             - stop
-        - narrate "Block gefunden" targets:<[player]>
+        - foreach <[found_blocks].random[<[found_blocks].size.mul[0.<[intensity]>].round_down>]> as:block:
+            - if <[block].above.material.name> == air:
+                - define plant <[player].flag[player.commands.duenger.items_selected].values.exclude[duenger_leer].random>
+                - modifyblock <[block].above> <[plant]> no_physics
 
+# leftclick action to open the GUI
 superduenger_leftclick:
     type: task
     debug: true
     definitions: player
     script:
-        # flag player with default inv
+        # flag player with default values
         - narrate "leftclick action" targets:<[player]>
         - if !<[player].has_flag[player.commands.duenger.items_selected]>:
             - flag <[player]> player.commands.duenger.items_selected.slot12:duenger_leer
@@ -108,9 +112,11 @@ superduenger_leftclick:
         - if !<[player].has_flag[player.commands.duenger.radius]>:
             - flag <[player]> player.commands.duenger.radius:30
         - if !<[player].has_flag[player.commands.duenger.intensity]>:
-            - flag <[player]> player.commands.duenger.radius:30
+            - flag <[player]> player.commands.duenger.intensity:30
         # open settings menu
         - inventory open d:duenger_inventory
+
+#################### DATA ####################
 
 duenger_valid_items:
     type: data
@@ -183,8 +189,8 @@ duenger_valid_blocks:
     - mud
     - muddy_mangrove_roots
     - mycelium
-#################### INVENTORY ITEMS ####################
 
+#################### INVENTORY ITEMS ####################
 
 duenger_leer:
     type: item
