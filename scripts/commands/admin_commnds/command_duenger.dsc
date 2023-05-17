@@ -88,12 +88,15 @@ superduenger_rightclick:
         - define found_blocks <[clicked_block].find_blocks[<[valid_blocks]>].within[<[radius]>]>
         - if !<[valid_blocks].contains[<[clicked_block].material.name.if_null[air]>]>:
             - stop
-        - foreach <[found_blocks].random[<[found_blocks].size.mul[0.<[intensity]>].round>]> as:block:
+        - foreach <[found_blocks]> as:block:
+            - if !<util.random_chance[<[intensity]>]>:
+                - foreach next
             - if <[block].above.material.name> == air:
                 - define plant <[player].flag[player.commands.duenger.items_selected].values.exclude[duenger_leer].random>
                 - modifyblock <[block].above> <[plant]> no_physics
 
 # leftclick action to open the GUI
+# ex flag <player> player.commands.duenger.radius:30
 superduenger_leftclick:
     type: task
     debug: true
@@ -221,6 +224,7 @@ duenger_radius:
         skull_skin: 22db6f45-8f8a-4192-936d-6a5d039279d7|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmRhNDgyNjcwYWQ3NDQ2NjA4MTg4M2ZlN2VkZDQ4ZGVjMjdhNjk4YTlhNTJjNGY4NzAzMTBiYTAzNWFjZjY5NiJ9fX0=
     lore:
     - <&b>Radius einstellen (10 bis 100 Block)
+    - <&b>Aktuell: <&a><player.flag[player.commands.duenger.radius]>
     - <&f><&m>----------
     - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
     - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
@@ -232,7 +236,8 @@ duenger_intensity:
     mechanisms:
         skull_skin: 22db6f45-8f8a-4192-936d-6a5d039279d7|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmRhNDgyNjcwYWQ3NDQ2NjA4MTg4M2ZlN2VkZDQ4ZGVjMjdhNjk4YTlhNTJjNGY4NzAzMTBiYTAzNWFjZjY5NiJ9fX0=
     lore:
-    - <&b>Intensität einstellen (0 bis 100)
+    - <&b>Intensität einstellen (0 bis 100 Prozent)
+    - <&b>Aktuell: <&a><player.flag[player.commands.duenger.intensity]>
     - <&f><&m>----------
     - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
     - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
