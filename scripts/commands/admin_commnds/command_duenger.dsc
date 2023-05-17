@@ -1,3 +1,4 @@
+# TODO: add undo argument
 
 command_duenger:
     type: command
@@ -21,18 +22,6 @@ command_duenger:
         - run superduenger_leftclick def:<player>
         # <script[duenger_valid_items].data_key[items].as[list]>
         # <ListTag.replace[(regex:)<element>].with[<element>]>
-
-# debug command
-du_reset:
-    type: command
-    debug: false
-    name: du_reset
-    description: debug
-    usage: /du_reset
-    script:
-        # reset flags
-        - flag <player> player.commands.duenger.items_selected:!
-        - flag <player> player.commands.duenger.mode_selected:!
 
 duenger_inventory:
     type: inventory
@@ -93,6 +82,16 @@ superduenger_rightclick:
                 - foreach next
             - if <[block].above.material.name> == air:
                 - define plant <[player].flag[player.commands.duenger.items_selected].values.exclude[duenger_leer].random>
+                # test if plant is 2 blocks tall
+                - if <script[duenger_large_items].data_key[items].contains[<[plant]>]>:
+                    - modifyblock <[block].above> <[plant]>[half=bottom] no_physics
+                    - modifyblock <[block].add[0,2,0]> <[plant]>[half=top] no_physics
+                    - foreach next
+                # test if plant is a sapling or anything else that grows into sth. large
+                - if <script[duenger_growing_items].data_key[items].contains[<[plant]>]>:
+                    - modifyblock <[block].above> <[plant]> no_physics
+                    - modifyblock <[block].add[0,2,0]> tripwire no_physics
+                    - foreach next
                 - modifyblock <[block].above> <[plant]> no_physics
 
 # leftclick action to open the GUI
@@ -132,7 +131,7 @@ duenger_valid_items:
         - jungle_sapling
         - acacia_sapling
         - dark_oak_sapling
-        - mangrove_sapling
+        - mangrove_propagule
         - grass
         - tall_grass
         - fern
@@ -192,6 +191,27 @@ duenger_valid_blocks:
     - mud
     - muddy_mangrove_roots
     - mycelium
+
+duenger_large_items:
+    type: data
+    items:
+    - tall_grass
+    - large_fern
+    - rose_bush
+    - lilac
+    - sunflower
+    - peony
+
+duenger_growing_items:
+    type: data
+    items:
+    - oak_sapling
+    - spruce_sapling
+    - birch_sapling
+    - jungle_sapling
+    - acacia_sapling
+    - dark_oak_sapling
+    - mangrove_propagule
 
 #################### INVENTORY ITEMS ####################
 
