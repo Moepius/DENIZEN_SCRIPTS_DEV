@@ -54,7 +54,7 @@ duenger_inventory:
         plants_lore_4:
         - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.4]>
         - <&f><&m>----------
-        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze auswählen
         - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
@@ -110,6 +110,18 @@ duenger_handler:
             - playsound <player> sound:entity_glow_item_frame_remove_item pitch:1
             - flag <player> player.commands.duenger.items_selected.slot<context.slot>:grass
             - inventory set d:<player.open_inventory> o:<player.flag[player.commands.duenger.items_selected.slot<context.slot>]> s:<context.slot>
+        on player left clicks duenger_intensity in duenger_inventory:
+            - flag <player> player.commands.duenger.intensity:<player.flag[player.commands.duenger.intensity].add[10].min[100]>
+            - inventory set d:<player.open_inventory> o:<item[duenger_intensity].with[lore=<script[duenger_inventory].parsed_key[data.intensity_lore]>]> s:<context.slot>
+        on player right clicks duenger_intensity in duenger_inventory:
+            - flag <player> player.commands.duenger.intensity:<player.flag[player.commands.duenger.intensity].sub[10].max[0]>
+            - inventory set d:<player.open_inventory> o:<item[duenger_intensity].with[lore=<script[duenger_inventory].parsed_key[data.intensity_lore]>]> s:<context.slot>
+        on player left clicks duenger_radius in duenger_inventory:
+            - flag <player> player.commands.duenger.radius:<player.flag[player.commands.duenger.radius].add[5].min[50]>
+            - inventory set d:<player.open_inventory> o:<item[duenger_radius].with[lore=<script[duenger_inventory].parsed_key[data.radius_lore]>]> s:<context.slot>
+        on player right clicks duenger_radius in duenger_inventory:
+            - flag <player> player.commands.duenger.radius:<player.flag[player.commands.duenger.radius].sub[5].max[0]>
+            - inventory set d:<player.open_inventory> o:<item[duenger_radius].with[lore=<script[duenger_inventory].parsed_key[data.radius_lore]>]> s:<context.slot>
         on player right clicks block with:superduenger:
             - determine cancelled passively
             - if !<context.location.is_truthy>:
