@@ -29,14 +29,67 @@ duenger_inventory:
     inventory: chest
     title: <&f><&l>Superdünger Einstellungen
     gui: true
-    procedural items:
-    - define items <player.flag[player.commands.duenger.items_selected].values>
-    - define mode <player.flag[player.commands.duenger.mode_selected]>
-    - determine <[items].include[<[mode]>]>
+    data:
+        plants_lore_1:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.1]>
+        - <&f><&m>----------
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
+        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
+        plants_lore_2:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.2]>
+        - <&f><&m>----------
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
+        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
+        plants_lore_3:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.3]>
+        - <&f><&m>----------
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
+        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
+        plants_lore_4:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.4]>
+        - <&f><&m>----------
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
+        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
+        plants_lore_5:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.5]>
+        - <&f><&m>----------
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
+        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
+        radius_lore:
+        - <&b>Radius einstellen (5 bis 50 Block)
+        - <&b>Aktuell: <&a><player.flag[player.commands.duenger.radius]>
+        - <&f><&m>----------
+        - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+5).
+        - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-5).
+        intensity_lore:
+        - <&b>Intensität einstellen (0 bis 100 Prozent)
+        - <&b>Aktuell: <&a><player.flag[player.commands.duenger.intensity]>
+        - <&f><&m>----------
+        - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
+        - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
+    definitions:
+        slot1: <item[<player.flag[player.commands.duenger.items_selected.slot12]>].with[lore=<script.parsed_key[data.plants_lore_1]>]>
+        slot2: <item[<player.flag[player.commands.duenger.items_selected.slot13]>].with[lore=<script.parsed_key[data.plants_lore_2]>]>
+        slot3: <item[<player.flag[player.commands.duenger.items_selected.slot14]>].with[lore=<script.parsed_key[data.plants_lore_3]>]>
+        slot4: <item[<player.flag[player.commands.duenger.items_selected.slot15]>].with[lore=<script.parsed_key[data.plants_lore_4]>]>
+        slot5: <item[<player.flag[player.commands.duenger.items_selected.slot16]>].with[lore=<script.parsed_key[data.plants_lore_5]>]>
+        mode: <item[<player.flag[player.commands.duenger.mode_selected]>]>
+        radius: <item[duenger_radius].with[lore=<script.parsed_key[data.radius_lore]>]>
+        intensity: <item[duenger_intensity].with[lore=<script.parsed_key[data.intensity_lore]>]>
     slots:
-    - [duenger_radius] [air] [air] [air] [air] [air] [air] [air] [air]
-    - [duenger_intensity] [air] [] [] [] [] [] [air] [air]
-    - [] [air] [air] [air] [air] [air] [air] [air] [gui_close]
+    - [radius] [air] [air] [air] [air] [air] [air] [air] [air]
+    - [intensity] [air] [slot1] [slot2] [slot3] [slot4] [slot5] [air] [air]
+    - [mode] [air] [air] [air] [air] [air] [air] [air] [gui_close]
 
 duenger_handler:
     type: world
@@ -55,6 +108,8 @@ duenger_handler:
             - narrate "Dünger Inventar geöffnet"
         on player right clicks block with:superduenger:
             - determine cancelled passively
+            - if !<context.location.is_truthy>:
+                - stop
             - run superduenger_rightclick def:<player>|<context.location>
         on player left clicks block with:superduenger:
             - determine cancelled passively
@@ -81,7 +136,7 @@ superduenger_rightclick:
             - if !<util.random_chance[<[intensity]>]>:
                 - foreach next
             - if <[block].above.material.name> == air:
-                - define plant <[player].flag[player.commands.duenger.items_selected].values.exclude[duenger_leer].random>
+                - define plant <[player].flag[player.commands.duenger.items_selected].values.random>
                 # test if plant is 2 blocks tall
                 - if <script[duenger_large_items].data_key[items].contains[<[plant]>]>:
                     - modifyblock <[block].above> <[plant]>[half=bottom] no_physics
@@ -104,11 +159,19 @@ superduenger_leftclick:
         # flag player with default values
         - narrate "leftclick action" targets:<[player]>
         - if !<[player].has_flag[player.commands.duenger.items_selected]>:
-            - flag <[player]> player.commands.duenger.items_selected.slot12:duenger_leer
-            - flag <[player]> player.commands.duenger.items_selected.slot13:duenger_leer
-            - flag <[player]> player.commands.duenger.items_selected.slot14:duenger_leer
-            - flag <[player]> player.commands.duenger.items_selected.slot15:duenger_leer
-            - flag <[player]> player.commands.duenger.items_selected.slot16:duenger_leer
+            # default plant
+            - flag <[player]> player.commands.duenger.items_selected.slot12:grass
+            - flag <[player]> player.commands.duenger.items_selected.slot13:grass
+            - flag <[player]> player.commands.duenger.items_selected.slot14:grass
+            - flag <[player]> player.commands.duenger.items_selected.slot15:grass
+            - flag <[player]> player.commands.duenger.items_selected.slot16:grass
+        - if !<[player].has_flag[player.commands.duenger.plant_intensity]>:
+            # default plant intensity
+            - flag <[player]> player.commands.duenger.plant_intensity.1:100
+            - flag <[player]> player.commands.duenger.plant_intensity.2:100
+            - flag <[player]> player.commands.duenger.plant_intensity.3:100
+            - flag <[player]> player.commands.duenger.plant_intensity.4:100
+            - flag <[player]> player.commands.duenger.plant_intensity.5:100
         - if !<[player].has_flag[player.commands.duenger.mode_selected]>:
             - flag <[player]> player.commands.duenger.mode_selected:duenger_mode_air
         - if !<[player].has_flag[player.commands.duenger.radius]>:
@@ -120,6 +183,7 @@ superduenger_leftclick:
 
 #################### DATA ####################
 
+#TODO: make seperate list for valid sea and earth plants
 duenger_valid_items:
     type: data
     items:
@@ -215,39 +279,12 @@ duenger_growing_items:
 
 #################### INVENTORY ITEMS ####################
 
-duenger_leer:
-    type: item
-    material: gray_concrete
-    display name: <&sp>
-    mechanisms:
-        hides: ITEM_DATA
-    lore:
-    - <empty>
-
-duenger_item_1:
-    type: item
-    material: green_concrete
-    display name: <&3><&l>[<&6><&l>Item 1<&3><&l>]
-    mechanisms:
-        hides: ITEM_DATA
-    lore:
-    - <&b>Radius einstellen (10 bis 100 Block)
-    - <&f><&m>----------
-    - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
-    - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
-
 duenger_radius:
     type: item
     material: player_head
     display name: <&3><&l>[<&6><&l>Radius<&3><&l>]
     mechanisms:
         skull_skin: 22db6f45-8f8a-4192-936d-6a5d039279d7|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmRhNDgyNjcwYWQ3NDQ2NjA4MTg4M2ZlN2VkZDQ4ZGVjMjdhNjk4YTlhNTJjNGY4NzAzMTBiYTAzNWFjZjY5NiJ9fX0=
-    lore:
-    - <&b>Radius einstellen (10 bis 100 Block)
-    - <&b>Aktuell: <&a><player.flag[player.commands.duenger.radius]>
-    - <&f><&m>----------
-    - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
-    - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
 
 duenger_intensity:
     type: item
@@ -255,12 +292,6 @@ duenger_intensity:
     display name: <&3><&l>[<&6><&l>Intensität<&3><&l>]
     mechanisms:
         skull_skin: 22db6f45-8f8a-4192-936d-6a5d039279d7|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmRhNDgyNjcwYWQ3NDQ2NjA4MTg4M2ZlN2VkZDQ4ZGVjMjdhNjk4YTlhNTJjNGY4NzAzMTBiYTAzNWFjZjY5NiJ9fX0=
-    lore:
-    - <&b>Intensität einstellen (0 bis 100 Prozent)
-    - <&b>Aktuell: <&a><player.flag[player.commands.duenger.intensity]>
-    - <&f><&m>----------
-    - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
-    - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
 
 duenger_mode_water:
     type: item
