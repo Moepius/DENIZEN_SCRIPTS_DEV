@@ -33,36 +33,36 @@ duenger_inventory:
         plants_lore_1:
         - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.1]>
         - <&f><&m>----------
-        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         plants_lore_2:
         - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.2]>
         - <&f><&m>----------
-        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         plants_lore_3:
         - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.3]>
         - <&f><&m>----------
-        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         plants_lore_4:
         - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.4]>
         - <&f><&m>----------
-        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         plants_lore_5:
         - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.5]>
         - <&f><&m>----------
-        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         radius_lore:
@@ -98,14 +98,18 @@ duenger_handler:
     events:
     # - flag <player> the_flag:<player.flag[the_flag].add[10].min[100]>
         on player left clicks in duenger_inventory:
+            # set slot to item player is holding in his hand (if valid plant item from list)
             - if <list[12|13|14|15|16].contains[<context.slot>]>:
                 - if !<script[duenger_valid_items].data_key[items].as[list].contains[<context.cursor_item.material.name.if_null[air]>]>:
                     - stop
-                - run core_settings "def:<player>|Auswahl geändert"
-                - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<context.cursor_item.material.name.if_null[duenger_leer]>
-                - inventory set d:<player.open_inventory> o:<context.cursor_item.material.name.if_null[duenger_leer]> s:<context.slot>
-        on player opens duenger_inventory:
-            - narrate "Dünger Inventar geöffnet"
+                - playsound <player> sound:ENTITY_GLOW_ITEM_FRAME_ADD_ITEM pitch:1
+                - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<context.cursor_item.material.name.if_null[grass]>
+                - inventory set d:<player.open_inventory> o:<context.cursor_item.material.name.if_null[grass]> s:<context.slot>
+        on player right clicks in duenger_inventory:
+            # set slot to default item (gras)
+            - playsound <player> sound:entity_glow_item_frame_remove_item pitch:1
+            - flag <player> player.commands.duenger.items_selected.slot<context.slot>:grass
+            - inventory set d:<player.open_inventory> o:<player.flag[player.commands.duenger.items_selected.slot<context.slot>]> s:<context.slot>
         on player right clicks block with:superduenger:
             - determine cancelled passively
             - if !<context.location.is_truthy>:
