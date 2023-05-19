@@ -31,35 +31,35 @@ duenger_inventory:
     gui: true
     data:
         plants_lore_1:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.1]>
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot12].as[list].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
         - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         plants_lore_2:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.2]>
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot13].as[list].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
         - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         plants_lore_3:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.3]>
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot14].as[list].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
         - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         plants_lore_4:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.4]>
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot15].as[list].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze auswählen
         - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
         - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
         - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
         plants_lore_5:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.plant_intensity.5]>
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot16].as[list].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
         - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
@@ -78,11 +78,11 @@ duenger_inventory:
         - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
         - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
     definitions:
-        slot1: <item[<player.flag[player.commands.duenger.items_selected.slot12]>].with[lore=<script.parsed_key[data.plants_lore_1]>]>
-        slot2: <item[<player.flag[player.commands.duenger.items_selected.slot13]>].with[lore=<script.parsed_key[data.plants_lore_2]>]>
-        slot3: <item[<player.flag[player.commands.duenger.items_selected.slot14]>].with[lore=<script.parsed_key[data.plants_lore_3]>]>
-        slot4: <item[<player.flag[player.commands.duenger.items_selected.slot15]>].with[lore=<script.parsed_key[data.plants_lore_4]>]>
-        slot5: <item[<player.flag[player.commands.duenger.items_selected.slot16]>].with[lore=<script.parsed_key[data.plants_lore_5]>]>
+        slot1: <item[<player.flag[player.commands.duenger.items_selected.slot12].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_1]>]>
+        slot2: <item[<player.flag[player.commands.duenger.items_selected.slot13].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_2]>]>
+        slot3: <item[<player.flag[player.commands.duenger.items_selected.slot14].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_3]>]>
+        slot4: <item[<player.flag[player.commands.duenger.items_selected.slot15].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_4]>]>
+        slot5: <item[<player.flag[player.commands.duenger.items_selected.slot16].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_5]>]>
         mode: <item[<player.flag[player.commands.duenger.mode_selected]>]>
         radius: <item[duenger_radius].with[lore=<script.parsed_key[data.radius_lore]>]>
         intensity: <item[duenger_intensity].with[lore=<script.parsed_key[data.intensity_lore]>]>
@@ -96,20 +96,21 @@ duenger_handler:
     debug: true
     enabled: true
     events:
-    # - flag <player> the_flag:<player.flag[the_flag].add[10].min[100]>
         on player left clicks in duenger_inventory:
             # set slot to item player is holding in his hand (if valid plant item from list)
+            - define weight <player.flag[player.commands.duenger.items_selected.slot<context.slot>].as[list].get[2]>
             - if <list[12|13|14|15|16].contains[<context.slot>]>:
                 - if !<script[duenger_valid_items].data_key[items].as[list].contains[<context.cursor_item.material.name.if_null[air]>]>:
                     - stop
                 - playsound <player> sound:ENTITY_GLOW_ITEM_FRAME_ADD_ITEM pitch:1
-                - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<context.cursor_item.material.name.if_null[grass]>
+                - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<context.cursor_item.material.name.if_null[grass]>|<[weight]>
                 - inventory set d:<player.open_inventory> o:<context.cursor_item.material.name.if_null[grass]> s:<context.slot>
         on player right clicks in duenger_inventory:
             # set slot to default item (gras)
+            - define weight <player.flag[player.commands.duenger.items_selected.slot<context.slot>].as[list].get[2]>
             - playsound <player> sound:entity_glow_item_frame_remove_item pitch:1
-            - flag <player> player.commands.duenger.items_selected.slot<context.slot>:grass
-            - inventory set d:<player.open_inventory> o:<player.flag[player.commands.duenger.items_selected.slot<context.slot>]> s:<context.slot>
+            - flag <player> player.commands.duenger.items_selected.slot<context.slot>:grass|<[weight]>
+            - inventory set d:<player.open_inventory> o:<player.flag[player.commands.duenger.items_selected.slot<context.slot>].as[list].get[1]> s:<context.slot>
         on player left clicks duenger_intensity in duenger_inventory:
             - flag <player> player.commands.duenger.intensity:<player.flag[player.commands.duenger.intensity].add[10].min[100]>
             - inventory set d:<player.open_inventory> o:<item[duenger_intensity].with[lore=<script[duenger_inventory].parsed_key[data.intensity_lore]>]> s:<context.slot>
@@ -152,7 +153,8 @@ superduenger_rightclick:
             - if !<util.random_chance[<[intensity]>]>:
                 - foreach next
             - if <[block].above.material.name> == air:
-                - define plant <[player].flag[player.commands.duenger.items_selected].values.random>
+                # TODO: choose one of the 5 slots by given weight and return the material name, stored in the same flag
+                - define plant <[player].flag[player.commands.duenger.items_selected].values.random.as[list].get[1]>
                 # test if plant is 2 blocks tall
                 - if <script[duenger_large_items].data_key[items].contains[<[plant]>]>:
                     - modifyblock <[block].above> <[plant]>[half=bottom] no_physics
@@ -166,28 +168,19 @@ superduenger_rightclick:
                 - modifyblock <[block].above> <[plant]> no_physics
 
 # leftclick action to open the GUI
-# ex flag <player> player.commands.duenger.radius:30
 superduenger_leftclick:
     type: task
     debug: true
     definitions: player
     script:
         # flag player with default values
-        - narrate "leftclick action" targets:<[player]>
         - if !<[player].has_flag[player.commands.duenger.items_selected]>:
             # default plant
-            - flag <[player]> player.commands.duenger.items_selected.slot12:grass
-            - flag <[player]> player.commands.duenger.items_selected.slot13:grass
-            - flag <[player]> player.commands.duenger.items_selected.slot14:grass
-            - flag <[player]> player.commands.duenger.items_selected.slot15:grass
-            - flag <[player]> player.commands.duenger.items_selected.slot16:grass
-        - if !<[player].has_flag[player.commands.duenger.plant_intensity]>:
-            # default plant intensity
-            - flag <[player]> player.commands.duenger.plant_intensity.1:100
-            - flag <[player]> player.commands.duenger.plant_intensity.2:100
-            - flag <[player]> player.commands.duenger.plant_intensity.3:100
-            - flag <[player]> player.commands.duenger.plant_intensity.4:100
-            - flag <[player]> player.commands.duenger.plant_intensity.5:100
+            - flag <[player]> player.commands.duenger.items_selected.slot12:grass|100
+            - flag <[player]> player.commands.duenger.items_selected.slot13:grass|100
+            - flag <[player]> player.commands.duenger.items_selected.slot14:grass|100
+            - flag <[player]> player.commands.duenger.items_selected.slot15:grass|100
+            - flag <[player]> player.commands.duenger.items_selected.slot16:grass|100
         - if !<[player].has_flag[player.commands.duenger.mode_selected]>:
             - flag <[player]> player.commands.duenger.mode_selected:duenger_mode_air
         - if !<[player].has_flag[player.commands.duenger.radius]>:
