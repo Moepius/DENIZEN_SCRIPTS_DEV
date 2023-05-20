@@ -149,12 +149,16 @@ superduenger_rightclick:
         - define found_blocks <[clicked_block].find_blocks[<[valid_blocks]>].within[<[radius]>]>
         - if !<[valid_blocks].contains[<[clicked_block].material.name.if_null[air]>]>:
             - stop
+        - define selected_list <list[<[player].flag[player.commands.duenger.items_selected.slot12]>|<[player].flag[player.commands.duenger.items_selected.slot13]>|<[player].flag[player.commands.duenger.items_selected.slot14]>|<[player].flag[player.commands.duenger.items_selected.slot15]>|<[player].flag[player.commands.duenger.items_selected.slot16]>]>
+        - foreach <[selected_list]> as:selected_item:
+            - define weighted_list <[weighted_list].pad_left[<[selected_item].get[2]>].with[<[selected_item].get[1]>]>
         - foreach <[found_blocks]> as:block:
             - if !<util.random_chance[<[intensity]>]>:
                 - foreach next
             - if <[block].above.material.name> == air:
                 # TODO: choose one of the 5 slots by given weight and return the material name, stored in the same flag
-                - define plant <[player].flag[player.commands.duenger.items_selected].values.random.as[list].get[1]>
+                - define plant <[weighted_list].random>
+                #- define plant <[player].flag[player.commands.duenger.items_selected].values.random.as[list].get[1]>
                 # test if plant is 2 blocks tall
                 - if <script[duenger_large_items].data_key[items].contains[<[plant]>]>:
                     - modifyblock <[block].above> <[plant]>[half=bottom] no_physics
