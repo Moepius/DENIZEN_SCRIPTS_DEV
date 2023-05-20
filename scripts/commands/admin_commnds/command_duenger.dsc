@@ -147,18 +147,21 @@ superduenger_rightclick:
         - define radius <[player].flag[player.commands.duenger.radius]>
         - define intensity <[player].flag[player.commands.duenger.intensity]>
         - define found_blocks <[clicked_block].find_blocks[<[valid_blocks]>].within[<[radius]>]>
+        # returns a map like slot12=grass|100;slot13=poppy|50 ... taken from player flag
+        - define map <[player].flag[player.commands.duenger.items_selected]>
+        - define weighted_list <list>
+        - foreach <[map]> key:key as:value:
+            - narrate format:c_debug "Key: <[key]>, Value: <[value]>"
+            - define weighted_list <[weighted_list].pad_left[<[value].as[list].get[2]>].with[<[key]>]>
+        - narrate format:c_debug "Weighted List: <[weighted_list]>"
         - if !<[valid_blocks].contains[<[clicked_block].material.name.if_null[air]>]>:
             - stop
-        - define selected_list <list[<[player].flag[player.commands.duenger.items_selected.slot12]>|<[player].flag[player.commands.duenger.items_selected.slot13]>|<[player].flag[player.commands.duenger.items_selected.slot14]>|<[player].flag[player.commands.duenger.items_selected.slot15]>|<[player].flag[player.commands.duenger.items_selected.slot16]>]>
-        - foreach <[selected_list]> as:selected_item:
-            - define weighted_list <[weighted_list].pad_left[<[selected_item].get[2]>].with[<[selected_item].get[1]>]>
         - foreach <[found_blocks]> as:block:
             - if !<util.random_chance[<[intensity]>]>:
                 - foreach next
             - if <[block].above.material.name> == air:
-                # TODO: choose one of the 5 slots by given weight and return the material name, stored in the same flag
-                - define plant <[weighted_list].random>
-                #- define plant <[player].flag[player.commands.duenger.items_selected].values.random.as[list].get[1]>
+                - define plant <player.flag[player.commands.duenger.items_selected.<[weighted_list].random>].as[list].get[1]>
+                - narrate format:c_debug "Plant: <[plant]>"
                 # test if plant is 2 blocks tall
                 - if <script[duenger_large_items].data_key[items].contains[<[plant]>]>:
                     - modifyblock <[block].above> <[plant]>[half=bottom] no_physics
@@ -180,11 +183,11 @@ superduenger_leftclick:
         # flag player with default values
         - if !<[player].has_flag[player.commands.duenger.items_selected]>:
             # default plant
-            - flag <[player]> player.commands.duenger.items_selected.slot12:grass|100
-            - flag <[player]> player.commands.duenger.items_selected.slot13:grass|100
-            - flag <[player]> player.commands.duenger.items_selected.slot14:grass|100
-            - flag <[player]> player.commands.duenger.items_selected.slot15:grass|100
-            - flag <[player]> player.commands.duenger.items_selected.slot16:grass|100
+            - flag <[player]> player.commands.duenger.items_selected.slot12:grass|10
+            - flag <[player]> player.commands.duenger.items_selected.slot13:grass|10
+            - flag <[player]> player.commands.duenger.items_selected.slot14:grass|10
+            - flag <[player]> player.commands.duenger.items_selected.slot15:grass|10
+            - flag <[player]> player.commands.duenger.items_selected.slot16:grass|10
         - if !<[player].has_flag[player.commands.duenger.mode_selected]>:
             - flag <[player]> player.commands.duenger.mode_selected:duenger_mode_air
         - if !<[player].has_flag[player.commands.duenger.radius]>:
