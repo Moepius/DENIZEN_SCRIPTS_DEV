@@ -1,5 +1,5 @@
 # TODO: add undo argument
-
+# TODO: add sea mode for sea plants
 command_duenger:
     type: command
     debug: true
@@ -20,8 +20,6 @@ command_duenger:
         - if <player.inventory.quantity_item[superduenger]> == 0:
             - give superduenger
         - run superduenger_leftclick def:<player>
-        # <script[duenger_valid_items].data_key[items].as[list]>
-        # <ListTag.replace[(regex:)<element>].with[<element>]>
 
 duenger_inventory:
     type: inventory
@@ -30,41 +28,31 @@ duenger_inventory:
     title: <&f><&l>Superdünger Einstellungen
     gui: true
     data:
-        plants_lore_1:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot12].as[list].get[2]>
+        plants_lore_12:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot12].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
-        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
-        plants_lore_2:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot13].as[list].get[2]>
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Intensität +1
+        plants_lore_13:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot13].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
-        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
-        plants_lore_3:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot14].as[list].get[2]>
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Intensität +1
+        plants_lore_14:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot14].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
-        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
-        plants_lore_4:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot15].as[list].get[2]>
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Intensität +1
+        plants_lore_15:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot15].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze auswählen
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
-        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
-        plants_lore_5:
-        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot16].as[list].get[2]>
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Intensität +1
+        plants_lore_16:
+        - <&b>Aktuelle Intensität: <&a><player.flag[player.commands.duenger.items_selected.slot16].get[2]>
         - <&f><&m>----------
         - <&3>➤ <&a>LINKSKLICK<&b>, Pflanze wählen (Quelle: Hand)
-        - <&3>➤ <&a>RECHTSKLICK<&b>, Pflanze zurücksetzen (Gras)
-        - <&3>➤ <&a>SCHLECHEN + LINKSKLICK<&b>, Intensität +10
-        - <&3>➤ <&a>SCHLEICHEN + RECHTSKLICK<&b>, Intensität -10
+        - <&3>➤ <&a>RECHTSKLICK<&b>, Intensität +1
         radius_lore:
         - <&b>Radius einstellen (5 bis 50 Block)
         - <&b>Aktuell: <&a><player.flag[player.commands.duenger.radius]>
@@ -78,11 +66,11 @@ duenger_inventory:
         - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
         - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
     definitions:
-        slot1: <item[<player.flag[player.commands.duenger.items_selected.slot12].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_1]>]>
-        slot2: <item[<player.flag[player.commands.duenger.items_selected.slot13].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_2]>]>
-        slot3: <item[<player.flag[player.commands.duenger.items_selected.slot14].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_3]>]>
-        slot4: <item[<player.flag[player.commands.duenger.items_selected.slot15].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_4]>]>
-        slot5: <item[<player.flag[player.commands.duenger.items_selected.slot16].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_5]>]>
+        slot1: <item[<player.flag[player.commands.duenger.items_selected.slot12].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_12]>]>
+        slot2: <item[<player.flag[player.commands.duenger.items_selected.slot13].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_13]>]>
+        slot3: <item[<player.flag[player.commands.duenger.items_selected.slot14].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_14]>]>
+        slot4: <item[<player.flag[player.commands.duenger.items_selected.slot15].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_15]>]>
+        slot5: <item[<player.flag[player.commands.duenger.items_selected.slot16].as[list].get[1]>].with[lore=<script.parsed_key[data.plants_lore_16]>]>
         mode: <item[<player.flag[player.commands.duenger.mode_selected]>]>
         radius: <item[duenger_radius].with[lore=<script.parsed_key[data.radius_lore]>]>
         intensity: <item[duenger_intensity].with[lore=<script.parsed_key[data.intensity_lore]>]>
@@ -96,21 +84,37 @@ duenger_handler:
     debug: true
     enabled: true
     events:
-        on player left clicks in duenger_inventory:
+        on player left clicks item in duenger_inventory:
             # set slot to item player is holding in his hand (if valid plant item from list)
-            - if <list[12|13|14|15|16].contains[<context.slot>]>:
-                - define weight <player.flag[player.commands.duenger.items_selected.slot<context.slot>].as[list].get[2]>
-                - if !<script[duenger_valid_items].data_key[items].as[list].contains[<context.cursor_item.material.name.if_null[air]>]>:
-                    - stop
-                - playsound <player> sound:ENTITY_GLOW_ITEM_FRAME_ADD_ITEM pitch:1
-                - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<list[<context.cursor_item.material.name.if_null[grass]>|<[weight]>]>
-                - inventory set d:<player.open_inventory> o:<context.cursor_item.material.name.if_null[grass]> s:<context.slot>
-        on player right clicks in duenger_inventory:
-            # set slot to default item (gras)
-            - define weight <player.flag[player.commands.duenger.items_selected.slot<context.slot>].as[list].get[2]>
-            - playsound <player> sound:entity_glow_item_frame_remove_item pitch:1
-            - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<list[grass|<[weight]>]>
-            - inventory set d:<player.open_inventory> o:<player.flag[player.commands.duenger.items_selected.slot<context.slot>].as[list].get[1]> s:<context.slot>
+            - if !<list[12|13|14|15|16].contains[<context.raw_slot>]>:
+                - stop
+            - if !<script[duenger_valid_items].data_key[items].as[list].contains[<context.cursor_item.material.name.if_null[air]>]>:
+                - stop
+            - define weight <player.flag[player.commands.duenger.items_selected.slot<context.raw_slot>].get[2]>
+            # replace current plant item with item player is clicking with
+            - playsound <player> sound:ENTITY_GLOW_ITEM_FRAME_ADD_ITEM pitch:1
+            - flag <player> player.commands.duenger.items_selected.slot<context.raw_slot>:<list[<context.cursor_item.material.name.if_null[grass]>|<[weight]>]>
+            - define item <item[<player.flag[player.commands.duenger.items_selected.slot<context.slot>].get[1]>].with[lore=<script[duenger_inventory].parsed_key[data.plants_lore_<context.raw_slot>]>]>
+            - inventory set d:<player.open_inventory> o:<[item]> s:<context.raw_slot>
+        on player right clicks item in duenger_inventory:
+            # adjust plant item weights
+            - if !<list[12|13|14|15|16].contains[<context.slot>]>:
+                - stop
+            - define weight <player.flag[player.commands.duenger.items_selected.slot<context.slot>].get[2]>
+            - define material <player.flag[player.commands.duenger.items_selected.slot<context.slot>].get[1]>
+            - define weight <player.flag[player.commands.duenger.items_selected.slot<context.slot>].get[2]>
+            - if <[weight]> == 10:
+                - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<list[<[material]>|0]>
+                - define item <item[<player.flag[player.commands.duenger.items_selected.slot<context.slot>].get[1]>].with[lore=<script[duenger_inventory].parsed_key[data.plants_lore_<context.slot>]>]>
+                - inventory set d:<player.open_inventory> o:<[item]> s:<context.slot>
+                - playsound <player> sound:entity_glow_item_frame_remove_item pitch:1
+                - stop
+            - else:
+                - define newweight <player.flag[player.commands.duenger.items_selected.slot<context.slot>].get[2].add[1]>
+                - flag <player> player.commands.duenger.items_selected.slot<context.slot>:<list[<[material]>|<[newweight]>]>
+                - define item <item[<player.flag[player.commands.duenger.items_selected.slot<context.slot>].get[1]>].with[lore=<script[duenger_inventory].parsed_key[data.plants_lore_<context.slot>]>]>
+                - inventory set d:<player.open_inventory> o:<[item]> s:<context.slot>
+                - playsound <player> sound:entity_glow_item_frame_remove_item pitch:1
         on player left clicks duenger_intensity in duenger_inventory:
             - flag <player> player.commands.duenger.intensity:<player.flag[player.commands.duenger.intensity].add[10].min[100]>
             - inventory set d:<player.open_inventory> o:<item[duenger_intensity].with[lore=<script[duenger_inventory].parsed_key[data.intensity_lore]>]> s:<context.slot>
@@ -151,13 +155,7 @@ superduenger_rightclick:
         - define map <[player].flag[player.commands.duenger.items_selected]>
         - define weighted_list <list>
         - foreach <[map]>:
-            - narrate format:c_debug "Key: <[key]>, Value: <[value]>"
-            - narrate format:c_debug <[loop_index]>
-            #- define weighted_list <[weighted_list].pad_left[<[value].get[2]>].with[<[key]>]>
-            - narrate format:c_debug <[weighted_list]>
             - flag <[player]> player.commands.duenger.items_selected.weights:|:<[weighted_list].pad_left[<[value].get[2]>].with[<[key]>]>
-        - narrate format:c_debug "Weighted List Definition: <[weighted_list]>"
-        - narrate format:c_debug "Weighted List Flag: <[player].flag[player.commands.duenger.items_selected.weights]>"
         - if !<[valid_blocks].contains[<[clicked_block].material.name.if_null[air]>]>:
             - stop
         - foreach <[found_blocks]> as:block:
@@ -166,7 +164,6 @@ superduenger_rightclick:
             - if <[block].above.material.name> == air:
                 - define slot <[player].flag[player.commands.duenger.items_selected.weights].random>
                 - define plant <[player].flag[player.commands.duenger.items_selected.<[slot]>].get[1]>
-                - narrate format:c_debug "Plant: <[plant]>"
                 # test if plant is 2 blocks tall
                 - if <script[duenger_large_items].data_key[items].contains[<[plant]>]>:
                     - modifyblock <[block].above> <[plant]>[half=bottom] no_physics
@@ -205,12 +202,9 @@ superduenger_leftclick:
 
 #################### DATA ####################
 
-#TODO: make seperate list for valid sea and earth plants
 duenger_valid_items:
     type: data
     items:
-        - seagrass
-        - sea_pickle
         - oak_sapling
         - spruce_sapling
         - birch_sapling
@@ -253,7 +247,6 @@ duenger_valid_items:
         - weeping_vines
         - twisting_vines
         - sugar_cane
-        - kelp
         - moss_carpet
         - big_dripleaf
         - small_dripleaf
@@ -261,6 +254,13 @@ duenger_valid_items:
         - chorus_plant
         - chorus_flower
         - cactus
+
+duenger_valid_seaitems:
+    type: data
+    items:
+    - seagrass
+    - sea_pickle
+    - kelp
 
 duenger_valid_blocks:
     type: data
@@ -333,6 +333,7 @@ duenger_mode_air:
     mechanisms:
         skull_skin: 0ff1bd99-7b14-48e8-98c5-868a5ce9494f|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjE0ODUzNDkwMDZlZDFjOTFiNzk1OWFmZjQ0ZjMzMGRkYWMzNWUzZDlhOTllNGE4MjA1MWY5ODZlY2RhNDc1NSJ9fX0=
     lore:
+    - <&c> Noch nicht funktionsfähig!
     - <&b><&l>MODUS: <&a>NORMAL
     - <&f><&m>----------
     - <&3>➤ <&a>LINKSKLICK<&b>, um Modus zu wechseln.
