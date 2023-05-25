@@ -154,6 +154,7 @@ superduenger_rightclick:
         # returns a map like slot12=grass|100;slot13=poppy|50 ... taken from player flag
         - define map <[player].flag[player.commands.duenger.items_selected]>
         - define weighted_list <list>
+        # TODO: make weights more granular, so that a low value results in lower numbers of this plant planted than right now
         - foreach <[map]>:
             - flag <[player]> player.commands.duenger.items_selected.weights:|:<[weighted_list].pad_left[<[value].get[2]>].with[<[key]>]>
         - if !<[valid_blocks].contains[<[clicked_block].material.name.if_null[air]>]>:
