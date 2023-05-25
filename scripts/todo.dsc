@@ -140,3 +140,8 @@
 
 # anvil / loom etc. GUIs direkt aufrufbar
 
+
+########## Mobs
+
+# Mobs hinterlassen einen soul-Partikel wenn sie sterben in den Eudämonie Welten (alle außer Avarus und creative)
+# Mobs mit Schild und Humanoide haben eine "Blockwahrscheinlichkeit", der Angriff des Spielers geht ins Leere und er wird ein klein wenig zurückgeworfen (evtl. Verzauberung für Rüstung um das aufzuheben)
