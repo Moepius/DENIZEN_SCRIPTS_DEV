@@ -5,7 +5,7 @@ world_handler:
     # data:
     events:
         on server prestart:
-            - define worlds_overworld <list[world|avarus|hortusmanium|orbis|creative|baumschule|schematic|avarus_abbau|parallelwelt]>
+            - define worlds_overworld <list[world|avarus|orbis|creative|baumschule|schematic|avarus_abbau|parallelwelt]>
             - foreach <[worlds_overworld]> as:world:
                 - createworld <[world]>
                 - adjust <world[<[world]>]> keep_spawn:true
@@ -15,10 +15,10 @@ world_handler:
                 - createworld <[world]> environment:NETHER
                 - adjust <world[<[world]>]> keep_spawn:true
                 - announce to_console "Welt <[world].name> wurde geladen!"
-            - define worlds_the_end <list[avarus_the_end|world_the_end]>
+            - define worlds_the_end <list[avarus_the_end|world_the_end|hortusmanium]>
             - foreach <[worlds_the_end]> as:world:
                 - createworld <[world]> environment:THE_END
                 - adjust <world[<[world]>]> keep_spawn:true
                 - announce to_console "Welt <[world].name> wurde geladen!"
 
-# flag server server.worlds.enabled_worlds:world|avarus|hortusmanium|orbis|creative|baumschule|avarus_nether|avarus_the_end|world_nether|world_the_end|avarus_abbau
+# flag server server.worlds.enabled_worlds:world|avarus|hortusmanium|orbis|creative|baumschule|avarus_nether|avarus_the_end|world_nether|world_the_end|avarus_abbau|schematic
