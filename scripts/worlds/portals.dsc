@@ -22,6 +22,33 @@ debug_test_portals:
         - foreach <server.flag[server.worlds.portals.notedareas]> as:areaname:
             - narrate format:c_debug "<[areaname]>, "
 
+portal_creator:
+    type: command
+    debug: true
+    name: portal
+    description: create or change a portal
+    permission: craftasy.denizen.command.portal
+    usage: /portal
+    aliases:
+    - po
+    tab completions:
+        1: <list[tool|create|edit]>
+    script:
+        # TODO: put origin and destination world names in the description/item lore
+        - if <context.args.size> >= 1:
+            - define argument <context.args.first>
+            - if <[argument]> not in <list[tool|create|edit]>:
+                - run core_error "def:<player>|Gültige Parameter: <&a>tool<&c>, <&a>create<&c>, <&a>edit <&c>oder <&a>remove<&c>."
+                - stop
+        - if <[argument]> == tool:
+            - narrate "tool, select cuboid"
+        - else if <[argument]> == create:
+            - narrate "create, name the portal, give tool to select destination"
+        - else if <[argument]> == edit:
+            - narrate "edit, open menu"
+
+
+
 portal_handler:
     type: world
     debug: false
