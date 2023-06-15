@@ -17,6 +17,7 @@
 #TODO: /spawn command available with cooldown for Besucher and veraltet ranks, players have to use consumable item for teleporting to spawn
 # Spieler können Leitern hängend unter sich platzieren beim Klettern https://youtu.be/KqS27JcbrCQ 6min
 # Einige der Features des Datapcks "Vanilla Refresh" https://modrinth.com/datapack/vanilla-refresh
+# Spieler können ANker/pfeiler vor wichtigen Orten wie Dungeons oder Städten nutzen, um ihren Spawnpunkt zu resetten mit kleinem Tribut ... Ersatz für Betten
 
 ###### Ränge:
 

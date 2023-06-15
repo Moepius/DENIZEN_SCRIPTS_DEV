@@ -13,3 +13,8 @@ gui_close:
     display name: <&f><&l>[<&c><&l>Schließen<&f><&l>]
     lore:
     - <&f>Menü schließen
+
+gui_filler:
+    type: item
+    material: gray_stained_glass_pane
+    display name: <empty>

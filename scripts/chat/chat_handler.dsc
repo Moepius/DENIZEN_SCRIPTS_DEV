@@ -14,7 +14,7 @@ chat_formatting:
       - run chat_formatting.sub_paths.rank_text_cache
       - flag server chat.cached
 
-    on player chats bukkit_priority:lowest:
+    on player chats bukkit_priority:lowest flagged:!player.chat.busy:
       - determine cancelled passively
       # ██ [ Überprüfen Sie, ob der Player stummgeschaltet ist        ] ██
       - if <player.has_flag[player.flag.muted]>:
