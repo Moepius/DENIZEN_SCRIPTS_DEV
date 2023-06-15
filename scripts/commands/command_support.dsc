@@ -11,7 +11,6 @@ command_support:
         # open menu
         - playsound <player> sound:block_sculk_sensor_clicking volume:1 pitch:1
         - flag <player> player.chat.support:!
-        - flag <player> player.chat.busy
         - inventory open d:support_gui
 
 
@@ -23,10 +22,17 @@ support_handler:
         # button handling
         on player right clicks support_report in support_gui:
             - flag <player> player.chat.support.report expire:5m
+            - flag <player> player.chat.busy expire:5m
             - inventory close d:support_gui
             - narrate format:c_info "Schreibt <&a>stop<&b>, um abzubrechen."
             - title "title:<red>Gebt einen Spielernamen an" "subtitle:<white>in den Chat schreiben ..." stay:5m
             - flag server server.chat.support.reason:Meldung
+        on player right clicks support_emergency in support_gui:
+            - flag <player> player.chat.support.emergency expire:5m
+            - inventory close d:support_gui
+            - narrate format:c_info "Schreibt <&a>stop<&b>, um abzubrechen."
+            - title "title:<red>Gebt einen Spielernamen an" "subtitle:<white>in den Chat schreiben ..." stay:5m
+            - flag server server.chat.support.reason:Notfall
         on player chats flagged:player.chat.busy bukkit_priority:lowest:
             - determine cancelled passively
             - narrate format:c_debug "Nachricht: <context.message>" targets:<player>
@@ -39,6 +45,7 @@ support_handler:
                 - run support def:<player>|<context.message>
         on player quits flagged:player.chat.busy:
             - flag <player> player.chat.support:!
+            - flag <player> player.chat.busy:!
 
 support:
     type: task
