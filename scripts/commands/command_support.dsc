@@ -39,7 +39,7 @@ support_handler:
             - flag <player> player.chat.busy expire:5m
             - inventory close d:support_gui
             - narrate format:c_info "Schreibt <&a>stop<&b>, um abzubrechen."
-            - title "title:<red>Beschreibt das Problem" "subtitle:<white>in den Chat schreiben ..." stay:5m
+            - title "title:<red>Beschreibt den Fehler ausführlich" "subtitle:<white>in den Chat schreiben ..." stay:5m
             - flag <player> player.chat.support.reason:Bugreport
         on player chats flagged:player.chat.busy bukkit_priority:lowest:
             - determine cancelled passively
@@ -103,7 +103,7 @@ emergency:
         - flag <player> "player.chat.support.emergency_message:Beschreibung: <[message]>"
         - flag <player> "player.chat.support.emergency_coords:Standort: <[p].location.simple>"
         - narrate format:c_info "Ihr habt folgende Angaben gemacht: <&a><[message]>"
-        - title "title:<green>Meldung gesendet" stay:3s
+        - title "title:<green>abgesendet" stay:3s
         - define subject <player.flag[player.chat.support.reason]>
         - define reason <player.flag[player.chat.support.emergency_message]>
         - define coords <player.flag[player.chat.support.emergency_coords]>
@@ -119,28 +119,30 @@ bugreport:
     script:
         # message 1 - name
         - define length <[message].length>
-        - if !<player.has_flag[player.chat.support.report_message2]>:
-            - if <[length]> == 0 || <[length]> < 3 || <[length]> > 30:
-                - narrate format:c_warn "Gebt den Namen eines Spielers an!" targets:<player>
+        - if !<player.has_flag[player.chat.support.bug_message2]>:
+            - if <[length]> == 0 || <[length]> < 60:
+                - narrate format:c_warn "Beschreibt den Fehler ausführlich!" targets:<player>
                 - stop
-            - narrate format:c_info "Ihr habt folgenden Spieler angegeben: <&a><[message]>"
-            - title "title:<red>Gebt einen Grund an" "subtitle:<white>in den Chat schreiben ..." stay:5m
-            - flag <player> "player.chat.support.report_message1:Gemeldeter Spieler: <[message]>"
-            - flag <player> player.chat.support.report_message2 expire:5m
+            - narrate format:c_info "Ihr habt folgende Fehlerbeschreibung angegeben: <&a><[message]>"
+            - narrate <empty>
+            - narrate format:c_info "Beschreibt ausführlich wie der Fehler reproduziert werden kann, ggf. mit Link zu Videos oder Fotos!" targets:<player>
+            - title "title:<red>Welche Schritte für den Fehler?" "subtitle:<white>in den Chat schreiben ..." stay:5m
+            - flag <player> "player.chat.support.bug_message1:Beschreibung: <[message]>"
+            - flag <player> player.chat.support.bug_message2 expire:5m
             - stop
         # message 2 - reason
-        - if <player.has_flag[player.chat.support.report_message2]>:
-            - if <[length]> == 0 || <[length]> < 40:
-                - narrate format:c_warn "Formuliert Eure Begründung ausführlicher!" targets:<player>
+        - if <player.has_flag[player.chat.support.bug_message2]>:
+            - if <[length]> == 0 || <[length]> < 60:
+                - narrate format:c_warn "Formuliert die notwendigen Schritte ausführlicher!" targets:<player>
                 - stop
-            - narrate format:c_info "Ihr habt folgenden Grund angegeben: <&a><[message]>"
-            - title "title:<green>Meldung gesendet" stay:3s
-            - flag <player> "player.chat.support.report_message2:Begründung: <[message]>"
-            - define name <player.flag[player.chat.support.report_message1]>
-            - define reason <player.flag[player.chat.support.report_message2]>
+            - narrate format:c_info "Ihr habt folgende Schritte angegeben: <&a><[message]>"
+            - title "title:<green>Bugreport gesendet" stay:3s
+            - flag <player> "player.chat.support.bug_message2:Reproduzierung: <[message]>"
+            - define description <player.flag[player.chat.support.bug_message1]>
+            - define recreate <player.flag[player.chat.support.bug_message2]>
             - define subject <player.flag[player.chat.support.reason]>
             # send discordmessage
-            - run support_discord def:<[p]>|<[name]>|<[reason]>|<[subject]>
+            - run support_discord def:<[p]>|<[description]>|<[recreate]>|<[subject]>
             # clean flags
             - flag <player> player.chat.support:!
             - flag <player> player.chat.busy:!
