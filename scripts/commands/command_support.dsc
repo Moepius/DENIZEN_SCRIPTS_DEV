@@ -20,22 +20,29 @@ support_handler:
     enabled: true
     events:
         # button handling
-        on player right clicks support_report in support_gui:
+        on player clicks support_report in support_gui:
             - flag <player> player.chat.support.report expire:5m
             - flag <player> player.chat.busy expire:5m
             - inventory close d:support_gui
             - narrate format:c_info "Schreibt <&a>stop<&b>, um abzubrechen."
             - title "title:<red>Gebt einen Spielernamen an" "subtitle:<white>in den Chat schreiben ..." stay:5m
-            - flag server server.chat.support.reason:Meldung
-        on player right clicks support_emergency in support_gui:
+            - flag <player> player.chat.support.reason:Meldung
+        on player clicks support_emergency in support_gui:
             - flag <player> player.chat.support.emergency expire:5m
+            - flag <player> player.chat.busy expire:5m
             - inventory close d:support_gui
             - narrate format:c_info "Schreibt <&a>stop<&b>, um abzubrechen."
-            - title "title:<red>Gebt einen Spielernamen an" "subtitle:<white>in den Chat schreiben ..." stay:5m
-            - flag server server.chat.support.reason:Notfall
+            - title "title:<red>Beschreibt den Fehler ausführlich" "subtitle:<white>in den Chat schreiben ..." stay:5m
+            - flag <player> player.chat.support.reason:Notfall
+        on player clicks support_bug in support_gui:
+            - flag <player> player.chat.support.bug expire:5m
+            - flag <player> player.chat.busy expire:5m
+            - inventory close d:support_gui
+            - narrate format:c_info "Schreibt <&a>stop<&b>, um abzubrechen."
+            - title "title:<red>Beschreibt das Problem" "subtitle:<white>in den Chat schreiben ..." stay:5m
+            - flag <player> player.chat.support.reason:Bugreport
         on player chats flagged:player.chat.busy bukkit_priority:lowest:
             - determine cancelled passively
-            - narrate format:c_debug "Nachricht: <context.message>" targets:<player>
             - if <context.message> == stop:
                 - narrate format:c_info "Aktion abgebrochen."
                 - title "title:<red>Abgebrochen" stay:3s
@@ -43,6 +50,10 @@ support_handler:
                 - flag <player> player.chat.busy:!
             - if <player.has_flag[player.chat.support.report]>:
                 - run support def:<player>|<context.message>
+            - if <player.has_flag[player.chat.support.emergency]>:
+                - run emergency def:<player>|<context.message>
+            - if <player.has_flag[player.chat.support.bug]>:
+                - run bugreport def:<player>|<context.message>
         on player quits flagged:player.chat.busy:
             - flag <player> player.chat.support:!
             - flag <player> player.chat.busy:!
@@ -53,7 +64,6 @@ support:
     definitions: p|message
     script:
         # message 1 - name
-        - narrate format:c_debug "support task gestartet" targets:<[p]>
         - define length <[message].length>
         - if !<player.has_flag[player.chat.support.report_message2]>:
             - if <[length]> == 0 || <[length]> < 3 || <[length]> > 30:
@@ -74,19 +84,73 @@ support:
             - flag <player> "player.chat.support.report_message2:Begründung: <[message]>"
             - define name <player.flag[player.chat.support.report_message1]>
             - define reason <player.flag[player.chat.support.report_message2]>
-            - define subject <server.flag[server.chat.support.reason]>
+            - define subject <player.flag[player.chat.support.reason]>
             # send discordmessage
             - run support_discord def:<[p]>|<[name]>|<[reason]>|<[subject]>
             # clean flags
-            - flag <player> player.chat.support.report_message1:!
-            - flag <player> player.chat.support.report_message2:!
             - flag <player> player.chat.support:!
             - flag <player> player.chat.busy:!
+emergency:
+    type: task
+    debug: true
+    definitions: p|message
+    script:
+        - define length <[message].length>
+        # message 2 - reason
+        - if <[length]> == 0 || <[length]> < 40:
+            - narrate format:c_warn "Formuliert das Problem ausführlicher!" targets:<player>
+            - stop
+        - flag <player> "player.chat.support.emergency_message:Beschreibung: <[message]>"
+        - flag <player> "player.chat.support.emergency_coords:Standort: <[p].location.simple>"
+        - narrate format:c_info "Ihr habt folgende Angaben gemacht: <&a><[message]>"
+        - title "title:<green>Meldung gesendet" stay:3s
+        - define subject <player.flag[player.chat.support.reason]>
+        - define reason <player.flag[player.chat.support.emergency_message]>
+        - define coords <player.flag[player.chat.support.emergency_coords]>
+        # send discordmessage
+        - run support_discord def:<[p]>|<[coords]>|<[reason]>|<[subject]>
+        # clean flags
+        - flag <player> player.chat.support:!
+        - flag <player> player.chat.busy:!
+bugreport:
+    type: task
+    debug: true
+    definitions: p|message
+    script:
+        # message 1 - name
+        - define length <[message].length>
+        - if !<player.has_flag[player.chat.support.report_message2]>:
+            - if <[length]> == 0 || <[length]> < 3 || <[length]> > 30:
+                - narrate format:c_warn "Gebt den Namen eines Spielers an!" targets:<player>
+                - stop
+            - narrate format:c_info "Ihr habt folgenden Spieler angegeben: <&a><[message]>"
+            - title "title:<red>Gebt einen Grund an" "subtitle:<white>in den Chat schreiben ..." stay:5m
+            - flag <player> "player.chat.support.report_message1:Gemeldeter Spieler: <[message]>"
+            - flag <player> player.chat.support.report_message2 expire:5m
+            - stop
+        # message 2 - reason
+        - if <player.has_flag[player.chat.support.report_message2]>:
+            - if <[length]> == 0 || <[length]> < 40:
+                - narrate format:c_warn "Formuliert Eure Begründung ausführlicher!" targets:<player>
+                - stop
+            - narrate format:c_info "Ihr habt folgenden Grund angegeben: <&a><[message]>"
+            - title "title:<green>Meldung gesendet" stay:3s
+            - flag <player> "player.chat.support.report_message2:Begründung: <[message]>"
+            - define name <player.flag[player.chat.support.report_message1]>
+            - define reason <player.flag[player.chat.support.report_message2]>
+            - define subject <player.flag[player.chat.support.reason]>
+            # send discordmessage
+            - run support_discord def:<[p]>|<[name]>|<[reason]>|<[subject]>
+            # clean flags
+            - flag <player> player.chat.support:!
+            - flag <player> player.chat.busy:!
+
 support_discord:
     type: task
     debug: true
     definitions: p|line1|line2|subject
     script:
+        - ~discordmessage id:craftasybot channel:930090832281890818 "@here"
         - ~discordmessage id:craftasybot channel:930090832281890818 "embed:<discord_embed[title=:triangular_flag_on_post: Neue Supportanfrage<n>Grund: <[subject]><n>Von: <[p].name>;description=**Daten**<n><[line1]><n><[line2]>]>"
         # aaa
 
@@ -135,8 +199,7 @@ support_emergency:
     - <&3>➤ <&a>könnt Euch aus einer Situation nicht selbstständig
     - <&3>➤ <&a>befreien? Wir helfen Euch, sobald wir können.
     - <empty>
-    - <&3>➤ <&a>Gebt Eure Koordinaten und Spielwelt an, sofern möglich.
-    - <&3>➤ <&a>Gebt an, welches Probloem aufgetreten ist.
+    - <&3>➤ <&a>Gebt an, welches Problem aufgetreten ist.
     - <&f><&m>----------
     - <&c>unsere Zeit ist kostbar, Missbrauch
     - <&c>kann Euch einen Permabann einhandeln!
