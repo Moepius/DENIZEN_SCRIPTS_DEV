@@ -185,7 +185,7 @@ support_report:
     - <&c>Wir sind keine Pädagogen, um private
     - <&c>Streitereien kümmern wir uns nicht.
     - <empty>
-    - <&c>unsere Zeit ist kostbar, Missbrauch
+    - <&c>Unsere Zeit ist kostbar, Missbrauch
     - <&c>kann Euch einen Permabann einhandeln!
 
 support_emergency:
@@ -197,13 +197,13 @@ support_emergency:
     lore:
     - <&c><&l>Hilfe anfordern
     - <&f><&m>----------
-    - <&3>➤ <&a>Ihr steckt unverschuldet in einem Loch fest oder.
+    - <&3>➤ <&a>Ihr steckt unverschuldet in einem Loch fest oder
     - <&3>➤ <&a>könnt Euch aus einer Situation nicht selbstständig
     - <&3>➤ <&a>befreien? Wir helfen Euch, sobald wir können.
     - <empty>
     - <&3>➤ <&a>Gebt an, welches Problem aufgetreten ist.
     - <&f><&m>----------
-    - <&c>unsere Zeit ist kostbar, Missbrauch
+    - <&c>Unsere Zeit ist kostbar, Missbrauch
     - <&c>kann Euch einen Permabann einhandeln!
 
 support_bug:
@@ -213,13 +213,13 @@ support_bug:
     mechanisms:
         skull_skin: 54e1a95a-028f-435a-ae78-e6cec64af80c|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzRkZmQ5NjYzYzNlZTRkMzQxZDk3ZmFhYzVmYTcwZDIxM2VhZmIxNDgxM2FmMjBkNGE0MjUzNDIyNDIxNDJmIn19fQ==
     lore:
-    - <&c><&l>Fehler. Bugs oder sonstige Probleme melden
+    - <&c><&l>Fehler, Bugs oder sonstige Probleme melden
     - <&f><&m>----------
-    - <&3>➤ <&a>Welcher Fehler ist aufgetreten (genaue Beschreibung)
+    - <&3>➤ <&a>Welcher Fehler ist aufgetreten (genaue Beschreibung)?
     - <&3>➤ <&a>Welche Schritte sind notwendig, um den Fehler zu erzeugen?
     - <empty>
     - <&3>➤ <&6>Gemeldete und dann behobene Fehler werden reichlich belohnt!
     - <&f><&m>----------
-    - <&c>unsere Zeit ist kostbar, Missbrauch
+    - <&c>Unsere Zeit ist kostbar, Missbrauch
     - <&c>kann Euch einen Permabann einhandeln!
 
