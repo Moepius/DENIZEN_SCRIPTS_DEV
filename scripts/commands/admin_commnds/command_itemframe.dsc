@@ -29,8 +29,8 @@ itemframe_tool_item:
         hides: ENCHANTS
     lore:
     - <empty>
-    - <&a>Rechtsklick: <&3>ItemFrame unsichtbar
-    - <&a>Linksklick: <&3>ItemFrame sichtbar
+    - <&a>Rechtsklick (It.Fr. sichtbar): <&3>ItemFrame unsichtbar
+    - <&a>Rechtsklick (It.Fr. unsichtbar): <&3>ItemFrame sichtbar
     - <empty>
     - <&f><&m>----------------------------------
     - <&7>Zutat: <&c><&chr[274C]><&7> Herstellbar: <&c><&chr[274C]><&7>
@@ -41,15 +41,16 @@ itemframe_tool_item:
 
 itemframe_tool_world:
     type: world
-    debug: false
+    debug: true
     events:
         # usage
-        on player damages item_frame|glow_item_frame with:itemframe_tool_item:
+        on player right clicks item_frame with:itemframe_tool_item:
         - determine passively cancelled
+        - ratelimit <player> 1t
+        - if <context.entity.visible>:
+            - adjust <context.entity> visible:false
+            - stop
         - adjust <context.entity> visible:true
-        on player right clicks item_frame|glow_item_frame with:itemframe_tool_item:
-        - determine passively cancelled
-        - adjust <context.entity> visible:false
         # prevention
         after player drops itemframe_tool_item:
         - remove <context.entity>
