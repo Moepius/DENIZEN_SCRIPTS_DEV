@@ -146,3 +146,11 @@
 
 # Mobs hinterlassen einen soul-Partikel wenn sie sterben in den Eudämonie Welten (alle außer Avarus und creative)
 # Mobs mit Schild und Humanoide haben eine "Blockwahrscheinlichkeit", der Angriff des Spielers geht ins Leere und er wird ein klein wenig zurückgeworfen (evtl. Verzauberung für Rüstung um das aufzuheben)
+
+########## Blaupausen
+
+# Preise für das Craften eines Bauelements sind doppelt so hoch wie beim "normalen" Bauen, z. B. für eine 5x5 Steinwand werden 50 Steine statt 25 benötigt, mit Meisterschaften Kosten verringern
+
+########## Claims/Kolonien
+
+# Bei hinreichender Größe automatisch Marker für Dynmap setzbar
