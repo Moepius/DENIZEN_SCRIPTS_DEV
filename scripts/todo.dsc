@@ -154,3 +154,8 @@
 ########## Claims/Kolonien
 
 # Bei hinreichender Größe automatisch Marker für Dynmap setzbar
+
+
+########## Spieler
+
+# Cooldown wenn Spieler zu oft hintereinander sterben, zB durch extra Sphäre oder Minigame nach Tod
