@@ -14,7 +14,7 @@ chat_formatting:
       - run chat_formatting.sub_paths.rank_text_cache
       - flag server chat.cached
 
-    on player chats bukkit_priority:lowest flagged:!player.chat.busy:
+    on player chats flagged:!player.chat.busy:
       - determine cancelled passively
       # ██ [ Überprüfen Sie, ob der Player stummgeschaltet ist        ] ██
       - if <player.has_flag[player.flag.muted]>:
@@ -205,7 +205,7 @@ player_name_format:
     - define hover <script[chat_formatting].parsed_key[data.player_chat.format.hover]>
     - define suggest_command <script[chat_formatting].parsed_key[data.player_chat.format.suggest_command]>
     #### formatting of the full player/message prefix ####
-    - determine "<&7><util.time_now.format[HH:mm].on_hover[<&f><util.time_now.format[dd. MM. yyyy]> um <util.time_now.format[HH:mm]> Uhr]> <[player_prefix]><&f> ⎜ <[player_name].on_hover[<[hover]>].on_click[<[suggest_command]>].type[suggest_command]>"
+    - determine "<&7><util.time_now.format[HH:mm].on_hover[<&f><util.time_now.format[dd.MM.yyyy]> um <util.time_now.format[HH:mm]> Uhr]> <[player_prefix]><&f> ⎜ <[player_name].on_hover[<[hover]>].on_click[<[suggest_command]>].type[suggest_command]>"
 
     # short instant version
     # - determine "<script.parsed_key[data.player_chat.format.prefix]><&f> ⎜ <script.parsed_key[data.player_chat.format.name].on_hover[<script.parsed_key[data.player_chat.format.hover]>].on_click[<script.parsed_key[data.player_chat.format.suggest_command]>].type[suggest_command]>"
