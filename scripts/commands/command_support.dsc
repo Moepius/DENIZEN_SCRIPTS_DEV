@@ -41,7 +41,7 @@ support_handler:
             - narrate format:c_info "Schreibt <&a>stop<&b>, um abzubrechen."
             - title "title:<red>Beschreibt den Fehler ausführlich" "subtitle:<white>in den Chat schreiben ..." stay:5m
             - flag <player> player.chat.support.reason:Bugreport
-        on player chats flagged:player.chat.busy bukkit_priority:lowest:
+        on player chats flagged:player.chat.busy bukkit_priority:lowest priority:-1:
             - determine cancelled passively
             - if <context.message> == stop:
                 - narrate format:c_info "Aktion abgebrochen."
