@@ -4,6 +4,9 @@
 # -    format: the format is what appears as the text button to click, eg `[Activate Fly]`
 # -    command: the command is what command runs when clicked, eg: `/fly`
 
+# TODO: delete history every few days
+# TODO: delete history when it gets too big
+
 chat_formatting:
   type: world
   debug: false

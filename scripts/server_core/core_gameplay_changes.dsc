@@ -24,6 +24,19 @@ core_gameplay:
         - if <player.has_flag[enabled_error]>:
             - narrate "Fehler! Script sollte ausgeschaltet sein"
 
+core_pickupheads:
+    type: world
+    events:
+        after player inventory slot changes to:player_head:
+        #TODO: add custom creative mode to test
+        - if <player.gamemode> != creative:
+            - stop
+        - define skin <player.cursor_on.skull_skin.full||null>
+        - if <[skin]> == null:
+            - stop
+        - inventory set o:<item[player_head].with[skull_skin=<[skin]>]> slot:<context.slot>
+
+
 # allows placing of "hanging" blocks in need of support like ladders, and allows plant items to be placed on more blocks than sil types
 cancel_physics:
   type: world

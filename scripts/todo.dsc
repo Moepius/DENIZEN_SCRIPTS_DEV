@@ -154,3 +154,14 @@
 ########## Claims/Kolonien
 
 # Bei hinreichender Größe automatisch Marker für Dynmap setzbar
+
+
+
+
+
+
+
+
+#################### LINKS/IDEAS ##########################
+
+# https://youtu.be/Df809d8b1V4 - Mods for world generation and random tweaks
