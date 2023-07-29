@@ -165,3 +165,6 @@
 #################### LINKS/IDEAS ##########################
 
 # https://youtu.be/Df809d8b1V4 - Mods for world generation and random tweaks
+########## Spieler
+
+# Cooldown wenn Spieler zu oft hintereinander sterben, zB durch extra Sphäre oder Minigame nach Tod
