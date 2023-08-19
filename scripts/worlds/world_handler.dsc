@@ -5,17 +5,17 @@ world_handler:
     # data:
     events:
         on server prestart:
-            - define worlds_overworld <list[world|avarus|orbis|creative|baumschule|schematic|avarus_abbau|parallelwelt]>
+            - define worlds_overworld <list[world|avarus|orbis|arboretum|baumschule|silberlab|world_lager|dungeon]>
             - foreach <[worlds_overworld]> as:world:
                 - createworld <[world]>
                 - adjust <world[<[world]>]> keep_spawn:true
                 - announce to_console "Welt <[world].name> wurde geladen!"
-            - define worlds_nether <list[avarus_nether|world_nether]>
+            - define worlds_nether <list[orcus|world_nether]>
             - foreach <[worlds_nether]> as:world:
                 - createworld <[world]> environment:NETHER
                 - adjust <world[<[world]>]> keep_spawn:true
                 - announce to_console "Welt <[world].name> wurde geladen!"
-            - define worlds_the_end <list[avarus_the_end|world_the_end|hortusmanium]>
+            - define worlds_the_end <list[kaos|world_the_end|hortusmanium]>
             - foreach <[worlds_the_end]> as:world:
                 - createworld <[world]> environment:THE_END
                 - adjust <world[<[world]>]> keep_spawn:true

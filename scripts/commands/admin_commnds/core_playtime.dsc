@@ -1,5 +1,7 @@
 # for every player online, who is not AFK count playtime on the server
 
+#TODO: better formatting
+
 playtime_handler:
     type: world
     debug: false

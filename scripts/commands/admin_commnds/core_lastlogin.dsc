@@ -1,5 +1,8 @@
 # check players last login
 
+#TODO: also check for offline player matching
+#TODO: better formating of time, no duration, just login and logout times
+
 lastlogin_command:
     type: command
     debug: true

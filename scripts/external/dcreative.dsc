@@ -2,40 +2,12 @@
 #                                                                                        #
 #                                        dCreative                                       #
 #                               A server-sided creative mode                             #
-#                Version: 1.1.0                            Author: Icecapade             #
+#                Version: 1.1.3                            Author: Icecapade             #
 #                                                                                        #
 #                                     Documentation:                                     #
 #      https://github.com/Hydroxycobalamin/Denizen-Script-Collection/wiki/dCreative      #
 #                                                                                        #
 ##########################################################################################
-
-# TODO: make bonemeal and stuff infinite, right now it gets consumed when using
-# TODO: add support for entities (item frames) for pick block action
-# TODO: add delete inv button so that players can remove the whole inv while in creative
-# TODO: add buttons in crafting slots for deleting inv, opening creative menu, settings and switching to crafting
-# TODO: SHIFT + right-click gives player 64 of that block
-# TODO: block getting experience orbs
-
-## already implemented further down, delete
-creative_pickblock:
-    type: world
-    debug: false
-    events:
-        on player left clicks block flagged:dcreative.active type:!air:
-            - if !<player.is_sneaking>:
-                - stop
-            - else:
-                - determine cancelled passively
-                - inventory set slot:hand origin:<context.location.material.item>
-        on player damages item_frame|glow_item_frame flagged:dcreative.active:
-            - if !<player.is_sneaking>:
-                - stop
-            - else:
-                - determine cancelled passively
-                - inventory set slot:hand origin:<context.entity>
-
-
-
 creative_command:
     type: command
     debug: false
@@ -50,12 +22,11 @@ creative_command:
         - flag <player> dcreative.active:!
         - adjust <player> can_fly:false
         - adjust <player> gamemode:survival
-        - narrate format:c_info "Spielmodus auf Standard gesetzt."
+        - narrate "Set own gamemode to Survival Mode"
     - else:
         - flag <player> dcreative.active
         - adjust <player> can_fly:true
-        - narrate "Spielmodus auf Baumodus gesetzt."
-
+        - narrate "Set own gamemode to Creative Mode"
 creative_handlers:
     type: world
     debug: false
@@ -70,9 +41,6 @@ creative_handlers:
     - if <[item].material.name> == air:
         - stop
     events:
-        on player prepares anvil craft item flagged:dcreative.active:
-            - announce format:c_debug "anvil craft item event triggered! Cost: <context.repair_cost> Player: <player.name>"
-            - determine 0
         on server start server_flagged:dcreative.inventories:
         - foreach <server.flag[dcreative.inventories]> as:note_name:
             - note remove as:<[note_name]>
@@ -129,7 +97,11 @@ creative_handlers:
         after player left clicks item_flagged:type in creative_inventory:
         - run creative_inventory_creation_helper def.items:<script[creative_data].data_key[inventory.<context.item.flag[type]>]> def.type:<context.item.flag[type]>
         after player left clicks item_flagged:denizen in creative_inventory:
-        - run creative_inventory_creation_helper def.items:<server.scripts.filter[container_type.equals[item]].parse[name]> def.type:denizen
+        - run creative_inventory_creation_helper def.items:<util.scripts.filter[container_type.equals[item]].parse[name]> def.type:denizen
+        after player left clicks item_flagged:horns in creative_inventory:
+        - foreach ADMIRE_GOAT_HORN|CALL_GOAT_HORN|DREAM_GOAT_HORN|FEEL_GOAT_HORN|PONDER_GOAT_HORN|SEEK_GOAT_HORN|SING_GOAT_HORN|YEARN_GOAT_HORN as:instrument:
+            - define items:->:<item[goat_horn].with[instrument=<[instrument]>]>
+        - run creative_inventory_creation_helper def.items:<[items]> def.type:horns
         after player left clicks item_flagged:potions in creative_inventory:
         - foreach <server.potion_types> as:effect:
             - choose <[effect]>:
@@ -161,17 +133,15 @@ creative_handlers:
             - define items:|:<util.list_numbers_to[<enchantment[<[enchantment]>].max_level>].parse_tag[enchanted_book[enchantments=[<[enchantment]>=<[parse_value]>]]]>
         - run creative_inventory_creation_helper def.items:<[items]> def.type:enchanted_books
         after player left clicks item_flagged:search in creative_inventory:
-        - flag <player> dcreative.search expire:10s
-        - flag <player> player.core.chat_interaction.interactionmode expire:10s
         - inventory close
-        - narrate format:c_info "Suchbegriff eingeben."
-        on player chats flagged:dcreative.search:
+        - inventory open destination:generic[contents=paper[flag=dcreative.search;display=Search...];holder=anvil]
+        on player prepares anvil craft item_flagged:dcreative.search:
+        - determine passively 0
+        on player clicks item_flagged:dcreative.search in anvil:
         - determine cancelled passively
-        - flag <player> dcreative.search:!
-        - flag <player> player.core.chat_interaction.interactionmode:!
-        - define matches <server.material_types.parse[item.material.name].include[<server.scripts.filter[data_key[type].equals[item]].parse[name]>].filter[contains_any_text[<context.message>]]>
+        - define matches <server.material_types.parse[item.material.name].include[<util.scripts.filter[data_key[type].equals[item]].parse[name]>].filter[contains_any_text[<context.item.display>]]>
         - if <[matches].is_empty>:
-            - narrate format:c_warn "Nichts gefunden!"
+            - narrate "No Match! :("
             - inventory open d:creative_inventory
             - stop
         - run creative_inventory_creation_helper def.items:<[matches]> def.type:search
@@ -283,6 +253,9 @@ creative_inventory:
         glass: <item[glass].with_flag[type:glass].with[display=<&f>Glass]>
         tools: <item[iron_pickaxe].with_flag[type:tools].with[display=<&f>Tools]>
         weapons_and_armor: <item[iron_sword].with_flag[type:weapons_and_armor].with[display=<&f>Weapons and Armor]>
+        smithing_templates: <item[netherite_upgrade_smithing_template].with_flag[type:smithing_templates].with[display=<&f>Smithing Templates]>
+        pottery: <item[decorated_pot].with_flag[type:pottery].with[display=<&f>Pottery]>
+        horns: <item[goat_horn].with_flag[horns].with[display=<&f>Horns]>
         blocks: <item[grass_block].with_flag[type:blocks].with[display=<&f>Building Blocks]>
         copper: <item[copper_block].with_flag[type:copper].with[display=<&color[#c9803c]>Copper]>
         container: <item[chest].with_flag[type:container].with[display=<&f>Container]>
@@ -297,7 +270,7 @@ creative_inventory:
         potions: <item[potion].with_flag[potions].with[display=<&f>Potions]>
         enchanted_books: <item[enchanted_book].with_flag[enchanted_books].with[display=<dark_purple>Enchanted Books]>
         denizen: <item[stick].with_flag[denizen:items].with[display=<yellow>Denizen]>
-        search: <item[spyglass].with_flag[search].with[display=<&f>Suche]>
+        search: <item[spyglass].with_flag[search].with[display=<&f>Search]>
     procedural items:
     - define book "<item[writable_book].with_flag[shortcuts:null].with[display=Empty Shortcut;lore=<gray>Left click to set a shortcut]>"
     - define number_of_shortcuts <script.data_key[data.shortcuts]>
@@ -309,9 +282,9 @@ creative_inventory:
     - define shortcuts <[shortcuts].replace[<empty>].with[<[book]>]>
     - determine <[shortcuts]>
     slots:
-    - [trees_and_logs] [nature] [oceanic] [brewing] [potions] [air] [food] [tools] [weapons_and_armor]
-    - [glass] [terracotta] [wool] [enchanted_books] [air] [transport] [redstone] [light] [misc]
-    - [blocks] [ores] [copper] [air] [air] [fences_and_walls] [stairs_and_slabs] [container] [interactables]
+    - [trees_and_logs] [nature] [pottery] [oceanic] [brewing] [food] [tools] [weapons_and_armor] [smithing_templates]
+    - [glass] [terracotta] [wool] [enchanted_books] [potions] [transport] [redstone] [light] [misc]
+    - [blocks] [ores] [copper] [air] [horns] [fences_and_walls] [stairs_and_slabs] [container] [interactables]
     - [air] [air] [air] [air] [air] [air] [denizen] [special] [spawn_eggs]
     - [] [] [] [] [] [] [] [] [search]
     - [] [] [] [] [] [] [] [] []
@@ -324,7 +297,6 @@ creative_inventory_data:
 creative_data:
     type: data
     debug: false
-    #TODO: Add Goathorns
     inventory:
         trees_and_logs:
             - oak_sapling
@@ -333,6 +305,7 @@ creative_data:
             - jungle_sapling
             - acacia_sapling
             - dark_oak_sapling
+            - cherry_sapling
             - mangrove_propagule
             - oak_leaves
             - spruce_leaves
@@ -341,6 +314,7 @@ creative_data:
             - acacia_leaves
             - dark_oak_leaves
             - mangrove_leaves
+            - cherry_leaves
             - azalea_leaves
             - flowering_azalea_leaves
             - oak_log
@@ -350,6 +324,7 @@ creative_data:
             - acacia_log
             - dark_oak_log
             - mangrove_log
+            - cherry_log
             - mangrove_roots
             - muddy_mangrove_roots
             - crimson_stem
@@ -361,6 +336,7 @@ creative_data:
             - stripped_acacia_log
             - stripped_dark_oak_log
             - stripped_mangrove_log
+            - stripped_bamboo_block
             - stripped_crimson_stem
             - stripped_warped_stem
             - stripped_oak_wood
@@ -379,6 +355,7 @@ creative_data:
             - acacia_wood
             - dark_oak_wood
             - mangrove_wood
+            - cherry_wood
             - crimson_hyphae
             - warped_hyphae
             - oak_planks
@@ -388,6 +365,8 @@ creative_data:
             - acacia_planks
             - dark_oak_planks
             - mangrove_planks
+            - cherry_planks
+            - bamboo_planks
             - crimson_planks
             - warped_planks
         ores:
@@ -481,6 +460,12 @@ creative_data:
             - birch_slab
             - jungle_stairs
             - jungle_slab
+            - cherry_stairs
+            - cherry_slab
+            - bamboo_stairs
+            - bamboo_slab
+            - bamboo_mosaic_slab
+            - bamboo_mosaic_stairs
             - crimson_stairs
             - crimson_slab
             - warped_stairs
@@ -493,6 +478,10 @@ creative_data:
             - acacia_slab
             - dark_oak_stairs
             - dark_oak_slab
+            - mangrove_stairs
+            - mangrove_slab
+            - mud_brick_stairs
+            - mud_brick_slab
             - prismarine_stairs
             - prismarine_slab
             - prismarine_brick_stairs
@@ -591,6 +580,9 @@ creative_data:
             - jungle_door
             - acacia_door
             - dark_oak_door
+            - mangrove_door
+            - cherry_door
+            - bamboo_door
             - crimson_door
             - warped_door
             - iron_door
@@ -600,6 +592,9 @@ creative_data:
             - jungle_button
             - acacia_button
             - dark_oak_button
+            - mangrove_button
+            - cherry_button
+            - bamboo_button
             - crimson_button
             - warped_button
             - air
@@ -609,6 +604,9 @@ creative_data:
             - jungle_pressure_plate
             - acacia_pressure_plate
             - dark_oak_pressure_plate
+            - mangrove_pressure_plate
+            - cherry_pressure_plate
+            - bamboo_pressure_plate
             - crimson_pressure_plate
             - warped_pressure_plate
             - heavy_weighted_pressure_plate
@@ -618,6 +616,9 @@ creative_data:
             - jungle_trapdoor
             - acacia_trapdoor
             - dark_oak_trapdoor
+            - mangrove_trapdoor
+            - cherry_trapdoor
+            - bamboo_trapdoor
             - crimson_trapdoor
             - warped_trapdoor
             - iron_trapdoor
@@ -627,6 +628,9 @@ creative_data:
             - jungle_fence_gate
             - acacia_fence_gate
             - dark_oak_fence_gate
+            - mangrove_fence_gate
+            - cherry_fence_gate
+            - bamboo_fence_gate
             - crimson_fence_gate
             - warped_fence_gate
         transportation:
@@ -657,6 +661,10 @@ creative_data:
             - dark_oak_chest_boat
             - mangrove_boat
             - mangrove_chest_boat
+            - cherry_boat
+            - cherry_chest_boat
+            - bamboo_raft
+            - bamboo_chest_raft
         wool:
             - white_dye
             - orange_dye
@@ -857,9 +865,11 @@ creative_data:
             - jungle_sapling
             - acacia_sapling
             - dark_oak_sapling
-            - mangrove_sapling
+            - mangrove_propagule
+            - cherry_sapling
             - cobweb
             - flower_pot
+            - decorated_pot
             - grass
             - tall_grass
             - fern
@@ -885,6 +895,11 @@ creative_data:
             - lilac
             - rose_bush
             - peony
+            - pink_petals
+            - torchflower
+            - torchflower_seeds
+            - pitcher_plant
+            - pitcher_pod
             - wither_rose
             - spore_blossom
             - brown_mushroom
@@ -1084,6 +1099,33 @@ creative_data:
             - golden_horse_armor
             - diamond_horse_armor
             - leather_horse_armor
+        smithing_templates:
+            - coast_armor_trim_smithing_template
+            - dune_armor_trim_smithing_template
+            - eye_armor_trim_smithing_template
+            - netherite_upgrade_smithing_template
+            - raiser_armor_trim_smithing_template
+            - rib_armor_trim_smithing_template
+            - sentry_armor_trim_smithing_template
+            - silence_armor_trim_smithing_template
+            - shaper_armor_trim_smithing_template
+            - snout_armor_trim_smithing_template
+            - spire_armor_trim_smithing_template
+            - vex_armor_trim_smithing_template
+            - ward_armor_trim_smithing_template
+            - wayfinder_armor_trim_smithing_template
+            - wild_armor_trim_smithing_template
+        pottery:
+            - flower_pot
+            - decorated_pot
+            - plenty_pottery_sherd
+            - prize_pottery_sherd
+            - sheaf_pottery_sherd
+            - shelter_pottery_sherd
+            - snort_pottery_sherd
+            - skull_pottery_sherd
+            - suspicious_gravel
+            - suspicious_sand
         blocks:
             - stone
             - granite
@@ -1114,9 +1156,14 @@ creative_data:
             - dark_oak_planks
             - crimson_planks
             - warped_planks
+            - mangrove_planks
+            - cherry_planks
+            - bamboo_block
+            - bamboo_mosaic
             - bedrock
             - sand
             - red_sand
+            - suspicious_sand
             - gravel
             - ancient_debris
             - sandstone
@@ -1127,24 +1174,12 @@ creative_data:
             - smooth_sandstone
             - smooth_stone
             - bricks
+            - chiseled_bookshelf
             - bookshelf
             - mossy_cobblestone
             - purpur_block
             - purpur_pillar
-            - ancient_debris
-            - sandstone
-            - chiseled_sandstone
-            - cut_sandstone
-            - smooth_quartz
-            - smooth_red_sandstone
-            - smooth_sandstone
-            - smooth_stone
-            - bricks
-            - bookshelf
-            - mossy_cobblestone
             - obsidian
-            - purpur_block
-            - purpur_pillar
             - snow
             - ice
             - snow_block
@@ -1168,6 +1203,7 @@ creative_data:
             - mossy_stone_bricks
             - cracked_stone_bricks
             - chiseled_stone_bricks
+            - mud
             - packed_mud
             - mud_bricks
             - deepslate_bricks
@@ -1246,6 +1282,7 @@ creative_data:
             - chest
             - trapped_chest
             - barrel
+            - chiseled_bookshelf
             - shulker_box
             - white_shulker_box
             - orange_shulker_box
@@ -1281,6 +1318,7 @@ creative_data:
             - loom
             - composter
             - barrel
+            - chiseled_bookshelf
             - smoker
             - blast_furnace
             - cartography_table
@@ -1303,17 +1341,32 @@ creative_data:
             - jack_o_lantern
             - dried_kelp_block
             - oak_sign
+            - oak_hanging_sign
             - spruce_sign
+            - spruce_hanging_sign
             - birch_sign
+            - birch_hanging_sign
             - jungle_sign
+            - jungle_hanging_sign
             - acacia_sign
+            - acacia_hanging_sign
             - dark_oak_sign
+            - dark_oak_hanging_sign
+            - mangrove_sign
+            - mangrove_hanging_sign
+            - cherry_sign
+            - cherry_hanging_sign
+            - bamboo_sign
+            - bamboo_hanging_sign
             - crimson_sign
+            - crimson_hanging_sign
             - warped_sign
+            - warped_hanging_sign
         fences_and_walls:
             - cobblestone_wall
             - mossy_cobblestone_wall
             - brick_wall
+            - mud_brick_wall
             - prismarine_wall
             - red_sandstone_wall
             - mossy_stone_brick_wall
@@ -1338,6 +1391,9 @@ creative_data:
             - jungle_fence
             - acacia_fence
             - dark_oak_fence
+            - mangrove_fence
+            - cherry_fence
+            - bamboo_fence
             - crimson_fence
             - warped_fence
             - nether_brick_fence
@@ -1347,6 +1403,9 @@ creative_data:
             - jungle_fence_gate
             - acacia_fence_gate
             - dark_oak_fence_gate
+            - mangrove_fence_gate
+            - cherry_fence_gate
+            - bamboo_fence_gate
             - crimson_fence_gate
             - warped_fence_gate
         terracotta:
@@ -1391,6 +1450,7 @@ creative_data:
             - bee_spawn_egg
             - blaze_spawn_egg
             - cat_spawn_egg
+            - camel_spawn_egg
             - cave_spider_spawn_egg
             - chicken_spawn_egg
             - cod_spawn_egg
@@ -1400,9 +1460,11 @@ creative_data:
             - donkey_spawn_egg
             - drowned_spawn_egg
             - elder_guardian_spawn_egg
+            - ender_dragon_spawn_egg
             - enderman_spawn_egg
             - endermite_spawn_egg
             - evoker_spawn_egg
+            - iron_golem_spawn_egg
             - fox_spawn_egg
             - frog_spawn_egg
             - ghast_spawn_egg
@@ -1434,6 +1496,8 @@ creative_data:
             - silverfish_spawn_egg
             - skeleton_spawn_egg
             - skeleton_horse_spawn_egg
+            - sniffer_spawn_egg
+            - snow_golem_spawn_egg
             - slime_spawn_egg
             - spider_spawn_egg
             - squid_spawn_egg
@@ -1450,6 +1514,7 @@ creative_data:
             - wandering_trader_spawn_egg
             - witch_spawn_egg
             - wither_skeleton_spawn_egg
+            - wither_spawn_egg
             - wolf_spawn_egg
             - zoglin_spawn_egg
             - zombie_spawn_egg
@@ -1458,6 +1523,7 @@ creative_data:
             - zombified_piglin_spawn_egg
         misc:
             - beacon
+            - sniffer_egg
             - turtle_egg
             - conduit
             - scute
@@ -1515,6 +1581,7 @@ creative_data:
             - chorus_fruit
             - popped_chorus_fruit
             - beetroot_seeds
+            - torchflower_seeds
             - shulker_shell
             - music_disc_13
             - music_disc_cat
@@ -1523,6 +1590,7 @@ creative_data:
             - music_disc_far
             - music_disc_mall
             - music_disc_mellohi
+            - music_disc_relic
             - music_disc_stal
             - music_disc_strad
             - music_disc_ward
@@ -1542,6 +1610,7 @@ creative_data:
             - player_head
             - zombie_head
             - creeper_head
+            - piglin_head
             - dragon_head
         special:
             - barrier
