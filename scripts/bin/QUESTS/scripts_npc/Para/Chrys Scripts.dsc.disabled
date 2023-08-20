@@ -1,0 +1,121 @@
+Chrys:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@ChrysStandard'
+      - FLAG npc trigger:!
+  interact scripts:
+    - 0 ChrysStandard
+    - 5 Gast1
+    - 10 Jagd_Chrys
+    - 15 Equipment_Chrys
+    - 20 Tutorial_Chrys
+
+ChrysStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hallo <player.name>! Was macht die Kunst?"
+        - WAIT 4
+        - CHAT "Meister Pietro ist immer seeeehr besch<&auml>ftigt und daher manchmal etwas forsch, aber ich unterst<&uuml>tze ihn, wo ich nur kann!"
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Pietro|Arbeit|Bis dann'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Pietro|Arbeit|Bis dann'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wer ist Meister /Pietro/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "A...aber <player.name>! Ihr kennt doch sicher Meister Pietro... DEN Meister Pietro, den besten und GR<&Ouml>SSTEN J<&auml>ger Iturias, eine lebende Legende! Ein wahrer MEISTER seines Faches."
+          - WAIT 9
+          - CHAT "Sein Wissen f<&uuml>llt ganze B<&auml>nde!... Und das... und das sogar wortw<&ouml>rtlich."
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Wortlw<&ouml>rtlich|Ich muss los'
+          - NARRATE format:trigger ""
+          - ^ZAP 3
+          - DISENGAGE
+        2:
+          Trigger: "Woran /arbeit/et Ihr?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Als des ehrw<&uuml>rdigen Meisters Sch<&uuml>ler ist es meine ureigenste Aufgabe, ihm so gut wie nur m<&ouml>glich zur Hand zu gehen."
+          - WAIT 5
+          - CHAT "Ich mag zwar bei Weitem noch nicht so erfahren sein wie ER, der Meister, es ist, doch scheint er meine Mitarbeit doch zu sch<&auml>tzen. Zumindest hoffe ich das..."
+          - WAIT 8
+          - CHAT "Ich mache alles, was zur Vorbereitung seiner Werke dient und k<&uuml>mmere mich um den Bestand der Vorr<&auml>te innerhalb des Lagers."
+          - WAIT 5
+          - CHAT "Au<&chr[00DF]>erdem versuche ich nicht im Wege zu stehen, wenn der Meister zur Tat schreitet."
+          - WAIT 4
+          - CHAT "Sonst noch was?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Pietro|Arbeit|Bis dann'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Ich muss los. /Bis dann/!"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Bis dann, <player.name>!"
+          - WAIT 2
+          - CHAT "Und vergesst nicht, wenn Ihr Hilfe ben<&ouml>tigt, k<&ouml>nnt Ihr getrost auch mich Fragen, Meister Pietros emsigen Sch<&uuml>ler, Chrys!"
+          - ^ZAP 1
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Wortlw<&ouml>rtlich|Ich muss los'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Wortw<&ouml>rtlich/? Wie meint Ihr das?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Na... aber... seine B<&uuml>cher nat<&uuml>rlich! Er mag vielleicht nicht der redseeligste sein, aber seine B<&uuml>cher sind seinem meisterhaftem Wesen getreu - wahre Meisterwerke!"
+          - WAIT 8
+          - CHAT "Sein erstes Werk - nat<&uuml>rlich ein Meisterwerk, wie sollte es denn anders sein - trage ich seit meinem ersten Lehrtag immer bei mir." 
+          - WAIT 5
+          - CHAT "Es ist wie ein Schutzengel, ein Talisman f<&uuml>r mich und hat mir bislang aus so mancher misslichen Lage helfen k<&ouml>nnen."
+          - WAIT 5
+          - CHAT "Sonst noch was?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Pietro|Arbeit|Bis dann'
+          - NARRATE format:trigger ""
+          - ^ZAP 2
+          - DISENGAGE
+        2:
+          Trigger: "Ahhja... ich glaube ich habe etwas auf dem Herd stehen lassen, /ich muss los/!"
+          Script:
+          - ENGAGE
+          - WAIT 4
+          - CHAT "Eilt so schnell wie der Wind, <player.name>! Und lasst nichts anbrennen. Das... das w<&auml>re nicht so gut... denke ich."
+          - WAIT 5
+          - CHAT "Bis Bald!"
+          - ^ZAP 1
+          - DISENGAGE

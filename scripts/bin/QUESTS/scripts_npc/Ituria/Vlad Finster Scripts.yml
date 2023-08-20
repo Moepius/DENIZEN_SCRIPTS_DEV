@@ -1,0 +1,15 @@
+Vlad_Finster:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+  interact scripts:
+    - 5 Gast1
+    - 10 Dungeon_Kuchencanyon_Vlad_Finster

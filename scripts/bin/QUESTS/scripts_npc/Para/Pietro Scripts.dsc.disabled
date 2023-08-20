@@ -1,0 +1,38 @@
+Pietro:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - FLAG npc trigger:!
+  interact scripts:
+    - 0 PietroStandard
+    - 5 Gast1
+    - 10 Tutorial_Pietro
+
+PietroStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode:None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - ENGAGE
+          - NARRATE "<&b>Meister Pietro scheint besch<&auml>ftigt, es w<&auml>re unklug ihn zu st<&ouml>ren."
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "St<&ouml>rt mich nicht, ich arbeite hier! Wenn ihr ein Lager sucht, so schaut euch doch um. Es ist alles da, was Ihr braucht und jetzt trollt euch!"
+        - WAIT 4
+        - NARRATE "<&b>Ihr solltet auf Pietro h<&ouml>ren und ihn in Ruhe lassen."
+        - DISENGAGE

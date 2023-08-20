@@ -1,0 +1,382 @@
+Equipment_Chrys:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - -FLAGGED PLAYER 'FertigeQuests[<player.flag[FertigeQuests].as_list.find[Einkauf f<&uuml>r Chrys]>]:Einkauf f<&uuml>r Chrys'
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - ENGAGE
+          - CHAT "Hey, Ihr seid neu, oder? Kommt mal kurz her!"
+          - WAIT 2
+          - NARRATE "<&b>Ein NPC ruft Euch heran. <&f>Rechtsklickt <&b>ihn, um zu erfahren, was er von Euch m<&ouml>chte."
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ehm... Hallo... <player.name>! Nun, also, ich... ich meine, Ihr seht schon vertrauensw<&uuml>rdig aus und da w<&uuml>rde ich Euch doch gerne um Eure Hilfe bei einer gewissen Angelegenheit bitten."
+        - WAIT 7
+        - CHAT "Ich w<&auml>re Euch wirklich sehr verbunden, wenn ihr mir in meiner... nun ja leider selbstverschuldeten Lage helfen w<&uuml>rdet?"
+        - WAIT 6
+        - CHAT "Es wird... w<&uuml>rde sogar etwas f<&uuml>r Euch dabei rausspringen, <player.name>. Da findet sich sicherlich etwas."
+        - IF <player.groups.as_list.contains[free_01]> {
+            - WAIT 5
+            - NARRATE "<&b>Quests sind rein optional. Als Neuling solltet Ihr nicht vergessen Euer Haus auf Ituria zu bauen."
+            }
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 3
+        - DISENGAGE
+    2:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Hey, <player.name>! H<&auml>ttet Ihr jetzt vielleicht etwas Zeit?"
+          - WAIT 2
+          - NARRATE "<&b>Ein NPC ruft Euch heran. <&f>Rechtsklickt <&b>ihn, um zu erfahren, was er von Euch m<&ouml>chte."
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ehm... ja... Nun, Ihr wisst bestimmt noch... ich meine, dass was ich Euch letztens erz<&auml>hlte... mit der gewissen Angelegenheit..."
+        - WAIT 6
+        - CHAT "Ich w<&auml>re Euch wirklich sehr verbunden, wenn ihr mir in meiner... nun ja leider selbstverschuldeten Lage helfen w<&uuml>rdet?"
+        - WAIT 6
+        - CHAT "Es wird... w<&uuml>rde sogar etwas f<&uuml>r Euch dabei rausspringen, <player.name>. Da findet sich sicherlich etwas."
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 3
+        - DISENGAGE
+    3:
+      Click Trigger:
+      Script:
+      - ^FLAG npc trigger:!
+      - ^FLAG npc 'trigger:|:Ja|Nein'
+      - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/ nat<&uuml>rlich, wo brennt es denn?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Oh, das ist ja hervorragend, wirklich wunderbar! Ich danke Euch!"
+          - WAIT 4
+          - CHAT "Wisst Ihr, mein Meister hat mich heute morgen mit den <&uuml>blichen Besorgungen f<&uuml>r diese Woche betraut, aber..."
+          - WAIT 5
+          - CHAT "... nun, ich bin leider am Hafen ausgerutscht und alles, wirklich alles ist ins Wasser gefallen..."
+          - WAIT 4
+          - CHAT "Ich kann froh sein, dass ich nicht auch noch selbst im Hafenbecken gelandet bin."
+          - WAIT 4
+          - CHAT "Der Meister ist gerade schwer besch<&auml>ftigt und es w<&auml>re unklug, ihn mit solcherlei... Nichtigkeiten von der Arbeit abzubringen."
+          - WAIT 6
+          - CHAT "Und ich... ich muss noch die gerade neu reingekommenden Felle kontrollieren und gegebenenfalls anbrachen und m<&ouml>chte ihn auf gar keinen Fall erz<&uuml>rnen."
+          - WAIT 8
+          - CHAT "Hier ist eine Liste mit allen Sachen die Ihr mir bringen sollt."
+          - WAIT 4
+          - CHAT "Bitte beeilt Euch und zeigt sie ja nicht Meister Pietro..."
+          - WAIT 3
+          - GIVE 358:1
+          - NARRATE format:item_given "<&b>eine <&d>Einkaufsliste<&b>. Er hat Euch Notizen gemacht, wenn auch ein wenig krakelig.."
+          - WAIT 5
+          - NARRATE "Rechtsklickt <&b>Chrys noch einmal, wenn Ihr Hinweise zur Quest erhalten wollt."
+          - ^FLAG PLAYER 'AktiveQuests:->:Einkauf f<&uuml>r Chrys'
+          - ^FLAG PLAYER 'EquipmentBonus:1' duration:600s
+          - NARRATE format:quest_given "Einkauf f<&uuml>r Chrys"
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/, tut mir Leid aber ich habe keine Zeit." 
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Ohje, ohje. Dann muss ich wohl rasch wen anderes finden..."
+          - WAIT 3
+          - CHAT "Verdammt, wie komme ich jetzt nur aus diesem Schlamassel?"
+          - WAIT 4
+          - CHAT "Falls Ihr nicht doch noch ein wenig Zeit er<&uuml>brigen k<&ouml>nnt oder wollt, so meldet Euch doch bitte bei mir... Es w<&auml>re wirklich sehr, sehr dringend..."
+          - ^ZAP 2
+          - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Bitte beeilt Euch, ich brauche die Sachen wirklich dringend..."
+        - WAIT 3
+        - CHAT "Ihr wisst doch, wo Ihr die Sachen bekommen k<&ouml>nnt? Sonst fragt mich doch einfach."
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Tukalschokolade|Krabbelminen|Pfeilsch<&auml>fte'
+        - NARRATE format:trigger ""
+        - DISENGAGE
+      Chat Trigger:
+        1:
+          Trigger: "Wo finde ich die /Tukalschokolade/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Die Tukalschokolade wird im Feinkostladen am S<&uuml>dhafen verkauft. Lasst sie von Borold auf meine Rechnung setzen..."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Tukalschokolade|Krabbelminen|Pfeilsch<&auml>fte'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "/Krabbelminen/? Wo kann man die kaufen?" 
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Ihr bekommt sie bei Golo im Bombenladen am S<&uuml>dhafen. Er liegt unten am Wasser. Und... lasst Euch von Golo nicht einsch<&uuml>chtern... *schluck*"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Tukalschokolade|Krabbelminen|Pfeilsch<&auml>fte'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "K<&ouml>nnt Ihr mir sagen, wo ich die /Pfeilsch<&auml>fte/ herbekomme?" 
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Theobald verkauft sie am Nordhafen. Er betreibt dort den Laden Plunder und Zunder."
+          - WAIT 2
+          - CHAT "Lasst auf meinen Namen anschreiben, das sollte kein Problem sein, denke ich."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Tukalschokolade|Krabbelminen|Pfeilsch<&auml>fte'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+    5:
+      Click Trigger:
+        Script:
+        
+        - ENGAGE
+        - IF <player.flag[EquipmentBonus]> == 1 {
+            - ^FLAG PLAYER 'EquipmentBonus:2'
+            - CHAT "Oh, da seid Ihr ja schon wieder. Und Ihr habt alles dabei? Tats<&auml>chlich... es scheint fast so..."
+            - WAIT 6
+            - CHAT "Ja, ihr habt alles, alles, was ich Euch aufgetragen habe zu holen!"
+            - WAIT 4
+            - CHAT "Oh, wie kann ich Euch nur danken, Ihr habt mir doch glatt den Tag gerettet!"
+            - WAIT 4
+            - CHAT "Ich...  hatte mich schon fast damit abgefunden, dass... doch..."
+            - WAIT 4
+            - CHAT "Ah! Ich glaube mir ist etwas Gutes eingefallen, um Euch diese noble Tat zu vergelten."
+            - WAIT 4
+            - CHAT "Hier nehmt doch dies hier, es ist zwar kein Meisterst<&uuml>ck, wie aus den H<&auml>nden des gro<&chr[00DF]>en Pietros, aber es ist mein ganzer Stolz und wird Euch gute Dienste leisten."
+            - WAIT 8
+            - GIVE 306
+            - GIVE 299
+            - GIVE 300
+            - GIVE 301
+            - GIVE 261
+            - GIVE 262 QTY:40
+            - NARRATE format:item_given "<&b>ein <&d>R<&uuml>stungsset<&b>. <&a>Chrys <&b>hat es selbst angefertigt. Welche Ehre"
+            - WAIT 5
+            - CHAT "Ich... ich hoffe Ihr k<&ouml>nnt sie gut gebrauchen. Und... Hier."
+            - WAIT 4
+            - CHAT "Zeigt doch dem Kartenzeichner Bahrim am Nordhafen dieses Schreiben, er wird Bescheid wissen und bestimmt auch noch etwas Sch<&ouml>nes f<&uuml>r Euch haben."
+            - WAIT 7
+            - NARRATE format:item_given "<&b>ein <&d>Empfehlungsschreiben"
+            - WAIT 3
+            - NARRATE "<&b>Zeigt es <&a>Bahrim <&b>um eine zus<&auml>tzliche Belohnung zu erhalten."
+            - CHAT "Ich hoffe man sieht sich bald wieder, <player.name>!"
+            - ^FLAG PLAYER 'Equipment_Liste:!'
+            - ^FLAG PLAYER 'AktiveQuests:<-:Einkauf f<&uuml>r Chrys'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Einkauf f<&uuml>r Chrys' {
+                - ^FLAG PLAYER 'FertigeQuests:->:Einkauf f<&uuml>r Chrys'
+                }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - NARRATE format:quest_complete "Einkauf f<&uuml>r Chrys + BONUS"
+            }
+          ELSE {
+            - CHAT "Endlich! Ich hatte schon Angst Ihr kommt gar nicht mehr wieder..."
+            - WAIT 5
+            - CHAT "Das war eine wirklich knappe Sache, Meister Pietro ist schon fast fertig mit seiner Arbeit und will sich sicher bald seine Feierabendschokolade zubereiten..."
+            - WAIT 9
+            - CHAT "Dennoch vielen, vielen Dank. Ohne Euch h<&auml>tte jetzt sicher mein letztes St<&uuml>ndlein geschlagen..."
+            - WAIT 5
+            - CHAT "Zumindest gef<&uuml>hlt, das k<&ouml>nnt Ihr mir glauben, oh ja, das k<&ouml>nnt ihr mir glauben, das versichere ich Euch!"
+            - WAIT 6
+            - CHAT "Nehmt diese R<&uuml>stung zum Dank, sie ist zwar noch aus meinem ersten Lehrjahr und daher etwas..."
+            - WAIT 5
+            - CHAT "...nunja, etwas unelegant zusammengekleistert, aber ich denke schon, dass sie Euch gute Dienste leisten wird. Auf Bald, <player.name>!"
+            - WAIT 6
+            - GIVE 298
+            - GIVE 299
+            - GIVE 300
+            - GIVE 301
+            - NARRATE format:item_given "<&b>ein <&d>R<&uuml>stungsset"
+            - ^FLAG PLAYER 'Equipment_Liste:!'
+            - ^FLAG PLAYER 'AktiveQuests:<-:Einkauf f<&uuml>r Chrys'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Einkauf f<&uuml>r Chrys' {
+                - ^FLAG PLAYER 'FertigeQuests:->:Einkauf f<&uuml>r Chrys'
+                }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - NARRATE format:quest_complete "Einkauf f<&uuml>r Chrys"
+            }
+        - DISENGAGE
+
+Equipment_Borold:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Einkauf f<&uuml>r Chrys]>]:Einkauf f<&uuml>r Chrys'
+  Steps:
+    1: 
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Was sehe ich, ein neuer Kunde? Wenn Ihr auf der Suche nach den exotischten Gen<&uuml>ssen dieser Welt seid, so lasst Euch sagen - Hier seid Ihr genau richtig!"
+        - WAIT 6
+        - CHAT "... Achso, Chrys schickt Euch? Er war doch heute erst hier um seine w<&ouml>chentliche Bestellung abzuholen..."
+        - WAIT 5
+        - CHAT "Ja, in der Tat lustiges Kerlchen. Ein wenig unbedarft der Kleine, aber sein Meister wei<&chr[00DF]> sicher, warum er ihn zum Lehrling genommen hat."
+        - WAIT 6
+        - CHAT "Auch wenn man es dem alten Stinkepeter gar nicht ansehen mag..."
+        - WAIT 4
+        - CHAT "Soso, verloren also, achje das wird ihm gar nicht gut bekommen, wenn der Griesgram das erf<&auml>hrt."
+        - WAIT 5
+        - CHAT "F<&uuml>r Stammkunden schreibe ich nat<&uuml>rlich gerne an, kein Problem."
+        - WAIT 4
+        - NARRATE format:item_given "<&b>ein P<&auml>ckchen <&d>Tukalschokolade"
+        - WAIT 5
+        - CHAT "Bitte sehr, aber nicht ins Hafenbecken springen."
+        - WAIT 3
+        - NARRATE format:emote "lacht herzlich"
+        - WAIT 2
+        - CHAT "Vielleicht kann ich Euch dann in Zukunft auch als Kunden bei mir begr<&uuml><&chr[00DF]>en."
+        - IF <player.flag[Equipment_Liste].as_list> contains 'E_Golo' && <player.flag[Equipment_Liste].as_list> contains 'E_Theobald' {
+            - ^FLAG PLAYER 'Equipment_Liste:->:E_Borold'
+            - NARRATE "<&b>Ihr habt <&a>alle Gegenst<&auml>nde <&b>zusammen! Auf zu <&a>Chrys<&b>!"
+            - DISENGAGE
+            - ^ZAP 'step:5' 's@Equipment_Chrys'
+            }
+          ELSE {
+            - ^FLAG PLAYER 'Equipment_Liste:->:E_Borold'
+            }
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - CHAT "Ich sch<&auml>tze Ihr solltet Chrys nicht allzu sehr warten lassen. Der arme Junge ist das reinste Nervenb<&uuml>ndel."
+
+Equipment_Golo:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Einkauf f<&uuml>r Chrys]>]:Einkauf f<&uuml>r Chrys'
+  Steps:
+    1: 
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Was ist?!"
+        - WAIT 2
+        - CHAT "Krabbelminen? Gibt's nicht. M<&uuml>sst Ihr 'ne Lizenz haben... Habt Ihr die?!"
+        - WAIT 4
+        - CHAT "F<&uuml>r Stinky Petes Futzi? Mmhrrr..."
+        - WAIT 4
+        - CHAT "Hier. Ihr wisst nichts! Klar?! Wenn mein Bruder Jolo <&Auml>rger mit den Bullen bekommt... <&c>ICH FINDE EUCH!"
+        - WAIT 5
+        - NARRATE "<&a>Golo <&b>knallt Euch die <&d>Krabbelminen <&b>auf den Tresen... Besser schnell weg hier."
+        - IF <player.flag[Equipment_Liste].as_list> contains 'E_Borold' && <player.flag[Equipment_Liste].as_list> contains 'E_Theobald' {
+            - ^FLAG PLAYER 'Equipment_Liste:->:E_Golo'
+            - NARRATE "<&b>Ihr habt <&a>alle Gegenst<&auml>nde <&b>zusammen! Auf zu <&a>Chrys<&b>!"
+            - ^ZAP 'step:5' 's@Equipment_Chrys'
+            }
+          ELSE {
+            - ^FLAG PLAYER 'Equipment_Liste:->:E_Golo'
+            }
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - CHAT "Habt ihr schlechte Ohren?!... <&c>ZIEHT LEINE, ABER DALLI!"
+
+Equipment_Theobald:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Einkauf f<&uuml>r Chrys]>]:Einkauf f<&uuml>r Chrys'
+  Steps:
+    1: 
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Willkommen! Ihr habt soeben den wohl wichtigsten Shop der Stadt betreten!"
+        - WAIT 5
+        - CHAT "Meinen Shop um genau zu sein, ich..."
+        - WAIT 2
+        - CHAT "Wie das kommt Euch bekannt vor?"
+        - WAIT 3
+        - CHAT "Um Thusundeas Willen!"
+        - WAIT 2
+        - CHAT "Ihr ward doch nicht etwa in diesem sch<&auml>bigen Schuppen am S<&uuml>dhafen, dessen Name ich hier gar nicht aussprechen mag, und habt Euch dort um Euer liebes Geld betr<&uuml>gen lassen?"
+        - WAIT 8
+        - CHAT "Jeder wei<&chr[00DF]> doch, dass es NUR bei Plunder und Zunder die besten Waren zu den fairsten Preisen gibt!"
+        - WAIT 6
+        - CHAT "Gut dass diese Kunde nun auch endlich bei Euch angekommen ist!"
+        - WAIT 4
+        - CHAT "Chrys schickt Euch... Seht Ihr! Auch der Stift des Meister Pietros wei<&chr[00DF]>, wo er Qualit<&auml>t findet!"
+        - WAIT 5
+        - CHAT "Waaas? 200 Ebenholzpfeilsch<&auml>fte soll ich ihm anschreiben?... grummel..."
+        - WAIT 5
+        - CHAT "Ich mache mal eine Ausnahme f<&uuml>r Ihn, aber nur weil er Euch, arme Seele von einer schrecklichen Missinformation errettet hat!"
+        - WAIT 7
+        - NARRATE format:item_given "<&b>die <&d>Pfeilsch<&auml>fte"
+        - WAIT 3
+        - CHAT "Ich hoffe, von nun an wisst Ihr, wo Ihr den Laden Eures Vertrauens findet. Bis bald!"
+        - IF <player.flag[Equipment_Liste].as_list> contains 'E_Borold' && <player.flag[Equipment_Liste].as_list> contains 'E_Golo' {
+            - ^FLAG PLAYER 'Equipment_Liste:->:E_Theobald'
+            - NARRATE "<&b>Ihr habt <&a>alle Gegenst<&auml>nde <&b>zusammen! Auf zu <&a>Chrys<&b>!"
+            - DISENGAGE
+            - ^ZAP 'step:5' 's@Equipment_Chrys'
+            }
+          ELSE {
+            - ^FLAG PLAYER 'Equipment_Liste:->:E_Theobald'
+            }
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - CHAT "Lasst den guten Chrys nicht zu lange warten, ich selbst warte auch nicht gerne!"
+
+Equipment_Bahrim:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER EquipmentBonus:2
+  Steps:
+    1: 
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Seid gegr<&uuml><&chr[00DF]>t unbekannter Freund, was f<&uuml>hrt Euch zu diesem alten Mann in diesem staubigen Laden?"
+        - WAIT 4
+        - NARRATE "<&b>Ihr zeigt <&a>Bahrim <&b>das <&d>Empfehlungsschreiben<&b>."
+        - WAIT 3
+        - CHAT "... Ahh, ein Freund von Chrys. Seine Freunde sind nat<&uuml>rlich auch meine Freunde. Wie lautet Euer werter Name?"
+        - WAIT 4
+        - CHAT "... Nun denn, <player.name>. Ich sehe Euer Interesse f<&uuml>r meine alten Karten in Euren Augen funkeln."
+        - WAIT 4
+        - CHAT "Ich denke wir werden in Zukunft noch das ein oder andere Sch<&auml>tzchen entdecken, nicht wahr?"
+        - WAIT 4
+        - CHAT "Doch nehmt mit dieser kleinen Aufmerksamkeit vorlieb, als Zeichen unserer neuen Freundschaft."
+        - WAIT 4
+        - CHAT "M<&ouml>ge Thusundea Euch auf Euren Pfaden eine sch<&uuml>tzende Begleiterin sein!"
+        - WAIT 3
+        - GIVE 358:2
+        - NARRATE format:item_given "<&b>eine alte, seltene <&d>Karte"
+        - ^FLAG PLAYER EquipmentBonus:!
+        - DISENGAGE

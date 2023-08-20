@@ -1,0 +1,113 @@
+Willibald:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@WillibaldStandard'
+  interact scripts:
+    - 0 WillibaldStandard
+    - 5 Gast1
+    - 10 Nahrung_Willibald
+    - 15 Knast_Willibald
+
+WillibaldStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - ENGAGE
+          - RANDOM {
+            - CHAT "Wer seid Ihr? Was wollt Ihr? Ihr seht doch, dass hier gearbeitet wird?"
+            - CHAT "Was macht ihr hier? Raus hier! Ich bin besch<&auml>ftigt!"
+            - CHAT "Ich bin am arbeiten, verdammt! RAUS mit Euch!"
+            - CHAT "Ihr k<&ouml>nnt die Akten gleich auf den Schreib... was wollt Ihr hier? Verschwindet!"
+            }
+          - WAIT 2
+          - NARRATE "<&b>Willibald scheint wirklich schwer besch<&auml>ftigt zu sein. Es w<&auml>re unklug ihn weiter zu behelligen."
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - RANDOM {
+          - CHAT "Tja! Wer nicht h<&ouml>ren will, muss f<&uuml>hlen!"
+          - CHAT "Ihr h<&auml>ttet es Euch wirklich besser <&uuml>berlegen sollen mit wem Ihr Euch anlegt!"
+          - CHAT "Raus mit Euch! Sofort!"
+          }
+        - WAIT 4
+        - TELEPORT <player> 35,83,61,world
+        - HURT 2
+        - NARRATE "<&b>Ihr werdet grob zur T<&uuml>r hinausbef<&ouml>rdert."
+        - DISENGAGE
+        - ^ZAP 2
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ihr seid wohl einer von der ganz harten Sorte, was? Ich sagte RAUS!"
+        - WAIT 2
+        - CHAT "Und wagt es nicht, mich erneut zu st<&ouml>ren!"
+        - WAIT 2
+        - TELEPORT <player> 35,83,61,world
+        - HURT 2
+        - NARRATE "<&b>Ihr werdet grob zur T<&uuml>r hinausbef<&ouml>rdert."
+        - DISENGAGE
+        - ^ZAP 3
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "JETZT REICHT ES ABER!"
+        - WAIT 2
+        - CHAT "<&c>WACHEEE! <&e>Hausfriedensbruch!" no_target
+        - WAIT 2
+        - TELEPORT <player> 75,61,-30,world
+        - HURT 2
+        - NARRATE "<&b>Ihr wurdet von einer Wache unsanft ins Gef<&auml>ngnis geworfen. Ihr solltet aus dieser Tat eine Lehre ziehen!"
+        - FLAG PLAYER 'Sozialakte:->:St<&ouml>renfried'
+        - FLAG PLAYER 'AktiveQuests:->:Raus aus dem Knast'
+        - WAIT 2
+        - NARRATE format:quest_given "Raus aus dem Knast"
+        - DISENGAGE
+        - ^ZAP 1
+
+Knast_Willibald:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: ALL
+    List:
+    - FLAGGED PLAYER 'Sozialakte[<player.flag[Sozialakte].as_list.find[St<&ouml>renfried]>]:St<&ouml>renfried'
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - ENGAGE
+          - CHAT "Ihr schon wieder! Schert Euch weg, ich habe keine Zeit f<&uuml>r Euren Unsinn!"
+          - WAIT 2
+          - NARRATE "<&b>Ihr solltet Willibald lieber in Ruhe lassen!"
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Verdammt noch mal, lasst mich in Frieden! Das darf doch wohl nicht wahr sein! <&c>WACHEEE!" no_target
+        - WAIT 4
+        - TELEPORT <player> 75,61,-30,world
+        - HURT 2
+        - NARRATE "<&b>Ihr wurdet von einer Wache unsanft ins Gef<&auml>ngnis geworfen. Ihr solltet aus dieser Tat eine Lehre ziehen!"
+        - FLAG PLAYER 'AktiveQuests:->:Raus aus dem Knast'
+        - WAIT 3
+        - NARRATE format:quest_given "Raus aus dem Knast"
+        - DISENGAGE

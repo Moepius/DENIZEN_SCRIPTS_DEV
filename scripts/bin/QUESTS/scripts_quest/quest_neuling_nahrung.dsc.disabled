@@ -1,0 +1,439 @@
+Nahrung_Frida:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - ENGAGE
+          - CHAT "Hallo, Ihr da. Ja genau Ihr!"
+          - WAIT 2
+          - NARRATE "<&b>Ein NPC ruft Euch heran. <&f>Rechtsklickt <&b>ihn, um zu erfahren, was er von Euch m<&ouml>chte."
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hey, Ihr seid doch gerade eben erst hier angekommen, oder? Nungut, ich bin Frida, B<&auml>ckerin und Gesch<&auml>ftsfrau."
+        - WAIT 5
+        - CHAT "Wie ist denn Euer Name, wenn ich so fragen darf? Ich meine, ich habe Euch doch schon ziemlich <&uuml>berrumpelt."
+        - WAIT 5
+        - NARRATE format:answer "Mein Name ist <player.name>. Freut mich Eure Bekanntschaft zu machen."
+        - WAIT 4
+        - CHAT "Ah, so ist das also. Wie schaut es aus <player.name>, h<&auml>ttet Ihr da vielleicht Lust, Euch ein kleines, feines Zubrot zu verdienen? Ich meine richtiges, leckeres Brot aus meiner B<&auml>ckerei!"
+        - IF <player.groups.as_list.contains[free_01]> {
+            - WAIT 8
+            - NARRATE "<&b>Quests sind rein optional. Als Neuling solltet Ihr nicht vergessen Euer Haus auf Ituria zu bauen."
+            }
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 3
+        - DISENGAGE
+    2:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Hey <player.name>! Wie schaut's aus, habt Ihr Zeit?"
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Das Angebot steht noch. Falls Ihr Euch f<&uuml>r ein wenig Arbeit nicht zu Schade seid werden wir sicher gut miteinander auskommen."
+        - WAIT 4
+        - CHAT "Also, h<&auml>ttet Ihr vielleicht Lust Euch ein kleines, feines Zubrot zu verdienen? Ich meine richtiges, leckeres Brot aus meiner B<&auml>ckerei!"
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 3
+        - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/ klar, Brot kann ich doch immer gebrauchen!"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Prima! F<&uuml>r Lau gibt es nat<&uuml>rlich nichts, rein gar nichts, damit wir uns verstehen."
+          - WAIT 4
+          - CHAT "Aber die Aufgabe ist eigentlich nicht so schwer und sollte Euch daher auch schnell von der Hand gehen."
+          - WAIT 5
+          - CHAT "F<&uuml>r gew<&ouml>hnlich trage ich jeden Tag frische Brote und auch anderes Geb<&auml>ck an meine Kunden aus. Heute morgen aber, ist eine gro<&chr[00DF]>e Sonderbestellung eingegangen und jetzt... h<&auml>nge ich etwas hinterher..."
+          - WAIT 7
+          - CHAT "Aber jetzt seid Ihr ja da! Nehmt diesen Korb mit den bestellten Waren und gebt Acht, dass auch <&f>jeder das bekommt, was er bestellt<&b> hat."
+          - WAIT 6
+          - CHAT "Auf der Liste hier findet Ihr alles Wichtige notiert. Und jetzt lauft schon los, wir wollen sie doch nicht warten lassen."
+          - WAIT 5
+          - GIVE 358:7
+          - NARRATE format:item_given "<&b>die <&d>Bestellungsliste <&b>und einen schweren Korb mit frischen, k<&ouml>stlich duftenden <&d>Backwaren<&b>"
+          - WAIT 5
+          - NARRATE "Rechtsklicktlickt <&a>Frida <&b>noch einmal an, wenn Ihr Hinweise zur Quest erhalten wollt."
+          - ^FLAG PLAYER 'AktiveQuests:->:Dringende Lieferung'
+          - ^FLAG PLAYER 'Nahrung_Liste:->:N_Frida'
+          - ^FLAG PLAYER 'NahrungBonus:1' duration:600s
+          - NARRATE format:quest_given_format "Dringende Lieferung"
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/ tut mir Leid, ich bin besch<&auml>ftigt." 
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Na gut, dann eben nicht! Schade!..."
+          - WAIT 2
+          - CHAT "Aber falls Ihr es Euch doch *seufz*... noch anders <&uuml>berlegt, wisst Ihr jetzt, wo Ihr mich finden k<&ouml>nnt!"
+          - ^ZAP 2
+          - DISENGAGE
+        3:
+          Trigger: /REGEX:\w+/
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Entschuldigt, aber ich wei<&chr[00DF]> nicht, was Ihr mit '<&f><player.chat_history><&e>' meint."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Ja|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Worauf wartet Ihr noch? Meine Kunden warten auf Ihre Br<&ouml>tchen."
+        - WAIT 3
+        - CHAT "Ihr wisst doch sicherlich, wen Ihr wo findet, oder etwa nicht?"
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Boris|Karolus|Willibald'
+        - NARRATE format:trigger ""
+        - DISENGAGE
+      Chat Trigger:
+        1:
+          Trigger: "Wo finde ich /Boris/?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Boris, den Totengr<&auml>ber? Den werdet Ihr wohl bei seinem H<&auml>uschen am Friedhof finden k<&ouml>nnen."
+          - WAIT 5
+          - CHAT "Lasst Euch nicht von seinem <&Auml>u<&chr[00DF]>eren oder seiner kauzigen Art schrecken, er ist ein sehr netter Stammkunde von mir und ein drolliger Gesell."
+          - WAIT 6
+          - CHAT "Der Friedhof Iturias liegt <&uuml>brigens zwischen dem Nordhafen und dem Marktviertel, falls Ihr das nicht schon wusstet."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Boris|Karolus|Willibald'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "/Karolus/? Ich bin mir nicht mehr ganz sicher, wo ich den schon einmal gesehen habe..."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Also, Ihr seid wirklich ganz sch<&ouml>n vergesslich. Den Inhaber von Geiz und Gier kennt doch jedes Kind auf Ituria."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Boris|Karolus|Willibald'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "K<&ouml>nnt Ihr mir sagen, wo ich /Willibald/ antreffe?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Willibald ist der Direktor des S<&auml>gewerks westlich des S<&uuml>dhafens. Wenn Ihr den Marktplatz gen Westen verlasst solltet Ihr das S<&auml>gewerk ausgeschildert finden."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Boris|Karolus|Willibald'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+    5:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[NahrungBonus]> == 1 {
+            - CHAT "<player.name>! Ihr seid aber schnell unterwegs, das will ich Euch loben!"
+            - WAIT 4
+            - CHAT "... Willibald? Achja, macht Euch keinen Kopf, der kriegt sich schon wieder ein, den kleinen Spa<&chr[00DF]> wird er schon verkraften."
+            - WAIT 5
+            - CHAT "Nun denn, wer hart arbeitet muss sich auch gut st<&auml>rken. Das ist f<&uuml>r Euch, lasst es Euch schmecken!"
+            - GIVE 297 QTY:64
+            - GIVE 357 QTY:15
+            - GIVE 335
+            - NARRATE format:item_given "<&b>eine kleine Auswahl leckerer <&d>Backwaren <&b>und ein Glas frische <&d>Milch<&b>. Naja, eher einen Eimer.."
+            - WAIT 5
+            - CHAT "Auf Euer Wohl mein tapferes Helferlein. Wenn ich in Zukunft etwas Hilfe ben<&ouml>tige, werde ich mich sicher Eurer entsinnen!"
+            - WAIT 5
+            - CHAT "Bis die Tage und frohes Schaffen, <player.name>!"
+            - ^FLAG PLAYER 'Nahrung_Liste:!'
+            - ^FLAG PLAYER 'AktiveQuests:<-:Dringende Lieferung'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Dringende Lieferung' {
+                - ^FLAG PLAYER 'FertigeQuests:->:Dringende Lieferung'
+                }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - COOLDOWN duration:24h 'script:Nahrung_Frida'
+            - NARRATE format:quest_complete_format "Dringende Lieferung + BONUS"
+            - ^ZAP 'step:6' 's@Nahrung_Frida'
+            }
+          ELSE {
+            - CHAT "Ayayay, Euch kann man ja im Gehen die Schuhe besohlen. Naja, Hauptsache die Lieferungen sind angekommen."
+            - WAIT 5
+            - CHAT "... Achje, Ihr habt Willibald doch nicht etwa...? ... Ich werde das schon wieder hinbekommen... macht Euch keinen Kopf..."
+            - WAIT 6
+            - CHAT "Aber ich will ja nicht undankbar erscheinen, die Arbeit wurde ja schlie<&chr[00DF]>lich erledigt und Ihr seht auch ganz sch<&ouml>n fertig aus. Hier bittesch<&ouml>n."
+            - WAIT 6
+            - GIVE 297 QTY:32
+            - NARRATE format:item_given "32 Brote"
+            - WAIT 3
+            - CHAT "Arbeitet eine Runde an Eurer Kondition und dann sehen wir mal, ob ich in Zukunft vielleicht noch etwas mehr f<&uuml>r Euch zu tun habe. Bis bald!"
+            - ^FLAG PLAYER 'Nahrung_Liste:!'
+            - ^FLAG PLAYER 'AktiveQuests:<-:Dringende Lieferung'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Dringende Lieferung' {
+                - ^FLAG PLAYER 'FertigeQuests:->:Dringende Lieferung'
+                }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - COOLDOWN duration:24h 'script:Nahrung_Frida'
+            - NARRATE format:quest_complete_format "Dringende Lieferung"
+            - ^ZAP 'step:6' 's@Nahrung_Frida'
+            }
+        - ^ZAP 'step:1' 's@Nahrung_Boris'
+        - ^ZAP 'step:1' 's@Nahrung_Karolus'
+        - ^ZAP 'step:1' 's@Nahrung_Willibald'
+        - DISENGAGE
+    6:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - ENGAGE
+          - CHAT "Huhuuu, <player.name>!"
+          - WAIT 2
+          - CHAT "Kommt doch mal her!"
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Na, wie sieht es bei Euch aus?"
+        - WAIT 2
+        - CHAT "H<&auml>ttet Ihr wieder Lust mir bei meiner t<&auml>glichen Lieferrunde zu helfen?"
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 8
+        - DISENGAGE
+    7:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Hey <player.name>! Wie schaut's aus, habt Ihr Zeit?"
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Das Angebot steht noch, falls Ihr Euch f<&uuml>r ein wenig Arbeit nicht zu Schade seid."
+        - WAIT 4
+        - CHAT "Helft Ihr mir?"
+        - WAIT 2
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - DISENGAGE
+        - ^ZAP 8
+    8:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/ klar, Brot kann ich doch immer gebrauchen!"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Prima! Ich wusste ich kann mich auf Euch verlassen, <player.name>!"
+          - WAIT 4
+          - CHAT "Ihr kennt meine Kunden Karolus, Boris und Willibald bereits. Das werdet Ihr sicher schneller finden als beim ersten Mal."
+          - WAIT 5
+          - CHAT "Los geht's, <player.name>! Lasst meine Waren nicht alt werden!"
+          - WAIT 4       
+          - NARRATE format:item_given "<&b>einen schweren Korb mit frischen, k<&ouml>stlich duftenden <&d>Backwaren"
+          - DISENGAGE
+          - ^FLAG PLAYER 'AktiveQuests:->:Dringende Lieferung'
+          - ^FLAG PLAYER 'NahrungBonus:1' duration:300s
+          - NARRATE format:quest_given_format "Dringende Lieferung"
+          - ^ZAP 4
+        2:
+          Trigger: "/Nein/ tut mir Leid, ich bin besch<&auml>ftigt." 
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Na gut, dann eben nicht! Schade!..."
+          - WAIT 2
+          - CHAT "Aber falls Ihr es Euch doch *seufz*... noch anders <&uuml>berlegt, wisst Ihr jetzt, wo Ihr mich finden k<&ouml>nnt!"
+          - DISENGAGE
+          - ^ZAP 7
+        3:
+          Trigger: /REGEX:\w+/
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Entschuldigt, aber ich wei<&chr[00DF]> nicht, was Ihr mit '<&f><player.chat_history><&e>' meint."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Ja|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+
+Nahrung_Karolus:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Dringende Lieferung]>]:Dringende Lieferung'
+  Steps:
+    1: 
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ohh <player.name>, Thusundea zum Gru<&chr[00DF]>e! Was f<&uuml>hrt Euch hierher?"
+        - WAIT 5
+        - CHAT "Hat Euch Frida eingespannt? Die Gute hat immer ein paar leckere Argumente auf Lager, nicht wahr?"
+        - WAIT 6
+        - CHAT "Aber <player.name>! Unerh<&ouml>rt! Ich meine nat<&uuml>rlich Ihre hervorragenden Backwaren, sie wei<&chr[00DF]> einfach wie es geht."
+        - WAIT 6
+        - CHAT "Jetzt aber her mit den guten Sachen, ich hoffe meine Nussecke ist auch dabei? Ahhh, sehr sch<&ouml>n."
+        - WAIT 6
+        - ^FLAG npc items:!
+        - ^FLAG npc 'items:|:4 normale Iturianer|1 Nussecke|1 Wikingerh<&ouml>rnchen'
+        - NARRATE format:items_taken ""
+        - WAIT 6
+        - CHAT "Ahhh, sehr sch<&ouml>n. Darauf freue ich mich jetzt schon. Viel Erfolg noch <player.name>!"
+        - IF <player.flag[Nahrung_Liste].as_list> contains 'N_Willibald' && <player.flag[Nahrung_Liste].as_list> contains 'N_Boris' {
+            - ^FLAG PLAYER 'Nahrung_Liste:->:N_Karolus'
+            - WAIT 4
+            - NARRATE "<&b>Ihr habt <&a>alle Waren <&b>ausgeliefert! Auf zu <&a>Frida<&b>!"
+            - ^ZAP 'step:5' 's@Nahrung_Frida'
+            }
+          ELSE {
+            - ^FLAG PLAYER 'Nahrung_Liste:->:N_Karolus'
+            }
+        - DISENGAGE
+        - ^ZAP 2
+
+    2:
+      Click Trigger:
+        Script:
+          - CHAT "Vielen Dank noch einmal f<&uuml>r die Lieferung. Aber ich glaube ihr habt noch mehr zu tun. Auf geht's!"
+
+
+Nahrung_Willibald:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Dringende Lieferung]>]:Dringende Lieferung'
+  Steps:
+    1: 
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Wer seid Ihr? Was wollt Ihr? Ihr seht doch, dass hier gearbeitet wird?"
+        - WAIT 4
+        - CHAT "Fridas neuer Laufbursche? - Na hoffentlich hat sie dieses Mal wen kompetentes engagiert. Der letzte war..."
+        - WAIT 6
+        - CHAT "... die Inkompetenz in Person!"
+        - WAIT 3
+        - CHAT "Jetzt gebt schon her!"
+        - WAIT 2
+        - ^FLAG npc items:!
+        - ^FLAG npc 'items:|:2 Iturianer Deluxe|2 assindische Windbeutel|3 Wikingerh<&ouml>rnchen|2 Bienenstiche|4 Schmandschnitten|1 Kirscht<&ouml>rtchen|1 k<&ouml>rnigen Arborianer'
+        - NARRATE format:items_taken ""
+        - WAIT 6
+        - CHAT "... WAAAS?! IST DAS EIN K<&Ouml>RNIGER ARBORIANER!!! SCHER DICH WEG DU FLEGEL! UND WAGE ES NICHT NOCH EINMAL HIER AUFZUKREUZEN!"
+        - WAIT 4
+        - TELEPORT <player> 35,83,61,world
+        - HURT 2
+        - NARRATE "<&b>Ihr werdet grob daran erinnert wo sich die T<&uuml>r befindet. Willibald scheint heute keine gute Laune zu haben."
+        - IF <player.flag[Nahrung_Liste].as_list> contains 'N_Karolus' && <player.flag[Nahrung_Liste].as_list> contains 'N_Boris' {
+            - ^FLAG PLAYER 'Nahrung_Liste:->:N_Willibald'
+            - WAIT 5
+            - NARRATE "<&b>Ihr habt <&a>alle Waren <&b>ausgeliefert! Auf zu <&a>Frida<&b>!"
+            - ^ZAP 'step:5' 's@Nahrung_Frida'
+            }
+          ELSE {
+            - ^FLAG PLAYER 'Nahrung_Liste:->:N_Willibald'
+            }
+        - DISENGAGE
+        - ^ZAP 2
+    2: 
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - RANDOM {
+          - CHAT "VERSCHWINDET ENDLICH! FLEGEL, EUCH MACHE ICH BEINE!"
+          - CHAT "RAUS HIER! ABER WIRD'S BALD!" 
+          - CHAT "SEID IHR TAUB?!! VERSCHWINDET"
+        }
+        - WAIT 3
+        - TELEPORT <player> 35,83,61,world
+        - HURT 2
+        - NARRATE "<&b>Ihr werdet grob daran erinnert wo sich die T<&uuml>r befindet."
+        - DISENGAGE
+
+Nahrung_Boris:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Dringende Lieferung]>]:Dringende Lieferung'
+  Steps:
+    1: 
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Huch! Habt Ihr mich aber gescheusalt, wirklich fies, was Ihr dem armen Boris an Fieseleien kredenzen tut. Oder war das nicht so ge..."
+        - WAIT 5
+        - CHAT "Halt! Mhhh, was riecht denn hier so sch<&ouml>n, so lecker. Ja, wundersch<&ouml>n! Solltet ihr es denn sein?"
+        - WAIT 4
+        - NARRATE format:emote "sieht Euch erstaunt an und nimmt einen tiefen Atemzug"
+        - WAIT 4
+        - CHAT "Fast, fast m<&ouml>chte ich an Euch knappern! Aber, ja,... das, das wollen wir nicht,... also, zumindest ich will das nicht. Ganz bestimmt nicht! Auf gar keinen Fall!"
+        - WAIT 6
+        - CHAT "Ah, jetzt wird es mir wieder hell! Ja, Ihr bringt mir Backwerk."
+        - WAIT 4
+        - CHAT "Die witzigen, winzig gro<&chr[00DF]>en Iturianer von Frida. Drei an der Nummer Eins, nicht zu gro<&chr[00DF]> und nicht zu klein, so ist es fein!"
+        - WAIT 6
+        - CHAT "So gebt sie mir doch herbei. Ich w<&uuml>rde sie doch gern in H<&ouml>rensagen zu nehmen bringen, so gerne fies."
+        - WAIT 5
+        - NARRATE format:item_taken "3 kleine Iturianer"
+        - WAIT 6
+        - CHAT "Ja, die schauen wirklich ganz nett aus,... obwohl... Da ist was komisch, hmmm, ja. Obgleich!"
+        - WAIT 4
+        - NARRATE format:emote "knabbert an einem der Br<&ouml>tchen"
+        - WAIT 3
+        - CHAT "Ja, ich muss schon aushauchen, dass dieser Iturianer..."
+        - WAIT 3
+        - NARRATE format:emote "verschlingt den Rest des soeben angeknabberten Br<&ouml>tchens"
+        - WAIT 4
+        - CHAT "... Richtig klassig ist! Sprich Frida eine Nettigkeit vom armen Boris aus!"
+        - WAIT 5
+        - CHAT "Achja, ich hab da letztlich beim Tatentun etwas auf dem Friedhof herbeigefunden. Hier, d<&uuml>rft ihr gerne befassen halten!"
+        - WAIT 4
+        - NARRATE format:item_given "<&b>ein St<&uuml>ck <&d>verwestes Fleisch"
+        - GIVE 367
+        - IF <player.flag[Nahrung_Liste].as_list> contains 'N_Karolus' && <player.flag[Nahrung_Liste].as_list> contains 'N_Willibald' {
+            - ^FLAG PLAYER 'Nahrung_Liste:->:N_Boris'
+            - WAIT 2
+            - NARRATE "<&b>Ihr habt <&a>alle Waren <&b>ausgeliefert! Auf zu <&a>Frida<&b>!"
+            - DISENGAGE
+            - ^ZAP 'step:5' 's@Nahrung_Frida'
+            }
+          ELSE {
+            - ^FLAG PLAYER 'Nahrung_Liste:->:N_Boris'
+            }
+        - ^ZAP 2
+        - DISENGAGE
+    2: 
+      Click Trigger:
+        Script:
+        - NARRATE format:emote "knabbert zufrieden an einem kleinen Iturianer"

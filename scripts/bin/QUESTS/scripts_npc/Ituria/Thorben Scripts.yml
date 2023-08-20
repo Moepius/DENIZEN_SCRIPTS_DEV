@@ -1,0 +1,190 @@
+Thorben:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@ThorbenStandard'
+  interact scripts:
+    - 0 ThorbenStandard
+    - 5 Gast1
+    - 10 Tutorial_Thorben
+    - 15 Knast_Thorben
+
+ThorbenStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Habt Ihr etwas zu verzollen?"
+        - WAIT 2
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: /REGEX:\w+/
+          Script:
+          - ENGAGE
+          - CHAT "Entschuldigt, aber ich wei<&chr[00DF]> nicht, was Ihr mit '<&f><player.chat_history><&e>' meint."
+          - WAIT 4
+          - NARRATE "<&b>Das war wohl nichts. Wenn Ihr nicht sicher seid, was der NPC h<&ouml>ren m<&ouml>chte versucht mit <&f>Rechtsklick <&b>einen Tipp zu bekommen auf welche Schlagw<&ouml>rter er wartet." 
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/, ich denke nicht."
+          Script:
+          - ENGAGE
+          - CHAT "Was wollt Ihr dann von mir? Seht Ihr nicht, dass hier auch noch andere Leute auf Ihre Abfertigung warten?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Nichts|Geld|Liebe'
+          - NARRATE format:trigger ""
+          - ^ZAP 3
+          - DISENGAGE
+        3:
+          Trigger: "Na/ja/, ich bin mir nicht sicher."
+          Script:
+          - ENGAGE
+          - CHAT "Was soll das hei<&chr[00DF]>en Ihr seid Euch nicht sicher?! Entweder habt Ihr was zu verzollen oder nicht. Kommt wieder wenn ihr wisst was Ihr wollt und haltet nicht st<&auml>ndig den Betrieb auf."
+          - ^ZAP 1
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Nichts|Geld|Liebe'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Och... eigentlich /nichts/."
+          Script:
+          - ENGAGE
+          - CHAT "Dann geht wen anders bei der Arbeit st<&ouml>ren. F<&uuml>r soetwas habe ich keine Zeit!"
+          - ^ZAP 1
+          - DISENGAGE
+        2:
+          Trigger: "/Geld/?"
+          Script:
+          - ENGAGE
+          - CHAT "Das h<&auml>ttet Ihr wohl gerne! Wenn hier jemandem Geld zusteht, dann mir!"
+          - ^ZAP 1
+          - DISENGAGE
+        3:
+          Trigger: "<&d>/Liebe/<&f>, nichts als <&d>Liebe<&f>."
+          Script:
+          - ENGAGE
+          - CHAT "UNVERSCH<&Auml>MTHEIT! Sehe ich etwa aus wie ein arborianischer Hafenarbeiter?! Wenn ihr nicht sofort verschwindet, melde ich euch wegen Bel<&auml>stigung!"
+          - WAIT 6
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Entschuldigt|Liebe'
+          - NARRATE format:trigger ""
+          - ^ZAP 4
+          - DISENGAGE
+    4:
+      Click Trigger:
+        Script: 
+        - ENGAGE
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Entschuldigt|Liebe'
+        - NARRATE format:trigger ""
+        - WAIT 1
+        - NARRATE "<&b>Der Z<&ouml>llner scheint aufgebracht, w<&auml>hlt eure n<&auml>chste Antwort weise."
+        - DISENGAGE
+      Chat Trigger:
+        1:
+          Trigger: "/Entschuldigt/ bitte, ich wollte Euch nicht ver<&auml>rgern."
+          Script:
+          - ENGAGE
+          - CHAT "Das hoffe ich f<&uuml>r Euch! Geht, bevor ich es mir noch anders <&uuml>berlege!"
+          - WAIT 4
+          - CHAT "Ich muss mich erstmal wieder beruhigen..."
+          - WAIT 30
+          - ^ZAP 1
+          - DISENGAGE
+        2:
+          Trigger: "Was ist denn nun mit meiner <&d>/Liebe/<&e>?"
+          Script:
+          - ENGAGE
+          - CHAT "<&c>WACHEEE! <&e>Hier treibt ein Sittenstrolch sein Unwesen, nehmt ihn fest!" no_target
+          - WAIT 2
+          - TELEPORT <player> 75,61,-30,world
+          - HURT 2
+          - NARRATE "<&b>Ihr wurdet von einer Wache unsanft ins Gef<&auml>ngnis geworfen. Ihr solltet aus dieser Tat eine Lehre ziehen!"
+          - WAIT 2
+          - FLAG PLAYER 'Sozialakte:->:Sittenstrolch'
+          - FLAG PLAYER 'AktiveQuests:->:Raus aus dem Knast'
+          - NARRATE format:quest_given "Raus aus dem Knast"
+          - ^ZAP 1
+          - DISENGAGE
+
+Knast_Thorben:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: ALL
+    List:
+    - FLAGGED PLAYER 'Sozialakte[<player.flag[Sozialakte].as_list.find[Sittenstrolch]>]:Sittenstrolch'
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ihr schon wieder? Ich habe Euch doch ins Gef<&auml>ngnis werfen lassen!"
+        - WAIT 3
+        - CHAT "Sagt blo<&chr[00DF]>, Ihr wurdet entlassen. Ich hoffe, Ihr habt aus Euren Fehlern gelernt!"
+        - WAIT 4
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Habe ich|Liebe'
+        - NARRATE format:trigger ""
+        - WAIT 2
+        - NARRATE "<&b>Ihr solltet Eure Antwort weise w<&auml>hlen!"
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Habe ich|Liebe'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Ja, das /habe ich/. Es wird nicht wieder vorkommen."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Das hoffe ich f<&uuml>r Euch!"
+          - ^ZAP 1
+          - DISENGAGE
+        2:
+          Trigger: "Ich will immer noch <&d>/Liebe/<&f>!"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "WAAAS?! Das darf doch wohl nicht wahr sein! <&c>WACHEEE!" no_target
+          - WAIT 2
+          - TELEPORT <player> 75,61,-30,world
+          - HURT 2
+          - NARRATE "<&b>Ihr wurdet von einer Wache unsanft ins Gef<&auml>ngnis geworfen. Ihr solltet aus dieser Tat eine Lehre ziehen!"
+          - WAIT 3
+          - FLAG PLAYER 'AktiveQuests:->:Raus aus dem Knast'
+          - NARRATE format:quest_given "Raus aus dem Knast"
+          - ^ZAP 1
+          - DISENGAGE

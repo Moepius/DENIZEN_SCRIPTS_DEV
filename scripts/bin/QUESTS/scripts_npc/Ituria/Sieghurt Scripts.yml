@@ -1,0 +1,206 @@
+Sieghurt:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@SieghurtStandard'
+  interact scripts:
+    - 0 SieghurtStandard
+    - 5 Gast1
+    - 10 Tutorial_Sieghurt
+
+SieghurtStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - RANDOM {
+            - CHAT "NERVIGE NACHBARN? STRESS MIT DEM EHEPARTNER? SPRENGSTOFFE AUS SHINSHUU VERSCHAFFEN DA ABHILFE!" no_target
+            - CHAT "ZIEGEL, HOCHWERTIGE ZIEGEL, GESCHLAGEN AUS DEN RUINEN ASSINDIAS!" no_target
+            - CHAT "HANDGEFERTIGTES SPIELZEUG AUS ARBORIA! NUR F<&Uuml>R GRO<&chr[00DF]>E KINDER!" no_target
+            - CHAT "HEIDNISCHE G<&Ouml>TZEN UND ANDERE ANTIQUIT<&Auml>TEN AUS TIUACEN!" no_target
+            - CHAT "ERLESENES GESCHMEIDE UND FEINSTE T<&Ouml>PFERWAREN AUS QUADESH! BEREICHERN SIE SICH JETZT AN DIESEM EXQUISITEN ANGEBOT!" no_target
+            - CHAT "KAUFT SPITZHACKEN! ERSTKLASSIGES ZWERGENGEWERK AUS HAMMERFALL!" no_target
+            - CHAT "CALDERIANISCHES SCHM<&Ouml>KERWERK. F<&Uuml>R DIE LESERATTE VON HEUTE!" no_target
+            - CHAT "K<&Uuml>RBISSE AUS BLACKSHIRE! ZEHN ZUM PREIS VON EINEM! JETZT ZUSCHLAGEN! NUR SOLANGE DER VORRAT REICHT." no_target
+            - CHAT "PFERDELEDERWAREN AUS DEM HEHREN KANDOR. BESTE QUALIT<&Auml>T!" no_target
+            - CHAT "VERBRANNTE HOLZSCHEITE AUS BLUCHENFELS! F<&Uuml>R NUR 15 SILBERLINGE DAS ST<&Uuml>CK!" no_target
+            }
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "LEHM! NUR DER SCHMIERIGSTE LEHM AUS..." no_target
+        - WAIT 2
+        - CHAT "Oh, hallo <player.name>. Ihr wieder in der Gegend? Das Marktviertel ist aber auch immer wieder einen Besuch wert."
+        - WAIT 5
+        - CHAT "Soviele Gesch<&auml>fte und allesamt von flei<&chr[00DF]>igen B<&uuml>rgern Iturias betrieben. Ich liebe meinen Job hier!"
+        - WAIT 4
+        - CHAT "Kann ich Euch denn vielleicht weiterhelfen? Ein paar schneidige Uniformen aus Ayrulistan vielleicht?"
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:eigenen Laden|welche L<&auml>den|Servershop|Ger<&uuml>chte|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:eigenen Laden|welche L<&auml>den|Servershop|Ger<&uuml>chte|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wie kann ich einen /eigenen Laden/ er<&ouml>ffnen?"
+          Script:
+          - ENGAGE
+          - CHAT "Einen eigenen Laden? Kein Problem, vorrausgesetzt Ihr seid ordentliches <&b>Mitglied <&e>und habt das n<&ouml>tige Kleingeld."
+          - WAIT 5
+          - CHAT "Ihr braucht f<&uuml>r einen Shop ein Handelsgrundst<&uuml>ck und das will bezahlt werden."
+          - WAIT 4
+          - CHAT "Wor<&uuml>ber w<&uuml>rdet Ihr gerne mehr erfahren?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Kosten|Wieviele L<&auml>den|Regeln|Nein'
+          - NARRATE format:trigger ""
+          - ^ZAP 3 
+          - DISENGAGE
+        2:
+          Trigger: "/Welche L<&auml>den/ gibt es hier?"
+          Script:
+          - ENGAGE
+          - CHAT "Das Handelsviertel wird in vier verschiedene Arten von L<&auml>den unterteilt."
+          - WAIT 4
+          - CHAT "Hier, im Norden des Vietels, findet Ihr Ausr<&uuml>stungs- und Waffenh<&auml>ndler, im S<&uuml>den haben sich die L<&auml>den dem Verkauf von Baumaterialien verschrieben."
+          - WAIT 6
+          - CHAT "Im Westen sind Lebensmittell<&auml>den angesiedelt und zu guter Letzt gibt es noch die Gemischtwarenh<&auml>ndler im Westen, die ein buntes Allerlei feilbieten."
+          - WAIT 6
+          - CHAT "... Zumindest war das fr<&uuml>her so. Inzwischen werden diese Grenzen nicht mehr so streng gesehen..."
+          - WAIT 4
+          - CHAT "Ich rate Euch daher einfach Euch gut umzusehen. Im Craftasy-Forum findet sich zudem eine Liste aller Shops mit Ihren Angeboten."
+          - WAIT 5
+          - CHAT "Was m<&ouml>chtet Ihr noch wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:eigenen Laden|welche L<&auml>den|Servershop|Ger<&uuml>chte|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Wo finde ich die /Servershop/s?"
+          Script:
+          - ENGAGE
+          - CHAT "Na, den Inhaber von Geiz und Gier solltet Ihr doch bereits kennen. Er hat sicherlich den bekanntesten Shop Iturias."
+          - WAIT 5
+          - CHAT "Ich kann Euch nicht alle Serverl<&auml>den auflisten, aber haltet immer die Augen offen wenn Ihr durch Ituria wandert!"
+          - WAIT 4
+          - CHAT "Ein Besuch des Lagers in der Parallelwelt k<&ouml>nnte sich auch lohnen..."
+          - WAIT 3
+          - CHAT "Sonst noch etwas?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:eigenen Laden|welche L<&auml>den|Servershop|Ger<&uuml>chte|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        4:
+          Trigger: "Welche /Ger<&uuml>chte/ gehen um?"
+          Script:
+          - ENGAGE
+          - RANDOM {
+            - CHAT "Dieser Boris ist seltsam. Es hei<&chr[00DF]>t, er w<&uuml>rde Gesellschaft meiden und mit den Toten reden, wie unheimlich."
+            - CHAT "Man tuschelt davon, dass Egmont eine heimliche Verehrerin hat. Wer das wohl sein mag?"
+            - CHAT "Gut, das ist jetzt kein Ger<&uuml>cht, sondern die bittere Wahrheit. Blackshire ist bitterarm."
+            - CHAT "Frida ist wirklich ein Prachtweib! Sie hat so wundersch<&ouml>ne B... Augen."
+            - CHAT "Es geht das Ger<&uuml>cht um, dass sich irgendwo auf der Insel ein Drogenlabor befindet."
+            - CHAT "Man sagt, dass die Inhaber der L<&auml>den 'Geiz und Gier' und 'Plunder und Zunder' Br<&uuml>der seien. Das halte ich f<&uuml>r sehr abwegig."
+            - CHAT "Thorben soll Arborianer nicht sehr sch<&auml>tzen. Ich kann das nicht verstehen, das sind doch so nette Leute."
+            - CHAT "Es hei<&chr[00DF]>t, der Baron von Bluchenfels sei ein Vampir. Aber das ist sicher nur Geschw<&auml>tz."
+            - CHAT "Der Interessenskonflikt zwischen Karthago und dem Sultanat von Quadesh spitzt sich immer weiter zu. Eine offener Krieg h<&auml>tte auch f<&uuml>r Ituria erhebliche Folgen."
+            - CHAT "Es hei<&chr[00DF]>t, ein alter Alchemist h<&auml>tte im alten Gef<&auml>ngnisturm im S<&uuml>dwesten sein Alchemielabor aufgebaut."
+            }
+          - WAIT 8
+          - CHAT "M<&ouml>chtet Ihr sonst noch etwas wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:eigenen Laden|welche L<&auml>den|Servershop|Ger<&uuml>chte|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        5:
+          Trigger: "/Nein/ danke, das war alles."
+          Script:
+          - ENGAGE
+          - CHAT "Freut mich immer Euch helfen zu k<&ouml>nnen."
+          - WAIT 3
+          - CHAT "Hoffe wir sehen uns bald. F<&uuml>r Euch habe ich immer besondere Angebote dabei."
+          - ^ZAP 1
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Kosten|Wieviele L<&auml>den|Regeln|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wieviel wird mich der Laden /kosten/?"
+          Script:
+          - ENGAGE
+          - CHAT "Das h<&auml>ngt von der Gr<&ouml><&chr[00DF]>e des Grundst<&uuml>cks und der Anzahl der Showcase ab."
+          - WAIT 4
+          - CHAT "Der aktuelle Preis pro Quadratblock 'QB' liegt bei 20 Silber, das w<&auml>ren zum Beispiel f<&uuml>r 7x8 QB 1120 Silberlinge."
+          - WAIT 5
+          - CHAT "Showcase liegen bei 100 Silberlingen pro St<&uuml>ck. Bei einem Minimum von 3 Showcase sind das 300 weitere Silberlinge, die zu entrichten sind." 
+          - WAIT 7
+          - CHAT "Ein ordentlicher Preis, wenn Ihr mich fragt. Da hei<&chr[00DF]>t es sparen! Mit Eurem Flei<&chr[00DF]> solltet Ihr das Startkapital aber im Nu zusammen bekommen!"
+          - WAIT 7
+          - CHAT "Weitere Fragen, <player.name>?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Kosten|Wieviele L<&auml>den|Regeln|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "/Wieviele L<&auml>den/ darf ich er<&ouml>ffnen?"
+          Script:
+          - ENGAGE
+          - CHAT "Jedem <&b>Mitglied <&e>steht es zu, genau ein Gesch<&auml>ft auf Ituria zu er<&ouml>ffnen."
+          - WAIT 4
+          - CHAT "Es ist jedoch m<&ouml>glich in anderen L<&auml>ndern weitere L<&auml>den zu er<&ouml>ffnen. Sprecht mit dem jeweiligen Projektleiter Eures Landes f<&uuml>r mehr Informationen dazu."
+          - WAIT 7
+          - CHAT "Gibt es sonst noch etwas, <player.name>?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Kosten|Wieviele L<&auml>den|Regeln|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Gibt es /Regeln/, was ich verkaufen darf und was nicht?"
+          Script:
+          - ENGAGE
+          - CHAT "In der Tat ist es so, dass nicht Jedermann jedes beliebige Item verkaufen darf."
+          - WAIT 4
+          - CHAT "Zun<&auml>chst ist es wichtig, dass nicht zu viele Shops die selben Items anbieten d<&uuml>rfen."
+          - WAIT 4
+          - CHAT "Es gab auch mal eine Regelung dar<&uuml>ber, wo man seinen Shop aufstellen darf. In letzter Zeit ger<&auml>t das aber immer mehr in den Hintergrund."
+          - WAIT 6
+          - CHAT "Trotzdem solltet Ihr Euch gut <&uuml>berlegen, welche Items Ihr anbieten oder einkaufen wollt."
+          - WAIT 4
+          - CHAT "Au<&chr[00DF]>erdem ist es immer ratsam mit einem <&5>Guard <&e>oder <&4>Ratsmitglied <&e>dar<&uuml>ber zu sprechen, wo Ihr bauen wollt und was Ihr verkaufen wollt."
+          - WAIT 7
+          - CHAT "Weitere Fragen, <player.name>?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Kosten|Wieviele L<&auml>den|Regeln|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        4:
+          Trigger: "/Nein/ danke, das war alles."
+          Script:
+          - ENGAGE
+          - CHAT "Freut mich immer Euch helfen zu k<&ouml>nnen."
+          - WAIT 3
+          - CHAT "Hoffe wir sehen uns bald. F<&uuml>r Euch habe ich immer besondere Angebote dabei."
+          - ^ZAP 1
+          - DISENGAGE

@@ -1,0 +1,73 @@
+Boris:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@BorisStandard'
+  interact scripts:
+    - 0 BorisStandard
+    - 5 Gast1
+    - 10 Nahrung_Boris
+
+BorisStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - RANDOM {
+          - CHAT "Was haben wir denn hier f<&uuml>r ein schmackhaft ausschauendes Gesch<&ouml>pf?"
+          - CHAT "Was hat sich da zum armen Boris geirrt?"
+          - CHAT "Besuch! Welche Freuden... Boris hatte schon ewig keinen mehr..."
+          }
+        - WAIT 4
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ger<&uuml>chte|Ich muss los'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ger<&uuml>chte|Ich muss los'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Habt Ihr irgendwelche /Ger<&uuml>chte/ aufgeschnappt?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ger<&uuml>che? In der Tat... Ihr schnüffelt ganz verzücklich.."
+          - WAIT 3
+          - NARRATE format:emote "nimmt einen tiefen Atemzug"
+          - WAIT 3
+          - CHAT "Fast, fast m<&ouml>chte ich an Euch knappern! Aber, ja... das, das wollen wir nicht... also, zumindest Boris will das nicht. Ganz bestimmt nicht! Auf gar keinen Fall!"
+          - WAIT 7
+          - CHAT "Was f<&uuml>r eine wunderliche Frage. Kann der arme Boris sonst etwas gegen Euch tun?"
+          - WAIT 5
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Ger<&uuml>chte|Ich muss los'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "Ich glaube ich gehe dann mal lieber... /Ich muss los/!"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Wenn Euch so ist, w<&uuml>nscht Boris auf Wiederbald!"
+          - WAIT 3
+          - NARRATE format:whisper "Boris sieht sie alle wieder..."
+          - ^ZAP 1
+          - DISENGAGE

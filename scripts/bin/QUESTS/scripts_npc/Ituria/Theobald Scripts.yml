@@ -1,0 +1,205 @@
+Theobald:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@TheobaldStandard'
+  interact scripts:
+    - 0 TheobaldStandard
+    - 5 Gast1
+    - 10 Equipment_Theobald
+
+TheobaldStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode:None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Thusundea zum Gru<&chr[00DF]>e, <player.name>, kann ich Euch behilflich sein?"
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Einkauf|Verkauf|Schowcase|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Einkauf|Verkauf|Schowcase|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Was kann ich bei Euch /einkauf/en?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Ich biete nur die wichtigsten Blockarten an, zum Beispiel Holz. Aber schaut Euch doch am Besten selber meine Auslage im Erdgeschoss an."
+          - WAIT 6
+          - CHAT "M<&ouml>chtet Ihr noch etwas zum Kauf bei mir wissen?"
+          - WAIT 3
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Andere Items|Nein'
+          - NARRATE format:trigger ""
+          - ^ZAP 3
+          - DISENGAGE
+        2:
+          Trigger: "Was kann ich bei Euch /verkauf/en?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Ihr habt gro<&chr[00DF]>e Mengen Sand oder Dreck? Immer her damit! Aber auch andere Items kaufe ich Euch mit Freude ab, schaut doch mal im Erdgeschoss nach."
+          - WAIT 7
+          - CHAT "M<&ouml>chtet Ihr noch etwas zum Verkauf bei mir wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Andere Items|Nein'
+          - NARRATE format:trigger ""
+          - ^ZAP 4
+          - DISENGAGE
+        3:
+          Trigger: "Wie funktionieren die /Showcase/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Das benutzen der Showcase ist eigentlich ganz simpel."
+          - WAIT 3
+          - CHAT "Ein <&f>Linksklick <&e>zeigt Euch den Status und die Art des Showcase an, mit einem <&f>Rechtsklick <&e>f<&uuml>hrt Ihr eine Transaktion durch und kauft bzw. verkauft je 1 Item."
+          - WAIT 7
+          - CHAT "Duckt Euch beim <&f>Rechtsklicken <&e>um gleich einen ganzen Stack von 64 Items zu handeln."
+          - WAIT 4
+          - CHAT "Mit dem Befehl <&f>/scs unit <&lt>Anzahl<&gt> k<&ouml>nnt Ihr die Anzahl der Items, die bei <&f>Shift+Rechtsklick <&e>gehandelt werden, einstellen."
+          - WAIT 6
+          - CHAT "Au<&chr[00DF]>erdem k<&ouml>nnt Ihr mit <&f>/money<&e> Euren Kontostand einsehen. So wisst Ihr immer, wie viele Silberlinge Ihr habt."
+          - WAIT 5
+          - CHAT "M<&ouml>chtet Ihr noch etwas zu den Showcase wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Eigene Showcase|Nein'
+          - NARRATE format:trigger ""
+          - ^ZAP 5
+          - DISENGAGE
+        4:
+          Trigger: "/Nein/, ich wollte nur mal reinschauen."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Es ist mir immer eine Ehre Euch in meinem Laden begr<&uuml><&chr[00DF]>en zu d<&uuml>rfen."
+          - WAIT 4
+          - CHAT "Auf Bald, <player.name>!"
+          - ^ZAP 1
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Andere Items|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wo bekomme ich /andere Items/ her?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Mein Angebot ist nat<&uuml>rlich das Beste der Stadt. Ich will Euch aber nicht verschweigen, dass es auch Shops mit anderem Angebot gibt."
+          - WAIT 6
+          - CHAT "Besucht das Handelsviertel, den Marktplatz oder einen der kleinen Einzell<&auml>den, die in der Stadt verteilt sind."
+          - WAIT 5
+          - CHAT "Nur diesen abgerissenen Schuppen dort dr<&uuml>ben am Südhafen... wie hie<&chr[00DF]> der noch... Geiz und Gier?..."
+          - WAIT 5
+          - CHAT "Wie auch immer, von dem solltet Ihr Euch lieber fern halten. Nichts als <&uuml>berteuerter Tand!"
+          - WAIT 4
+          - CHAT "Kann ich noch etwas f<&uuml>r Euch tun?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Einkauf|Verkauf|Schowcase|Nein'
+          - NARRATE format:trigger ""
+          - ^ZAP 2
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/ danke, das war alles was ich wissen wollte."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Es war mir eine Ehre. Wie ich immer sage 'Der Kunde ist K<&ouml>nig!'"
+          - WAIT 3
+          - NARRATE format:emote "lacht"
+          - WAIT 2
+          - CHAT "Nun denn <player.name>, gehabt Euch wohl. Auf Bald!"
+          - ^ZAP 1
+          - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Andere Items|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wo kann ich /andere Items/ verkaufen?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Vielleicht habt Ihr auf dem Markt oder im Handelsviertel Gl<&uuml>ck. Seid jedoch gewarnt, dass nicht jeder Shop so gro<&chr[00DF]>z<&uuml>gig einkauft wie der meine."
+          - WAIT 6
+          - CHAT "<&b>Alteingesessene B<&uuml>rger <&e>k<&ouml>nnen gegen einen kleinen Obulus Ihre eigenen L<&auml>den im Handelsviertel er<&ouml>ffnen. Fragt Sieghurt, wenn Ihr dazu mehr wissen wollt."
+          - WAIT 7
+          - CHAT "Nat<&uuml>rlich d<&uuml>rft Ihr auch ohne einen Shop mit anderen handeln. Erkundigt Euch doch im Chat nach Interessenten."
+          - WAIT 5
+          - CHAT "Kann ich noch etwas f<&uuml>r Euch tun?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Einkauf|Verkauf|Schowcase|Nein'
+          - NARRATE format:trigger ""
+          - ^ZAP 2
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/ danke, das war alles was ich wissen wollte."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Es war mir eine Ehre. Wie ich immer sage 'Der Kunde ist K<&ouml>nig!'"
+          - WAIT 3
+          - NARRATE format:emote 'lacht'
+          - WAIT 2
+          - CHAT "Nun denn <player.name>, gehabt Euch wohl. Auf Bald!"
+          - ^ZAP 1
+          - DISENGAGE
+    5:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Eigene Showcase|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wie bekomme ich /eigene Showcase/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Sofern Ihr ein <&b>fester B<&uuml>rger Iturias <&e>seid, k<&ouml>nnt Ihr Euch in Ituria ein Handelsgrundst<&uuml>ck kaufen. Erkundigt Euch bei Sieghurt, wenn Ihr dazu mehr wissen m<&ouml>chtet."
+          - WAIT 7
+          - CHAT "Kann ich noch etwas f<&uuml>r Euch tun?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Einkauf|Verkauf|Schowcase|Nein'
+          - NARRATE format:trigger ""
+          - ^ZAP 2
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/ danke, das war alles was ich wissen wollte."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Es war mir eine Ehre. Wie ich immer sage 'Der Kunde ist K<&ouml>nig!'"
+          - WAIT 3
+          - NARRATE format:emote 'lacht'
+          - WAIT 2
+          - CHAT "Nun denn <player.name>, gehabt Euch wohl. Auf Bald!"
+          - ^ZAP 1
+          - DISENGAGE

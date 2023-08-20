@@ -1,0 +1,84 @@
+Trudi:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@TrudiStandard'
+  interact scripts:
+    - 0 TrudiStandard
+    - 5 Gast1
+    - 10 Weste_Trudi
+
+TrudiStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hall<&ouml>chen! Hach, ich freue mich ja immer <&uuml>ber Besuch. Wie kann ich Euch denn helfen, mein S<&uuml><&chr[00DF]>er?"
+        - WAIT 4
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Sch<&ouml>ner Tag|Sozialamt|Ich muss los'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Sch<&ouml>ner Tag|Sozialamt|Ich muss los'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Sch<&ouml>ner Tag/ heute."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Ja, nicht wahr? Da kann man doch nur guter Laune sein, findet Ihr nicht?"
+          - WAIT 4
+          - CHAT "Wenn doch nur jeder in dieser Stadt etwas von dieser Freude empfinden k<&ouml>nnte..."
+          - WAIT 4
+          - NARRATE format:emote "seufzt"
+          - WAIT 2
+          - CHAT "Kann ich Euch sonst irgendwie helfen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Sch<&ouml>ner Tag|Sozialamt|Ich muss los'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "Ist das hier das /Sozialamt/?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ihr habt ein scharfes Auge, mein Kleiner. In der Tat ist hier das Sozialamt und vor dir steht die gute Seele Iturias. Hihi."
+          - WAIT 5
+          - CHAT "Wir vom Sozialamt k<&uuml>mmern uns darum, dass es hier allen gut geht und alle gl<&uuml>cklich sind. Hach, ich liebe meine Arbeit."
+          - WAIT 2
+          - CHAT "Kann ich Euch irgendwie helfen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Sch<&ouml>ner Tag|Sozialamt|Ich muss los'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Naja, /ich muss los/. Einen sch<&ouml>nen Tag noch."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Oh, schade... Aber schaut doch demn<&auml>chst an und an vorbei. Dann habe ich sicher auch ein paar Kekse f<&uuml>r Euch."
+          - WAIT 5
+          - NARRATE format:emote "kichert"
+          - WAIT 2
+          - NARRATE "<&b>Die Tante scheint einen an der Klatsche zu haben, aber verspricht Euch Kekse. Vielleicht solltet Ihr sp<&auml>ter nochmal vorbeikommen."
+          - ^ZAP 1
+          - DISENGAGE

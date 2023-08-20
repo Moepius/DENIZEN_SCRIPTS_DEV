@@ -1,0 +1,130 @@
+Dungeons_World:
+  type: world
+  debug: false
+  events:
+    on player changes world to dungeon:
+      - if <player.location.is_within[Katakomben]> {
+          - flag player 'Dungeon:->:Katakomben'
+          - wait 2
+          - narrate format:dungeon_enter "Die Katakomben"
+          - if <player.flag[AktiveQuests].as_list> !contains 'Die Katakomben' {
+                - flag player 'AktiveQuests:->:Die Katakomben'
+                - wait 3
+                - narrate format:quest_set "Die Katakomben"
+                }
+          - if <player.flag[SchatzCount]> == null {
+            - flag player 'SchatzCount:0'
+            }
+          - flag player 'SchatzLoc:!'
+          }
+        else if <player.location.is_within[Kuchencanyon]> {
+          - flag player 'Dungeon:->:Kuchencanyon'
+          - wait 2
+          - narrate format:dungeon_enter "Die alte Villa"
+            - if <player.flag[AktiveQuests].as_list> !contains 'Die alte Villa' {
+                - flag player 'AktiveQuests:->:Die alte Villa'
+                - wait 3
+                - narrate format:quest_set "Die alte Villa"
+                }
+          }
+        else if <player.location.is_within[Pilzhoehle]> {
+          - flag player Dungeon:->:Pilzhoehle
+          - wait 2
+          - narrate format:dungeon_enter "Die Turmruine"
+            - if <player.flag[AktiveQuests].as_list> !contains 'Die Turmruine' {
+                - flag player 'AktiveQuests:->:Die Turmruine'
+                - wait 3
+                - narrate format:quest_set "Die Turmruine"
+                }
+          }
+        else if <player.location.is_within[Schrein]> {
+          - flag player 'Dungeon:->:Schrein'
+          - wait 2
+          - narrate format:dungeon_enter "Der antike Schrein"
+          - if <player.flag[AktiveQuests].as_list> !contains 'Der antike Schrein' {
+              - flag player 'AktiveQuests:->:Der antike Schrein'
+              - wait 3
+              - narrate format:quest_set "Der antike Schrein"
+              }
+          }
+        else if <player.location.is_within[Gefaengnisturm]> {
+          - flag player 'Dungeon:->:Gefaengnisturm'
+          - wait 2
+          - narrate format:dungeon_enter "Der Gef<&auml>ngnistumr"
+          }
+        else if <player.location.is_within[Netheraltar]> {
+          - flag player 'Dungeon:->:Netheraltar'
+          - wait 2
+          - narrate format:dungeon_enter "Der Altar des Grauens"
+          }
+      - wait 3
+      - narrate format:quest_main "Innerhalb eines Dungeons wird Euer Inventar gespeichert und geleert, bis Ihr den Dungeon wieder verlasst."
+      - if <player.groups.as_list.contains[free_01]> {
+          - wait 3
+          - narrate format:quest_main "Dungeons sind rein optional. Als Neuling solltet Ihr nicht vergessen Euer Haus auf Ituria zu bauen."
+          }
+    on player changes world from dungeon:
+      - if <player.flag[Dungeon].as_list> contains Katakomben {
+          - wait 2
+          - narrate format:dungeon_exit "Die Katakomben"
+          - if <player.flag[SchatzCount]> == 0 {
+              - flag player 'AktiveQuests:<-:Die Katakomben'
+              - wait 3
+              - narrate format:quest_fail "Die Katakomben"
+              }
+          - flag player 'Dungeon:<-:Katakomben'
+          }
+        else if <player.flag[Dungeon].as_list> contains Kuchencanyon {
+          - wait 2
+          - narrate format:dungeon_exit "Die alte Villa"
+          - if <player.flag[Dungeon_Kuchencanyon_Liste].as_list> !contains 'Hugo' {
+              - flag player 'AktiveQuests:<-:Die alte Villa'
+              - wait 3
+              - narrate format:quest_fail "Die alte Villa"
+              }
+          - flag player 'Dungeon:<-:Kuchencanyon'
+          }
+        else if <player.flag[Dungeon].as_list> contains Pilzhoehle {
+          - wait 2
+          - narrate format:dungeon_exit "Die Turmruine"
+          - if <player.flag[Dungeon_Pilzhoehle_Liste].as_list> !contains 'Gundalf' {
+              - flag player 'AktiveQuests:<-:Die Turmruine'
+              - wait 3
+              - narrate format:quest_fail "Die Turmruine"
+              }
+          - flag player 'Dungeon:<-:Pilzhoehle'
+          }
+        else if <player.flag[Dungeon].as_list> contains Schrein {
+          - wait 2
+          - narrate format:dungeon_exit "Der antike Schrein"
+          - if <player.flag[Dungeon_Schrein_Liste].as_list> !contains 'Nami' {
+              - wait 3
+              - flag player 'AktiveQuests:<-:Der antike Schrein'
+              - narrate format:quest_fail "Der antike Schrein"
+              }
+          - flag player 'Dungeon:<-:Schrein'
+          }
+        else if <player.flag[Dungeon].as_list> contains Gefaengnisturm {
+          - wait 2
+          - narrate format:dungeon_exit "Der Gef<&auml>ngnisturm"
+          - flag player 'Dungeon:<-:Gefaengnisturm'
+          }
+        else if <player.flag[Dungeon].as_list> contains Netheraltar {
+          - wait 2
+          - narrate format:dungeon_exit "Der Altar des Grauens"
+          - flag player 'Dungeon:<-:Netheraltar'
+          }
+      - wait 3
+      - narrate format:quest_main "Ihr habt Euer altes Inventar zur<&uuml>ckerhalten."
+
+Dungeon_Definer_Task:
+  type: task
+  debug: false
+  script:
+  - note cu@995,0,105,dungeon|1160,255,300,dungeon as:Katakomben
+  - note cu@70,0,400,dungeon|350,255,750,dungeon as:Kuchencanyon
+  - note cu@140,0,-40,dungeon|302,255,115,dungeon as:Pilzhoehle
+  - note cu@510,0,70,dungeon|790,255,340,dungeon as:Schrein
+  - note cu@177,0,116,dungeon|223,255,149,dungeon as:Gefaengnisturm
+  - note cu@-145,0,220,dungeon|-25,255,320,dungeon as:Netheraltar
+  - narrate "Alle Dungeons definiert!" targets:p@LKGLS

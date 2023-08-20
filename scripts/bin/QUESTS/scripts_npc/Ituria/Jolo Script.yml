@@ -1,0 +1,115 @@
+Jolo:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@JoloStandard'
+  interact scripts:
+    - 0 JoloStandard
+    - 5 Gast1
+
+JoloStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode:None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - IF <player.in_group[Neuling]> {
+              - ENGAGE
+              - CHAT "Wundersch<&ouml>nen guten Tag. M<&ouml>chtet Ihr vielleicht einige Informationen zur U-Bahn?"
+              - WAIT 4
+              - NARRATE "<&b>Ein NPC bietet Euch Informationen. <&f>Rechtsklickt <&b>Ihn, um Tipps zu erhalten."
+              - DISENGAGE
+              }
+      Click Trigger:
+        Script:
+        - IF <player.in_group[Neuling]> {
+            - ENGAGE
+            - CHAT "Ah! Ich habe doch sofort erkannt, dass Ihr neu in der Stadt seid. Wobei kann ich Euch weiterhelfen?"
+            - WAIT 4
+            }
+          ELSE {
+            - ENGAGE
+            - CHAT "Wie kann ich Euch zu Diensten sein?"
+            - WAIT 3
+            - CHAT "Der Untergrund ist quasi mein Revier... Zur Bahn k<&ouml>nnt Ihr mich alles fragen!"
+            - WAIT 3
+            }
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Fahren|Linien|Nichts'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Fahren|Linien|Nichts'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wie kann ich mit der U-Bahn /fahren/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Nichts leichter als das, mein Freund. Ihr m<&uuml>sst zun<&auml>chst einmal die Bahnlinie finden, die Ihr nehmen wollt."
+          - WAIT 4
+          - CHAT "Dann dr<&uuml>ckt Ihr einfach den Knopf <&uuml>ber der Zielbeschreibung und schon kommt eine Lore angesaust."
+          - WAIT 4
+          - CHAT "Wartet nicht zu lang mit dem Einsteigen, sonst f<&auml>hrt die Lore noch ohne Euch zur<&uuml>ck ins Lager."
+          - WAIT 5
+          - CHAT "Wenn Ihr Platz genommen habt, genie<&chr[00DF]>t die Fahrt!"
+          - WAIT 4
+          - CHAT "Seid so freundlich und schiebt verwaiste Loren ein wenig an, dass sie nach Hause finde."
+          - WAIT 5
+          - CHAT "Herbert der olle Vogel l<&auml>sst sie st<&auml>ndig auf den Gleisen liegen."
+          - WAIT 4
+          - CHAT "Das Federvieh ist einfach zu leicht..."
+          - WAIT 3
+          - CHAT "Nun, nun... Eigentlich ist das alles, was Ihr wissen m<&uuml>sst. Gute Fahrt!"
+          - WAIT 2
+          - CHAT "Wollt Ihr sonst etwas wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Fahren|Linien|Nichts'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "Welche Bahn/linien/ gibt es denn?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Auf Ituria gibt es sechs U-Bahnstationen und drei Bahnlinien, die die einzelnen Stationen miteinander verbinden."
+          - WAIT 4
+          - CHAT "Im Moment befinden wir uns am Hauptbahnhof am Rathausplatz in der Altstadt. Von hier habt Ihr Zugang zu zwei Bahnlinien."
+          - WAIT 5
+          - CHAT "Die blaue Linie hier ist die s<&uuml>dliche Ost-West-Verbindung."
+          - WAIT 5
+          - CHAT "Die grüne Linie führt in den Norden. Dort k<&ouml>nnt Ihr weiter in die rote Linie umsteigen."
+          - WAIT 6
+          - CHAT "Die rote Linie ist die n<&ouml>rdliche Ost-West-Verbindung. Eigentlich ganz einfach."
+          - WAIT 7
+          - CHAT "Habt Ihr sonst noch einen Wunsch?"
+          - WAIT 1
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Fahren|Linien|Nichts'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Eigentlich /nichts/, danke."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Gute Fahrt, mein Freund!"
+          - ^ZAP 1
+          - DISENGAGE

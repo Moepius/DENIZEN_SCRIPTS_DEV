@@ -1,0 +1,441 @@
+Frida:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@FridaStandard'
+  interact scripts:
+    - 0 FridaStandard
+    - 5 Gast1
+    - 10 Nahrung_Frida
+
+FridaStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode:None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hey, hey, wen haben wir denn hier?"
+        - WAIT 3
+        - CHAT "Sch<&ouml>n, dass Ihr bei mir vorbeischaut, <player.name>."
+        - WAIT 3
+        - CHAT "Was macht die Arbeit und wie geht es Euch?"
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Fragen|Ger<&uuml>chte|Bestens'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Fragen|Ger<&uuml>chte|Bestens'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Ich h<&auml>tte da ein paar /Fragen/."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Und ich habe vielleicht auch ein paar Antworten, <player.name>."
+          - WAIT 3
+          - CHAT "Was m<&ouml>chtet Ihr wissen?"
+          - WAIT 2
+          - CHAT "Wenn Ihr etwas <&uuml>ber die B<&uuml>rger Iturias wissen wollt, seid Ihr bei mir genau an der richtigen Adresse!"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - ^ZAP 3
+          - DISENGAGE
+        2:
+          Trigger: "Was f<&uuml>r /Ger<&uuml>chte/ erz<&auml>hlt man sich so?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Hmm, da gibt es so einiges. Seid Ihr am neusten Klatsch und Tratsch interessiert oder seid Ihr eher f<&uuml>r Gemunkel zu haben?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Klatsch|Gemunkel|Nichts'
+          - NARRATE format:trigger ""
+          - ^ZAP 4
+          - DISENGAGE
+        3:
+          Trigger: "Alles /Bestens/. Einen sch<&ouml>nen Tag noch!"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Das h<&ouml>rt man doch gerne!"
+          - WAIT 2
+          - CHAT "Wie sagt man so sch<&ouml>n? Ohne Flei<&chr[00DF]>, kein Preis!"
+          - WAIT 3
+          - CHAT "Frohes Schaffen, <player.name>!"
+          - ^ZAP 1
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "H<&auml>ttet Ihr vielleicht etwas zu /Essen/ f<&uuml>r mich?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ach <player.name>, ich mag Euch. Aber Gesch<&auml>ft ist Gesch<&auml>ft, das m<&uuml>sst Ihr schon in der B<&auml>ckerei kaufen."
+          - WAIT 4
+          - NARRATE format:emote "lacht freundlich"
+          - WAIT 2
+          - CHAT "Und falls Ihr Brot nicht mehr sehen k<&ouml>nnt, was hoffentlich nicht der Fall ist, im Handelsviertel gibt es auch andere Lebensmittell<&auml>den."
+          - WAIT 5
+          - CHAT "Schaut dort mal rein."
+          - WAIT 2
+          - CHAT "Und sonst?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "Was k<&ouml>nnt Ihr mir <&uuml>ber /Bahrim/ erz<&auml>hlen?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ach, Bahrim ist wirklich ein Engel!"
+          - WAIT 3
+          - CHAT "Auch wenn er fremdartig und etwas hochgestochen wirkt."
+          - WAIT 4
+          - CHAT "Man sollte sich davon nicht einsch<&uuml>chtern lassen."
+          - WAIT 4
+          - CHAT "Seit seiner Ankuft in Ituria hat er viel f<&uuml>r die Leute hier getan."
+          - WAIT 4
+          - CHAT "Er hat sein Kartengesch<&auml>ft am Nordhafen errichtet und ist wirklich ein Meister seines Fachs."
+          - WAIT 6
+          - CHAT "Er hat auch eine gro<&chr[00DF]>e Kunstsammlung und seine Ratschl<&auml>ge haben mir schon oft weitergeholfen."
+          - WAIT 6
+          - CHAT "Wenn man ihn aber nach seinem Heimatland, Quadesh, fragt, wirkt er immer so traurig."
+          - WAIT 6
+          - CHAT "Ich frage mich, was der Gute dort erlebt hat..."
+          - WAIT 4
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Was wisst so Ihr <&uuml>ber /Boris/?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Boris, der Totengr<&auml>ber?"
+          - WAIT 2
+          - CHAT "Den werdet Ihr wohl bei seinem H<&auml>uschen am Friedhof finden k<&ouml>nnen."
+          - WAIT 5
+          - CHAT "Lasst Euch nicht von seinem <&Auml>u<&chr[00DF]>eren oder seiner kauzigen Art schrecken, er ist ein unglaublich netter Kerl."
+          - WAIT 6
+          - CHAT "Er kam als Kind nach Ituria und wurde vom damaligen Totengr<&auml>ber adoptiert."
+          - WAIT 5
+          - CHAT "Es hei<&chr[00DF]>t, er k<&auml>me urspr<&uuml>nglich aus Bluchenfels und es seien ihm dort schreckliche Dinge widerfahren. Armer Kerl!"
+          - WAIT 7
+          - CHAT "Aber gut, er scheint sich soweit eingelebt zu haben und ein Stammkunde meiner B<&auml>ckerei ist er auch geworden."
+          - WAIT 7
+          - CHAT "Ein echtes Schleckermaul, unser Boris. Erkundigt sich immer nach einem St<&uuml>ck Kuchen oder einer Apfeltasche."
+          - WAIT 5
+          - NARRATE format:emote "l<&auml>chelt"
+          - WAIT 2
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        4:
+          Trigger: "Was gibt es <&uuml>ber /Chrys/ zu erz<&auml>hlen?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Chrys ist ein wahrer Schussel und der Lehrling des K<&uuml>rschner- und J<&auml>germeisters Pietro."
+          - WAIT 5
+          - CHAT "Er hat seine M<&uuml>h und Not den Anspr<&uuml>chen seines Meisters gerecht zu werden und ist soooo sch<&uuml>chtern."
+          - WAIT 6
+          - NARRATE format:emote "schmunzelt"
+          - WAIT 2
+          - CHAT "Chrys ist schon ziemlich in Ordnung, aber er schafft es immer wieder sich in gef<&auml>hrliche Situationen zu bringen."
+          - WAIT 7
+          - CHAT "Irgenwie s<&uuml><&chr[00DF]>!"
+          - WAIT 2
+          - CHAT "Was wollt Ihr sonst noch so wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        5:
+          Trigger: "Der Stadtverwalter, wie hie<&chr[00DF]> der nochmal? Genau, /Egmont/, was gibt es <&uuml>ber ihn zu erz<&auml>hlen?"
+          Script:
+          - ENGAGE
+          - WAIT 4
+          - CHAT "<player.name>, wie konntet Ihr nur Egmont vergessen?"
+          - WAIT 5
+          - CHAT "Er ist doch so ziemlich der wichtigste Mann auf dieser Insel und... dabei so gut aussehend!"
+          - WAIT 6
+          - NARRATE format:emote "wirkt leicht abwesend"
+          - WAIT 3
+          - CHAT "Ohne Egmont w<&uuml>rde der ganze Laden hier einfach in sich zusammelfallen."
+          - WAIT 5
+          - CHAT "Auch wenn es so aussieht, als ob er nur ein einfacher Aktenschubser sei, werden wohl die allermeisten Amtsgesch<&auml>fte des B<&uuml>rgermeisters von ihm <&uuml>bernommen!"
+          - WAIT 9
+          - CHAT "Er ist ein wahrer B<&uuml>rohengst und B<&uuml>rokrat, doch bin ich mir sicher, dass hinter der strengen Fassade ein liebevoller Mensch steckt."
+          - WAIT 8
+          - CHAT "Egmont nimmt seinen Job unglaublich ernst und ich habe ihn noch nie ausgehen sehen."
+          - WAIT 6
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        6:
+          Trigger: "Ich w<&uuml>rde gerne etwas <&uuml>ber Euch, /Frida/ in Erfahrung bringen."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "<&Uuml>ber mich gibt es eigentlich nicht viel zu sagen, <player.name>."
+          - WAIT 5
+          - CHAT "Ich backe meine kleinen Br<&ouml>tchen und h<&ouml>re den Leuten zu."
+          - WAIT 5
+          - CHAT "So bin ich, lebenslustig, fr<&ouml>hlich und manchmal auch frech. Ich habe meine eigene B<&auml>ckerei am Nordhafen und bem<&uuml>he mich ganz nebenbei darum den Frieden in Ituria zu bewahren."
+          - WAIT 8
+          - CHAT "Nicht immer ganz einfach, bei all den Sturk<&ouml>ppen. M<&auml>nner, Sage ich nur!"
+          - WAIT 4
+          - NARRATE format:emote "grinst"
+          - WAIT 2
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        7:
+          Trigger: "Wie steht es mit /Karolus/?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Karolus ist der Inhaber von Geiz und Gier, einem der bekanntesten L<&auml>den der Stadt."
+          - WAIT 4
+          - CHAT "Wenn ich Euch einen Tipp geben kann, kauft blo<&chr[00DF]> nicht beim ihm ein, seine Preise sind nicht nur hoch, sie sind vollkommen unversch<&auml>mt."
+          - WAIT 5
+          - CHAT "Ich habe keine Ahnung, wie er es schafft, mit dem Laden sogar Gewinn zu machen. Wusstet ihr eigentlich, dass er einen Bruder hat? Nein?"
+          - WAIT 5
+          - NARRATE format:emote "schmunzelt"
+          - WAIT 2
+          - CHAT "Karolus und Theobald sind Br<&uuml>der und verwalten jeweils einen sehr <&auml>hnlichen Laden. Ich bin mir nicht sicher, ob das ein seltsamer Spa<&chr[00DF]> sein soll oder ein Wettbewerb."
+          - WAIT 6
+          - CHAT "Sicher ist nur, dass Karolus mein langj<&auml>hriger Stammkunde ist, sein Bruder aber andere B<&auml>cker vorzieht. So ein Banause!"
+          - WAIT 5
+          - CHAT "Was wollt Ihr sonst noch so wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        8:
+          Trigger: "Was macht /Pietro/ so?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ja, viel kann ich Euch <&uuml>ber unseren Stinky Pete nicht erz<&auml>hlen. Er ist immer sehr besch<&auml>ftigt oder will seine Ruhe haben. Meistens beides."
+          - WAIT 7
+          - NARRATE format:emote "macht ein ernstes Gesicht"
+          - WAIT 2
+          - CHAT "Er stellt herrliche Schuhe her, unser Ledermeister, aber abseits davon gibt es nichts <&uuml>ber ihn zu erz<&auml>hlen."
+          - WAIT 6
+          - CHAT "Seinen Lehrling Chrys soll er eine harte Schule zukommen und ihn allerlei unn<&ouml>tige Aufgaben verrichten lassen."
+          - WAIT 5
+          - CHAT "Habt Ihr noch Fragen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        9:
+          Trigger: "Was wisst Ihr <&uuml>ber /Theobald/?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ein gewiefter H<&auml>ndler und mit einer der einflussreichsten B<&uuml>rger der Stadt. Er betreibt seinen Laden am Nordhafen, in der N<&auml>he meiner B<&auml>ckerei und ist nicht f<&uuml>r seine g<&uuml>nstigen Preise bekannt."
+          - WAIT 8
+          - CHAT "Andererseits soll er wortw<&ouml>rtlich jeden Dreck ankaufen."
+          - WAIT 3
+          - NARRATE format:emote "zieht die linke Braue nach oben"
+          - WAIT 2
+          - CHAT "Sein Laden 'Plunder und Zunder' konkurriert angeblich mit 'Geiz und Gier', dabei sind beide Ladenbesitzer Br<&uuml>der. Au<&chr[00DF]>erhalb ihrer Gesch<&auml>ftszeiten ein Herz und eine Seele. Merkw<&uuml>rdig."
+          - WAIT 8
+          - CHAT "Was wollt Ihr noch wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        10:
+          Trigger: "Wie steht es mit /Thorben/?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Immer besch<&auml>ftigt, immer ungeduldig, das ist Thorben. Ein gutherziger Mann, aber leicht zu erz<&uuml>rnen und nicht besonders... tolerant."
+          - WAIT 6
+          - CHAT "Zumindest bei der Arbeit kann er Aufsch<&uuml>be und St<&ouml>rungen nicht aussetehen. Auch unz<&uuml>chtige Scherze sollte man in seiner Gegenwart besser lassen."
+          - WAIT 7
+          - NARRATE format:emote "lacht"
+          - WAIT 2
+          - CHAT "Aber es ist so herrlich ihn damit aufzuziehen, probiert es doch auch mal aus. Und au<&chr[00DF]>erdem..."
+          - WAIT 6
+          - NARRATE format:emote "kichert"
+          - WAIT 2
+          - CHAT "Au<&chr[00DF]>erdem glaube ich, dass er vom Herzen her ein Arborianer ist und den arbeitssamen Moralapostel nur spielt. Oder er ist einfach etwas unsicher, wer wei<&chr[00DF]>?"
+          - WAIT 7
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        11:
+          Trigger: "Dieser /Vlad/, wisst Ihr etwas <&uuml>ber ihn?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ehrlich gesagt, ist er mir nicht ganz geheuer. F<&uuml>r meine Br<&ouml>tchen scheint er nicht viel <&uuml>brig zu haben."
+          - WAIT 5
+          - CHAT "Er soll aus Bluchenfels kommen und Aristokrat sein. Niemand wei<&chr[00DF]> genaueres <&uuml>ber seine Absichten."
+          - WAIT 5
+          - NARRATE format:emote "runzelt die Stirn"
+          - WAIT 2
+          - CHAT "Man munkelt, er h<&auml>tte die alte 'Villa Montag' geerbt. Mehr wei<&chr[00DF]> ich leider auch nicht."
+          - WAIT 6
+          - CHAT "Und sonst?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        12:
+          Trigger: "Was hat es mit /Willibald/ auf sich?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Willibald ist der Direktor des S<&auml>gewerks westlich vom S<&uuml>dhafen und ein ziemlicher Griesgram. Ich habe ihn noch nie l<&äuml>cheln sehen."
+          - WAIT 7
+          - CHAT "Er besucht gerne Sch<&auml>nken und macht aus seiner Abneigung Arborianern gegen<&uuml>ber keinen Hehl. Schon drollig, dabei ist er doch auf Arboria als Lieferant angewiesen."
+          - WAIT 7
+          - CHAT "Macht Euch nichts daraus, wenn er Euch in die Quere kommt, ich glaube, er kann einfach garnicht anders."
+          - WAIT 6
+          - CHAT "Und sonst?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        13:
+          Trigger: "/Danke/, das war schon Alles. Auf Wiedersehen!"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "In Ordnung, aber wenn Ihr weitere Fragen habt oder etwas auf dem Herzen, k<&ouml>nnt Ihr jederzeit zur<&uuml>ckkommen."
+          - WAIT 6
+          - CHAT "T<&uuml>del<&uuml>!"
+          - ^ZAP 1
+          - DISENGAGE
+        14:
+          Trigger: "Wie steht es um /Jolo/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Jolo ist als Techniker bei der U-Bahn besch<&auml>ftigt und verbringt den lieben langen Tag damit, Leuten von der Bahn zu erz<&auml>hlen."
+          - WAIT 6
+          - CHAT "Kaum zu glauben, aber Golo ist sein Bruder. Die beiden k<&ouml>nnten nicht unterschiedlicher sein."
+          - WAIT 6
+          - CHAT "Immer <&uuml>beraus freundlich und zuvorkommend."
+          - WAIT 3
+          - CHAT "Auf jeden Fall freundlicher als sein Bruder..."
+          - WAIT 3
+          - CHAT "Und sonst?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        15:
+          Trigger: "Was ist mit /Golo/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Golo arbeitet als Bombenverk<&auml>ufer im S<&uuml>dhafen. Der Kerl ist gef<&uuml>hlte drei Meter groß!"
+          - WAIT 5
+          - CHAT "Ich w<&uuml>rde einen großen Bogen machen, wenn immer m<&ouml>lich. Dem traue ich alles zu..."
+          - WAIT 4
+          - NARRATE format:emote "schaudert"
+          - WAIT 2
+          - CHAT "Dabei ist sein Bruder Jolo doch so nett."
+          - WAIT 3
+          - CHAT "Und sonst?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Essen|Bahrim|Boris|Chrys|Egmont|Frida|Golo|Jolo|Karolus|Pietro|Theobald|Thorben|Vlad|Willibald|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Klatsch|Gemunkel|Nichts'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wie sieht es mit dem neusten /Klatsch/ aus? Was erz<&auml>hlt man sich so?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - RANDOM {
+            - CHAT "Der B<&uuml>rgermeister hat sich schon seit langer Zeit nicht mehr in der <&Ouml>ffentlichkeit blicken lassen. Manche sagen, er sei schwer krank, andere behaupten sogar, dass er sei entf<&uuml>hrt worden!"
+            - CHAT "Der Erzherzog von Blackshire soll hohe Schulden bei der karthagischen Handelsgilde haben. Ob er die in diesem Leben noch begleichen kann..."
+            - CHAT "Chrys ger<&auml>t von einem Schlamassel in den n<&auml>chsten. Wenn der alte Pietro das spitz bekommt..."
+            - CHAT "Niemand fertigt so kunstvolle Karten an wie Bahrim. Ich w<&uuml>rde gerne wissen, wo er das gelernt hat."
+            - CHAT "Es gibt kaum ein Land, in dem keine K<&uuml>rbisse aus Blackshire angeboten werden. Wer die blo<&chr[00DF]> kauft..."
+            }
+          - WAIT 9
+          - CHAT "Was wollt Ihr sonst noch so wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Klatsch|Gemunkel|Nichts'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "Was geht denn so an /Gemunkel/ herum."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - RANDOM {
+            - CHAT "Eine alte Familiengruft wird seit geraumer Zeit schon als Pferdestall verwendet. Der Familie hatte wohl einfach kein Geld mehr. Aber zu solchen Mitteln zu greifen..."
+            - CHAT "Offiziell sind der Konsum und Anbau von Drogen in Quadesh verboten, dennoch sollen die Emire und Gilden flei<&chr[00DF]>ig daran verdienen."
+            - CHAT "Caldera und Karthago sollen die ganze Welt in ihre Interessenssph<&auml>ren eingeteilt haben."
+            - CHAT "Willibald ist auf Arborianer wirklich nicht gut zu sprechen, was ziemlich albern ist. Es sind praktisch seine einzigen Zulieferer."
+            - CHAT "In Tiuacen herrschen befremdliche Sitten.Es hei<&chr[00DF]>t, dass man dort selbst f<&uuml>r kleinste Vergehen grausamen G<&ouml>tzen geopfert wird."
+            - CHAT "Die Gruppe 'El Notaxo' soll ein Drogenlabor in Ituria unterhalten. Mir graust es davor, wenn ich daran denken muss, was dieses Zeug mit den Leuten anstellt."
+            - CHAT "Mir ist zu Ohren gekommen, dass es einen Schrein im K<&uuml>stenwald gibt, in dem das pure B<&ouml>se leben soll!"
+            - CHAT "Man munkelt, Vlad Finster h<&auml>tte die alte 'Villa Montag' im Nordwesten geerbt. Ich frage mich, was er mit der Bruchbude anfangen will..."
+            - CHAT "Es hei<&chr[00DF]>t, ein alter Alchemist h<&auml>tte im alten Gef<&auml>ngnisturm im S<&uuml>dwesten sein Alchemielabor aufgebaut."
+            }
+          - WAIT 8
+          - CHAT "Was wollt Ihr sonst noch so wissen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Klatsch|Gemunkel|Nichts'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "/Nichts/ danke, das war schon Alles. Auf Wiedersehen!"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "In Ordnung, aber wenn Ihr weitere Fragen habt oder etwas auf dem Herzen, k<&ouml>nnt Ihr jederzeit zur<&uuml>ckkommen."
+          - WAIT 5
+          - CHAT "T<&uuml>del<&uuml>!"
+          - ^ZAP 1
+          - DISENGAGE

@@ -1,0 +1,334 @@
+Weste_Jonny:
+  Type: Interact
+  Debug: False
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Eine reine Weste]>]:Eine reine Weste'
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[AktiveQuests].as_list> contains 'Der erste Kontakt' {
+            - CHAT "... Wie... wo... was?! Chef?!..."
+            - WAIT 3
+            - NARRATE format:emote "erwacht aus seinem Nickerchen und erblickt Euch au<&chr[00DF]>erhalb der Zelle"
+            - WAIT 4
+            - CHAT "... Was in aller Welt macht Ihr au<&chr[00DF]>erhalb der Zelle?! Oh mann, ich werde gefeuert..."
+            - WAIT 4
+            - CHAT "Das ist der schlimmste Tag meines Lebens... Wie zur H<&ouml>lle seid Ihr rausgekommen?!"
+            - WAIT 4
+            - CHAT "Verdammt, das darf doch nicht wahr sein..."
+            - WAIT 2
+            - NARRATE format:emote "sieht sich be<&auml>ngstigt um"
+            - WAIT 2
+            - CHAT "Ihr bringt mich echt in Schwierigkeiten... Was mach ich denn jetzt verdammt..."
+            - WAIT 4
+            - NARRATE format:emote "f<&auml>ngt sich langsam"
+            - WAIT 2
+            - CHAT "...Wisst Ihr was. Ich habe nicht das geringste gesehen. Man hat einfach Eure Kaution gezahlt, kapiert!"
+            - WAIT 4
+            - CHAT "Ich lasse Euch ziehen und Ihr verratet keiner Menschenseele, was hier passiert ist, haben wir uns verstanden!"
+            - WAIT 4
+            - CHAT "Zieht einfach Leine und haltet Euch da drau<&chr[00DF]>en bedeckt."
+            - WAIT 3
+            - CHAT "Oder Ihr geht zu Trudi und schafft Euch sogar noch Eure Akte vom Hals, ist Eure Sache..."
+            - WAIT 4
+            - CHAT "Aber kein Wort zu niemandem, klar! Andernfalls seid Ihr schneller wieder im Knast als Ihr gucken k<&ouml>nnt."
+            - WAIT 4
+            - CHAT "Und nun zieht endlich ab..."
+            }
+          ELSE {
+            - CHAT "Was wollt Ihr denn noch? Solltet Ihr nicht lieber untertauch... <&auml><&auml>h... nach Hause gehen?"
+            - WAIT 5
+            - CHAT "Eure Akte? Nat<&uuml>rlich k<&ouml>nnte man die... abhanden kommen lassen. Aber das will nat<&uuml>rlich niemand verantworten, oder?"
+            - WAIT 5
+            - NARRATE <&b>Ohne eine wei<&chr[00DF]>e Weste werden Euch Wachen und andere B<&uuml>rger schneller wieder ins Gef<&auml>ngnis stecken."
+            - WAIT 5
+            - ^FLAG npc trigger:!
+            - ^FLAG npc 'trigger:|:Helfen|Arbeit'
+            - NARRATE format:trigger ""
+            }
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - IF <player.flag[AktiveQuests].as_list> contains 'Der erste Kontakt' {
+            - CHAT "Worauf wartet Ihr noch? Macht Euch vom Acker, oder wir bekommen beide riesen Probleme!"
+            }
+          ELSE {
+            - ^FLAG npc trigger:!
+            - ^FLAG npc 'trigger:|:Helfen|Arbeit'
+            - NARRATE format:trigger ""
+            }
+      Chat Trigger:
+        1:
+          Trigger: "Vielleicht gibt es ja etwas, womit ich Euch /helfen/ k<&ouml>nnte..."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Mhh, vielleicht k<&ouml>nntet Ihr das wirklich. Meine Katze ist die Tage unter tragischen Umst<&auml>nden verstorben und ich kann mir die Beerdigung bei meinem kargen Lohn einfach nicht leisten..."
+          - WAIT 7
+          - CHAT "Wenn Ihr mich in dieser schweren Zeit vielleicht finanziell unterst<&uuml>tzen w<&uuml>rdet..."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Tut mir sehr Leid|20 Silber'
+          - NARRATE format:trigger ""
+          - ^ZAP 3
+          - DISENGAGE
+        2:
+          Trigger: "Gibt es nicht irgenwie soziale /Arbeit/ oder <&auml>hnliches? Ich bin schlie<&chr[00DF]>lich kein Schwerverbrecher."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Nat<&uuml>rlich, Ihr habt Recht, die M<&ouml>glichkeit g<&auml>be es nat<&uuml>rlich auch. Aber Trudi vom iturianischen Sozialamt ist eine ganz Harte und Ihre Aufgaben kommen der H<&ouml>lle auf Erden gleich."
+          - WAIT 7
+          - CHAT "Ihr werdet schon wissen was Ihr tut, aber ich habe Euch gewarnt!"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Helfen|Arbeit'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Tut mir sehr Leid|20 Silber'
+          - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Es /tut mir sehr Leid/ und Ihr habt mein aufrichtiges Beileid, aber ich kann Euch wirklich nicht helfen..."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "WAS?! Was seid Ihr nur f<&uuml>r ein Knauser! Dabei..."
+          - WAIT 3
+          - CHAT "<&Auml>hhm... <&ouml>hhh ich meine: Ohh! Meine arme Minkaaa!"
+          - WAIT 3
+          - NARRATE format:emote "schluchzt"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Helfen|Arbeit'
+          - NARRATE format:trigger ""
+          - ^ZAP 2
+          - DISENGAGE
+        2:
+          Trigger: "Das ist ja furchtbar, mein herzliches Beileid! Hier, nehmt die /30 Silber/inge."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Habt vielen Dank mein Freund. Ich wusste ich kann auf Euch z<&auml>hlen, jetzt kann ich endlich dieses leckere Fischbr<&ouml>tchen kaufen..."
+          - WAIT 5
+          - CHAT "... <&Auml>hhm das Minka immer so gerne mochte. Sie war einfach eine tolle Katze."
+          - WAIT 4
+          - NARRATE format:emote "schnieft"
+          - WAIT 2
+          - NARRATE format:money_taken "30"
+          - TAKE MONEY QTY:30
+          - WAIT 3
+          - CHAT "Ich k<&uuml>mmere mich dann mal um Eure kleine Angelegenheit, daf<&uuml>r sind Freunde doch da, nicht wahr?"
+          - WAIT 4
+          - CHAT "Auf bald werter Freund. <&Uuml>ber die Sache wird bestimmt bald Gras gewachsen sein. Doch nun zu meinem wohl verdienten Mittags... schl<&auml>f... zzzz..."  
+          - WAIT 6
+          - ^FLAG PLAYER 'AktiveQuests:<-:Eine reine Weste'
+          - IF <player.flag[FertigeQuests].as_list> !contains 'Eine reine Weste' {
+                  - ^FLAG PLAYER 'FertigeQuests:->:Eine reine Weste' }
+          - ^FLAG PLAYER 'QuestCounter:++'
+          - ^FLAG PLAYER 'Sozialakte:!'
+          - NARRATE format:quest_complete "Eine reine Weste"
+          - ^ZAP 1
+          - DISENGAGE
+
+Weste_Trudi:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Eine reine Weste]>]:Eine reine Weste'
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hall<&ouml>chen, wer bist du denn?... Ah, sch<&ouml>n dich kennezulernen <player.name>. Ich bin die Waltraud, aber du darfst mich Trudi nennen. Hihi."
+        - WAIT 6
+        - CHAT "Hach, ich freue mich ja immer <&uuml>ber Besuch. Wie kann ich dir denn helfen, mein S<&uuml><&chr[00DF]>er?"
+        - WAIT 3
+        - CHAT "... So ist das also. Du willst deine Weste wei<&chr[00DF]> waschen... Da bist du mir genau richtig."
+        - WAIT 3
+        - CHAT "Obwohl ich mich schon frage, was ein so s<&uuml><&chr[00DF]>er Fratz wie du es bist, denn schon gro<&chr[00DF]>artiges getan haben soll..."
+        - WAIT 4
+        - NARRATE format:emote "kramt Eure Akte hervor"
+        - WAIT 2
+        - If <player.flag[Sozialakte].as_list> contains 'Schl<&auml>gertyp' {
+            - CHAT "Was?! Du hast dich mit der Portalwache angelegt?! Du bist wohl nicht ganz bei Trost!"
+            }
+          ELSE IF <player.flag[Sozialakte].as_list> contains 'Sittenstrolch' {
+            - CHAT "Was?! Du hast unseren Thorben nach Liebe gefragt?! Du bist wohl nicht ganz bei Trost!"
+            }
+          ELSE IF <player.flag[Sozialakte].as_list> contains 'St<&ouml>renfried' {
+            - CHAT "Was?! Du hast Willibald bei seiner Arbeit gest<&ouml>rt?! Du bist wohl nicht ganz bei Trost!"
+            }
+          ELSE IF <player.flag[Sozialakte].as_list> contains 'Bombenleger' {
+            - CHAT "Was?! Du hast versucht das S<&auml>gewerk in die Luft zu jagen?! Du bist wohl nicht ganz bei Trost!"
+            }
+        - WAIT 3
+        - NARRATE format:emote "wird pl<&ouml>tzlich sehr w<&uuml>tend"
+        - WAIT 2
+        - CHAT "Das gibt ordentlich Sozialstunden Kleiner, darauf kannst du wetten!"
+        - WAIT 3
+        - CHAT "Wollen doch mal sehen, was wir f<&uuml>r dich haben..."
+        - WAIT 3
+        - CHAT "Ooh, ich wei<&chr[00DF]> was ganz besonderes! Ich habe in ganz Ituria Blumen gepflanzt um die Stadt zu versch<&ouml>nern."
+        - WAIT 4
+        - CHAT "Deine Aufgabe besteht darin, 20 dieser Blumen zu gie<&chr[00DF]>en. Nimm dazu einfach diese Gie<&chr[00DF]>kanne."
+        - WAIT 4
+        - NARRATE format:item_given "<&b>eine <&d>Gie<&chr[00DF]>kanne"
+        - WAIT 3
+        - NARRATE "Rechtsklickt <&b>die Blumen, um sie zu gie<&chr[00DF]>en. <&f>Rechtsklickt <&b>eine Wasserquelle, um Eure leere Gie<&chr[00DF]>kanne zu f<&uuml>llen."
+        - WAIT 6
+        - CHAT "Na los, worauf wartest du denn noch? Los, los!"
+        - ^FLAG PLAYER 'BlumenGie<&chr[00DF]>en:0'
+        - DISENGAGE
+        - ^ZAP 2
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Deine Aufgabe besteht darin, 20 Blumen zu gie<&chr[00DF]>en. Nimm dazu einfach einen Eimer Wasser."
+        - WAIT 4
+        - NARRATE "Rechtsklickt <&b>die Blumen, um sie zu gie<&chr[00DF]>en. <&f>Rechtsklickt <&b>eine Wasserquelle, um Eure leere Gie<&chr[00DF]>kanne zu f<&uuml>llen."
+        - WAIT 6
+        - CHAT "Na los, worauf wartest du denn noch? Los, los!"
+        - WAIT 3
+        - NARRATE "<&b>Ihr solltet tun, was sie sagt... Oder vielleicht k<&ouml>nnt Ihr sie irgendwie beruhigen. Schreibt etwas, das ihr gefallen k<&ouml>nnte."
+        - WAIT 5
+        - NARRATE "<&b>Vielleicht '<&f>Blume<&b>'? Euch f<&auml>llt da sicher noch mehr ein. Wenn sie sich nicht beruhigen l<&auml>sst k<&ouml>nnt Ihr immer noch ihre Aufgabe erf<&uuml>llen."
+        - DISENGAGE
+      Chat Trigger:
+        1:
+          Trigger: "Also habt Ihr diese /wundersch<&ouml>n/en Blumen gepflanzt?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - NARRATE format:answer "Ich habe mich schon gefragt, wem ich dieses Meisterwerk zu verdanken habe."
+          - WAIT 4
+          - NARRATE format:answer "Habt vielen Dank f<&uuml>r diesen Dienst an meiner geliebten Heimat."
+          - WAIT 4
+          - NARRATE format:emote "wird ganz verlegen"
+          - WAIT 2
+          - CHAT "Ach, das war doch nichts. Nichts, was nicht jeder f<&uuml>r unsere sch<&ouml>ne Stadt getan h<&auml>tte."
+          - WAIT 4
+          - CHAT "Ich muss zugeben, ich habe dich falsch eingesch<&auml>tzt. Du braucht keine Blumen gie<&chr[00DF]>en."
+          - WAIT 4
+          - CHAT "Ein so aufgewecktes und junges Kerlchen wie du mit so viel Liebe zur Natur und Heimat..."
+          - WAIT 4
+          - NARRATE format:emote "setzt ein strahlendes L<&auml>cheln auf"
+          - WAIT 2
+          - CHAT "Wei<&chr[00DF]>t du was? Ich werde diese Akte einfach l<&ouml>schen. Jemand wie du geh<&ouml>rt doch nicht bestraft."
+          - WAIT 4
+          - CHAT "Eine Unterschrift hier und eine Unterschrift da..."
+          - WAIT 2
+          - CHAT "Et violà... Deine Akte ist wieder wei<&chr[00DF]>."
+          - WAIT 2
+          - CHAT "Aber stellt mir in Zukunft ja keinen Unsinn mehr an!..."
+          - WAIT 3
+          - ^FLAG PLAYER 'AktiveQuests:<-:Eine reine Weste'
+          - IF <player.flag[FertigeQuests].as_list> !contains 'Eine reine Weste' {
+                  - ^FLAG PLAYER 'FertigeQuests:->:Eine reine Weste' }
+          - ^FLAG PLAYER 'QuestCounter:++'
+          - ^FLAG PLAYER 'Sozialakte:!'
+          - NARRATE format:quest_complete "Eine reine Weste"
+          - DISENGAGE
+          - ^ZAP 1
+          - DISENGAGE
+        2:
+          Trigger: "Dann habt Ihr die ganzen /Blume/n gepflanzt?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ja allerdings. Und das klingt, als w<&uuml>sstest du genau, wo du welche findest, also los!"
+          - WAIT 4
+          - CHAT "Immerhin gie<&chr[00DF]>en sich meine Blumen nicht von selbst!"
+          - DISENGAGE
+        3:
+          Trigger: "Diese Blumen sind echt /regex:(?<!wunder)sch<&ouml>n/."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Das mag sein, aber sie sind auch durstig, also k<&uuml>mmert Euch endlich um sie!"
+          - DISENGAGE
+        4:
+          Trigger: /REGEX:\w+/
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Verzeihung, aber was meinst du denn bitte mit '<&f><player.chat_history><&e>'?"
+          - WAIT 4
+          - CHAT "Au<&chr[00DF]>erdem,... hast du nicht zu arbeiten! Meine Blumen brauchen Wasser."
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Oh, du bist ja schon wieder da. Hast du denn auch alle 20 Blumen gegossen?"
+        - WAIT 3
+        - CHAT "... Sehr gut. Damit hast du unserer Stadt einen gro<&chr[00DF]>en Gefallen getan."
+        - WAIT 3
+        - CHAT "Und nun zu deiner Akte... Eine Unterschrift hier und eine Unterschrift da..."
+        - WAIT 3
+        - CHAT "Et violà... Deine Akte ist wieder wei<&chr[00DF]>."
+        - WAIT 2
+        - CHAT "Aber stellt mir in Zukunft ja keinen Unsinn mehr an!..."
+        - WAIT 3
+        - ^FLAG PLAYER 'AktiveQuests:<-:Eine reine Weste'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Eine reine Weste' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Eine reine Weste'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - ^FLAG PLAYER 'Sozialakte:!'
+        - NARRATE format:quest_complete "Eine reine Weste"
+        - DISENGAGE
+        - ^ZAP 1
+
+Weste_World:
+  type: world
+  debug: false
+  events:
+    on player right clicks block:
+    - IF <player.has_flag[BlumenGie<&chr[00DF]>en]> {
+        - IF <player.flag[BlumenKanne]> == null {
+            - ^FLAG PLAYER 'BlumenKanne:0'
+            }
+        - IF <context.location.block.material.id> == 37 || <context.location.block.material.id> == 38 {
+            - IF <player.flag[BlumenGie<&chr[00DF]>en]> >= 0 && <player.flag[BlumenGie<&chr[00DF]>en]> < 20 && <player.flag[BlumenKanne]> >= 1 {
+                - IF <player.flag[BlumenLoc].as_list> !contains <context.location> {
+                    - NARRATE "<&b>Blume gegossen"
+                    - ^FLAG PLAYER 'BlumenGie<&chr[00DF]>en:++'
+                    - ^FLAG PLAYER 'BlumenKanne:--'
+                    - IF <player.flag[BlumenKanne]> == 0 {
+                        - NARRATE "<&b>Eure Gie<&chr[00DF]>kanne ist leer. <&f>Rechtsklickt <&b>eine Wasserquelle, um sie wieder zu f<&uuml>llen."
+                        }
+                    - IF <player.flag[BlumenGie<&chr[00DF]>en]> == 20 {
+                        - WAIT 1
+                        - NARRATE "<&b>Ihr habt <&a>20 Blumen <&b>gegossen! Kehrt nun zu Trudi zur<&uuml>ck, um Eure Akte zu s<&auml>ubern."
+                        - ^FLAG PLAYER 'BlumenGie<&chr[00DF]>en:!'
+                        - ^FLAG PLAYER 'BlumenLoc:!'
+                        - ^FLAG PLAYER 'BlumenKanne:!'
+                        - ^ZAP 'step:3' 's@Knast_Trudi'
+                        }
+                    - ^FLAG PLAYER 'BlumenLoc:->:<context.location>'
+                    }
+                  ELSE IF <player.flag[BlumenLoc].as_list> contains '<context.location>' {
+                    - NARRATE "<&b>Diese Blume habt Ihr schon gegossen."
+                    }
+                }
+              ELSE IF <player.flag[BlumenKanne]> == 0 && <player.flag[BlumenGie<&chr[00DF]>en]> < 20 {
+                - NARRATE "<&b>Eure Gie<&chr[00DF]>kanne ist leer. <&f>Rechtsklickt <&b>eine Wasserquelle, um sie wieder zu f<&uuml>llen."
+                }
+            }
+        - IF <context.location.add[l@0,1,0].material.id> == 9 || <context.location.add[l@1,0,0].material.id> == 9 || <context.location.add[l@0,0,1].material.id> == 9 || <context.location.sub[l@1,0,0].material.id> == 9 || <context.location.sub[l@0,0,1].material.id> == 9 {
+            - ^FLAG PLAYER 'BlumenKanne:5'
+            - NARRATE "<&b>Ihr habt Eure Gie<&chr[00DF]>kanne wieder gef<&uuml>llt."
+            }
+        }

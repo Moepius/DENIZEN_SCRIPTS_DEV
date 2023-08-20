@@ -1,0 +1,202 @@
+Herbert:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@HerbertStandard'
+  interact scripts:
+    - 0 HerbertStandard
+    - 5 Kontakt_Herbert
+
+HerbertStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode:None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Schirili, Reisender. H<&auml>ttet Ihr nicht Lust auf ein kleines Spielchen?"
+          - WAIT 3
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Ja|Nein'
+          - NARRATE format:trigger ""
+          - trigger name:chat toggle:true radius:10
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Nein/ danke, ich bin besch<&auml>ftigt."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Haltet Euch wohl f<&uuml>r was Besseres, eh?"
+          - DISENGAGE
+        2:
+          Trigger: "/Ja/, warum eigentlich nicht."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Wusste doch, dass Ihr vom rechten Schlag seid. *Gacker*"
+          - WAIT 3
+          - CHAT "M<&ouml>chtet Ihr die Regeln h<&ouml>ren oder sollen wir direkt loslegen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Regeln|Loslegen|Tsch<&uuml>ss'
+          - NARRATE format:trigger ""
+          - ^ZAP 2
+          - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Regeln|Loslegen|Tsch<&uuml>ss'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Ich glaube, ich lass es lieber. /Tsch<&uuml>ss/."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ihr wollt kneifen? Pah, heutzutage alles nur noch Weichfl<&ouml>ten."
+          - DISENGAGE
+          - ^ZAP 1
+        2:
+          Trigger: "Lasst uns /loslegen/, hier sind die 5 Silberlinge."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - IF <player.money> >= 5 {
+              - CHAT "So will ich das sehen..."
+              - WAIT 2
+              - TAKE MONEY QTY:5
+              - NARRATE format:money_taken "5"
+              - WAIT 3
+              - CHAT "Murmel, Murmel, Murmel, Murmel, Murmel, Murmel..."
+              - WAIT 3
+              - CHAT "Stopp!... Na? Unter welchem H<&uuml>tchen ist die Murmel jetzt?"
+              - WAIT 3
+              - FLAG npc trigger:!
+              - FLAG npc 'trigger:|:1|2|3'
+              - NARRATE format:trigger ""
+              - DISENGAGE
+              - ^ZAP 3
+              }
+            ELSE {
+              - CHAT "Wollt Ihr mich verkohlen, Ihr habt gar keine 5 Silberlinge! *Gacker*"
+              - WAIT 4
+              - CHAT "Kommt wieder, wenn Ihr was auf den Tisch legen k<&ouml>nnt!"
+              }
+          - DISENGAGE
+        3:
+          Trigger: "Kann ich zun<&auml>chst die /Regeln/ h<&ouml>ren?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "*Gack*, Frischfleisch!... Ich meine: Ein Neukunde, wie wundervoll."
+          - WAIT 3
+          - CHAT "Keine Sorge! Das Spiel ist so einfach, das versteht sogar Ihr!"
+          - WAIT 4
+          - CHAT "Ich werde die drei Becher bunt durcheinandermischen und Ihr sagt mir danach, wo die Murmel ist."
+          - WAIT 5
+          - CHAT "Euer Einsatz liegt bei 5 Silberlingen."
+          - WAIT 3
+          - CHAT "Solltet Ihr tats<&auml>chlich die Murmel tats<&auml>lich finden, gewinnt Ihr 14 Silberlinge."
+          - WAIT 4
+          - CHAT "Solltet Ihr jedoch daneben liegen, wandern Eure Moneten in meine Kasse."
+          - WAIT 4
+          - CHAT "Klingt doch fair, oder? Los, los, los!"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Regeln|Loslegen|Tsch<&uuml>ss'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:1|2|3'
+        - NARRATE format:trigger ""
+      Chat Trigger: 
+        1:
+          Trigger: "Die Murmel ist unter dem /REGEX:[123]/. H<&uuml>tchen."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Ja|Nein'
+          - IF <player.chat_history> == <li@1|2|3.random> {
+              - CHAT "Oh, Ihr habt ein gutes Auge. *Gacker* Das ist genau richtig."
+              - WAIT 3
+              - CHAT "Hier sind Eure 14 Silberlinge."
+              - WAIT 2
+              - GIVE MONEY QTY:14
+              - NARRATE format:money_given "14"
+              - WAIT 2
+              - CHAT "Wollt Ihr noch einmal spielen?"
+              - WAIT 2
+              - NARRATE format:trigger ""
+              - ^ZAP 4
+              }
+            ELSE {
+              - CHAT "Oh, das tut mir Leid, *gacker*. Das ist die Murmel nicht."
+              - WAIT 3
+              - CHAT "Aber lasst Euch nicht unterkriegen, beim n<&auml>chsten Mal klappt es bestimmt. *Gacker*"
+              - WAIT 4
+              - CHAT "Wollt Ihr noch einmal spielen?"
+              - WAIT 2
+              - NARRATE format:trigger ""
+              - ^ZAP 4
+              }
+          - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/, lasst es mich noch einmal versuchen!"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - IF <player.money> >= 5 {
+              - CHAT "Los geht<'>s!"
+              - WAIT 2
+              - TAKE MONEY QTY:5
+              - NARRATE format:money_taken "5"
+              - WAIT 3
+              - CHAT "Murmel, Murmel, Murmel, Murmel, Murmel, Murmel..."
+              - WAIT 3
+              - CHAT "Stopp!... Und? Unter welchem H<&uuml>tchen ist die Murmel jetzt?"
+              - WAIT 3
+              - FLAG npc trigger:!
+              - FLAG npc 'trigger:|:1|2|3'
+              - NARRATE format:trigger ""
+              - ^ZAP 3
+              }
+            ELSE {
+              - CHAT "Wollt Ihr mich verkohlen, Ihr habt gar keine 5 Silberlinge! *Gacker*"
+              - WAIT 4
+              - CHAT "Ihr m<&uuml>sst Euren Einsatz schon bezahlen, um auch spielen zu k<&ouml>nnen!"
+              }
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/, ich glaube, ich lass das lieber. Tsch<&uuml>ss"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ihr habt schon genug? *gacker* Bis zum n<&auml>chsten Mal!"
+          - DISENGAGE
+          - ^ZAP 1

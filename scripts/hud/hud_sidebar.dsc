@@ -19,12 +19,15 @@ magic_sidebar_config:
     # There should also be at least one normal line that's as wide as the width, to prevent the sidebar resizing constantly.
     # TODO: make lines configurable via GUI settings (toggle lines on/off)
     lines:
-    - "<&2>⚑ <&a><player.location.simple.before_last[,].replace[,].with[<&2>,<&a>]>"
-    - "<&f>Φ <&7><player.flag[player.flag.currency.currency_groschen_total].if_null[0]> <&6>❖ <&e><player.flag[player.flag.currency.currency_taler_total].if_null[0]>"
-    - "<&6>ᛔ <&e><player.flag[player.flag.currency.currency_gulden_total].if_null[0]> <&5>✦ <&d><player.flag[player.flag.currency.currency_crystal_total].if_null[0]>"
-    - "<&3>⛏ <&b><player.flag[player.skill.level.total].if_null[0]>"
-    - "<&1>⌚ <&9>0"
-    - " <&f><&m>----------------"
+    - <&6>>><&3> Craftasy <&6><<
+    - <&f><&l>Info
+    - <&6>⚑ <&3><player.location.simple.before_last[,].replace[,].with[<&3>,<&b>]> Weltname
+    - <&6>AP: <&3>000 <&6>SP: <&3>000
+    - <&6>Geld: <&3>00000000
+    - <&f><&l>Statistik
+    - <&6>Rang: <&3>Name
+    - <&6>Spielzeit: <&3>00h
+    -  <&f><&m>----------------
 # ------------------------- End of configuration -------------------------
 
 magic_sidebar_world:

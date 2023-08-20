@@ -1,0 +1,103 @@
+Borold:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@BoroldStandard'
+  interact scripts:
+    - 0 BoroldStandard
+    - 5 Gast1
+    - 10 Equipment_Borold
+
+BoroldStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Willkommen werter Kunde! Bei mir findet Ihr nur die erlesensten K<&ouml>stlichkeiten."
+        - WAIT 5
+        - CHAT "Was darf es denn sein?"
+        - WAIT 2
+        - NARRATE "Rechtsklickt <&b>erneut, wenn Ihr Tipps zum Gespr<&auml>ch w<&uuml>nscht."
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Handel|Nichts'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Handel|Nichts'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Womit /handel/t Ihr?"
+          Script:
+          - ENGAGE
+          - CHAT "Wie ich bereits erw<&auml>hnte, und mein formidables Ladenschild k<&uuml>ndet - Ich handel nur mit den exotischsten, delizi<&ouml>sesten und... exquisitesten Qualit<&auml>tswaren aus aller Herren L<&auml>nder."
+          - WAIT 8
+          - CHAT "Ganz Terra Thusundea ist hier in all ihrer K<&ouml>stlichkeit vertreten!"
+          - WAIT 3
+          - CHAT "Zartschmelzende, den Gaumen aufs H<&ouml>chste erquickende, dunkle Schokolade aus dem fernen Tiuacen, w<&uuml>rzige Teemischungen aus dem exotischen Quadesh, kr<&auml>ftige oder liebliche Weine aus unserem geliebten Ituria..."
+          - WAIT 9
+          - CHAT "Hach, wenn ich an all diese Delikatessen denke,... da wird mir ganz warm ums Herz, da mag ich mich doch fast selbst an diesen verlustieren!"
+          - WAIT 6
+          - CHAT "Was mag denn Euren erlauchten Gaumen erfreuen?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Teuer|Nichts'
+          - NARRATE format:trigger ""
+          - ^ZAP 3
+          - DISENGAGE
+        2:
+          Trigger: "Danke, ich denke ich brauche /nichts/ davon."
+          Script:
+          - ENGAGE
+          - CHAT "Seid Ihr Euch sicher?... Ein Jammer. Ihr verpasst etwas, das kann ich Euch versprechen."
+          - WAIT 5
+          - CHAT "Nun, wer nicht will, der hat halt schon. Auf Wiedersehen."
+          - ^ZAP 1
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Teuer|Nichts'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Findet Ihr die Sachen nicht ein wenig /teuer/?"
+          Script:
+          - ENGAGE
+          - CHAT "Wie ich bereits erw<&auml>hnte und auch mein Ladenschild k<&uuml>ndet: Ich handel nur mit den exotischsten, feinsten und besten Qualit<&auml>tswaren aus aller Welt!"
+          - WAIT 6
+          - CHAT "Zartschmelzende, den Gaumen aufs H<&ouml>chste erquickende dunkle Schokolade aus dem fernen Tiuacen, w<&uuml>rzige Teemischungen aus Quadesh..."
+          - WAIT 6
+          - CHAT "Kr<&auml>ftige oder liebliche Weine aus unserem geliebten Ituria... Hach wenn ich an all diese Delikatessen denke..."
+          - WAIT 5
+          - CHAT "Kein Preis kann zu teuer für dieses Erlebnis sein!"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Teuer|Nichts'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "Danke, ich denke ich brauche /nichts/ davon."
+          Script:
+          - ENGAGE
+          - CHAT "Seid Ihr Euch sicher?... Ein Jammer. Ihr verpasst etwas, das kann ich Euch versprechen."
+          - WAIT 5
+          - CHAT "Nun, wer nicht will, der hat schon! Auf Wiedersehen."
+          - ^ZAP 1
+          - DISENGAGE

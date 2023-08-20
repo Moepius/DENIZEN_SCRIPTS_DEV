@@ -1,0 +1,258 @@
+Dungeon_Schrein_Bahrim:
+  type: Interact
+  debug: false
+  requirements:
+    mode: all
+    list:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Der antike Schrein]>]:Der antike Schrein'
+#   - PERMISSION d.dungeon
+  Steps:
+# Questvergabe, Auftraggeber: Bahrim, 1. Durchlauf
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Sieh an, ein junger Abenteurer auf der Suche nach einer guten Karte."
+        - WAIT 3
+        - CHAT "... Oder seid Ihr aus einem anderen Grund in mein bescheidenes Gesch<&auml>ft gekommen?"
+        - WAIT 4
+        - CHAT "Seid Ihr etwa auf der Suche nach Abenteuern? Dann seid Ihr bei mir genau richtig."
+        - WAIT 4
+        - CHAT "Ich k<&ouml>nnte Euch den ein oder anderen Ort nennen, an dem Ihr wahrhaft gro<&chr[00DF]>e Sch<&auml>tze zu finden verm<&ouml>get."
+        - WAIT 6
+        - CHAT "Am n<&auml>chsten liegt ein alter Schrein im K<&uuml>stenwald. Dort lauert ein gro<&chr[00DF]>es Abenteuer f<&uuml>r alle, die k<&uuml>hn genug sind ihn zu betreten."
+        - WAIT 7
+        - CHAT "Als erstes sollte ich Euch sagen, wo Ihr diesen wahrhaft antiken Schrein findet."
+        - WAIT 4
+        - CHAT "Er liegt nord<&ouml>stlich der Wohnh<&auml>user im K<&uuml>stenwald, das liegt im Nordosten Iturias, unter einem Felsvorsprung."
+        - WAIT 6
+        - CHAT "Ihr solltet zudem wissen, dass Ihr, sobald Ihr zu weit in den Schrein hineingegangen seid, nicht mehr umkehren k<&ouml>nnt!"
+        - WAIT 6
+        - CHAT "Tats<&auml>chlich ist dies nur eine von vielen Fallen, die man dort findet."
+        - WAIT 4
+        - NARRATE format:whisper "Es gibt dort sogar R<&auml>ume, in denen Monster aus dem Nichts erscheinen, um Euch aufzuhalten!"
+        - WAIT 5
+        - NARRATE format:emote "l<&auml>uft es kalt den R<&uuml>cken herunter"
+        - WAIT 3
+        - CHAT "Viel mehr gibt es eigentlich nicht zu wissen, es sei denn nat<&uuml>rlich... Ihr w<&uuml>nscht vielleicht doch eine meiner Abenteuergeschichten?"
+        - WAIT 6
+        - NARRATE format:answer "Nein, lieber nicht. Aber ich werde mir diesen Schrein mal in Ruhe ansehen."
+        - WAIT 4
+        - CHAT "Seid Ihr sicher... Nun gut, wenn ihr Euch den Schrein mal ansehen wollt, gebt auf Euch Acht!"
+        - ^FLAG player 'Dungeon_Schrein_Liste:->:Bahrim'
+        - ^FLAG player 'AktiveQuests:->:Der antike Schrein'
+        - NARRATE format:quest_given "Der antike Schrein"
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Es tut mir Leid, mein junger Freund, aber mehr gibt es wirklich nicht zu erz<&auml>hlen..."
+        - WAIT 4
+        - CHAT "Es sei denn nat<&uuml>rlich... Ihr w<&uuml>nscht vielleicht doch eine meiner Abenteuergeschichten?"
+        - WAIT 4
+        - NARRATE format:answer "Nein, lieber nicht. Aber ich werde mir diesen Schrein mal in Ruhe ansehen."
+        - WAIT 4
+        - CHAT "Seid Ihr sicher... Nun gut, was immer Ihr dort vorhabt, gebt auf Euch Acht!"
+        - DISENGAGE
+# Questabschluss, Auftraggeber: Egal, 1. Durchlauf
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[Dungeon_Schrein_Liste].as_list> !contains Bahrim {
+            - CHAT "Sieh an, ein junger Abenteurer auf der Suche nach einer guten Karte."
+            - WAIT 3
+            - CHAT "... Oder seid Ihr aus einem anderen Grund in mein bescheidenes Gesch<&auml>ft gekommen?"
+            }
+          ELSE {
+            - CHAT "Aah, unser junger Freund ist aus dem antiken Schrein zur<&uuml>ckgekehrt. Habt Ihr Euren Schatz finden k<&ouml>nnen."
+            }
+        - WAIT 6
+        - NARRATE format:answer "Eher weniger. Wisst Ihr zuf<&auml>llig etwas <&uuml>ber den Unnennbaren oder Nami?"
+        - WAIT 4
+        - CHAT "... Also habt Ihr es geschafft. Nun, im Grunde <&uuml>berrascht es mich nicht."
+        - WAIT 4
+        - IF <player.flag[Dungeon_Schrein_Liste].as_list> contains Bahrim {
+            - CHAT "Ich hatte gehofft, Ihr w<&auml>ret der Aufgabe gewachsen und meine Erwartungen Euch gegen<&uuml>ber wurden gl<&auml>nzend erf<&uuml>llt."
+            - WAIT 6
+            }
+          ELSE {
+            - CHAT "Ihr seht mir wie ein w<&uuml>rdiger Nachfolger meiner Aufgabe aus."
+            - WAIT 4
+            }
+        - CHAT "Ihr m<&uuml>sst wissen, seit meiner ersten Erkundungstour in diesen Schrein habe ich ihn immer wieder aufgesucht."
+        - WAIT 5
+        - CHAT "Wie Ihr, habe auch ich mich dem Unget<&uuml>m in den Tiefen des Schreins gestellt und das inzwischen viele Male."
+        - WAIT 5
+        - CHAT "Zwar bin ich kein Mediner, doch wurde mir durch Nami mein Schicksal offenbart, mich IHM zu stellen, bis einer kommt meinen Platz einzunehmen."
+        - WAIT 6
+        - CHAT "Dieser eine seid Ihr! Ich habe Jahre auf Euch gewartet."
+        - WAIT 4
+        - CHAT "Ansonsten wei<&chr[00DF]> niemand um das Geheimnis dieses antiken Schreins und es w<&auml>re besser, wenn dies so bliebe."
+        - WAIT 5
+        - CHAT "Selbst Egmont oder die Bewohner des K<&uuml>stenwalds wissen nichts von der Gefahr des Schreins."
+        - WAIT 4
+        - CHAT "Auch Euren potentiellen Nachfolgern d<&uuml>rft Ihr nichts von IHM oder Nami erz<&auml>hlen."
+        - WAIT 4
+        - CHAT "Nur wer furchtlos und ohne fremde Hilfe das B<&ouml>se verbannt und sich somit den Respekt der Mediner verdient, kann Euer Nachfolger werden."
+        - WAIT 6
+        - CHAT "Wir sind die W<&auml>chter des antiken Schreins und es ist allein unsere Aufgabe, IHN zu bannen und erneut zu bannen, bis ans Ende der Zeit."
+        - WAIT 6
+        - CHAT "Jedoch wei<&chr[00DF]> ich aus eigener Erfahrung, dass dies auf Dauer sehr frustrierend sein kann..."
+        - WAIT 5
+        - CHAT "Daher will ich Euch f<&uuml>r Eure Dienste entlohnen, solange ich lebe. Hier, nehmt dies."
+        - WAIT 4
+        - NARRATE format:item_given "<&b>eine kunstvolle <&d>Karte"
+        - RANDOM {
+          - GIVE 358:3
+          - GIVE 358:4
+          }
+        - WAIT 2
+        - CHAT "Dies ist ein Meistewerk meiner Sammlung und ein echtes Sammlerst<&uuml>ck."
+        - WAIT 4
+        - CHAT "Erwartet jedoch nicht immer solch gro<&chr[00DF]>z<&uuml>gige Belohnungen von mir. Dieses Kunstwerk <&uuml>bergebe ich Euch anl<&auml>sslich Eures ersten Sieges."
+        - WAIT 7
+        - CHAT "Auf dass noch viele weitere folgen m<&ouml>gen! Denn Euer Schicksal wird Euch erneut zum Kampf rufen!"
+        - WAIT 5
+        - CHAT "Wann immer Ihr die Energie aufzubringen verm<&ouml>gt, steigt in den Schrein hinab und verbannt das B<&ouml>se aufs neue."
+        - WAIT 5
+        - CHAT "Und nun lebt wohl, W<&auml>chter des antiken Schreins. Auf ein Wiedersehen!"
+        - WAIT 4
+        - ^FLAG player 'AktiveQuests:<-:Der antike Schrein'
+        - ^FLAG player 'Dungeon_Schrein_Liste:!'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Der antike Schrein' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Der antike Schrein'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - NARRATE format:quest_complete "Der antike Schrein"
+        - ^COOLDOWN duration:24h 'script:Dungeon_Schrein_Bahrim'
+        - ^ZAP 'step:3' 's@Dungeon_Schrein_Nami'
+        - ^ZAP 5
+        - DISENGAGE
+# Questabschluss, Auftraggeber: Egal, Folgedurchläufe
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Aah, unser junger Freund ist erneut siegreich aus dem antiken Schrein zur<&uuml>ckgekehrt."
+        - WAIT 5
+        - CHAT "Oh ja, ich bin bestens informiert. Hier, nehmt das als kleine Entlohnung."
+        - WAIT 4
+        - ^FLAG npc items:!
+        - ^FLAG npc 'items:|:64 Eisenbarren|16 Diamanten|4 Smaragde'
+        - NARRATE format:items_given ""
+        - GIVE 265 QTY:64
+        - GIVE 264 QTY:16
+        - GIVE 388 QTY:4
+        - WAIT 3
+        - CHAT "Wann immer Ihr die Energie aufzubringen verm<&ouml>gt, steigt in den Schrein hinab und verbannt das B<&ouml>se aufs neue."
+        - WAIT 5
+        - CHAT "Und nun lebt wohl, W<&auml>chter des antiken Schreins. Auf ein Wiedersehen!"
+        - WAIT 4
+        - ^FLAG player 'AktiveQuests:<-:Der antike Schrein'
+        - ^FLAG player 'Dungeon_Schrein_Liste:!'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Der antike Schrein' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Der antike Schrein'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - NARRATE format:quest_complete "Der antike Schrein"
+        - ^COOLDOWN duration:24h 'script:Dungeon_Schrein_Bahrim'
+        - ^ZAP 5
+        - DISENGAGE
+    5:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Willkommen mein junger Freund und W<&auml>chter des antiken Schreins."
+        - WAIT 3
+        - CHAT "Euer Schicksal ruft Euch erneut zum Kampf. Das B<&ouml>se steht kurz vor seiner R<&uuml>ckkehr!"
+        - WAIT 4
+        - CHAT "Seit k<&uuml>hnen Herzens und bannt es aufs Neue, auf dass wieder Ruhe einkehren m<&ouml>ge in die heiligen Hallen des Schreins."
+        - WAIT 5
+        - CHAT "Ich vertraue auf Euch und Eure F<&auml>higkeiten! Viel Erfolg, mein Schicksalsgenosse."
+        - ^FLAG player 'AktiveQuests:->:Der antike Schrein'
+        - NARRATE format:quest_given "Der antike Schrein"
+        - DISENGAGE
+
+Dungeon_Schrein_Nami:
+  type: Interact
+  debug: false
+  requirements:
+    mode: all
+    list:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Der antike Schrein]>]:Der antike Schrein'
+  Steps:
+#   Auftraggeber: Egal, 1. Durchlauf
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Oh, Besuch? Welch seltene Ehre."
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Wie ist Euer Name, werter Gast?"
+        - WAIT 2
+        - NARRATE format:answer "Ich hei<&chr[00DF]>e <player.name>. Und wer seid Ihr, wenn mir die Frage gestattet ist?"
+        - WAIT 5
+        - CHAT "Mein Name ist Nami und ich bin die letzte Nachfahrin der Mediner. Mein Volk wacht seit Jahrhunderten <&uuml>ber diesen Tempel."
+        - WAIT 6
+        - CHAT "Da Ihr nun hier seid, muss dies bedeuten, dass Ihr das B<&ouml>se im Schrein erneut gebannt habt."
+        - WAIT 5
+        - CHAT "Ihr habt das Masterschwert aus dem Siegelstein gezogen und die finstre Kreatur besiegt, die in diesem Schrein versiegelt war."
+        - WAIT 6
+        - CHAT "Doch noch ist das B<&ouml>se nicht vollkommen besiegt, ER wird zur<&uuml>ckkehren und alles zerst<&ouml>ren, es sei denn, ER wird erneut versiegelt."
+        - WAIT 7
+        - CHAT "So erh<&ouml>hret meine Bitte! Wann immer Ihr vernehmet, dass die dunkle Macht in diesem Schrein erneut zu erwachen droht, kehret zur<&uuml>ck in diese Hallen und bannt IHN aufs neue."
+        - WAIT 8
+        - CHAT "Ihr habt es einmal bewerkstelligen k<&ouml>nnen. Ich hoffe, es gelingt Euch noch viele weitere Male."
+        - WAIT 5
+        - CHAT "Mir selbst ist es durch einen Eid, den jeder Mediner leisten muss, untersagt anderen Wesen Leid zuzuf<&uuml>gen."
+        - WAIT 5
+        - CHAT "Ihr jedoch seid jung und reinen Herzens. Ihr werdet der neue W<&auml>chter des antiken Schreins werden."
+        - WAIT 5
+        - NARRATE "Solltet Ihr Fragen zu Eurer Aufgabe haben, so wendet Euch an Bahrim, er war vor Euch der W<&auml>chter des antiken Schreins."
+        - WAIT 6
+        - CHAT "Solange es das Gute gibt, wird es auch das B<&ouml>se geben. Licht und Schatten, das sind zwei Seiten der selben Medaille, untrennbar miteinander verbunden."
+        - WAIT 7
+        - CHAT "Euer Schicksal ist noch nicht vollends erf<&uuml>llt. Das Gute wird erneut Eurer Hilfe bed<&uuml>rfen!"
+        - WAIT 5
+        - CHAT "F<&uuml>rs erste jedoch, wird wieder Ruhe in diese Hallen einkehren."
+#       - SPAWN n@Darheen 297,66,-236,world
+        - ^FLAG player 'Dungeon_Schrein_Liste:->:Nami'
+        - ^ZAP step:3 s@Dungeon_Schrein_Bahrim
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Solange es das Gute gibt, wird es auch das B<&ouml>se geben. Licht und Schatten, das sind zwei Seiten der selben Medaille, untrennbar miteinander verbunden."
+        - WAIT 7
+        - CHAT "Euer Schicksal ist noch nicht vollends erf<&uuml>llt. Das Gute wird erneut Eurer Hilfe bed<&uuml>rfen!"
+        - WAIT 5
+        - CHAT "F<&uuml>rs erste jedoch, wird wieder Ruhe in diese Hallen einkehren."
+        - DISENGAGE
+#   Auftraggeber: Egal, Folgedurchläufe
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Willkommen zur<&uuml>ck, <player.name>. Ich habe Euch bereits erwartet."
+        - WAIT 4
+        - CHAT "Es freut mich sehr, dass Ihr Eure neue Aufgabe so ernst nehmt."
+        - WAIT 3
+        - CHAT "Zweifellos ist dies jedoch noch nicht das Ende. ER wird zur<&uuml>ckkehren."
+        - WAIT 4
+        - CHAT "Solange es das Gute gibt, wird es auch das B<&ouml>se geben. Licht und Schatten, das sind zwei Seiten der selben Medaille, untrennbar miteinander verbunden."
+        - WAIT 7
+        - CHAT "Euer Schicksal ist noch nicht vollends erf<&uuml>llt. Das Gute wird erneut Eurer Hilfe bed<&uuml>rfen!"
+        - WAIT 5
+        - CHAT "F<&uuml>rs erste jedoch, wird wieder Ruhe in diese Hallen einkehren."
+#       - SPAWN n@Darheen 297,66,-236,world
+        - ^FLAG player 'Dungeon_Schrein_Liste:->:Nami'
+        - ^ZAP step:4 s@Dungeon_Schrein_Bahrim
+        - ^ZAP 2
+        - DISENGAGE

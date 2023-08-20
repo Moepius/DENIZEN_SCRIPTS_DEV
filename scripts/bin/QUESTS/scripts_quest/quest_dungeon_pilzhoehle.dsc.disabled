@@ -1,0 +1,375 @@
+Dungeon_Pilzhoehle_Tempelwache:
+  type: Interact
+  debug: false
+  requirements:
+    mode: all
+    list:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Die Turmruine]>]:Die Turmruine'
+#   - PERMISSION d.dungeon
+  Steps:
+#   Questvergabe, Auftraggeber: Tempelwache, 1. Durchlauf
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hallo <player.name>! Sch<&ouml>n Euch wiederzusehen!"
+        - WAIT 3
+        - CHAT "Ihr h<&auml>ttet nicht zuf<&auml>llig etwas Zeit f<&uuml>r mich? Ich habe n<&auml>mlich ein kleines Problem, doch bin ich zum Wachdienst verpflichtet und komme daher hier nicht weg."
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/, nat<&uuml>rlich helfe ich Euch."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Das freut mich zu h<&ouml>ren! Es ist n<&auml>mlich so, dass ich in letzter Zeit an Schlaflosigkeit leide."
+          - WAIT 4
+          - CHAT "Die viele Arbeit und das ewige, einsame rumstehen tut mir auf Dauer einfach nicht gut"
+          - WAIT 4
+          - CHAT "Ich habe jedoch geh<&ouml>rt, dass es einen alten Alchemisten namens Gundalf geben soll, der im alten Gef<&auml>ngnisturm im S<&uuml>dwesten ein Labor hat."
+          - WAIT 5
+          - CHAT "Es hei<&chr[00DF]>t, er habe diesen Ort wegen der seltenen Pilze dort gew<&auml>hlt und die H<&ouml>hle sei von ihm verflucht worden, aber das ist sicher nur albernes Geschw<&auml>tz."
+          - WAIT 6
+          - CHAT "Dennoch solltet Ihr vorsichtig dort unten sein!"
+          - WAIT 3
+          - CHAT "Dieser alte Alchemist soll angeblich ein Rezept f<&uuml>r einen Schlaftrunk kennen, dass meine Probleme sofort l<&ouml>sen k<&ouml>nnte."
+          - WAIT 5
+          - CHAT "Aber wie schon gesagt, ich kann meinen Wachposten unm<&ouml>glich verlassen, ohne mit der K<&uuml>ndigung rechnen zu m<&uuml>ssen..."
+          - WAIT 5
+          - CHAT "Ich wage es nicht, meinen Posten zu verlassen, nicht f<&uuml>r ein simples Ger<&uuml>cht, auch wenn es sich hartn<&auml>ckig halten mag."
+          - WAIT 5
+          - CHAT "Da Ihr mir nun jedoch helfen wollt, kann ich wieder frohe Mutes sein. Ihr tut mir einen echten Gefallen."
+          - WAIT 5
+          - CHAT "Selbstverst<&auml>ndlich sollt Ihr auch entsprechend belohnt werden, aber dar<&uuml>ber sprechen wir, wenn ihr mir den Trunk bringt."
+          - WAIT 5
+          - CHAT "Solltet Ihr erfolgreich sein, st<&uuml>nde ich tief in Eurer Schuld. Viel Erfolg, auf Eurer Reise."
+          - ^FLAG player 'Dungeon_Pilzhoehle_Liste:->:Tempelwache'
+          - ^FLAG player 'AktiveQuests:->:Die Turmruine'
+          - NARRATE format:quest_given "Die Turmruine"
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/, tut mir Leid. Ich bin besch<&auml>ftigt."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Das ist in der Tat bedauerlich. Aber wenn Ihr besch<&auml>ftigt seid, kann man nichts machen."
+          - WAIT 4
+          - CHAT "Solltet Ihr doch noch Eure Meinung <&auml>ndern, so wisst Ihr ja, wo Ihr mich findet."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Ja|Nein'
+          - NARRATE format:trigger ""
+          - ^ZAP 3
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Habt Ihr es Euch doch noch <&uuml>berlegt? Ich br<&auml>uchte in dieser Sache wirklich Eure Hilfe."
+        - WAIT 4
+        - CHAT "Kann ich auf Eure Unterst<&uuml>tzung hoffen?"
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Der Gef<&auml>ngnisturm befindet sich im S<&uuml>dwesten Iturias, bei der Brodembucht. Er ist recht verfallen und es war seit ewigkeiten niemand mehr dort."
+        - WAIT 6
+        - CHAT "Ihr werdet ihn schon finden. <&Uuml>ber den Alchemisten wei<&chr[00DF]> jedoch nicht allzu viel..."
+        - DISENGAGE
+#   Questablschluss, Auftraggeber: Tempelwache, 1. Durchlauf
+    5:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ah, <player.name>, Ihr seid wieder da. Und wie ich sehe ward Ihr erfolgreich!"
+        - WAIT 4
+        - CHAT "Ich habe schon angefangen mir Sorgen zu machen. Aber Ihr seid wohlauf und das freut mich sehr!"
+        - WAIT 4
+        - NARRATE format:item_taken "<&b>den <&d>Schlaftrank"
+        - WAIT 3
+        - NARRATE "<&b>Die Tempelwache nippt an dem Trank und wird pl<&ouml>tzlich ganz schl<&auml>frig."
+        - WAIT 3
+        - CHAT "Uuuaaahhh *g<&auml>hn*... Das war keine gute Idee... immerhin wei<&chr[00DF]> ich jetzt, dass der Trank auch funktioniert..."
+        - WAIT 5
+        - NARRATE format: emote "g<&auml>hnt herzhaft"
+        - WAIT 3
+        - CHAT "Hier, bevor ich noch einschlafe... Das ist ein Meisterwerk des Kartenzeichners Bahrim. Es ist eine echte Rarit<&auml>t. Ich hoffe es gef<&auml>llt Euch."
+        - WAIT 6
+        - RANDOM {
+          - GIVE 358:5
+          - GIVE 358:6
+          }
+        - NARRATE format:item_given "<&b>eine alte <&d>Karte"
+        - WAIT 2
+        - CHAT "Schick, nicht war? Es w<&auml>re <&uuml>brigens klasse, wenn Ihr mir noch einige Flaschen Schlaftrank bringen k<&ouml>nntet."
+        - WAIT 5
+        - CHAT "Wann immer Ihr Zeit habt versteht sich und Ihr sollt nat<&uuml>rlich auch belohnt werden, auch wenn ich leider keine weiteren Karten f<&uuml>r Euch habe."
+        - WAIT 6
+        - CHAT "Ich stehe tief in Eurer Schuld <player.name>. Gehabt Euch wohl!"
+        - ^FLAG player 'Dungeon_Pilzhoehle_Liste:!'
+        - ^FLAG PLAYER 'AktiveQuests:<-:Die Turmruine'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Die Turmruine' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Die Turmruine'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - NARRATE format:quest_complete "Die Turmruine"
+        - COOLDOWN duration:24h 'script:Dungeon_Pilzhoehle_Tempelwache'
+        - ^ZAP 3 s@Dungeon_Pilzhoehle_Gundalf
+        - ^ZAP 6
+        - DISENGAGE
+# Questvergabe, Auftraggeber: Tempelwache, Folgedurchläufe
+    6:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hallo <player.name>! Sch<&ouml>n Euch wiederzusehen!"
+        - WAIT 3
+        - CHAT "Ihr h<&auml>ttet nicht zuf<&auml>llig wieder etwas Zeit f<&uuml>r mich? Ich habe meinen Schlaftrank schon aufgebraucht und nun werde ich erneut von schlaflosen N<&auml>chten geplagt."
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    7:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/, nat<&uuml>rlich helfe ich Euch."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Das freut mich zu h<&ouml>ren! Ihr wisst ja inzwischen, wo Ihr den Gef<&auml>ngnisturm und den Alchemisten findet, oder?"
+          - WAIT 4
+          - CHAT "Selbstverst<&auml>ndlich sollt Ihr auch entsprechend belohnt werden, aber dar<&uuml>ber sprechen wir, wenn ihr mir den Trunk bringt."
+          - WAIT 5
+          - CHAT "Solltet Ihr erfolgreich sein, st<&uuml>nde ich tief in Eurer Schuld. Viel Erfolg, auf Eurer Reise."
+          - ^FLAG player 'Dungeon_Pilzhoehle_Liste:->:Tempelwache'
+          - ^FLAG player 'AktiveQuests:->:Die Turmruine'
+          - NARRATE format:quest_given "Die Turmruine"
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/, tut mir Leid. Ich bin besch<&auml>ftigt."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Das ist in der Tat bedauerlich. Aber wenn Ihr besch<&auml>ftigt seid, kann man nichts machen."
+          - WAIT 4
+          - CHAT "Solltet Ihr doch noch Eure Meinung <&auml>ndern, so wisst Ihr ja, wo Ihr mich findet."
+          - ^ZAP 7
+          - DISENGAGE
+#   Questablschluss, Auftraggeber: Egal, Folgedurchläufe
+    8:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ah, <player.name>, Ihr seid wieder da. Und wie ich sehe ward Ihr erfolgreich!"
+        - WAIT 4
+        - CHAT "Ich habe schon angefangen mir Sorgen zu machen. Aber Ihr seid wohlauf und das freut mich sehr!"
+        - WAIT 4
+        - NARRATE format:item_taken "<&b>den <&d>Schlaftrank"
+        - WAIT 3
+        - NARRATE "<&b>Die Tempelwache nippt an dem Trank und wird pl<&ouml>tzlich ganz schl<&auml>frig."
+        - WAIT 3
+        - CHAT "Uuuaaahhh *g<&auml>hn*... Das war keine gute Idee... aber immerhin wei<&chr[00DF]> ich jetzt, dass der Trank auch funktioniert..."
+        - WAIT 5
+        - NARRATE format: emote "g<&auml>hnt herzhaft"
+        - WAIT 3
+        - CHAT "Hier, bevor ich noch einschlafe... Das ist ein Teil meines Lohns. Ich hoffe es gef<&auml>llt Euch."
+        - WAIT 6
+        - ^FLAG npc items:!
+        - ^FLAG npc 'items:|:64 Eisenbarren|16 Diamanten|4 Smaragde'
+        - NARRATE format:items_given ""
+        - GIVE 265 QTY:64
+        - GIVE 264 QTY:16
+        - GIVE 388 QTY:4
+        - WAIT 2
+        - CHAT "Es w<&auml>re <&uuml>brigens klasse, wenn Ihr mir noch einige Flaschen Schlaftrank bringen k<&ouml>nntet."
+        - WAIT 4
+        - CHAT "Wann immer Ihr Zeit habt versteht sich und Ihr sollt nat<&uuml>rlich auch belohnt werden"
+        - WAIT 4
+        - CHAT "Ich stehe tief in Eurer Schuld <player.name>. Gehabt Euch wohl!"
+        - ^FLAG player 'Dungeon_Pilzhoehle_Liste:!'
+        - ^FLAG PLAYER 'AktiveQuests:<-:Die Turmruine'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Die Turmruine' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Die Turmruine'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - NARRATE format:quest_complete "Die Turmruine"
+        - COOLDOWN duration:24h 'script:Dungeon_Pilzhoehle_Tempelwache'
+        - ^ZAP 6
+        - DISENGAGE
+#   Questablschluss, Auftraggeber: Neugier, 1. Durchlauf
+    9:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Hey <player.name>, was habt Ihr da? Ist das etwa ein Trank?"
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - NARRATE format:answer "Ja genau, Gundalf der Alchemist meinte, Ihr w<&uuml>rdet nach einem Schlaftrank suchen."
+        - WAIT 4
+        - CHAT "Gundalf? Ihr meint den Alchemisten, der im alten Gef<&auml>ngnisturm lebt, oder?"
+        - WAIT 4
+        - CHAT "Es stimmt, ich suche nach einem Schlaftrank. Dann wart Ihr also bei Gundalf und er hat Euch einen Trunk f<&uuml>r mich mitgegeben?"
+        - WAIT 6
+        - CHAT "Scheint ein freundlicher Alchemist zu sein... Oh, aber, ich sollte Euch entlohnen, immerhin habt Ihr mir einen gro<&chr[00DF]>en Gefallen getan."
+        - WAIT 6
+        - CHAT "Das hier ist ein Meisterwerk des Kartenzeichners Bahrim. Es ist eine echte Rarit<&auml>t. Ich hoffe es gef<&auml>llt Euch."
+        - WAIT 5
+        - RANDOM {
+          - GIVE 358:5
+          - GIVE 358:6
+          }
+        - NARRATE format:item_given "<&b>eine alte <&d>Karte"
+        - WAIT 2
+        - CHAT "Schick, nicht war? Es w<&auml>re <&uuml>brigens klasse, wenn Ihr mir noch einige Flaschen Schlaftrank bringen k<&ouml>nntet."
+        - WAIT 5
+        - CHAT "Wann immer Ihr Zeit habt versteht sich und Ihr sollt nat<&uuml>rlich auch belohnt werden, auch wenn ich leider keine weiteren Karten f<&uuml>r Euch habe."
+        - WAIT 6
+        - CHAT "Ich stehe tief in Eurer Schuld <player.name>. Gehabt Euch wohl!"
+        - - ^FLAG PLAYER 'AktiveQuests:<-:Die Turmruine'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Die Turmruine' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Die Turmruine'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - NARRATE format:quest_complete "Die Turmruine"
+        - COOLDOWN duration:24h 'script:Dungeon_Pilzhoehle_Tempelwache'
+        - ^ZAP 3 s@Dungeon_Pilzhoehle_Gundalf
+        - ^ZAP 1
+        - DISENGAGE
+
+Dungeon_Pilzhoehle_Gundalf:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Die Turmruine]>]:Die Turmruine'
+  Steps:
+#   Auftraggeber: Tempelwache, 1. Durchlauf
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - ENGAGE
+          - NARRATE "<&b>Gundalf mustert Euch eindringlich w<&auml>hrend er etwas glitzerndes in einen sch<&auml>umenden Kessel gibt, der daraufhin zu zischen beginnt."
+          - IF <player.flag[Dungeon_Pilzhoehle_Liste].as_list> !contains Tempelwache {
+              -^ZAP 4
+              }
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Sagt nichts! Ihr wurdet geschickt... etwas zu holen..."
+        - WAIT 3
+        - NARRATE "<&b>Der Kesselinhalt beginnt stark zu blubbern, das Zischen wird lauter."
+        - WAIT 4
+        - CHAT "Ich sehe einen kleinen Mann... eine Wache! Und ein Getr<&auml>nk... Nein! Einen Trank!..."
+        - WAIT 4
+        - NARRATE "<&b>Das Zischen des Kessels ist nun ohrenbet<&auml>ubend. Ihr versteht kaum noch, was Gundalf Euch sagen will."
+        - WAIT 4
+        - CHAT "... sehe... Auftrag... Liefer..."
+        - WAIT 2
+        - NARRATE "<&b>Gundalf wendet sich zum Kessel um, gibt ein leuchtend rotes Pulver hinzu, worauf sich der Inhalt beruhigt und das Zischen langsam abnimmt."
+        - WAIT 5
+        - CHAT "Soo, das ist besser. Also <player.name>, Ihr seid also gekommen um der Tempelwache einen Schlaftrank zu bringen..."
+        - WAIT 4
+        - CHAT "Ihr braucht gar nicht so zu gucken. Ich bin nicht nur Alchemist, sondern auch Hellseher m<&uuml>sst Ihr wissen."
+        - WAIT 4
+        - CHAT "Aber wo sind meine Manieren... Mein Name ist Gundalf und ich betreibe hier mein Alchemielabor."
+        - WAIT 4
+        - CHAT "So will ich Euch auch nicht l<&auml>nger aufhalten. Hier, bringt das dem armen Mann."
+        - WAIT 3
+        - NARRATE format:item_given "<&b>eine Flasche gef<&uuml>llt mit einem <&d>Schlaftrank"
+        - WAIT 3
+        - CHAT "Nehmt doch die T<&uuml>r hier, das ist k<&uuml>rzer. Die Kombination f<&uuml>r die Kn<&ouml>pfe m<&uuml>sst ihr Euch allerdings selbst erarbeiten!"
+        - WAIT 5
+        - CHAT "Dann also auf Wiedersehen junger Freund... Oh ja, es wird ein Wiedersehen geben..."
+#       - SPAWN n@Darheen -174,93,44,world
+        - ^FLAG player Dungeon_Pilzhoehle_Liste:->:Gundalf
+        - ^ZAP step:5 s@Dungeon_Pilzhoehle_Tempelwache
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - CHAT "Ihr solltet nicht tr<&ouml>deln, die Tempelwache erwartet Euch sicher. Und f<&uuml>r die T<&uuml>r gibt es keine Tipps! So lernt Ihr etwas dazu."
+#   Auftraggeber: Egal, Folgedurchläufe
+    3:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - NARRATE "<&b>Gundalf mustert Euch eindringlich."
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ihr seid also zur<&uuml>ckgekehrt <player.name>, welch eine Freude."
+        - WAIT 3
+        - CHAT "Hier ist der Schlaftrank, den Ihr ben<&ouml>tigt."
+        - WAIT 2
+        - NARRATE format:item_given "<&b>eine Flasche gef<&uuml>llt mit einem <&d>Schlaftrank"
+        - WAIT 3
+        - CHAT "Nehmt doch die T<&uuml>r hier, das ist k<&uuml>rzer. Die Kombination f<&uuml>r die Kn<&ouml>pfe m<&uuml>sstet Ihr eigentlich noch kennen."
+        - WAIT 5
+        - CHAT "Dann also auf Wiedersehen junger Freund."
+#       - SPAWN n@Darheen -174,93,44,world
+        - ^FLAG player Dungeon_Pilzhoehle_Liste:->:Gundalf
+        - ^ZAP step:8 s@Dungeon_Pilzhoehle_Tempelwache
+        - ^ZAP 2
+        - DISENGAGE
+#   Auftraggeber: Neugier, 1. Durchlauf
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Sagt nichts! Ihr ben<&ouml>tigt etwas, nein jemand anderes ben<&ouml>tigt etwas..."
+        - WAIT 3
+        - NARRATE "<&b>Der Kesselinhalt beginnt stark zu blubbern, das Zischen wird lauter."
+        - WAIT 4
+        - CHAT "Ich sehe einen kleinen Mann... eine Wache! Und ein Getr<&auml>nk... Nein! Einen Trank!..."
+        - WAIT 4
+        - NARRATE "<&b>Das Zischen des Kessels ist nun ohrenbet<&auml>ubend. Ihr versteht kaum noch, was Gundalf Euch sagen will."
+        - WAIT 4
+        - CHAT "... sehe... Wache... Hilfe..."
+        - WAIT 2
+        - NARRATE "<&b>Gundalf wendet sich zum Kessel um, gibt ein leuchtend rotes Pulver hinzu, worauf sich der Inhalt beruhigt und das Zischen langsam abnimmt."
+        - WAIT 5
+        - CHAT "Soo, das ist besser. Also <player.name>, Ihr solltet diesen Schlaftrank zur Tempelwache bringen. Sie wird es Euch danken."
+        - WAIT 4
+        - CHAT "Ihr braucht gar nicht so zu gucken. Ich bin nicht nur Alchemist, sondern auch Hellseher m<&uuml>sst Ihr wissen."
+        - WAIT 4
+        - CHAT "Aber wo sind meine Manieren... Mein Name ist Gundalf und ich betreibe hier mein Alchemielabor."
+        - WAIT 4
+        - CHAT "So will ich Euch auch nicht l<&auml>nger aufhalten. Hier, bringt das dem armen Mann."
+        - WAIT 3
+        - NARRATE format:item_given "<&b>eine Flasche gef<&uuml>llt mit einem <&d>Schlaftrank"
+        - WAIT 3
+        - CHAT "Nehmt doch die T<&uuml>r hier, das ist k<&uuml>rzer. Die Kombination f<&uuml>r die Kn<&ouml>pfe m<&uuml>sst ihr Euch allerdings selbst erarbeiten!"
+        - WAIT 5
+        - CHAT "Dann also auf Wiedersehen junger Freund... Oh ja, es wird ein Wiedersehen geben..."
+#       - SPAWN n@Darheen -174,93,44,world
+        - ^FLAG player Dungeon_Pilzhoehle_Liste:->:Gundalf
+        - ^ZAP step:9 s@Dungeon_Pilzhoehle_Tempelwache
+        - ^ZAP 2
+        - DISENGAGE

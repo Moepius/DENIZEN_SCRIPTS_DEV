@@ -1,0 +1,573 @@
+Dungeon_Kuchencanyon_Vlad_Finster:
+  type: Interact
+  debug: false
+  requirements:
+    mode: all
+    list:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Die alte Villa]>]:Die alte Villa'
+#   - PERMISSION d.dungeon
+  Steps:
+#   Questvergabe, Auftraggeber: Vlad
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Guten Abend mein Kind, Ihr m<&ouml>gt doch sicherlich <&uuml>ber die Zeit verf<&uuml>gen, einem kranken alten Mann bei einer etwas heiklen Angelegenheit auszuhelfen?"
+        - WAIT 7
+        - CHAT "Doch bevor ich Euch genau benennen kann, was zu tun ist, muss ich wohl oder <&uuml>bel die Hintergr<&uuml>nde erl<&auml>utern."
+        - WAIT 5
+        - CHAT "Es ist n<&auml>mlich so, dass diese Sache tats<&auml>chlich sehr, sehr heikler Natur ist."
+        - WAIT 4
+        - CHAT "Es w<&auml>re h<&ouml>chst unversch<&auml>mt, wenn nicht geradezu b<&ouml>sartig, Euch die Hintergr<&uuml>nde dieser Unternehmung nicht hinreichend bekannt zu machen."
+        - WAIT 6
+        - CHAT "Ich hoffe, dass ich mich jetzt nicht allzu sehr aufdr<&auml>nge, doch m<&ouml>chte ich gerne erfahren, ob ich auf Euch z<&auml>hlen kann."
+        - IF <player.groups.as_list.contains[Free_01]> {
+            - WAIT 6
+            - NARRATE "<&b>Quests sind rein optional. Als Bewerber solltet Ihr nicht vergessen Euer Haus auf Ituria zu bauen."
+            }
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/, ich helfe doch gerne."
+          Script:
+          - ENGAGE
+          - CHAT "Ganz hervorragend. Ich wusste doch, dass ich einen t<&uuml>chtigen Menschen vor mir habe."
+          - WAIT 4
+          - CHAT "Die Aufgabe, die ich Euch nun mit auf den Weg geben werde, wird sich vielleicht erst mal einfach anh<&ouml>ren, doch wird sie dies nicht sein."
+          - WAIT 6
+          - CHAT "Grob gesprochen m<&ouml>chte ich, dass ihr einen Gegenstand, eine Flasche mitsamt des Inhalts, aus der Villa im Nordwesten dieses h<&uuml>bschen Eilands bergt."
+          - WAIT 6
+          - CHAT "Die Flasche sollte sollte unschwer zu erkennen sein, denn es handelt sich um eine besondere Spezialit<&auml>t meiner Heimat, derer ich nur allzu gern habhaft werden w<&uuml>rde."
+          - WAIT 7
+          - CHAT "Um die Umst<&auml>nde etwas genauer zu schildern, muss ich Euch nat<&uuml>rlich erkl<&auml>ren, dass es sich bei dieser Heimat um Bluchenfels handelt."
+          - WAIT 6
+          - CHAT "Ein Landstrich, der von vielen - und das zu gro<&chr[00DF]>em Unrecht - als r<&uuml>ckst<&auml>ndig und ignorant abgeurteilt wird."
+          - WAIT 5
+          - CHAT "Und bei besagtem Artefakt handelt es sich nat<&uuml>rlich um einen ganz besonderen Tropfen aus der Region... Bluchenfelser Seelensaft aus dem Jahrgang 2871 nach Adahn."
+          - WAIT 7
+          - CHAT "Ein wahrhaft g<&ouml>ttliches Getr<&auml>nk, wenngleich die Nasen hier allesamt meinten, es sei doch einfach ein Brand gewonnen aus K<&uuml>rbissen..."
+          - WAIT 6
+          - CHAT "Dem ist zwar tats<&auml>chlich so, doch es ist wahrhaft ein herrliches Zeug."
+          - WAIT 4
+          - CHAT "Aber genug davon, Ihr seid nun schlie<&chr[00DF]>lich hier, um Euch mit Eurer Arbeit bekannt zu machen und nicht, um meinem Geschwafel zu lauschen."
+          - WAIT 6
+          - CHAT "Ach ja, dies habe ich ganz vergessen Euch zu sagen, obgleich ich dies doch gleich zu Anfang erw<&auml>hnen wollte:"
+          - WAIT 5
+          - CHAT "Diese Aktion ist nat<&uuml>rlich legal und das sogar vollends."
+          - WAIT 3
+          - CHAT "Ich habe in meiner Vergangenheit durchaus Aktionen geplant und auch durchgef<&uuml>hrt, die man als krumme Dinge bezeichnen k<&ouml>nnte..."
+          - WAIT 5
+          - CHAT "Doch ist diese Sache etwas g<&auml>nzlich anderes, denn die Villa, aus der Ihr dieses Objekt bergen sollt, ist in meinem Besitz."
+          - WAIT 5
+          - CHAT "Ich habe sie neulich, bedingt durch das <&uuml>berraschende Ableben meines Bruders, meinen Besitzt<&uuml>mern hinzuf<&uuml>gen k<&ouml>nnen und bin nach Ituria gereist, um diesen Wohnsitz zu inspizieren."
+          - WAIT 8
+          - CHAT "Doch musste ich feststellen, und ich wei<&chr[00DF]>, dass dies dem Klischee eines Bluchenfelsers entspricht, dass es dort nicht mit rechten Dingen zugeht."
+          - WAIT 6
+          - CHAT "Ich habe mich zwar einige Zeit dort aufhalten k<&ouml>nnen, doch dann, dann packte mich das bare Grauen und ich nahm meine Beine in die Hand..."
+          - WAIT 6
+          - CHAT "Wirklich daran entsinnen mag ich mich nicht, doch w<&auml>re es nicht meiner Art, Euch nicht vorzuwarnen."
+          - WAIT 4
+          - CHAT "Als ich mich in diesem Haus aufhielt, wirkte es dort erst recht normal."
+          - WAIT 3
+          - CHAT "Doch nach einiger Zeit beschlich mich eine K<&auml>lte, die nach und nach meinen ganzen K<&ouml>rper einnahm und au<&chr[00DF]>erdem glaubte ich Stimmen wahrzunehmen, Kinderstimmen."
+          - WAIT 7
+          - NARRATE "f<&auml>ngt an zu zittern"
+          - WAIT 2
+          - CHAT "Erst als ein Raunen und leises, doch unnachgiebiges Fl<&uuml>stern und schlie<&chr[00DF]>lich spitze Schreie, die mich fast ohnm<&auml>chtig werden lie<&chr[00DF]>en."
+          - WAIT 6
+          - CHAT "Ich werde aufgrund dieser Umst<&auml>nde das Haus nicht mehr betreten, doch w<&auml>re meine Reise m<&uuml><&chr[00DF]>ig gewesen, wenn ich ohne das besagte Getr<&auml>nk zur<&uuml>ckkehren w<&uuml>rde."
+          - WAIT 7
+          - CHAT "Aber da Ihr Euch nun dazu anschickt, die Besorgung zu erledigen, muss ich mir diesbez<&uuml>glich keine Sorgen mehr machen, nicht wahr!"
+          - WAIT 6
+          - CHAT "Solltet Ihr noch Fragen haben, werde ich sie Euch soweit erl<&auml>utern, wie denn mein Schatz an wissen ausreicht, dies zu tun."
+          - WAIT 6
+          - NARRATE "Rechtsklickt <&a>Vlad Finster <&b> um weitere Informationen zu erhalten."
+          - WAIT 4
+          - ^FLAG player Dungeon_Kuchencanyon_Liste:->:Vlad
+          - ^FLAG player 'AktiveQuests:->:Die alte Villa'
+          - NARRATE format:quest_given "Die alte Villa"
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/, tut mir Leid. Ich bin besch<&auml>ftigt."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Das ist in der Tat bedauerlich. Aber wenn Ihr besch<&auml>ftigt seid, kann man nichts machen."
+          - WAIT 4
+          - CHAT "Solltet Ihr doch noch Eure Meinung <&auml>ndern, so wisst Ihr ja, wo Ihr mich findet."
+          - ^ZAP 3
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Habt Ihr es Euch doch noch <&uuml>berlegt? Ich br<&auml>uchte in dieser delikaten Angelegenheit wirklich Eure Hilfe."
+        - WAIT 4
+        - CHAT "Kann ich auf Eure Unterst<&uuml>tzung hoffen?"
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Habt Ihr noch weitere Fragen?"
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Villa|Bruder|Umst<&auml>nde|Getr<&auml>nk|Nein'
+        - NARRATE format:trigger ""
+        - DISENGAGE
+      Chat Trigger:
+        1:
+          Trigger: "Wo befindet sich diese /Villa/ nochmal?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Die Villa, die ich in j<&uuml>ngster Zeit durch unselige Umst<&auml>nde meinen Besitzt<&uuml>mern angiedern konnte, befindet sich im Nordwesten des Eilands."
+          - WAIT 6
+          - CHAT "Sie ist recht... signifikant. Ihr solltet sie auf jeden Fall schon von weitem erkennen k<&ouml>nnen."
+          - WAIT 4
+          - CHAT "Bitte wundert Euch nicht <&uuml>ber den etwas verbesserungsw<&uuml>rdigen Zustand der Immobilie. Mein Bruder war ein etwas unorthodoxer Mensch."
+          - WAIT 6
+          - CHAT "Eine Renovierung oder <&auml>hnliche Aktion erscheinen mir derzeit - und das vor allem dann, wenn man die Lage in betracht zieht - etwas m<&uuml><&chr[00DF]>ig."
+          - WAIT 6
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Villa|Bruder|Umst<&auml>nde|Getr<&auml>nk|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "Erz<&auml>hlt mir doch etwas von Eurem /Bruder/."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Mein Bruder, Franz Finster, war eine etwas unstete Person mit einem Hang zur Raffgier und Prahlerei."
+          - WAIT 4
+          - CHAT "Er war durch den Handel mit allerlei Waren reich geworden und wird sich wohl auch nicht gescheut haben, Schmuggel zu betreiben."
+          - WAIT 5
+          - CHAT "Wie dem auch sei, er lie<&chr[00DF]> sich irgendwann auf dieser Insel nieder, kaufte sich die Ruine eines alten Waisenhauses und baute seine Villa dar<&uuml>ber."
+          - WAIT 6
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Villa|Bruder|Umst<&auml>nde|Getr<&auml>nk|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "K<&ouml>nntet Ihr mir nochmals die /Umst<&auml>nde/ beschreiben, die Euch in der Villa wiederfahren sind?"
+          Script:
+          - ENGAGE
+          - WAIT 4
+          - CHAT "Das mache ich sehr ungern, doch solltet Ihr schon wissen, womit Ihr es zu tun haben werdet."
+          - WAIT 4
+          - CHAT "Als ich mich dorthin begab, schien sich schon meine Laune zu verd<&uuml>stern, doch schob ich dies auf mein Alter, dass mir ab und an schon Schwierigkeiten macht."
+          - WAIT 6
+          - CHAT "Als ich dann schlie<&chr[00DF]>lich das hohe Haus betrat, verst<&auml>rkte sich diese Ahnung, doch ging ich zun<&auml>chst noch nicht davon aus, dass irgendetwas komisch sei."
+          - WAIT 6
+          - CHAT "Dann aber, als ich mich schlie<&chr[00DF]>lich zum Keller wandte, da ich feststellen musste, dass sich die Flasche unm<&ouml>glich auf den oberen Ebenen des Geb<&auml>udes befinden konnte, kam ich in Bedr<&auml>ngnis..."
+          - WAIT 8
+          - CHAT "Mich nahm eine gespenstische K<&auml>lte ein und ich glaubte leise Stimmen zu h<&ouml>ren, die den Stimmen von Kindern durchaus nicht un<&auml>hnlich waren."
+          - WAIT 6
+          - CHAT "Ich f<&uuml>hlte mich in meiner Bewegung immer eingeschr<&auml>nkter, bis ich schlie<&chr[00DF]>lich starr stand und voller Grauen dem immer lauter werdendem Orchester geisterhafter Laute lauschen musste."
+          - WAIT 8
+          - CHAT "Als sich eine der Stimmen schlie<&chr[00DF]>lich zum hellen Schrei erhob, vermochte ich mich aus der Starre zu befreien und st<&uuml>rzte zitternd aus dem Haus."
+          - WAIT 6
+          - CHAT "Nochmal were ich dieses Gem<&auml>uer bestimmt nicht aufsuchen!"
+          - WAIT 3
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Villa|Bruder|Umst<&auml>nde|Getr<&auml>nk|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        4:
+          Trigger: "Dieses /Getr<&auml>nk/, was hat es damit auf sich?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Es handelt sich dabei nicht einfach um irgendein Getr<&auml>nk, sondern um eine Flasche eines legend<&auml>ren Jahrgangs eines legend<&auml>ren Tropfens!"
+          - WAIT 6
+          - CHAT "Ihr m<&ouml>gt das vielleicht nicht so ganz nachvollziehen k<&ouml>nnen, doch sei Euch versichert, dass es die M<&uuml>he auf jeden Fall wert sein wird, dieses Artefakt zu bergen."
+          - WAIT 7
+          - CHAT "Habt Ihr noch weitere Fragen?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Villa|Bruder|Umst<&auml>nde|Getr<&auml>nk|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        5:
+          Trigger: "/Nein/, das ist alles, was ich wissen muss. Ich werde mich nun auf den Weg machen."
+          Script:
+          - ENGAGE
+          - WAIT 4
+          - CHAT "Sehr gut, solltet Ihr dennoch feststellen, dass Ihr noch weitere Fragen offen habt, k<&ouml>nnt Ihr mich gerne wieder aufsuchen."
+          - WAIT 5
+          - CHAT "Es w<&auml>re schlie<&chr[00DF]>lich alles andere als korrekt, Euch ahnungslos loszuschicken."
+          - WAIT 4
+          - CHAT "Gehabt Euch wohl und viel Erfolg!"
+          - DISENGAGE
+#   Questabschluss, Auftraggeber: Vlad, 1. Durchlauf
+    5:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - IF <player.flag[Dungeon_Kuchencanyon_Liste].as_list> !contains Vlad {
+              - CHAT "Hmmm, dieser Geruch... Das kann doch nur... Bluchenfelser Seelensaft sein?!..."
+#             Questabschluss, Auftraggeber: Neugier, 1. Durchlauf
+              - ^ZAP 9
+              }
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Willkommen zur<&uuml>ck! Ich nehme an, Ihr habt mir meinen kostbaren Seelensaft gebracht?"
+        - WAIT 4
+        - NARRATE format:answer "In der Tat, ich konnte eine Falsche in meinen Besitz bringen."
+        - WAIT 4
+        - CHAT "Hervorragend, wahrlich hervorragend. Ich muss an dieser Stelle zugeben, dass ich schon davon ausging, Euch sei etwas zugesto<&chr[00DF]>en."
+        - WAIT 6
+        - NARRATE format:item_taken "<&b>die Flasche <&b>Bluchenfelser Seelensaft"
+        - WAIT 3
+        - CHAT "Umso beruhigter bin ich, dass dem nicht so ist... aber was meint Ihr eigentlich mit '<&f>eine Flasche<&b>'? Gibt es dort etwa noch mehr?"
+        - WAIT 6
+        - CHAT "Dann w<&auml>re es in der Tat schade, sie dort verkommen zu lassen. H<&auml>ttet Ihr sie nicht alle mitbringen k<&ouml>nnen?"
+        - WAIT 5
+        - CHAT "Oh, verzeit mir, nat<&uuml>rlich bin ich Euch f<&uuml>r Eure M<&uuml>he dankbar. Ich habe einiges aus der Villa retten k<&ouml>nnen, ehe ich das weite suchen musste."
+        - WAIT 6
+        - CHAT "Dies hier ist ein echtes Sammlerst<&uuml>ck, das ich von dort habe mitgehen lassen. Es handelt sich wohl um eine Art Wappen."
+        - WAIT 5
+        - NARRATE format:item_given "<&b>ein kunstvolles <&d>Wappen"
+        - RANDOM {
+          - GIVE 358:8
+          - GIVE 358:9
+          }
+        - WAIT 2
+        - CHAT "Es ist zwar etwas angestaubt, aber ich hoffe dennoch, Ihr erfreut Euch an diesem Schmuckst<&uuml>ck."
+        - WAIT 4
+        - CHAT "Dennoch w<&auml>re es sch<&ouml>n gewesen, h<&auml>ttet Ihr ein paar Flaschen mehr mitgebracht, aber das k<&ouml>nnt Ihr ja immer noch nachholen."
+        - WAIT 5
+        - CHAT "Ich k<&ouml>nnte Euch zwar kein zweites Wappen, aber einige andere Kostbarkeiten anbieten, derer ich in der Villa habhaft werden konnte."
+        - WAIT 5
+        - CHAT "Seid meines Dankes und meiner Gunst gewiss, doch werde ich mich nun etwas eingehender mit diesem Gef<&auml><&chr[00DF]> besch<&auml>ftigen m<&uuml>ssen, entschuldigt diese Unh<&ouml>flichkeit."
+        - WAIT 6
+        - CHAT "Ich w<&uuml>nsche Euch einen sch<&ouml>nen Abend."
+        - WAIT 3
+        - ^FLAG player 'Dungeon_Kuchencanyon_Liste:!'
+        - ^FLAG player 'AktiveQuests:<-:Die alte Villa'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Die alte Villa' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Die alte Villa'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - NARRATE format:quest_complete "Die alte Villa"
+        - ^COOLDOWN duration:24h 'script:Dungeon_Kuchencanyon_Vlad_Finster'
+        - ^ZAP step:3 s@Dungeon_Kuchencanyon_Hugo
+        - ^ZAP 6
+        - DISENGAGE
+#   Questvergabe, Auftraggeber: Vlad, Folgedurchläufe
+    6:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Oh, Ihr seid es wieder, mein junger Freund. K<&ouml>nntet Ihr mir vielleicht noch eine Flasche Bluchenfelser Seelensaft aus meiner Villa besorgen?"
+        - WAIT 6
+        - CHAT "Dieses Gebr<&auml>u ist wahrhaftig einzigartig und es w<&auml>re zu schade, wenn es dort verkommen w<&uuml>rde."
+        - IF <player.groups.as_list.contains[Free_01]> {
+            - WAIT 5
+            - NARRATE "<&b>Quests sind rein optional. Als Bewerber solltet Ihr nicht vergessen Euer Haus auf Ituria zu bauen."
+            }
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+        - ^ZAP 7
+        - DISENGAGE
+    7:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/, ich helfe doch gerne."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Ganz hervorragend. Ich wusste doch, dass ich auf Euch z<&auml>hlen kann."
+          - WAIT 4
+          - CHAT "Ihr m<&uuml>sstet inzwischen wissen, wo meine Villa zu finden ist und im Keller scheint Ihr Euch ja inzwischen auch gut auszukennen."
+          - WAIT 5
+          - CHAT "Gehabt Euch wohl und viel Erfolg."
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "/Nein/, tut mir Leid. Ich bin besch<&auml>ftigt."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Das ist in der Tat bedauerlich. Aber wenn Ihr besch<&auml>ftigt seid, kann man nichts machen."
+          - WAIT 4
+          - CHAT "Solltet Ihr doch noch Eure Meinung <&auml>ndern, so wisst Ihr ja, wo Ihr mich findet."
+          - ^ZAP 6
+          - DISENGAGE
+#   Questabschluss, Auftraggeber: Egal, Folgedurchläufe
+    8:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Willkommen zur<&uuml>ck! Ich nehme an, Ihr habt mir meinen kostbaren Seelensaft gebracht?"
+        - WAIT 4
+        - NARRATE format:answer "In der Tat, ich konnte eine Falsche in meinen Besitz bringen."
+        - WAIT 4
+        - CHAT "Hervorragend, wahrlich hervorragend. Ich muss an dieser Stelle zugeben, dass ich schon davon ausging, Euch sei etwas zugesto<&chr[00DF]>en."
+        - WAIT 6
+        - NARRATE format:item_taken "<&b>die Flasche <&b>Bluchenfelser Seelensaft"
+        - WAIT 3
+        - CHAT "Umso beruhigter bin ich, dass dem nicht so ist."
+        - WAIT 3
+        - CHAT "Hier, das habt Ihr Euch wahrhaftig verdient."
+        - WAIT 3
+        - ^FLAG npc items:!
+        - ^FLAG npc 'items:|:64 Eisenbarren|16 Diamanten|4 Smaragde'
+        - NARRATE format:items_given ""
+        - GIVE 265 QTY:64
+        - GIVE 264 QTY:16
+        - GIVE 388 QTY:4
+        - WAIT 3
+        - CHAT "Seid meines Dankes und meiner Gunst gewiss, doch werde ich mich nun etwas eingehender mit diesem Gef<&auml><&chr[00DF]> besch<&auml>ftigen m<&uuml>ssen, entschuldigt diese Unh<&ouml>flichkeit."
+        - WAIT 6
+        - CHAT "Ich w<&uuml>nsche Euch einen sch<&ouml>nen Abend."
+        - WAIT 3
+        - ^FLAG player 'Dungeon_Kuchencanyon_Liste:!'
+        - ^FLAG player 'AktiveQuests:<-:Die alte Villa'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Die alte Villa' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Die alte Villa'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - NARRATE format:quest_complete "Die alte Villa"
+        - ^COOLDOWN duration:24h 'script:Dungeon_Kuchencanyon_Vlad_Finster'
+        - ^ZAP 6
+        - DISENGAGE
+#   Questabschluss, Auftraggeber: Neugier, 1. Durchlauf
+    9:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - NARRATE format:emote "schnuppert umher"
+        - WAIT 3
+        - CHAT "Jaaa, ich bin ganz sicher. Ihr habt doch nicht etwa?... Seid Ihr zuf<&auml>llig in der Villa im Nordwesten gewesen?"
+        - WAIT 4
+        - CHAT "Und habt Ihr dort dieses herrliche Artefakt geborgen? Die Villa ist n<&auml>mlich in meinem Besitz."
+        - WAIT 4
+        - CHAT "Jedoch wage ich es nicht mehr dort hineinzugehen. Nicht seit... jenem Vorfall..."
+        - WAIT 3
+        - CHAT "Jedenfalls w<&auml>re ich Euch sehr verbunden, wenn Ihr mir diese Flasche anvertrauen k<&ouml>nntet. Sie ist eine Flasche eines legend<&auml>ren Jahrgangs eines legend<&auml>ren Tropfens!"
+        - WAIT 7
+        - CHAT "Ihr sollt nat<&uuml>rlich belohnt werden. Zwar habt Ihr ungefragt meine Villa betreten, doch ich habe so lange nach diesem Schmuckst<&uuml>ck gesucht, da verzeihe ich Euch dies."
+        - WAIT 7
+        - CHAT "Dies hier ist ein echtes Sammlerst<&uuml>ck, das ich von dort habe mitgehen lassen. Es handelt sich wohl um eine Art Wappen."
+        - WAIT 5
+        - NARRATE format:item_given "<&b>ein kunstvolles <&d>Wappen"
+        - RANDOM {
+          - GIVE 358:8
+          - GIVE 358:9
+          }
+        - WAIT 2
+        - CHAT "Es ist zwar etwas angestaubt, aber ich hoffe dennoch, Ihr erfreut Euch an diesem Schmuckst<&uuml>ck."
+        - WAIT 4
+        - CHAT "Seid meines Dankes und meiner Gunst gewiss, doch werde ich mich nun etwas eingehender mit diesem Gef<&auml><&chr[00DF]> besch<&auml>ftigen m<&uuml>ssen, entschuldigt diese Unh<&ouml>flichkeit."
+        - WAIT 6
+        - CHAT "Ich w<&uuml>nsche Euch einen sch<&ouml>nen Abend."
+        - WAIT 3
+        - ^FLAG player 'AktiveQuests:<-:Die alte Villa'
+        - IF <player.flag[FertigeQuests].as_list> !contains 'Die alte Villa' {
+            - ^FLAG PLAYER 'FertigeQuests:->:Die alte Villa'
+            }
+        - ^FLAG PLAYER 'QuestCounter:++'
+        - NARRATE format:quest_complete "Die alte Villa"
+        - ^COOLDOWN duration:24h 'script:Dungeon_Kuchencanyon_Vlad_Finster'
+        - ^ZAP step:3 s@Dungeon_Kuchencanyon_Hugo
+        - ^ZAP 1
+        - DISENGAGE
+
+Dungeon_Kuchencanyon_Hugo:
+  type: Interact
+  debug: false
+  requirements:
+    mode: all
+    list:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Die alte Villa]>]:Die alte Villa'
+  Steps:
+#   Auftraggeber: Vlad, 1. Durchlauf
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Huuuuuiiiii, wer bist du? Was machst du im Waisenhaus Waisenberger?... Willst du mich etwa adoptieren?"
+          - WAIT 5
+          - NARRATE "<&b>Eine unheimliche Macht <&uuml>berf<&auml>llt Euch, Ihr versucht zu schreien, doch verm<&ouml>gt Ihr es nicht den Mund zu <&ouml>ffnen."
+#         Auftraggeber: Neugier, 1. Durchlauf
+          - IF <player.flag[Dungeon_Kuchencanyon_Liste].as_list> !contains Vlad {
+              -^ZAP 4
+              }
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - NARRATE "<&b>Ihr versucht zu antworten, doch ist es Euch unm<&ouml>glich zu sprechen, Ihr f<&uuml>hlt Euch wie gel<&auml>hmt."
+        - WAIT 5
+        - CHAT "Hmmm, Sch<&uuml>chtern? Fehlen dir die Worte? Ich wei<&chr[00DF]>, ich bin ein bisschen gr<&uuml>n, aber so schlimm ist das doch nicht oder?"
+        - WAIT 6
+        - NARRATE "Ihr h<&ouml>rt seinen Bauch knurren, Euer Kiefer ist aber immer noch wie erstarrt und Euer K<&ouml>rper f<&uuml>hlt sich furchtbar kalt an."
+        - WAIT 6
+        - CHAT "Hrrrmp, ich habe schon lange nichts mehr gegessen... aber du siehst so zum anbei<&chr[00DF]>en aus!"
+        - WAIT 4
+        - CHAT "Aber du bist nicht deshalb hier, oder?"
+        - WAIT 3
+        - CHAT "Wenn du aber dann schon mal hier bist, k<&ouml>nntest du dann meinen R<&uuml>cken kratzen? Wenn ich das tue, f<&auml>llt mein Arm immer ab."
+        - WAIT 6
+        - CHAT "..... Dann halt nicht. Dann muss ich mich wieder am Gel<&auml>nder kratzen. Das ist doof!"
+        - WAIT 4
+        - NARRATE "<&b>Ihr k<&ouml>nnt mit viel M<&uuml>he das Wort 'Flasche' sagen."
+        - WAIT 3
+        - CHAT "WAS? Ich bin keine Flasche! Willst du mir etwa wehtun? Ich kann ShinShuu Fu und QuaDesh Do! Ich bin cool und du bist doof!"
+        - WAIT 6
+        - CHAT "Ach, oder meinst du diese Flasche hier?"
+        - WAIT 3
+        - NARRATE "<&b>Ihr k<&ouml>nnt gerade so Euren Kopf bewegen und nicken."
+        - WAIT 3
+        - CHAT "Ich habe sie im Keller gefunden, da liegen noch ganz viele von denen. Aber die hier ist was besonderes, sie ist meine Freundin!"
+        - WAIT 6
+        - CHAT "Ich nenne sie Pumpkine. Ich mag sie sehr. Wei<&chr[00DF]>t du, ich habe mich immer einsam gef<&uuml>hlt, aber seit Pumpkine da ist, ist alles anders!"
+        - WAIT 6
+        - CHAT "Brauchst du etwa Pumpkine? Ich k<&ouml>nnte sie kaum ersetzen, aber ich k<&ouml>nnte dir eine andere Flasche aus dem Keller holen, warte kurz."
+        - WAIT 6
+        - NARRATE "<&b>Der Junge verschwindet ins Nichts und taucht wenige Zeit sp<&auml>ter mit einem 'Plopp' wieder auf."
+        - WAIT 4
+        - CHAT "Hier, die kannst du gerne haben."
+        - WAIT 3
+        - NARRATE "Ihr bewegt schwerlich Eure Hand nach vorne und <&ouml>ffnet sie."
+        - WAIT 4
+        - CHAT "Aber unter einer Bedingung! Du kommst mich mal wieder besuchen. Es ist hier so <&ouml>de und au<&chr[00DF]>erdem bin ich einsam."
+        - WAIT 5
+        - CHAT "Du musst mir nur versprechen mich mal wieder zu besuchen und mir Geschichten von Abenteuern, Drachen und Ritterburgen zu erz<&auml>hlen. Dann kannst du die Flasche haben."
+        - WAIT 7
+        - NARRATE "Ihr nickt und f<&uuml>hlt langsam, wie wieder Leben in Eure Glieder kommt."
+        - WAIT 3
+        - NARRATE format:item_given "<&b>eine Flasche <&d>Bluchenfelser Seelensaft"
+        - WAIT 3
+        - IF <player.flag[Dungeon_Kuchencanyon_Liste].as_list> !contains Vlad {
+            - NARRATE "<&b>Vielleicht gibt es jemanden auf Ituria, der Interesse daran hat."
+            - WAIT 3
+            }
+        - CHAT "Viel Spa<&chr[00DF]> mit deiner neuen Freundin! Ich werde dann hier warten und weiterspielen. Du kommst doch bald wieder, oder?"
+        - WAIT 5
+        - NARRATE "<&b>Der Junge widmet sich wieder seines Spielzeugs und Ihr k<&ouml>nnt wieder frei atmen."
+#       - SPAWN n@Darheen -86.5,74,-209.5,world
+        - ^FLAG player Dungeon_Kuchencanyon_Liste:->:Hugo
+        - ^ZAP step:5 s@Dungeon_Kuchencanyon_Vlad_Finster
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - CHAT "Ist noch was? Oder willst du mir etwa noch eine Weile Gesellschaft leisten?"
+#   Auftraggeber: Egal, Folgedurchläufe
+    3:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Was f<&uuml>r eine <&Uuml>berraschung! Du kommst mich tats<&auml>chlich noch einmal besuchen. Das freut mich aber!"
+        - WAIT 4
+        - CHAT "... Wie? Ihr seid nur wegen einer neuen Flasche hier? Das ist aber schade..."
+        - WAIT 4
+        - CHAT "Ich hatte mich so darauf gefreut, mit Euch Verstecken zu spielen. Naja, immerhin hast du mich besucht, da sollst du auch deine Flasche bekommen."
+        - WAIT 6
+        - NARRATE "<&b>Der Junge verschwindet ins Nichts und taucht wenige Zeit sp<&auml>ter mit einem 'Plopp' wieder auf."
+        - WAIT 4
+        - CHAT "Hier, bitte sehr."
+        - WAIT 3
+        - NARRATE format:item_given "<&b>eine Flasche <&d>Bluchenfelser Seelensaft"
+        - WAIT 3
+        - CHAT "Viel Spa<&chr[00DF]> mit deiner neuen Freundin! Ich werde dann hier warten und weiterspielen. Du kommst doch bald wieder, oder?"
+        - WAIT 5
+        - NARRATE "<&b>Der Junge widmet sich wieder seines Spielzeugs."
+#       - SPAWN n@Darheen -86.5,74,-209.5,world
+        - ^FLAG player Dungeon_Kuchencanyon_Liste:->:Hugo
+        - ^ZAP step:8 s@Dungeon_Kuchencanyon_Vlad_Finster
+        - ^ZAP 2
+        - DISENGAGE
+#         Auftraggeber: Neugier, 1. Durchlauf
+    4:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - NARRATE "<&b>Ihr versucht zu antworten, doch ist es Euch unm<&ouml>glich zu sprechen, Ihr f<&uuml>hlt Euch wie gel<&auml>hmt."
+        - WAIT 5
+        - CHAT "Hmmm, Sch<&uuml>chtern? Fehlen dir die Worte? Ich wei<&chr[00DF]>, ich bin ein bisschen gr<&uuml>n, aber so schlimm ist das doch nicht oder?"
+        - WAIT 6
+        - NARRATE "Ihr h<&ouml>rt seinen Bauch knurren, Euer Kiefer ist aber immer noch wie erstarrt und Euer K<&ouml>rper f<&uuml>hlt sich furchtbar kalt an."
+        - WAIT 6
+        - CHAT "Hrrrmp, ich habe schon lange nichts mehr gegessen... aber du siehst so zum anbei<&chr[00DF]>en aus!"
+        - WAIT 4
+        - CHAT "Aber du bist nicht deshalb hier, oder?"
+        - WAIT 3
+        - CHAT "Wenn du aber dann schon mal hier bist, k<&ouml>nntest du dann meinen R<&uuml>cken kratzen? Wenn ich das tue, f<&auml>llt mein Arm immer ab."
+        - WAIT 6
+        - CHAT "..... Dann halt nicht. Dann muss ich mich wieder am Gel<&auml>nder kratzen. Das ist doof!"
+        - WAIT 4
+        - CHAT "Oder magst du mir doch helfen?"
+        - Wait 2
+        - NARRATE "<&b>Ihr k<&ouml>nnt gerade so Euren Kopf bewegen und nicken."
+        - WAIT 3
+        - CHAT "Da w<&auml>re ich dir tats<&auml>chlich sehr dankbar."
+        - WAIT 3
+        - CHAT "Du musst n<&auml>mlich wissen, dass meine Arme schon mal hin und wieder abfallen und das ist nicht gerade angenehm."
+        - WAIT 5
+        - NARRATE "<&b>Ihr unterdr<&uuml>ckt ein Schaudern und fangt an, dem Jungen den R<&uuml>cken zu kratzen."
+        - WAIT 4
+        - CHAT "Ooooh jaaaa... Das tut gut..."
+        - WAIT 3
+        - CHAT "Etwas weiter links bitte... jaaa genau daaa..."
+        - WAIT 4
+        - NARRATE "<&b>Nach einiger Zeit h<&oml>rt Ihr auf zu kratzen und der Junge wendet sich Euch zu."
+        - WAIT 4
+        - CHAT "Du solltest Masseur werden, du hast es echt drauf."
+        - WAIT 4
+        - CHAT "Hier, als kleines Dankesch<&ouml>n."
+        - WAIT 3
+        - CHAT "Das hier habe ich im Keller gefunden, da liegen noch ganz viele von denen. Aber die hier ist was besonderes, sie ist meine Freundin!"
+        - WAIT 6
+        - CHAT "Ich nenne sie Pumpkine. Ich mag sie sehr. Wei<&chr[00DF]>t du, ich habe mich immer einsam gef<&uuml>hlt, aber seit Pumpkine da ist, ist alles anders!"
+        - WAIT 6
+        - CHAT "Ich h<&auml>tte da noch eine Bitte! Du kommst mich mal wieder besuchen. Es ist hier so <&ouml>de und au<&chr[00DF]>erdem bin ich einsam."
+        - WAIT 5
+        - CHAT "Du musst mir nur versprechen mich mal wieder zu besuchen und mir Geschichten von Abenteuern, Drachen und Ritterburgen zu erz<&auml>hlen. Dann kannst du die Flasche haben."
+        - WAIT 7
+        - NARRATE "Ihr nickt und f<&uuml>hlt langsam, wie wieder Leben in Eure Glieder kommt."
+        - WAIT 3
+        - NARRATE format:item_given "<&b>eine Flasche <&d>Bluchenfelser Seelensaft"
+        - WAIT 3
+        - CHAT "Viel Spa<&chr[00DF]> mit deiner neuen Freundin! Ich werde dann hier warten und weiterspielen. Du kommst doch bald wieder, oder?"
+        - WAIT 5
+        - CHAT "Ach noch was. In letzter Zeit steht da st<&auml>ndig ein alter Mann vor meiner Villa Montag."
+        - WAIT 4
+        - CHAT "Der Typ ist ein echter Stalker glaube ich. St<&auml>ndig taucht der vor meiner Villa auf und murmelt was von 'Seelensaft'. Voll gruselig."
+        - WAIT 5
+        - CHAT "Jedenfalls wollte ich dich nur warnen. Der Kerl tr<&auml>gt dunkle Klamotten und treibt sich immer in der Hafenkneipe rum, wenn er nicht mal wieder vor meiner T<&uuml>re steht..."
+        - WAIT 6
+        - CHAT "Na dann wei<&chr[00DF]>t du ja jetzt Bescheid. Pass auf dich auf und komm mich mal wieder besuchen, ja."
+        - WAIT 4
+        - NARRATE "<&b>Der Junge widmet sich wieder seines Spielzeugs und Ihr k<&ouml>nnt wieder frei atmen."
+#       - SPAWN n@Darheen -86.5,74,-209.5,world
+        - ^FLAG player Dungeon_Kuchencanyon_Liste:->:Hugo
+        - ^ZAP step:5 s@Dungeon_Kuchencanyon_Vlad_Finster
+        - ^ZAP 2
+        - DISENGAGE

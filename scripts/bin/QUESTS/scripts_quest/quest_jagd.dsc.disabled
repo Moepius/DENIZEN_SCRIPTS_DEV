@@ -1,0 +1,333 @@
+Jagd_Chrys:
+  type: Interact
+  debug: false
+  requirements:
+    mode: all
+    list:
+    - PERMISSION d.quest
+  steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          script:
+          - ENGAGE
+          - CHAT "Hey, <player.name>! Ihr habt nicht zuf<&auml>llig ein wenig Zeit f<&uuml>r mich <&uuml>brig?"
+          - WAIT 2
+          - IF <player.groups.as_list.contains[free_01]> {
+              - NARRATE "<&b>Quests sind rein optional. Als Neuling solltet Ihr nicht vergessen Euer Haus auf Ituria zu bauen."
+              - WAIT 3
+              }
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Ja|Nein'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+      Click Trigger:
+        script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Ja|Nein'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/, f<&uuml>r Euch doch immer."
+          script:
+          - WAIT 2
+          - RANDOM {
+            - RUN 'script:Spiderkiller_Task'
+            - RUN 'script:Zombiekiller_Task'
+            - RUN 'script:Creeperkiller_Task'
+            - RUN 'script:Squidkiller_Task'
+            - RUN 'script:Skeletonkiller_Task'
+            }
+        2:
+          Trigger: "/Nein/, tut mir Leid, ich habe garede keine Zeit."
+          Script:
+          - ENGAGE
+          - WAIT 4
+          - CHAT "... Oh, schade. Vielleicht demn<&auml>chst, ja?"
+          - DISENGAGE
+    2:
+      Click trigger:
+        script:
+        - IF <player.flag[AktiveQuests].as_list> contains 'Spinnenbeine f<&uuml>r Chrys' {
+            - CHAT "Bitte beeilt Euch, ich brauche nur die Beine von <&c>10 Spinnen<&e>!"
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Jagd auf die hungrigen Zombies' {
+            - CHAT "Bitte erledigt f<&uuml>r mich <&c>20 Zombies<&e>. Ich will nicht gefressen werden..."
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Entsch<&auml>rfung' {
+            - CHAT "Oh... bitte seid vorsichtig! Ich brauche nur <&c>5 Creeperz<&uuml>nder<&e>, aber diese Viecher sind gemeingef<&auml>hrlich..."
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister' {
+            - CHAT "Ich br<&auml>uchte die Tentakel von <&c>30 Tintenfischen<&e>. Meister Pietro will daraus ein ganz besonderes St<&uuml>ck anfertigen."
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Skelette f<&uuml>r Chrys ausmerzen' {
+            - CHAT "Ihr m<&uuml>sst <&c>15 Skelette <&e>t<&ouml>ten. Ich traue mich sonst schon bald nicht mehr raus."
+            }
+    3:
+      Click trigger:
+        script:
+        - IF <player.flag[AktiveQuests].as_list> contains 'Spinnenbeine f<&uuml>r Chrys' {
+            - ENGAGE
+            - CHAT "Ihr seid wieder da, <player.name>! Und die Spinnenbeine habt Ihr auch dabei. - Prima!"
+            - WAIT 4
+            - CHAT "Ich hatte schon Angst, dass ich zur Strafe wieder den Kuhstall ausmisten muss... ohne Schaufel..."
+            - WAIT 5
+            - CHAT "Hier, die versprochene Belohnung!"
+            - WAIT 2
+            - ^FLAG npc items:!
+            - ^FLAG npc 'items:|:15 Eisenbarren|1 Diamanten'
+            - NARRATE format:items_given ""
+            - GIVE 265 QTY:15
+            - GIVE 264 QTY:1
+            - WAIT 2
+            - NARRATE format:quest_complete "Spinnenbeine f<&uuml>r Chrys"
+            - WAIT 3
+            - CHAT "Meister Pietro braucht sicher bald wieder neue Beinchen. Kommt doch demn<&auml>chst mal wieder vorbei!"
+            - ^FLAG PLAYER 'AktiveQuests:<-:Spinnenbeine f<&uuml>r Chrys'
+            - ^FLAG PLAYER 'Spiderkiller:!'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Spinnenbeine f<&uuml>r Chrys' {
+                  - ^FLAG PLAYER 'FertigeQuests:->:Spinnenbeine f<&uuml>r Chrys'
+                  }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - ^COOLDOWN duration:24h 'script:Jagd_Chrys'
+            - ^ZAP 'Step:1' 's@Jagd_Chrys'
+            - DISENGAGE
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Jagd auf die hungrigen Zombies' {
+            - ENGAGE
+            - CHAT "Ah, Thusundea sei Dank! Ihr seid wieder da, <player.name>!"
+            - WAIT 3
+            - CHAT "Jetzt kann ich wieder beruhigt schlafen ohne die Furcht angeknabbert zu werden."
+            - WAIT 5
+            - CHAT "Die M<&uuml>he soll sich nat<&uuml>rlich bezahlt machen!"
+            - WAIT 3
+            - ^FLAG npc items:!
+            - ^FLAG npc 'items:|:20 Eisenbarren|1 Diamanten'
+            - NARRATE format:items_given ""
+            - GIVE 265 QTY:20
+            - GIVE 264 QTY:1
+            - WAIT 2
+            - NARRATE format:quest_complete "Jagd auf die hungrigen Zombies"
+            - WAIT 5
+            - CHAT "Ich habe bestimmt <&ouml>fter was f<&uuml>r Euch zu tun. Kommt doch demn<&auml>chst wieder mal vorbei!"
+            - ^FLAG PLAYER 'AktiveQuests:<-:Jagd auf die hungrigen Zombies'
+            - ^FLAG PLAYER 'Zombiekiller:!'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Jagd auf die hungrigen Zombies' {
+                - ^FLAG PLAYER 'FertigeQuests:->:Jagd auf die hungrigen Zombies'
+                }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - ^COOLDOWN duration:24h 'script:Jagd_Chrys'
+            - ^ZAP 'Step:1' 's@Jagd_Chrys'
+            - DISENGAGE
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Entsch<&auml>rfung' {
+            - ENGAGE
+            - CHAT "Oh, <player.name>! Ihr seid noch in einem St<&uuml>ck!"
+            - WAIT 2
+            - CHAT "Ich wusste Ihr w<&uuml>rdet es schaffen, auf Euch kann ich wirklich z<&auml>hlen."
+            - WAIT 4
+            - CHAT "Hier, nehmt das f<&uuml>r Euren heldenhaften Einsatz!"
+            - WAIT 3
+            - ^FLAG npc items:!
+            - ^FLAG npc 'items:|:25 Eisenbarren|1 Diamanten'
+            - NARRATE format:items_given ""
+            - GIVE 265 QTY:25
+            - GIVE 264 QTY:1
+            - WAIT 2
+            - NARRATE format:quest_complete "Entsch<&auml>rfung"
+            - WAIT 5
+            - CHAT "Besucht mich doch morgen nocheinmal. Der Meister hat t<&auml>glich Aufgaben, die erledigt werden wollen."
+            - ^FLAG PLAYER 'AktiveQuests:<-:Entsch<&auml>rfung'
+            - ^FLAG PLAYER 'Creeperkiller:!'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Entsch<&auml>rfung' {
+                - ^FLAG PLAYER 'FertigeQuests:->:Entsch<&auml>rfung'
+                }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - ^COOLDOWN duration:24h 'script:Jagd_Chrys'
+            - ^ZAP 'Step:1' 's@Jagd_Chrys'
+            - DISENGAGE
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister' {
+            - ENGAGE
+            - CHAT "Na endlich, ich habe den Meister schon nach mir rufen h<&ouml>ren!"
+            - WAIT 3
+            - CHAT "Ehm, tut mir Leid, .... Ich will wirklich nicht unfreundlich sein, aber es war dringend."
+            - WAIT 5
+            - CHAT "Hier, das habt Ihr Euch verdient. Bitte erz<&auml>hlt Pietro aber nichts davon!"
+            - WAIT 4
+            - ^FLAG npc items:!
+            - ^FLAG npc 'items:|:10 Eisenbarren|1 Diamanten'
+            - NARRATE format:items_given ""
+            - GIVE 265 QTY:10
+            - GIVE 264 QTY:1
+            - WAIT 2
+            - NARRATE format:quest_complete "Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister"
+            - WAIT 5
+            - CHAT "Ich habe bestimmt <&ouml>fter was f<&uuml>r Euch zu tun. Kommt doch demn<&auml>chst wieder mal vorbei!"
+            - ^FLAG PLAYER 'AktiveQuests:<-:Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister'
+            - ^FLAG PLAYER 'Squidkiller:!'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister' {
+                - ^FLAG PLAYER 'FertigeQuests:->:Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister'
+                }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - ^COOLDOWN duration:24h 'script:Jagd_Chrys'
+            - ^ZAP 'Step:1' 's@Jagd_Chrys'
+            - DISENGAGE
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Skelette f<&uuml>r Chrys ausmerzen' {
+            - ENGAGE
+            - CHAT "Gut, eine Sorge weniger. Nun werden mir diese Dinger keinen Schrecken mehr einjagen."
+            - WAIT 4
+            - CHAT "Da f<&auml>llt mir wirklich ein Stein vom Herzen...."
+            - WAIT 3
+            - CHAT "Ich denke, Ihr habt Euch eine Belohnung verdient. Hier, ich hoffe, das reicht Euch aus."
+            - WAIT 4
+            - ^FLAG npc items:!
+            - ^FLAG npc 'items:|:15 Eisenbarren|1 Diamanten'
+            - NARRATE format:items_given ""
+            - GIVE 265 QTY:15
+            - GIVE 264 QTY:1
+            - WAIT 2
+            - NARRATE format:quest_complete "Skelette f<&uuml>r Chrys ausmerzen"
+            - WAIT 5
+            - CHAT "Ich habe bestimmt <&ouml>fter was f<&uuml>r Euch zu tun. Kommt doch demn<&auml>chst wieder mal vorbei!"
+            - ^FLAG PLAYER 'AktiveQuests:<-:Skelette f<&uuml>r Chrys ausmerzen'
+            - ^FLAG PLAYER 'Skeletonkiller:!'
+            - IF <player.flag[FertigeQuests].as_list> !contains 'Skelette f<&uuml>r Chrys ausmerzen' {
+                - ^FLAG PLAYER 'FertigeQuests:->:Skelette f<&uuml>r Chrys ausmerzen'
+                }
+            - ^FLAG PLAYER 'QuestCounter:++'
+            - ^COOLDOWN duration:24h 'script:Jagd_Chrys'
+            - ^ZAP 'Step:1' 's@Jagd_Chrys'
+            - DISENGAGE
+            }
+
+Spiderkiller_Task:
+  type: task
+  debug: false
+  script:
+  - CHAT "Klasse! Ich wusste, dass ich auf Euch z<&auml>hlen kann."
+  - WAIT 2
+  - CHAT "Ich muss f<&uuml>r Meister Pietro einige Spinnenbeine besorgen, aber wie immer hat er mir genug Arbeit f<&uuml>r f<&uuml>nf Mann aufgetragen."
+  - WAIT 5
+  - CHAT "Die Beine von <&c>10 Spinnchen <&e>sollten gen<&uuml>gen. An Augen und F<&auml>den bin ich nicht interessiert, die k<&ouml>nnt ihr gerne behalten."
+  - WAIT 5
+  - CHAT "Nat<&uuml>rlich bekommt ihr auch etwas f<&uuml>r Eure M<&uuml>hen. Aber beeilt Euch bitte, der Meister ist ungeduldig..."
+  - ^FLAG PLAYER 'AktiveQuests:->:Spinnenbeine f<&uuml>r Chrys'
+  - ^FLAG PLAYER 'Spiderkiller:0'
+  - WAIT 4
+  - NARRATE format:quest_given "Spinnenbeine f<&uuml>r Chrys"
+  - ^ZAP 'step:2' 's@Jagd_Chrys' 
+
+Zombiekiller_Task:
+  type: task
+  debug: false
+  script:
+  - CHAT "Es ist zum davonlaufen - <&uuml>berall nur Zombies! Ob gerade Paarungszeit ist...?"
+  - WAIT 4
+  - CHAT "Die Population muss auf jeden Fall dezimiert werden! Das hat Meister Pietro gesagt."
+  - WAIT 4
+  - CHAT "Es sind mittlerweile so viele, dass sie Nachts vorm Lager stehen und mich hungrig anstarren..."
+  - WAIT 5
+  - CHAT "Erledigt bitte <&c>20 Zombies <&e>. Das sollte sie hoffentlich abschrecken."
+  - ^FLAG PLAYER 'AktiveQuests:->:Jagd auf die hungrigen Zombies'
+  - ^FLAG PLAYER 'Zombiekiller:0'
+  - WAIT 3
+  - NARRATE format:quest_given "Jagd auf die hungrigen Zombies"
+  - ^ZAP 'step:2' 's@Jagd_Chrys'
+
+Creeperkiller_Task:
+  type: task
+  debug: false
+  script:
+  - CHAT "Ohje, ohje, ohje... wo soll ich anfangen? Creeper!"
+  - WAIT 4
+  - CHAT "Creeperz<&uuml>nder um genau zu sein... ja, genau die m<&ouml>chte Meister Pietro unbedingt haben."
+  - WAIT 5
+  - CHAT "Ich bin einfach nicht schnell genug f<&uuml>r die Biester... ich sehe sie nur an und sie z<&uuml>nden..."
+  - WAIT 5
+  - CHAT "Bitte... entsch<&auml>rft <&c>5 Creeper <&e>f<&uuml>r mich und bringt mir die Z<&uuml>nder. Ich werde Euch ewig dankbar sein!"
+  - ^FLAG PLAYER 'AktiveQuests:->:Entsch<&auml>rfung'
+  - ^FLAG PLAYER 'Creeperkiller:0'
+  - WAIT 6
+  - NARRATE format:quest_given "Entsch<&auml>rfung"
+  - ^ZAP 'step:2' 's@Jagd_Chrys'
+
+Squidkiller_Task:
+  type: task
+  debug: false
+  script:
+  - CHAT "Puh... da habe ich wohl noch mal Gl<&uuml>ck gehabt!"
+  - WAIT 3
+  - CHAT "Meister Pietro hat einen Auftrag bekommen, ein paar Schuhe aus Tintenfischleder herzustellen..."
+  - WAIT 5
+  - CHAT "und nun soll ich Tentakel von diesen Viechern zusammentragen... vollkommen unm<&ouml>glich, wenn ihr mich fragt."
+  - WAIT 5
+  - CHAT "Aber mit Eurer Hilfe sollte es klappen. Erledigt bitte <&c>30 Tintenfische <&e>. Das sollte ausreichen."
+  - ^FLAG PLAYER 'AktiveQuests:->:Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister'
+  - ^FLAG PLAYER 'Squidkiller:0'
+  - WAIT 5
+  - NARRATE format:quest_given "Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister"
+  - ^ZAP 'step:2' 's@Jagd_Chrys'
+
+Skeletonkiller_Task:
+  type: task
+  debug: false
+  script:
+  - CHAT "Hier laufen viel zu viele von diesen ekelhaften Knochengerippen herum."
+  - WAIT 4
+  - CHAT "Der Meister meinte schon, ich sollte diese Viecher doch erledigen, wenn sie mich <&auml>rgern."
+  - WAIT 5
+  - CHAT "Aber ich habe da meine Probleme, mich dazu zu <&uuml>berwinden. Naja, jetzt seid Ihr ja da..."
+  - WAIT 5
+  - CHAT "Erledigt bitte <&c>15 Skelette<&e>. Das sollte ausreichen."
+  - ^FLAG PLAYER 'AktiveQuests:->:Skelette f<&uuml>r Chrys ausmerzen'
+  - ^FLAG PLAYER 'Skeletonkiller:0'
+  - WAIT 5
+  - NARRATE format:quest_given "Skelette f<&uuml>r Chrys ausmerzen"
+  - ^ZAP 'step:2' 's@Jagd_Chrys'
+
+Jagd_World:
+  type: world
+  debug: false
+  events:
+    on player kills spider:
+      - IF <player.flag[AktiveQuests].as_list> contains 'Spinnenbeine f<&uuml>r Chrys' {
+          - ^FLAG PLAYER Spiderkiller:++
+          - IF <player.flag[Spiderkiller]> == 10 {
+              - NARRATE "<&b>Ihr habt <&a>10 Spinnen <&b>erlegt und ausgenommen! Kehrt schnell zu <&a>Chrys <&b>zur<&uuml>ck, um Eure Belohung zu erhalten."
+              - ^ZAP 'step:3' 's@Jagd_Chrys'
+              }
+          }
+    on player kills zombie:
+      - IF <player.flag[AktiveQuests].as_list> contains 'Jagd auf die hungrigen Zombies' {
+          - ^FLAG PLAYER Zombiekiller:++
+          - IF <player.flag[Zombiekiller]> == 20 {
+              - NARRATE "<&b>Ihr habt <&a>20 Zombies<&b> beseitigt! Kehrt zu <&a>Chrys <&b>zur<&uuml>ck, ihm die frohe Botschaft zu k<&uuml>nden."
+              - ^ZAP 'step:3' 's@Jagd_Chrys'
+              }
+        }
+    on player kills creeper:
+      - IF <player.flag[AktiveQuests].as_list> contains 'Entsch<&auml>rfung' {
+        - ^FLAG PLAYER Creeperkiller:++
+        - IF <player.flag[Creeperkiller]> == 5 {
+            - NARRATE "<&b>Ihr habt erfolgreich <&a>5 kleine Creeperlein<&b> entsch<&auml>rft. Bringt <&a>Chrys <&b>die ersehnten Z<&uuml>nder."
+            - ^ZAP 'step:3' 's@Jagd_Chrys'
+            }
+        }
+    on player kills squid:
+      - IF <player.flag[AktiveQuests].as_list> contains 'Schl<&uuml>pfrige Tentakel f<&uuml>r den Meister' {
+        - ^FLAG PLAYER Squidkiller:++
+        - IF <player.flag[Squidkiller]> == 30 {
+            - NARRATE "<&b>Ihr habt <&a>30 Tintenfische<&b> get<&ouml>tet und ihrer Tentakel beraubt! Kehrt nun zu <&a>Chrys <&b>zur<&uuml>ck."
+            - ^ZAP 'step:3' 's@Jagd_Chrys'
+            }
+        }
+    on player kills skeleton:
+      - IF <player.flag[AktiveQuests].as_list> contains 'Skelette f<&uuml>r Chrys ausmerzen' {
+        - ^FLAG PLAYER Skeletonkiller:++
+        - IF <player.flag[Skeletonkiller]> == 15 {
+            - NARRATE "<&b>Ihr habt <&a>15 Skelette<&b> get<&ouml>tet! Kehrt nun zu <&a>Chrys <&b>zur<&uuml>ck, er wird sich sicher freuen."
+            - ^ZAP 'step:3' 's@Jagd_Chrys'
+            }
+        }

@@ -1,0 +1,60 @@
+Golo:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@GoloStandard'
+  interact scripts:
+    - 0 GoloStandard
+    - 5 Gast1
+    - 10 Equipment_Golo
+
+GoloStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode:None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Was wollt Ihr? Problem oder was?!"
+        - WAIT 3
+        - CHAT "Ihr, ein Kunde?? Wahahahaha!"
+        - WAIt 3
+        - NARRATE format:emote "lacht Euch aus"
+        - WAIT 2
+        - CHAT "Zieht Leine, bevor ich Euch Beine mache, H<&auml>nfling! Ohne Bombenlizenz gibt es hier gar nichts. Kapiert?!"
+        - WAIT 5
+        - CHAT "Wenn Ihr unbedingt Silber loswerden wollt, geht zu Herbert im Norden."
+        - WAIT 4
+        - CHAT "Der olle Vogel zieht Euch das Geld so schnell aus der Tasche, da k<&ouml>nnt Ihr gar nicht gucken!"
+        - WAIT 4
+        - CHAT "Und jetzt macht Euch vom Acker, bevor ich nachhelfen muss!"
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - CHAT "Macht Euch endlich vom Acker, bevor ich nachhelfen muss!"
+
+GoloTuersteher_World:
+  type: world
+  debug: false
+  events:
+    on player enters Bombenkeller:
+      - CHAT "Sucht Ihr Stress mit Golo?! Da habt Ihr NICHTS zu suchen und da gibt es NICHTS zu sehen!" no_target talkers:<n@Golo> range:15.0
+      - WAIT 4
+      - TELEPORT <player> 158,65,45,world
+      - HURT 2
+      - CHAT "Zieht Leine!" no_target talkers:<n@Golo> range:15.0
+      - WAIT 2
+      - NARRATE "<&b>Ihr wurdet von Golo unsanft vor die T<&uuml>r bugsiert."

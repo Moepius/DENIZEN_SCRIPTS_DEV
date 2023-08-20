@@ -1,0 +1,152 @@
+Kontakt_Herbert:
+  Type: interact
+  debug: false
+  Requirements:
+    Mode: All
+    List:
+    - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Der erste Kontakt]>]:Der erste Kontakt'
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - ENGAGE
+          - CHAT "Hey mein Freund, wartet doch mal einen Moment!"
+          - WAIT 4
+          - NARRATE "<&b>Ein NPC ruft Euch heran. <&f>Rechtsklickt <&b>ihn, um zu erfahren, was er von Euch m<&ouml>chte."
+          - DISENGAGE
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - NARRATE format:emote "mustert Euch eindringlich"
+        - WAIT 3
+        - CHAT "Ihr m<&uuml>sst <player.name> sein, nicht wahr?"
+        - WAIT 3
+        - CHAT "Ihr braucht gar nicht so fragend dreinzuschauen, ich weirange:12.0 alles <&uuml>ber Euch. *Gacker*"
+        - WAIT 5
+        - CHAT "Zum Beispiel, dass Ihr meinem lieben Bruder noch etwas schuldig seid."
+        - WAIT 5
+        - CHAT "Oh ja, ich bin bestens informiert <&uuml>ber Euren kleinen Ausbruch. *Gacker* Und wie versprochen werdet Ihr Eure Schuld begleichen!"
+        - WAIT 7
+        - CHAT "Wenn Ihr Euch geschickt anstellt, ist vielleicht sogar eine zus<&auml>tzliche kleine Belohnung drin."
+        - WAIT 6
+        - IF <player.has_flag[Sozialakte]> {
+            - CHAT "Allerdings steht Ihr immer noch auf der Fahndungsliste, weshalb Ihr mir im Moment wenig n<&uuml>tzt."
+            - WAIT 6
+            - CHAT "Ihr m<&uuml>sstet daher zun<&auml>chst Eure Akte s<&auml>ubern."
+            - ^FLAG npc trigger:!
+            - ^FLAG npc 'trigger:|:Wie|Ihr'
+            - NARRATE format:trigger ""
+            - ^ZAP 2
+            }
+          ELSE {
+            - CHAT "Seid Ihr bereit, f<&uuml>r Unsere Organisation zu arbeiten und Eure Schuld zu begleichen?"
+            - ^FLAG npc trigger:!
+            - ^FLAG npc 'trigger:|:Ja|Nein'
+            - NARRATE format:trigger ""
+            - ^ZAP 3
+            }
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - IF <player.has_flag[Sozialakte]> {
+            - ^FLAG npc trigger:!
+            - ^FLAG npc 'trigger:|:Wie|Ihr'
+            - NARRATE format:trigger ""
+            }
+          ELSE {
+            - ENGAGE
+            - CHAT "Ah da seid Ihr ja wieder. Habt Ihr Eure Weste gereinigt?"
+            - WAIT 3
+            - CHAT "...Sehr gut. Dann wird es Zeit f<&uuml>r Euren Auftrag, nicht wahr?"
+            - WAIT 3
+            - CHAT "Seid Ihr bereit, f<&uuml>r Unsere Organisation zu arbeiten und Eure Schuld zu begleichen?"
+            - ^FLAG npc trigger:!
+            - ^FLAG npc 'trigger:|:Ja|Nein'
+            - NARRATE format:trigger ""
+            - ^ZAP 3
+            - DISENGAGE
+            }
+      Chat Trigger:
+        1:
+          Trigger: "/Wie/ soll ich das anstellen?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Die einzige Person, die direkten Zugang zu Euren Akten hat, ist die olle Trudi."
+          - WAIT 5
+          - CHAT "Es w<&auml>re jedoch t<&ouml>richt, einfach dort aufzutauchen und um eine Begnadigung zu bitten."
+          - WAIT 4
+          - CHAT "Immerhin solltet Ihr eigentlich im Gef<&auml>ngnis sitzen und Eure Strafe absitzen."
+          - WAIT 4
+          - CHAT "Trudi ist jedoch recht einfach zu <&uuml>berzeugen, wenn es um Schuld und Unschuld geht."
+          - WAIT 5
+          - CHAT "Sie hat n<&auml>mlich eine Schw<&auml>che f<&uuml>r Blumen m<&uuml>sst Ihr wissen."
+          - WAIT 4
+          - CHAT "Und jeden Str<&auml>fling l<&auml>sst sie Ihre miesen Blumen gierange:12.0en, bevor sie ihn begnadigt."
+          - WAIT 5
+          - CHAT "Mit einem kleinen Trick k<&ouml>nnt Ihr sie jedoch davon <&uuml>berzeugen, dass diese Arbeit nicht n<&ouml>tig sein wird."
+          - WAIT 6
+          - CHAT "Sagt ihr einfach, ihr h<&auml>ttet Euch schon gefragt, wer denn diese '<&f>wundersch<&ouml>n<&e>'en Blumen in der Stadt gepflanzt hat..."
+          - WAIT 7
+          - CHAT "und dass Ihr ihr f<&uuml>r diese Aufmerksamkeit Eurer geliebten Heimat gegen<&uuml>ber zutiefst dankbar seid."
+          - WAIT 6
+          - CHAT "Und schon wird sie dahinschmelzen und Euch jeden Wunsch erf<&uuml>llen, den Ihr <&auml>u<&chr[00DF]>ert."
+          - WAIT 5
+          - CHAT "Ja, unsere olle Trudi ist echt einfach zu beeinflussen... *Gacker*"
+          - WAIT 4
+          - CHAT "Naja, jedenfalls solltet Ihr so Euren Namen reinwaschen k<&ouml>nnen."
+          - WAIT 4
+          - ^FLAG PLAYER 'AktiveQuests:->:Eine reine Weste'
+          - NARRATE format:quest_given "Eine reine Weste"
+          - DISENGAGE
+        2:
+          Trigger: "K<&ouml>nntet nicht /Ihr/ das f<&uuml>r mich erledigen?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Oh nein, das ist Euer Problem. *Gacker* Ihr habt Euch selbst in diesen Schlamassel gebracht."
+          - WAIT 5
+          - CHAT "Ihr seid unserer Organisation etwas schuldig, also tut Ihr alles, was ein Mitglied der Organisation von Euch w<&uuml>nscht!"
+          - WAIT 7
+          - CHAT "Was das f<&uuml>r eine Organisation ist?... Das erkl<&auml>re ich Euch, sobald Ihr Euren Namen reingewaschen habt."
+          - WAIT 6
+          - CHAT "Im Moment m<&uuml>sst Ihr nur wissen, dass wir ziemlichen Einfluss in ganz Terra Thusundea haben."
+          - WAIT 5
+          - CHAT "Euch eine reine Weste zu verschaffen, w<&auml>re f<&uuml>r uns ein Kinderspiel, doch Ihr sollt Euch uns gegen<&uuml>ber beweisen."
+          - WAIT 7
+          - CHAT "Au<&chr[00DF]>erdem ist es wie gesagt Euer eigenes Problem, da k<&ouml>nnt Ihr es auch eigenst<&auml>ndig l<&ouml>sen."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Wie|Ihr'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Ja/, ich bin zu allem bereit."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Sehr gut! Wusste doch, dass ich auf Euch z<&auml>hlen kann."
+          - WAIT 3
+          - ^FLAG PLAYER 'AktiveQuests:<-:Der erste Kontakt'
+          - ^FLAG PLAYER 'FertigeQuests:->:Der erste Kontakt'
+          - ^FLAG PLAYER 'QuestCounter:++'
+          - NARRATE format:quest_complete "Der erste Kontakt"
+          - ^ZAP 1
+          - DISENGAGE
+        2:
+          Trigger: "Wenn ich so dar<&uuml>ber nachdenke, /nein/, eigentlich nicht."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Wie bitte?! *Gacker* Ihr beliebt wohl zu Scherzen?"
+          - WAIT 2
+          - CHAT "Ihr seid unserer Organisation etwas schuldig und Ihr werdet diese Schuld begleichen!"
+          - WAIT 4
+          - CHAT "Andernfalls werdet Ihr mordsm<&auml>i<&chr[00DF]>e Probleme bekommen, habe ich mich klar ausgedr<&uuml>ckt?!"
+          - DISENGAGE

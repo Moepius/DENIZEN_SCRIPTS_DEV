@@ -1,0 +1,106 @@
+Weihnachtsmann:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@WeihnachtsmannStandard'
+  interact scripts:
+    - 5 Gast1
+    - 10 WeihnachtsmannStandard
+
+WeihnachtsmannStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - RANDOM {
+            - CHAT "Ho! Ho! Ho!"
+            - CHAT "Eine frohe Adventszeit!"
+            - CHAT "Ich hoffe Ihr findet alle T<&uuml>rchen."
+            }
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Ho! Ho! Ho! Mein lieber, kleiner Freund. Ich bin der Weihnachtsmann."
+        - WAIT 3
+        - CHAT "Ich und meine Helferlein haben Euch Geschenke mitgebracht."
+        - WAIT 3
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Geschenke|Weihnachtsmann|Ger<&uuml>chte|Frohe Weihnachten'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Geschenke|Weihnachtsmann|Ger<&uuml>chte|Frohe Weihnachten'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Geschenke/?!"
+          Script:
+          - ENGAGE
+          - CHAT "Ohja, Adventskalendergeschenke! <&Uuml>berall auf Ituria findet Ihr P<&auml>ckchen verteilt, wie dieses hinter mir."
+          - WAIT 4
+          - CHAT "Jeden Tag bis Weihnachten <&ouml>ffnet sich ein neues P<&auml>ckchen! Ich hoffe Ihr findet sie alle! Sie verstecken sich <&ouml>fters im hohen Gras."
+          - WAIT 5
+          - CHAT "Ihr wart doch immer brav, oder nicht?"
+          - WAIT 3
+          - CHAT "Kann ich Euch sonst behilflich sein?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Geschenke|Weihnachtsmann|Ger<&uuml>chte|Frohe Weihnachten'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "/Weihnachtsmann/? Was hat es damit auf sich?"
+          Script:
+          - ENGAGE
+          - CHAT "Ja, mein Kind, ich bin der Weihnachtsmann!"
+          - WAIT 3
+          - CHAT "Jedes Jahr, wenn Weihnachten naht, mache ich mich nach Ituria auf und verteile Liebe."
+          - WAIT 4
+          - CHAT "Und nat<&uuml>rlich auch Geschenke f<&uuml>r kleine und gro<&chr[00DF]>e und auch ganz gro<&chr[00DF]>e Kinder."
+          - WAIT 5
+          - CHAT "Kann ich Euch sonst behilflich sein?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Geschenke|Weihnachtsmann|Ger<&uuml>chte|Frohe Weihnachten'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Was f<&uuml>r /Ger<&uuml>chte/ habt Ihr so aufgeschnappt?"
+          Script:
+          - ENGAGE
+          - RANDOM {
+            - CHAT "Die Arborianer waren auch dieses Jahr alles Andere als artig..."
+            - CHAT "Diese Heiden aus Kandor glauben nicht an den Weihnachtsmann!"
+            - CHAT "In Bluchenfels verstecken sich die Kinder vor mir! Komisches Volk..."
+            - CHAT "Pietro war <&uuml>berhaupt nicht brav und dasselbe kann man auch von Willibald sagen."
+            }
+          - WAIT 3
+          - CHAT "Kann ich Euch sonst behilflich sein?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Geschenke|Weihnachtsmann|Ger<&uuml>chte|Frohe Weihnachten'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        4:
+          Trigger: "Ich w<&uuml>nsche Euch /frohe Weihnachten/!"
+          Script:
+          - ENGAGE
+          - CHAT "Lieben Dank, werter Freund. Euch auch eine frohe Weihnachtszeit!"
+          - WAIT 3
+          - CHAT "Auf dass Ihr die weihnachtliche Freude verbreiten m<&ouml>get. Ho! Ho! Ho!"
+          - ^ZAP 1 
+          - DISENGAGE

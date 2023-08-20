@@ -1,0 +1,35 @@
+Vogel:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true radius:5
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+  interact scripts:
+    - 0 VogelStandard
+    - 5 Gast1
+    - 10 Knast_Vogel
+
+VogelStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - CHAT "Was guckst du so?!... Ich meine: Gackgack gaa?!"
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "... Kikerikii?"
+        - WAIT 2
+        - NARRATE "<&b>Was f<&uuml>r ein seltsamer Vogel..."
+        - DISENGAGE

@@ -1,0 +1,109 @@
+Bahrim:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@BahrimStandard'
+  interact scripts:
+    - 0 BahrimStandard
+    - 5 Gast1
+    - 10 Dungeon_Schrein_Bahrim
+    - 15 Equipment_Bahrim
+
+BahrimStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Guten Tag <player.name>. Was kann ich f<&uuml>r Euch tun?"
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Karten|Ratschlag|Ger<&uuml>chte|Nichts'
+        - NARRATE format:trigger ""
+        - ^ZAP 2
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Karten|Ratschlag|Ger<&uuml>chte|Nichts'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Welche /Karten/ handelt ihr?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Ich habe alles, seien es einfache Landkarten der verschiedenen Inseln Therra Tusundeas, schmuckvolle Karten zur Dekoration..."
+          - WAIT 6
+          - NARRATE format:whisper "Ich bin sogar im Besitz einiger Schatzkarten! Falls Euch der Sinn nach Abenteuern steht."
+          - WAIT 5
+          - CHAT "Ich kann sie Euch allerdings nicht zeigen und schon gar nicht verkaufen. So unerfahren, wie Ihr ausschaut k<&ouml>nnte ich das nicht verantworten. Nein, nein."
+          - WAIT 6
+          - CHAT "Kommt wieder, wenn Ihr erfahrener seid und nicht vom ersten Wind verweht werdet. Dann kommen wir sicher ins Gesch<&äuml>ft."
+          - WAIT 7
+          - CHAT "Sonst noch etwas?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Karten|Ratschlag|Ger<&uuml>chte|Nichts'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "H<&auml>ttet Ihr einen /Ratschlag/ f<&uuml>r mich?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Hat Euch Frida auf mich angesetzt? Die Gute hat ein zu großes Herz, ich kann es Ihr nicht nachsehen."
+          - WAIT 6
+          - CHAT "Euch kenne ich allerdings noch nicht. Daher mein Rat:"
+          - WAIT 5
+          - CHAT "Macht Euch mit den Bewohnern Iturias vertraut, versucht Freundschaften zu kn<&uuml>pfen und Euch einen Namen zu machen."
+          - WAIT 6
+          - RANDOM 3
+          - CHAT "Immer anst<&auml>ndig bleiben! Die Wachen verstehen keinen Spa<&szlig;>."
+          - CHAT "Seid nicht zu aufdringlich! Thorben ruft schnell die Wachen, wenn er sich gekr<&auml>nkt fühlt."
+          - CHAT "Respektiert die Leute! Willibald mag es gar nicht, wenn man Ihn bei seiner Arbeit st<&ouml>rt."
+          - WAIT 6
+          - CHAT "Sonst noch etwas?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Karten|Ratschlag|Ger<&uuml>chte|Nichts'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Habt Ihr in letzter Zeit irgendwelche /Ger<&uuml>chte/ aufgeschnappt?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - RANDOM {
+            - CHAT "Man munkelt, Vlad Finster h<&auml>tte die alte Villa Montag im Nordwesten geerbt. Ich frage mich, was er mit der Bruchbude anfangen will..."
+            - CHAT "Es hei<&chr[00DF]>t, ein alter Alchemist h<&auml>tte im alten Gef<&auml>ngnisturm im S<&uuml>dwesten sein Alchemielabor aufgebaut."
+            - CHAT "Niemand macht so schmackhafte Backwaren an wie Frida. Ich w<&uuml>rde gerne wissen, was ihr Geheimnis ist."
+            - CHAT "Man tuschelt, dass Egmont eine heimliche Verehrerin hat. Ich m<&ouml>chte mir das eigentlich gar nicht vorstellen."
+            - CHAT "Gut, das ist jetzt kein Ger<&uuml>cht, sondern bittere Wahrheit. In Blackshire herrscht bittere Hungersnot."
+            - CHAT "Eine alte Familiengruft wird seit geraumer Zeit als Pferdestall verwendet. Der Familie hatte wohl einfach kein Geld mehr. Aber zu solchen Mitteln zu greifen..."
+            - CHAT "Offiziell sind der Konsum und Anbau von Drogen in Quadesh verboten, dennoch sollen die Emire und Gilden flei<&chr[00DF]>ig daran verdienen."
+            }
+          - WAIT 9
+          - CHAT "Sonst noch etwas?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Karten|Ratschlag|Ger<&uuml>chte|Nichts'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        4:
+          Trigger: "/Nichts/, danke."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Wenn das so ist w<&uuml>nsche ich Euch frohes Schaffen, <player.name>. Auf Wiedersehen."
+          - ^ZAP 1
+          - DISENGAGE

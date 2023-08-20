@@ -1,0 +1,466 @@
+Knast_Jonny:
+  Type: Interact
+  debug: false
+  Requirements:
+   Mode: All
+   List:
+   - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Raus aus dem Knast]>]:Raus aus dem Knast'
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - NARRATE format:emote "schnarcht"
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - NARRATE "<&b>Die Wache scheint zu schlafen. Vielleicht solltet Ihr sie wecken und ein wenig mit ihr plaudern..."
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Entschuldigung|AUFWACHEN'
+        - NARRATE format:trigger ""
+        - DISENGAGE
+      Chat Trigger:
+        1:
+          Trigger: "HAALLLOOO, /AUFWACHEN/!"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "... Wie... wo... was?! Chef?!... Ach, Ihr seid es nur. Erschreckt mich doch nicht so."
+          - WAIT 4
+          - IF <player.flag[Knast].as_list> contains 'Jonny' {
+              - CHAT "... Moment mal, ward Ihr nicht schon einmal hier drin?"
+              - WAIT 3
+              - CHAT "Scheint fast, als h<&auml>ttet Ihr Gefallen daran gefunden hier drin zu sitzen."
+              - WAIT 3
+              - IF <player.money> >= 50 {
+                  - CHAT "Aber nun, Ihr wisst ja wie das l<&auml>uft. Gegen eine kleine 'Aufwandsentsch<&auml>digung'..."
+                  - WAIT 4
+                  - CHAT "Immerhin sind wir ja sozusagen alte Bekannte..."
+                  - WAIT 2
+                  - CHAT "<&6>KORRUPTION! BESTECHUNG! SCHIEBUNG!" no_target talkers:<n@Vogel> range:12.0
+                  - WAIT 3
+                  - CHAT "RUHE!" no_target
+                  - WAIT 1
+                  - CHAT "Also, was sagt Ihr?"
+                  - ^FLAG npc trigger:!
+                  - ^FLAG npc 'trigger:|:Bestechung|10 Silber|30 Silber|50 Silber'
+                  - NARRATE format:trigger ""
+                  - ^ZAP 4
+                  }
+                ELSE {
+                  - CHAT "Allerdings sieht es nicht danach aus, als ob Ihr Euch hier irgendwie freikauf... <&auml><&auml>h... rausreden k<&ouml>nntet."
+                  - WAIT 4
+                  - CHAT "Entweder Ihr wartet darauf, dass Euch jemand hier rausholt, oder ihr versucht auszubrechen..."
+                  - WAIT 4
+                  - CHAT "Aber das w<&uuml>rde ich mir sehr gut <&uuml>berlegen! Doch nun zu meinem wohl verdienten Mittags... schl<&auml>f... zzzz..."
+                  - ^ZAP 1
+                  }
+              }
+            ELSE {
+              - CHAT "Was wollt Ihr denn <&uuml>berhaupt? Ist der Eimer schon wieder voll, den hab ich doch letzte Woche erst geleert?"
+              - WAIT 4
+              - CHAT "<&6>HUNGER! Wo bleibt mein Futter?! Mir stehen K<&ouml>rner zu! Dreimal am Tag! Denkt hier auch mal einer an die H<&uuml>hnerrechte?!" no_target talkers:<n@Vogel> range:12.0
+              - WAIT 6
+              - CHAT "Ruhe dahinten auf den billigen Pl<&auml>tzen! Du nervst schon die ganze Woche, du Vogel! Bekommst den Hals einfach nicht voll, was?"
+              - WAIT 5
+              - CHAT "Nun zu Euch - Was habt Ihr denn f<&uuml>r ein Problem?"
+              - ^FLAG npc trigger:!
+              - ^FLAG npc 'trigger:|:Hunger|Ich muss mal|unschuldig'
+              - NARRATE format:trigger ""
+              - ^ZAP 2
+              }
+          - DISENGAGE
+        2:
+          Trigger: "/Entschuldigung/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - NARRATE format:emote "schl<&auml>ft friedlich"
+          - WAIT 2
+          - CHAT "<&6>WAHAHA, als ob du den so wachbekommen w<&uuml>rdest. Die alte Schnarchnase schl<&auml>ft 90% seiner Arbeitszeit durch. Wenn das sein Chef w<&uuml>sste..." talkers:<n@Vogel> range:12.0
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Entschuldigung|AUFWACHEN'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Hunger|Ich muss mal|unschuldig'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Ich habe /Hunger/."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Wir sind wohl ein Vielfra<&chr[00DF]>. Essen gibt es hier morgens um 8 und abends um 18 Uhr. Gew<&ouml>hnt Euch lieber dran, Extraw<&uuml>rste sind nicht drin, haha."
+          - WAIT 5
+          - CHAT "Sonst was?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Hunger|Ich muss mal|unschuldig'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "/Ich muss mal/ wohin..."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Eimer steht da vorne, tut Euch keinen Zwang an. Privatssph<&auml>re ist leider nicht drin, also seid so lieb und stinkt nicht allzu viel herum."
+          - WAIT 5
+          - NARRATE format:emote "lacht"
+          - WAIT 2
+          - CHAT "Noch was?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Hunger|Ich muss mal|unschuldig'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Ich bin /unschuldig/!"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Jajaa, wer ist das nicht. Fragt mal Euren Zimmernachbarn da hinten, der erz<&auml>hlt mir das seit Wochen."
+          - WAIT 4
+          - NARRATE format:emote "lacht laut"
+          - WAIT 2
+          - CHAT "Ach ja, manche Gefangene sind echt geborene Komiker."
+          - WAIT 3
+          - NARRATE "<&b>Schreibt '<&f>freilassen<&b>'."
+          - ^ZAP 3
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - NARRATE "<&b>Schreibt '<&f>freilassen<&b>'."
+      Chat Trigger:
+        1:
+          Trigger: "K<&ouml>nnt Ihr mich nicht einfach /freilassen/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - NARRATE format:emote "lacht laut"
+          - WAIT 2
+          - CHAT "Oh mann, Ihr seid wirklich ein echter Witzbold. Irgendwie mag ich Euch ja, sch<&auml>tze Ihr seid gar kein so gewaltt<&auml>tiger Typ, wie es in Eurer Akte steht."
+          - WAIT 6
+          - IF <player.money> >= 50 {
+              - CHAT "Wie ein arbeitloser Landsteicher ohne Geld und Heim seht Ihr auch nicht aus..."
+              - WAIT 4
+              - CHAT "Wisst Ihr was? Ich k<&ouml>nnte mir <&uuml>berlegen Euch gehen zu lassen, gegen sagen wir mal eine kleine 'Aufwandsentsch<&auml>digung'..."
+              - WAIT 5
+              - CHAT "Ihr wisst ja, die ganzen Kosten f<&uuml>r Unterbringung, Verpflegung mit Zimmerservice und so weiter, das summiert sich doch recht schnell."
+              - WAIT 5
+              - CHAT "Bis die Verhandlung f<&uuml>r Euer Vergehen beginnt, dauerts sowieso noch eine kleine Weile. Sch<&auml>tze so 5 oder 6 Jahre, wenn nichts dazwischen kommt. Was meint Ihr?"
+              - WAIT 6
+              - ^FLAG npc trigger:!
+              - ^FLAG npc 'trigger:|:Bestechung|10 Silber|30 Silber|50 Silber'
+              - NARRATE format:trigger ""
+              - ^ZAP 4
+              }
+            ELSE {
+              - CHAT "Allerdings sieht es nicht danach aus, als ob Ihr Euch hier irgendwie freikauf... <&auml><&auml>h... rausreden k<&ouml>nntet."
+              - WAIT 4
+              - CHAT "Entweder Ihr wartet darauf, dass Euch jemand hier rausholt, oder ihr versucht auszubrechen..."
+              - WAIT 4
+              - CHAT "Aber das w<&uuml>rde ich mir sehr gut <&uuml>berlegen! Doch nun zu meinem wohl verdienten Mittags... schl<&auml>f... zzzz..."
+              - ^ZAP 1
+              }
+          - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Bestechung|10 Silber|30 Silber|50 Silber'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Nennt man soetwas nicht /Bestechung/?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Um Thusundeas Willen, wie kommt Ihr denn da drauf? Nat<&uuml>rlich nicht, unsere Anstalt bietet lediglich den etwas reich..."
+          - WAIT 5
+          - CHAT "<&auml>hh... den ehrlich arbeitenden, harmloseren Insassen die M<&ouml>glichkeit Ihrer Arbeit weiter nachzugehen. Ich finde das <&auml>u<&chr[00DF]>erst R<&uuml>cksichtsvoll, Ihr nicht?"
+          - WAIT 6
+          - CHAT "<&6>KORRUPTIOOON! NICHTS ALS KORRUPTION, DER GANZE STAAAAT!" no_target talkers:<n@Vogel> range:12.0
+          - WAIT 4
+          - CHAT "Ist jetzt mal gut da hinten?!" no_target
+          - WAIT 3
+          - CHAT "H<&ouml>rt nicht auf den Typen da hinten, der hat einen <&uuml>blen Vogel."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Bestechung|10 Silber|30 Silber|50 Silber'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "/10 Silber/linge k<&ouml>nnte ich wohl er<&uuml>brigen..."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Wollt Ihr mich ver<&auml>ppeln, damit kann ich mir... <&auml>hm... damit kann das Gef<&auml>ngnis ja noch nicht mal den K<&ouml>rnerfra<&chr[00DF]> von der Elster dahinten bezahlen."
+          - WAIT 5
+          - CHAT '<&6>Verleumdung, alles Verleumdung! Ich bin nie eine Elster gewesen! <&Uuml>belste Nachrede, sperrt den Typen mal einer ein?!' no_target talkers:<n@Vogel> range:12.0
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Bestechung|10 Silber|30 Silber|50 Silber'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Wie w<&auml>re es mit /30 Silber/lingen?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Das klingt doch nach einem vern<&uuml>nftigen Betrag. Das d<&uuml>rften einige Schinkensandwiches f<&uuml>r mich ...<&ouml>hh... f<&uuml>r die werten G<&auml>ste sein."
+          - WAIT 5
+          - CHAT '<&6>WER WILL SCHON SCHINKEN! Gib mir K<&ouml>rner, K<&Ouml><&Ouml><&Ouml><&Ouml>RNEEER!' no_target talkers:<n@Vogel> range:12.0
+          - WAIT 3
+          - CHAT "Sei endlich still, du Schreihals!" no_target
+          - WAIT 2
+          - CHAT "Nun gut, ich lasse Euch jetzt raus."
+          - WAIT 3
+          - TELEPORT <player> 81,61,-32,world
+          - WAIT 2
+          - NARRATE format:money_taken "30"
+          - TAKE MONEY QTY:30
+          - WAIT 3
+          - CHAT "Wir sehen uns dann doch bei der Verhandlung, nicht wahr? Macht mir bis dahin blos keinen <&Auml>rger da drau<&chr[00DF]>en!"
+          - WAIT 4
+          - ^FLAG PLAYER 'AktiveQuests:<-:Raus aus dem Knast'
+          - IF <player.flag[FertigeQuests].as_list> !contains 'Raus aus dem Knast' {
+              - ^FLAG PLAYER 'FertigeQuests:->:Raus aus dem Knast'
+              }
+          - ^FLAG PLAYER 'QuestCounter:++'
+          - ^FLAG PLAYER 'Knast:->:Jonny'
+          - NARRATE format:quest_complete "Raus aus dem Knast"
+          - WAIT 3
+          - ^FLAG PLAYER 'AktiveQuests:->:Eine reine Weste'
+          - NARRATE format:quest_given "Eine reine Weste"
+          - WAIT 3
+          - NARRATE "Rechtsklickt <&a>Jonny <&b>erneut, um zu erfahren, was mit Eurer Akte passieren soll."
+          - ^ZAP 1
+          - DISENGAGE
+        4:
+          Trigger: "Wie w<&auml>re es mit /50 Silber/lingen?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Sehr gro<&chr[00DF]>z<&uuml>gig mein Herr! Das d<&uuml>rften einige Schinkensandwiches f<&uuml>r mich... <&ouml>hh... f<&uuml>r die werten G<&auml>ste sein."
+          - WAIT 4
+          - CHAT "An Eurer Akte l<&auml>sst sich bestimmt auch was machen, das war sicher nur eine dumme Verwechslung, nicht wahr?"
+          - WAIT 4
+          - CHAT '<&6>SCHIEBUNG! SCHIEBUNG, NUR WEIL DER TYP KOHLE HAT!' no_target talkers:<n@Vogel> range:12.0
+          - WAIT 3
+          - CHAT "Ruhe!" no_target
+          - WAIT 4
+          - CHAT "Nun gut, ich lasse Euch jetzt raus."
+          - WAIT 3
+          - TELEPORT <player> 81,61,-32,world
+          - WAIT 2
+          - NARRATE format:money_taken "50"
+          - TAKE MONEY QTY:50
+          - WAIT 3
+          - CHAT "Und macht Euch um Eure Akte keine Sorgen, ich werde mich darum k<&uuml>mmern."
+          - WAIT 3
+          - CHAT "Stets zu Diensten. Ich hoffe doch man sieht sich bald wieder... <&auml>h nat<&uuml>rlich nur zu Besuch! Doch nun zu meinem wohl verdienten Mittags... schl<&auml>f... zzzz..."
+          - WAIT 6
+          - ^FLAG PLAYER 'AktiveQuests:<-:Raus aus dem Knast'
+          - IF <player.flag[FertigeQuests].as_list> !contains 'Raus aus dem Knast' {
+              - ^FLAG PLAYER 'FertigeQuests:->:Raus aus dem Knast'
+              }
+          - ^FLAG PLAYER 'QuestCounter:++'
+          - IF <player.flag[Knast]> !contains Jonny {
+              - ^FLAG PLAYER 'Knast:->:Jonny'
+              }
+          - ^FLAG PLAYER 'Sozialakte:!'
+          - NARRATE format:quest_complete "Raus aus dem Knast"
+          - ^ZAP 1
+          - DISENGAGE
+
+Knast_Vogel:
+  Type: interact
+  debug: false
+  Requirements:
+   Mode: All
+   List:
+   - FLAGGED PLAYER 'AktiveQuests[<player.flag[AktiveQuests].as_list.find[Raus aus dem Knast]>]:Raus aus dem Knast'
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - NARRATE format:whisper "Pssst, hierher. Ja, genau Ihr. Seht Ihr hier sonst noch jemanden?"
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "Hey hey, mein Freund. Nicht so sch<&uuml>chtern, wie ist Euer werter Name?"
+        - WAIT 3
+        - IF <player.flag[Knast].as_list> contains 'Vogel' {
+            - CHAT "<player.name>... Moment mal, wir kennen uns doch."
+            - WAIT 2
+            - CHAT "Scheint fast, als h<&auml>ttet Ihr Gefallen daran gefunden hier drin zu sitzen. *Gacker*"
+            - WAIT 3
+            - CHAT "Aber das wage ich zu bezeifeln... Jedenfalls... Ihr wisst ja wie das l<&auml>uft."
+            - WAIT 3
+            - CHAT "Ich schaffe Euch hier raus und Ihr k<&uuml>mmert Euch um alles Weitere."
+            - ^FLAG npc trigger:!
+            - ^FLAG npc 'trigger:|:Geht klar|Ich <&uuml>berdenke das'
+            - NARRATE format:trigger ""
+            - ^ZAP 5
+            }
+          ELSE {
+            - CHAT "<player.name>... Interessant. Nun, <player.name>, wie ich sehe sitzt Ihr ein wenig in der Klemme, oder?"
+            - ^FLAG npc trigger:!
+            - ^FLAG npc 'trigger:|:Wir beide|Ja'
+            - NARRATE format:trigger ""
+            - DISENGAGE
+            - ^ZAP 2
+            }
+    2:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Wir beide|Ja'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Meint Ihr nicht, dass /wir beide/ hier festsitzen?"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Niedlich, aber macht Euch mal keine Gedanken <&uuml>ber meine Lage, es geht nur um Euch."
+          - WAIT 3
+          - CHAT "So abgerissen wie Ihr ausseht... *Gacker* h<&auml>tte ich vielleicht Arbeit f<&uuml>r Euch! Wie schaut es aus, seid Ihr dabei?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Zu allem bereit|Alternative'
+          - NARRATE format:trigger ""
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "/Ja/, das k<&ouml>nnte man so sagen..."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "In der Tat! *Gacker* Und wie soll ich sagen, heute muss Euer Gl<&uuml>ckstag sein. Denn zuf<&auml>llig wei<&chr[00DF]> ich, wie Ihr hier wieder herausk<&auml>met..."
+          - WAIT 5
+          - CHAT "... Das ist nat<&uuml>rlich mit einem gewissen Risiko f<&uuml>r mich verbunden. Gratis gibt es bekanntlich nichts auf dieser Welt. K<&ouml>nnt Ihr mir folgen?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Dubios|Erz<&auml>hlt mir mehr'
+          - NARRATE format:trigger ""
+          - ^ZAP 3
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Dubios|Erz<&auml>hlt mir mehr'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Das klingt doch ein wenig /dubios/..."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Aber nicht doch, <player.name> mein Freund, wenn meine Angebote dubios w<&auml>ren, m<&uuml>sste ich ja selber dran zweifeln oder nicht?"
+          - WAIT 5
+          - CHAT "Nein, nein. Unzweifelhaft - gegen ein oder zwei kleine Gef<&auml>lligkeiten kann ich Euch hier rausbringen. Seid Ihr dabei?"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Zu allem bereit|Alternative'
+          - NARRATE format:trigger ""
+          - ^ZAP 4
+          - DISENGAGE
+        2:
+          Trigger: "Klingt nach einer sauberen Sache, /erz<&auml>hlt mir mehr/!"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Es ist eigentlich ganz einfach."
+          - WAIT 2
+          - CHAT "Ich schaffe Euch jetzt hier raus und Ihr geht mir sp<&auml>ter zur Hand, wenn ich Eure Hilfe ben<&ouml>tige."
+          - WAIT 5
+          - CHAT "Vertraut mir, <player.name>. Es ist wahrscheinlich nur eine Kleinigkeit."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Geht klar|Ich <&uuml>berdenke das'
+          - NARRATE format:trigger ""
+          - ^ZAP 5
+          - DISENGAGE
+    4:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Zu allem bereit|Alternative'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Ich bin /zu allem bereit/, was habt ihr f<&uuml>r mich?"
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Ruhig Blut, ruhig Blut. Wir wollen nichts <&uuml>berst<&uuml>rzen, wir sagen einfach Ihr schuldet mir eine Kleinigkeit und wenn ich was passendes f<&uuml>r Euch habe, werde ich mich bei Euch melden."
+          - WAIT 7
+          - CHAT "Ihr kommt raus und ich bekomme Hilfe wenn ich sie brauche. Ein fairer Deal *gacker*!"
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Geht klar|Ich <&uuml>berdenke das'
+          - NARRATE format:trigger ""
+          - ^ZAP 5
+          - DISENGAGE
+        2:
+          Trigger: "Gibt es nicht vielleicht eine /Alternative/?..."
+          Script:
+          - ENGAGE
+          - WAIT 3
+          - CHAT "Nat<&uuml>rlich. Bleibt hier und versauert. Oder hofft eben darauf, dass jemand vorbei kommt, den Ihr um ein paar Kupfer anbetteln k<&ouml>nnt."
+          - WAIT 6
+          - CHAT "Es ist Eure Entscheidung, aber ich will eine Antwort. Mein gro<&chr[00DF]>z<&uuml>giges Angebot kann ich auch anderen unterbreiten, wenn Ihr Euch zu Schade f<&uuml>r ein bisschen Arbeit seid."
+          - ^FLAG npc trigger:!
+          - ^FLAG npc 'trigger:|:Geht klar|Ich <&uuml>berdenke das'
+          - NARRATE format:trigger ""
+          - ^ZAP 5
+          - DISENGAGE
+    5:
+      Click Trigger:
+        Script:
+        - ^FLAG npc trigger:!
+        - ^FLAG npc 'trigger:|:Geht klar|Ich <&uuml>berdenke das'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "/Geht klar/, schafft mich hier raus!"
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Hervorragend! *Gacker* Ich werde alles weitere in die Wege leiten. Um Eure Akte solltet Ihr Euch dann zu gegebener Zeit k<&uuml>mmern! *Gacker*"
+          - WAIT 5
+          - CHAT "Also dann, wir haben eine Abmachung. Wenn ihr schnell Eure Schuld begleichen wollt, sucht meinen Kontaktmann in Ituria. Er wird definitiv etwas f<&uuml>r Euch zu tun haben."
+          - WAIT 6
+          - CAHT "Doch haltet Euch bedeckt! Insbesondere um diejenigen, die Euch eingebuchtet haben, solltet Ihr in Zukunft einen gro<&chr[00DF]>en Bogen machen!"
+          - WAIT 5
+          - CHAT "Hier ist der Weg in die Freiheit, folgt einfach dem Tunnel, dann kann eigentlich nichts schiefgehen."
+          - WAIT 3
+          - EXECUTE as_server "minecraft:setblock 73 61 -41 redstone_torch"
+          - ^FLAG PLAYER 'AktiveQuests:<-:Raus aus dem Knast'
+          - IF <player.flag[FertigeQuests].as_list> !contains 'Raus aus dem Knast' {
+              - ^FLAG PLAYER 'FertigeQuests:->:Raus aus dem Knast'
+              }
+          - ^FLAG PLAYER 'QuestCounter:++'
+          - IF <player.flag[Knast]> !contains Vogel {
+              - ^FLAG PLAYER 'Knast:->:Vogel'
+              - ^FLAG PLAYER 'AktiveQuests:->:Der erste Kontakt'
+              - NARRATE format:quest_given "Der erste Kontakt"
+              - WAIT 3
+              }
+            ELSE {
+              - CHAT "Und denkt daran Eure Akte zu s<&auml>ubern, sonst sehen wir uns schneller wieder, als Euch lieb ist..."
+              - WAIT 4
+              }
+          - NARRATE format:quest_complete "Raus aus dem Knast"
+          - ^ZAP 1
+        2:
+          Trigger: "Irgendwie trau ich der Sache nicht, /ich <&uuml>berdenke das/ lieber mal in Ruhe."
+          Script:
+          - ENGAGE
+          - WAIT 2
+          - CHAT "Na sch<&ouml>n, wie Ihr wollt. Bettelt ruhig um ein paar armselige Kupferst<&uuml>cke, vielleicht habt ihr ja Gl<&uuml>ck und jemand hat mit Eurer Erscheinung Mitleid."
+          - WAIT 5
+          - CHAT "Vielleicht schafft Ihr es ja sogar den Wanst da dr<&uuml>ben zu wecken, aber ohne Moos nix los Kleiner. Das kann ich Euch gleich sagen."
+          - WAIT 4
+          - CHAT "Ihr wisst ja wo ihr mich findet wenn Ihr mich braucht *gacker*!"
+          - ^ZAP 4
+          - DISENGAGE

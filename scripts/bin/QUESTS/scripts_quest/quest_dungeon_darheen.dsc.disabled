@@ -1,0 +1,79 @@
+Darheen:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@DarheenStandard'
+      - FLAG npc trigger:!
+  interact scripts:
+    - 0 DarheenStandard
+
+DarheenStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Proximity Trigger:
+        Entry:
+          Script:
+          - IF <player.flag[AktiveQuests].as_list> contains 'Der antike Schrein' || <player.flag[AktiveQuests].as_list> contains 'Die alte Villa' <player.flag[AktiveQuests].as_list> contains 'Die Turmruine' {
+              - CHAT "Hey, wartet einen Moment!"
+              }
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - IF <player.flag[AktiveQuests].as_list> contains 'Der antike Schrein' {
+            - CHAT "Wie ich sehe kommt Ihr gerade aus dem alten Schrein... Was wolltet Ihr denn da?"
+            - WAIT 4
+            - CHAT "... Jedenfalls wollte ich Euch sagen, dass <&a>Bahrim<&e> schon ewig nach jemandem sucht, der den Schrein genauer unter die Lupe nimmt."
+            - WAIT 6
+            - CHAT "Ihr solltet mit ihm sprechen. Seinen Laden 'Karten und Kriege' findet Ihr im Nordhafen."
+            - WAIT 5
+            - CHAT "Ich weiß leider nichts genaues über das Anliegen, aber die Details werdet Ihr sicher vom Auftraggeber erfahren."
+            - WAIT 5
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Die alte Villa' {
+            - CHAT "Wie ich sehe kommt Ihr gerade aus der alten Villa 'Montag'... Was wolltet Ihr denn da?"
+            - WAIT 5
+            - CHAT "... Jedenfalls wollte ich Euch sagen, dass <&a>Vlad Finster<&e> schon ewig nach jemandem sucht, der Ihm etwas aus seiner Villa besorgt."
+            - WAIT 6
+            - CHAT "Ihr solltet mit ihm sprechen. Meistens hockt er im 'Gezeitenwächter', der Hafenkneipe am Nordhafen."
+            - WAIT 5
+            - CHAT "Ich weiß leider nichts genaues über das Anliegen, aber die Details werdet Ihr sicher vom Auftraggeber erfahren."
+            - WAIT 5
+            }
+          ELSE IF <player.flag[AktiveQuests].as_list> contains 'Die Turmruine' {
+            - CHAT "Wie ich sehe kommt Ihr gerade aus der alten Turmruine... Was wolltet Ihr denn da?"
+            - WAIT 5
+            - CHAT "... Jedenfalls wollte ich Euch sagen, dass die <&a>Tempelwache<&e> schon ewig nach jemandem sucht, der Ihr etwas aus dem Turm birgt."
+            - WAIT 6
+            - CHAT "Ihr solltet mit ihr sprechen. Ihr findet die Wache oben am Tempel."
+            - WAIT 4
+            - CHAT "Ich weiß leider nichts genaues über das Anliegen, aber die Details werdet Ihr sicher vom Auftraggeber erfahren."
+            - WAIT 5
+            }
+          ELSE {
+            - CHAT "Wie ich sehe kommt Ihr gerade aus einem alten Dungeon... Was wolltet Ihr denn da?"
+            - WAIT 5
+            - CHAT "... Jedenfalls wollte ich Euch sagen, dass es sich durchaus löhnen könnte, ihn genauer zu erkunden."
+            - WAIT 5
+            - CHAT "Es gibt so einige Leute, die für einen Schatz aus dem Dungeon gutes Geld zahlen würden."
+            - WAIT 5
+            - CHAT "Vielleicht solltet Ihr es noch einmal versuchen, wenn Ihr mehr Zeit und Abenteuerlust habt."
+            - WAIT 5
+            }
+        - CHAT "Ich muss mich sputen, ich habe noch viel zu tun."
+        - WAIT 4
+        - CHAT "Bis dahin!"
+        - WAIT 3
+        - DESPAWN Darheen
+        - DISENGAGE

@@ -1,0 +1,163 @@
+Egmont:
+  Type: Assignment
+  debug: false
+  actions:
+    on assignment:
+      - trigger name:chat toggle:true
+      - trigger name:click toggle:true
+      - trigger name:proximity toggle:true
+    on enter proximity:
+      - lookclose toggle:true
+    on exit proximity:
+      - lookclose toggle:false
+      - zap 1 's@EgmontStandard'
+  interact scripts:
+    - 0 EgmontStandard
+    - 5 Gast1
+    - 10 Tutorial_Egmont
+
+EgmontStandard:
+  Type: Interact
+  debug: false
+  Requirements:
+    Mode: None
+  Steps:
+    1:
+      Click Trigger:
+        Script:
+        - ENGAGE
+        - CHAT "... Ach, Ihr seid es wieder <player.name>. Tut mir Leid, dass ich Euch nicht sofort bemerkt habe, aber diese viele Arbeit..."
+        - WAIT 5
+        - CHAT "Was gibt es denn? Fasst Euch kurz, ich habe nicht ewig Zeit."
+        - FLAG npc trigger:!
+        - IF <player.in_group[Neuling]> {
+            - NARRATE "<&b>Ihr k<&ouml>nnt mit diesem NPC reden, indem Ihr in seiner N<&auml>he in den Chat schreibt."
+            - FLAG npc trigger:!
+            - FLAG npc 'trigger:|:Grundst<&uuml>ck finden|Bewerbung|Bauvorschriften|Baunachhilfe|Danke'
+            - NARRATE format:trigger ""
+            - ^ZAP 2
+            }
+          ELSE {
+            - FLAG npc trigger:!
+            - FLAG npc 'trigger:|:Arbeit|Danke'
+            - NARRATE format:trigger ""
+            - ^ZAP 3
+            }
+        - DISENGAGE
+    2:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Grundst<&uuml>ck finden|Bewerbung|Bauvorschriften|Baunachhilfe|Danke'
+        - NARRATE format:trigger ""
+      Chat Trigger:
+        1:
+          Trigger: "Wo kann ich ein /Grundst<&uuml>ck finden/?"
+          Script:
+          - ENGAGE
+          - CHAT "Wie ich bereits sagte - freie Grundst<&uuml>cke sind mit Steinvierecken am Boden markiert."
+          - WAIT 5
+          - NARRATE "<&b>Mit dem Befehl <&f>/gs <&b>k<&ouml>nnt Ihr Euch die Koordinaten des n<&auml>chsten freien Grundst<&uuml>cks zeigen lassen."
+          - WAIT 5
+          - CHAT "Ihr solltet gen<&uuml>gend Auswahl vorfinden, wenn Ihr Ituria abgeht und die dynamische Karte zur Hilfe nehmt."
+          - WAIT 5
+          - NARRATE "<&b>Stellt Euch auf ein freies Grundst<&uuml>ck und tippt erneut <&f>/gs <&b>ein. Best<&auml>tigt die Auswahl mit '<&f>Ja<&b>'."
+          - WAIT 5
+          - CHAT "Im <&Uuml>brigen ist unser sch<&ouml>nes Ituria auf einer Insel gelegen. Traut Euch ruhig sie ganz zu erkunden."
+          - WAIT 5
+          - CHAT "War es das?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Grundst<&uuml>ck finden|Bewerbung|Bauvorschriften|Baunachhilfe|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "Wie l<&auml>uft das mit der /Bewerbung/?"
+          Script:
+          - ENGAGE
+          - CHAT "Wenn Ihr Euer Haus auf Ituria fertiggestellt habt k<&ouml>nnt Ihr Euch im Forum der Craftasy-Community um die Mitgliedschaft bei Craftasy bewerben."
+          - WAIT 7
+          - CHAT "Lest Euch den Thread 'Wie schreibe ich eine Bewerbung' durch und gebt Euch M<&uuml>he!"
+          - WAIT 4
+          - CHAT "Schaut Euch erfolgreiche Bewerbungen an oder fragt nach, wenn Ihr unsicher seid was Ihr schreiben k<&ouml>nnt."
+          - WAIT 5
+          - CHAT "Nutzt die Zeit, die Eure Bewerbung in der Bearbeitung ist, um euch die vielen L<&auml>nder auf dem Server anzusehen und mit den Projketleitern zu reden. Dann habt Ihr es sp<&auml>ter einfacher Euch f<&uuml>r eines zu entscheiden."
+          - WAIT 9
+          - CHAT "War es das?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Grundst<&uuml>ck finden|Bewerbung|Bauvorschriften|Baunachhilfe|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        3:
+          Trigger: "Gibt es auf Ituria /Bauvorschriften/?"
+          Script:
+          - ENGAGE
+          - CHAT "Nat<&uuml>rlich! Oder meint Ihr eine ordentliche Stadt w<&uuml>rde von alleine entstehen?"
+          - WAIT 4
+          - CHAT "Wenn Ihr durch die Altstadt und die anderen dichter besiedelten Viertel wandert solltet Ihr rasch feststellen, dass die H<&auml>user zwar alle individuell gestaltet sind, aber dennoch zusammen ein stimmiges Bild liefern."
+          - WAIT 9
+          - CHAT "Grunds<&auml>tzlich gilt - Euer Haus muss ins Stadtbild passen. Am besten Ihr orientiert Euch an H<&auml>usern alteingesessener B<&uuml>rger. Lasst Euch von <&b>Mitgliedern <&e>oder <&5>Guards <&e>welche zeigen, wenn Ihr Euch nicht sicher seid."
+          - WAIT 9
+          - CHAT "War es das?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Grundst<&uuml>ck finden|Bewerbung|Bauvorschriften|Baunachhilfe|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        4:
+          Trigger: "Ich h<&auml>tte gerne ein paar Tipps, wie sieht es mit /Baunachhilfe/ aus?"
+          Script:
+          - ENGAGE
+          - CHAT "Solltet Ihr Probleme mit dem Baustil hier haben oder einfach interessiert sein an iturianischer Bautheorie, k<&ouml>nnt Ihr nach Hilfe fragen."
+          - WAIT 5
+          - CHAT "Ihr k<&ouml>nnt jederzeit ein <&4>Ratsmitglied <&e>oder ein <&b>Mitglied <&e>um Hilfe und Tipps zu Eurem Haus bitten. Wenn sie Zeit haben werden sie Euch gerne helfen."
+          - WAIT 6
+          - CHAT "War es das?"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Grundst<&uuml>ck finden|Bewerbung|Bauvorschriften|Baunachhilfe|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        5:
+          Trigger: "/Danke/sch<&ouml>n, das war alles."
+          Script:
+          - ENGAGE
+          - CHAT "... Na endlich *r<&auml>usper* Nun aber wieder ran ans Werk! Es gibt so viel zu tun..."
+          - WAIT 3
+          - CHAT "Los jetzt, steht hier nicht so unt<&auml>tig rum. Ich denke auch Ihr solltet reichlich Arbeit vor Euch haben!"
+          - ^ZAP 1
+          - DISENGAGE
+        6:
+          Trigger: /REGEX:\w+/
+          Script:
+          - ENGAGE
+          - CHAT "Entschuldigt, aber ich wei<&chr[00DF]> nicht, was Ihr mit '<&f><player.chat_history><&e>' meint."
+          - WAIT 4
+          - NARRATE "<&b>Das war wohl nichts. Wenn Ihr nicht sicher seid, was der NPC h<&ouml>ren m<&ouml>chte versucht mit <&f>Rechtsklick <&b>einen Tipp zu bekommen auf welche Schlagw<&ouml>rter er wartet." 
+          - DISENGAGE
+    3:
+      Click Trigger:
+        Script:
+        - FLAG npc trigger:!
+        - FLAG npc 'trigger:|:Arbeit|Danke'
+        - NARRATE format:trigger ""
+      Chat Trigger: 
+        1:
+          Trigger: "Wie l<&auml>uft die /Arbeit/?"
+          Script:
+          - ENGAGE
+          - CHAT "Davon habe ich im Moment genug, wenn Ihr das wissen wolltest."
+          - WAIT 3
+          - CHAT "Daher w<&uuml>rde ich Euch bitten auf den Punkt zu kommen. Es zut mir leid, aber ich bin wirklich besch<&auml>ftigt!"
+          - WAIT 4
+          - NARRATE format:emote "s<&auml>ufzt"
+          - FLAG npc trigger:!
+          - FLAG npc 'trigger:|:Arbeit|Danke'
+          - NARRATE format:trigger ""
+          - DISENGAGE
+        2:
+          Trigger: "/Danke/sch<&ouml>n, das war alles."
+          Script:
+          - ENGAGE
+          - CHAT "Nun aber wieder ran ans Werk! Es gibt so viel zu tun..."
+          - WAIT 3
+          - CHAT "Los jetzt, steht hier nicht so unt<&auml>tig rum. Ich denke auch Ihr solltet reichlich Arbeit vor Euch haben!"
+          - ^ZAP 1
+          - DISENGAGE
