@@ -11,7 +11,7 @@ magic_sidebar_config:
     # How many updates per second (acceptable values: 1, 2, 4, 5, 10)
     per_second: 2
     # Set this to your sidebar title.
-    title: "<&f><&m>----------------"
+    title: <&6><&gt><&gt><&3> Craftasy <&6><&lt><&lt>
     # Set this to the list of sidebar lines you want to display.
     # Start a line with "[scroll:#/#]" to make it automatically scroll
     # with a specified width and scroll speed (characters shifted per second).
@@ -19,15 +19,12 @@ magic_sidebar_config:
     # There should also be at least one normal line that's as wide as the width, to prevent the sidebar resizing constantly.
     # TODO: make lines configurable via GUI settings (toggle lines on/off)
     lines:
-    - <&6>>><&3> Craftasy <&6><<
-    - <&f><&l>Info
-    - <&6>⚑ <&3><player.location.simple.before_last[,].replace[,].with[<&3>,<&b>]> Weltname
+    - <&f><&m>----------------
+    - <&3><player.location.simple.before_last[,].replace[,].with[<&b>,<&3>]><&3> Weltname
     - <&6>AP: <&3>000 <&6>SP: <&3>000
     - <&6>Geld: <&3>00000000
-    - <&f><&l>Statistik
     - <&6>Rang: <&3>Name
-    - <&6>Spielzeit: <&3>00h
-    -  <&f><&m>----------------
+    - <&f><&m>----------------
 # ------------------------- End of configuration -------------------------
 
 magic_sidebar_world:

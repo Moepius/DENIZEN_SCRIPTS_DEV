@@ -1,5 +1,7 @@
 # teleports the player to it's location in a world or the spawn if no back-location is found
 
+#TODO: if the target location is in a portal zone, teleport the player to the portals defined safe zone instead and flag the back location again
+
 command_teleport_world:
     type: command
     debug: false
