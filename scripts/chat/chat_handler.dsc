@@ -36,13 +36,18 @@ chat_formatting:
       - define linkstart <list[https://|http://|www.|meta.|map.|forum.|login.]>
       - define linkend <list[.de|.com|.net|.info|.ly|.be|.fr|.is|.biz|.to|.co|.org|.uk|.at]>
       - define locations <list[Orbis|Avarus|Arboretum|Kaos|Orcus|Zeitkapsel|Hortusmanium|Ituria|Moraira|Blackshire]>
+      - define symbols <list[?|,|:|;|!|.]>
       - define textrpl <context.message.parse_color>
-      # loop through each word of the message and hilight links and locations
-      - foreach <context.message.split_args> as:arg:
+      # loop through each word of the message and highlight links
+      - foreach <context.message.split> as:arg:
         - if <[linkstart].filter_tag[<[arg].starts_with[<[filter_value]>]>].any> || <[linkend].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
             - define textrpl <[textrpl].replace[<[arg]>].with[<&n><[arg]><&r>]>
-        - if <[locations].filter_tag[<[arg].contains_text[<[filter_value]>]>]>:
-            - define textrpl <[textrpl].replace[<[arg]>].with[<&c><[arg]><&r>]>
+      # filter out symbols like ?,:,!
+        - if <[symbols].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
+            - define textrpl <[textrpl].replace[<[arg].to_list.last>].with[<&f><[arg].to_list.last><&r>]>
+      # highlitght predefined locations
+      - foreach <[locations]> as:loc:
+          - define textrpl <[textrpl].replace[<[loc]>].with[<&c><[loc]><&r>]>
       # higlight player names
       - foreach <server.online_players.exclude[<player>].include[<server.offline_players>]> as:player:
         - define name <[player].name>
@@ -50,7 +55,6 @@ chat_formatting:
           - define textrpl <[textrpl].replace[<[name]>].with[<&a><[name]><&r>]>
           - if <[player].is_online>:
             - playsound <[player]> sound:block_bell_use
-
       ################### build the text
       - define text "<player.proc[player_name_format]><&f><&co> <[textrpl]>"
       - definemap data:
@@ -68,7 +72,6 @@ chat_formatting:
 
     on player receives message:
       - stop if:<context.message.starts_with[playerchat/]>
-
       # ██ [ Verwenden Sie das Chat-Format des Spielers               ] ██
       - definemap data:
           text: <context.message>
@@ -220,7 +223,7 @@ chat_formatting:
 
 player_name_format:
   type: procedure
-  debug: true
+  debug: false
   definitions: player
   script:
     # long, verbose version
@@ -236,7 +239,7 @@ player_name_format:
 
 chat_update_command:
   type: command
-  debug: true
+  debug: false
   name: chat_update
   description: Chatdaten aktualisieren
   usage: /chat_update
