@@ -6,6 +6,9 @@
 
 # TODO: delete history every few days
 # TODO: delete history when it gets too big
+# TODO: highlight links (https, www, .de, .com, .net)
+# TODO: highlight player Names and send them a notification ... ratelimit for anti spam!
+
 
 chat_formatting:
   type: world
@@ -24,14 +27,32 @@ chat_formatting:
         - run chatsounds_error def:<player>
         - narrate format:c_warn "Ihr wurdet stummgeschaltet."
         - stop
-
       # ██ [ Überprüfen Sie, ob der Spieler unsere Regeln gelesen hat ] ██
       - if !<player.has_permission[craftasy.denizen.player.chat.use]>:
         - run chatsounds_error def:<player>
         - narrate format:c_warn "Akzeptiert zunächst unsere Regeln, damit ihr den Chat nutzen könnt."
         - stop
+      ################## highlight player names, server locations and links
+      - define linkstart <list[https://|http://|www.|meta.|map.|forum.|login.]>
+      - define linkend <list[.de|.com|.net|.info|.ly|.be|.fr|.is|.biz|.to|.co|.org|.uk|.at]>
+      - define locations <list[Orbis|Avarus|Arboretum|Kaos|Orcus|Zeitkapsel|Hortusmanium|Ituria|Moraira|Blackshire]>
+      - define textrpl <context.message.parse_color>
+      # loop through each word of the message and hilight links and locations
+      - foreach <context.message.split_args> as:arg:
+        - if <[linkstart].filter_tag[<[arg].starts_with[<[filter_value]>]>].any> || <[linkend].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
+            - define textrpl <[textrpl].replace[<[arg]>].with[<&n><[arg]><&r>]>
+        - if <[locations].filter_tag[<[arg].contains_text[<[filter_value]>]>]>:
+            - define textrpl <[textrpl].replace[<[arg]>].with[<&c><[arg]><&r>]>
+      # higlight player names
+      - foreach <server.online_players.exclude[<player>].include[<server.offline_players>]> as:player:
+        - define name <[player].name>
+        - if <[textrpl].contains_text[<[name]>]>:
+          - define textrpl <[textrpl].replace[<[name]>].with[<&a><[name]><&r>]>
+          - if <[player].is_online>:
+            - playsound <[player]> sound:block_bell_use
 
-      - define text "<player.proc[player_name_format]><&f><&co> <context.message.parse_color>"
+      ################### build the text
+      - define text "<player.proc[player_name_format]><&f><&co> <[textrpl]>"
       - definemap data:
           text: <[text]>
           time: <util.time_now.epoch_millis>
