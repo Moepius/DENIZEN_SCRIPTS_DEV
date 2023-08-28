@@ -12,7 +12,7 @@ drugs_world:
   debug: false
   events:
     on player consumes KSJ_Cookie:
-      - cast <player.name> minecraft:nausea 90
+      - cast confusion duration:90 <player> no_ambient no_icon hide_particles
       - repeat 3:
         - wait 10
         - playsound <player> sound:ambient_cave volume:0.5 pitch:0.8
