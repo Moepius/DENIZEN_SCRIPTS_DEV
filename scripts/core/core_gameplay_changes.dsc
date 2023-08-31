@@ -87,3 +87,25 @@ rightclick_shulker_inventory:
         on player flagged:shulker_box clicks in inventory:
           - if <context.item.advanced_matches[shulker_box|*_shulker_box]>:
             - determine cancelled
+
+refill_blocks:
+  type: world
+  debug: true
+  enabled: true
+  events:
+    on player places block:
+      - if <player.gamemode> != survival:
+            - stop
+      - if <context.item_in_hand.quantity> == 1:
+        - flag <player> refill_blocks:<context.item_in_hand>
+    after player places block flagged:refill_blocks:
+      - if !<player.inventory.contains_item[<player.flag[refill_blocks].material>]>:
+        - stop
+      - if <player.item_in_hand.material.name> != air:
+        - stop
+      - foreach <player.inventory.find_all_items[<player.flag[refill_blocks].material>]> as:slot:
+        # get material names and quantities list
+        # sort the list by size
+        # give player
+        # refill the players item in hand slot with item from refill_blocks flag, up to 64
+        # remove the items from the inventory slots they where taken from
