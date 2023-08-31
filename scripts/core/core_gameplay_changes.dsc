@@ -8,9 +8,9 @@
 # TODO: buff rails (less expensive crafting recipes, faster traveling)
 # TODO: sync world times
 # TODO: chance for "bloodmoon" like events (negative, longer nights) and blessed days (positive, longer day, e. g. crops grow faster)
-
-
-
+# TODO: when a stack of an item is used up, the hotbarslot is refilled with that item automatically if player has more in inventory
+# TODO: https://www.curseforge.com/minecraft/mc-mods/tweakeroo implementieren
+# TODO: Players can place buttons, pressure plates etc. on fences and walls  with sound
 
 # https://meta.denizenscript.com/Docs/Events/time%20changes%20in%20world
 

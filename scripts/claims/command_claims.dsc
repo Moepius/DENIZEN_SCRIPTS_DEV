@@ -8,31 +8,31 @@
 
 # https://github.com/Hydroxycobalamin/dPrevention ... nutzen, um Zonen zu claimen
 
-koloniebanner_placement:
-    type: world
-    debug: true
-    events:
-        on player places banner:
-            # Permission test
-            - if !<player.has_permission[craftasy.denizen.claims.koloniebanner_platzieren]>:
-                - determine passively cancelled
-                - run task_player_error "def:Dir fehlt die Genehmigung, um eine Flagge zu hissen!|<player>|<context.location>|stone"
-                - stop
-            # config, um Welt zu ändern und flag
-            - if ( <context.location.world.name> != orbis ) || ( !<player.has_flag[player.inarea.orbis.kolonie_sued]> ):
-                - determine passively cancelled
-                - run task_player_error "def:Ihr könnt hier keine Flagge hissen!|<player>|<context.location>|stone"
-                - stop
-            # Berührt die gewünschte Location eine andere, bereits beanspruchte Zone?
-            - note <context.location.add[-25,-100,-25].to_cuboid[<context.location.add[25,100,25]>]> as:player.claims.<player>
-            - if <player.has_flag[player.claims.areaclaimed]>:
-                - determine passively cancelled
-                - run task_player_error "def:Ihr habt bereits eine Flagge gehisst!|<player>|<context.location>|stone"
-                - stop
-            - else:
-                - flag <player> player.claims.areaclaimed
-                - run task_kolonie_gruenden def:<player>|<context.location>
-
+##koloniebanner_placement:
+##    type: world
+##    debug: true
+##    events:
+##        on player places banner:
+##            # Permission test
+##            - if !<player.has_permission[craftasy.denizen.claims.koloniebanner_platzieren]>:
+##                - determine passively cancelled
+##                - run task_player_error "def:Dir fehlt die Genehmigung, um eine Flagge zu hissen!|<player>|<context.location>|stone"
+##                - stop
+##            # config, um Welt zu ändern und flag
+##            - if ( <context.location.world.name> != orbis ) || ( !<player.has_flag[player.inarea.orbis.kolonie_sued]> ):
+##                - determine passively cancelled
+##                - run task_player_error "def:Ihr könnt hier keine Flagge hissen!|<player>|<context.location>|stone"
+##                - stop
+##            # Berührt die gewünschte Location eine andere, bereits beanspruchte Zone?
+##            - note <context.location.add[-25,-100,-25].to_cuboid[<context.location.add[25,100,25]>]> as:player.claims.<player>
+##            - if <player.has_flag[player.claims.areaclaimed]>:
+##                - determine passively cancelled
+##                - run task_player_error "def:Ihr habt bereits eine Flagge gehisst!|<player>|<context.location>|stone"
+##                - stop
+##            - else:
+##                - flag <player> player.claims.areaclaimed
+##                - run task_kolonie_gruenden def:<player>|<context.location>
+##
 task_kolonie_gruenden:
     type: task
     definitions: player|location

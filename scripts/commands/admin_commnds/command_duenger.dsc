@@ -2,7 +2,7 @@
 # TODO: add sea mode for sea plants
 command_duenger:
     type: command
-    debug: true
+    debug: false
     name: duenger
     description: open the duenger GUI
     usage: /duenger
@@ -23,7 +23,7 @@ command_duenger:
 
 duenger_inventory:
     type: inventory
-    debug: true
+    debug: false
     inventory: chest
     title: <&f><&l>Superdünger Einstellungen
     gui: true
@@ -81,7 +81,7 @@ duenger_inventory:
 
 duenger_handler:
     type: world
-    debug: true
+    debug: false
     enabled: true
     events:
         on player left clicks item in duenger_inventory:
@@ -144,7 +144,7 @@ duenger_handler:
 # rightclick action for planting in the set radius with set intensity
 superduenger_rightclick:
     type: task
-    debug: true
+    debug: false
     definitions: player|clicked_block
     script:
         - define valid_blocks <script[duenger_valid_blocks].data_key[blocks].as[list]>
@@ -181,7 +181,7 @@ superduenger_rightclick:
 # leftclick action to open the GUI
 superduenger_leftclick:
     type: task
-    debug: true
+    debug: false
     definitions: player
     script:
         # flag player with default values

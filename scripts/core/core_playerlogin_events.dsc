@@ -1,7 +1,7 @@
 
 core_login_handler:
     type: world
-    debug: true
+    debug: false
     enabled: true
     events:
         on player joins:
@@ -56,8 +56,6 @@ core_login_handler:
             - playsound <[value]> sound:BLOCK_NOTE_BLOCK_CHIME volume:1 pitch:0.2
             - playsound <[value]> sound:BLOCK_NOTE_BLOCK_BELL volume:1 pitch:0.2
             - narrate format:c_info targets:<[value]> "<&a><player.name> <&b>hat den Server verlassen."
-        
-
 
 task_motd:
     type: task

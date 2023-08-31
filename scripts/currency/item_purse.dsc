@@ -7,7 +7,9 @@
 
 purse_handler:
   type: world
-  debug: true
+  debug: false
+  # TODO: enable again! #########
+  enabled: false
   events:
     # TODO: more tests for many cases needed when players do stuff with the purse items
     # TODO: when player has a purse in inventory and collects currency items, automatically put them in the largest available purse
