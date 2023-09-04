@@ -93,19 +93,33 @@ refill_blocks:
   debug: true
   enabled: true
   events:
-    on player places block:
-      - if <player.gamemode> != survival:
-            - stop
-      - if <context.item_in_hand.quantity> == 1:
-        - flag <player> refill_blocks:<context.item_in_hand>
-    after player places block flagged:refill_blocks:
-      - if !<player.inventory.contains_item[<player.flag[refill_blocks].material>]>:
-        - stop
-      - if <player.item_in_hand.material.name> != air:
-        - stop
-      - foreach <player.inventory.find_all_items[<player.flag[refill_blocks].material>]> as:slot:
-        # get material names and quantities list
-        # sort the list by size
-        # give player
-        # refill the players item in hand slot with item from refill_blocks flag, up to 64
-        # remove the items from the inventory slots they where taken from
+    after player places block:
+    # TODO: check for creative mode and dcreative
+    - define item <context.item_in_hand>
+    - if <context.item_in_hand.quantity> != 1 || !<player.inventory.contains_item[<[item].material.name>]>:
+      - stop
+
+    - define items <player.inventory.map_slots.filter_tag[<[filter_value].advanced_matches[<[item].material.name>]>]>
+    - define max <[item].max_stack>
+    - define quantity 0
+
+    - foreach <[items]>:
+
+      #stop if desired quantity
+      - if <[quantity]> == <[max]>:
+        - foreach stop
+
+      #if current + looped quantity is less or equals than max quantity
+      - if <[value].quantity.add[<[quantity]>]> <= <[max]>:
+        - take slot:<[key]> quantity:<[value].quantity>
+        - define quantity:+:<[value].quantity>
+
+      #if current + looped quantity is more than max quantity
+      - else if <[value].quantity.add[<[quantity]>]> > <[max]>:
+        #looped + current - max (eg. 60 + 5 - 64)
+        - define leftover <[value].quantity.add[<[quantity]>].sub[<[max]>]>
+
+        - take slot:<[key]> quantity:<[value].quantity.sub[<[leftover]>]>
+        - define quantity:+:<[value].quantity.sub[<[leftover]>]>
+
+    - inventory set o:<[item].with[quantity=<[quantity]>]> slot:<context.hand.replace[_]>
