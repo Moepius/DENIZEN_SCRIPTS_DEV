@@ -11,7 +11,7 @@
 
 command_gui_toggle:
     type: command
-    debug: true
+    debug: false
     name: gui
     description: Craftasy Menü Einschalten
     usage: /gui

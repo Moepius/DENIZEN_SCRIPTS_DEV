@@ -90,7 +90,7 @@ rightclick_shulker_inventory:
 
 refill_blocks:
   type: world
-  debug: true
+  debug: false
   enabled: true
   events:
     after player places block:

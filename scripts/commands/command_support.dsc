@@ -1,6 +1,6 @@
 command_support:
     type: command
-    debug: true
+    debug: false
     name: support
     description: open the support menu
     usage: /support
@@ -16,7 +16,7 @@ command_support:
 
 support_handler:
     type: world
-    debug: true
+    debug: false
     enabled: true
     events:
         # button handling
@@ -60,7 +60,7 @@ support_handler:
 
 support:
     type: task
-    debug: true
+    debug: false
     definitions: p|message
     script:
         # message 1 - name
@@ -92,7 +92,7 @@ support:
             - flag <player> player.chat.busy:!
 emergency:
     type: task
-    debug: true
+    debug: false
     definitions: p|message
     script:
         - define length <[message].length>
@@ -114,7 +114,7 @@ emergency:
         - flag <player> player.chat.busy:!
 bugreport:
     type: task
-    debug: true
+    debug: false
     definitions: p|message
     script:
         # message 1 - name
@@ -149,7 +149,7 @@ bugreport:
 
 support_discord:
     type: task
-    debug: true
+    debug: false
     definitions: p|line1|line2|subject
     script:
         - ~discordmessage id:craftasybot channel:930090832281890818 "@here"
@@ -158,7 +158,7 @@ support_discord:
 
 support_gui:
     type: inventory
-    debug: true
+    debug: false
     inventory: chest
     title: <&c><&l>Wählt Euer Anliegen
     gui: true
