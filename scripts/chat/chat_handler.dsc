@@ -6,8 +6,9 @@
 
 # TODO: delete history every few days
 # TODO: delete history when it gets too big
-# TODO: highlight links (https, www, .de, .com, .net)
-# TODO: highlight player Names and send them a notification ... ratelimit for anti spam!
+# TODO: optimize highlitghting links
+# TODO: ratelimit notifiying highlighted players to prevent spam
+# TODO: let players choose nicknames and highlight them as well
 
 
 chat_formatting:
