@@ -123,3 +123,20 @@ refill_blocks:
         - define quantity:+:<[value].quantity.sub[<[leftover]>]>
 
     - inventory set o:<[item].with[quantity=<[quantity]>]> slot:<context.hand.replace[_]>
+
+##### makes players walk faster on dirt paths
+# TODO: test for creative/dcreative
+# TODO: more use cases on "offical streets"
+pathblock_speed_boost:
+  type: world
+  debug: false
+  enabled: true
+  events:
+    after player steps on dirt_path flagged:!pathblock_speed_boost.active:
+      - ratelimit <player> 0.5s
+      - adjust <player> speed:0.14
+      - flag <player> pathblock_speed_boost.active
+    after player steps on !dirt_path flagged:pathblock_speed_boost.active:
+      - ratelimit <player> 0.5s
+      - flag <player> pathblock_speed_boost.active:!
+      - adjust <player> speed:0.1
