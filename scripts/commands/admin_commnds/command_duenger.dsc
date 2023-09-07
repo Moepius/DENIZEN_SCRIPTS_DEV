@@ -156,7 +156,8 @@ superduenger_rightclick:
         - define weighted_list <list>
         # TODO: make weights more granular, so that a low value results in lower numbers of this plant planted than right now
         - foreach <[map]>:
-            - flag <[player]> player.commands.duenger.items_selected.weights:|:<[weighted_list].pad_left[<[value].get[2]>].with[<[key]>]>
+            - flag <[player]> player.commands.duenger.items_selected.weights:|:<[weighted_list].pad_left[<[value].get[2]>].with[<element[<[key]>]>]>
+            ##DEBUG##- narrate format:c_debug "Value: <[value]> Key: <[key]><&nl>Flag player.commands.duenger.items_selected.weights: <[player].flag[player.commands.duenger.items_selected.weights].formatted>"
         - if !<[valid_blocks].contains[<[clicked_block].material.name.if_null[air]>]>:
             - stop
         - foreach <[found_blocks]> as:block:
@@ -269,15 +270,12 @@ duenger_valid_blocks:
     - grass_block
     - podzol
     - dirt
-    - coarse_dirt
-    - gravel
     - moss_block
     - crimson_nylium
     - warped_nylium
     - rooted_dirt
     - mud
     - muddy_mangrove_roots
-    - mycelium
 
 duenger_large_items:
     type: data
