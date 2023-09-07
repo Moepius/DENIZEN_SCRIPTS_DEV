@@ -37,6 +37,7 @@ chat_formatting:
       - define linkstart <list[https://|http://|www.|meta.|map.|forum.|login.]>
       - define linkend <list[.de|.com|.net|.info|.ly|.be|.fr|.is|.biz|.to|.co|.org|.uk|.at]>
       - define locations <list[Orbis|Avarus|Arboretum|Kaos|Orcus|Zeitkapsel|Hortusmanium|Ituria|Moraira|Blackshire]>
+      - define serverwords <list[Projektantrag|Fachgespräche|Gallerie]>
       - define symbols <list[?|,|:|;|!|.]>
       - define textrpl <context.message.parse_color>
       # loop through each word of the message and highlight links
@@ -49,6 +50,9 @@ chat_formatting:
       # highlitght predefined locations
       - foreach <[locations]> as:loc:
           - define textrpl <[textrpl].replace[<[loc]>].with[<&c><[loc]><&r>]>
+      # highlight server words
+      - foreach <[serverwords]> as:words:
+          - define textrpl <[textrpl].replace[<[words]>].with[<&5><[words]><&r>]>
       # higlight player names
       - foreach <server.online_players.exclude[<player>].include[<server.offline_players>]> as:player:
         - define name <[player].name>
@@ -56,6 +60,9 @@ chat_formatting:
           - define textrpl <[textrpl].replace[<[name]>].with[<&a><[name]><&r>]>
           - if <[player].is_online>:
             - playsound <[player]> sound:block_bell_use
+      # highlight and replace misc words
+        - if <[textrpl].contains_text[Discord]>:
+          - define textrpl "<[textrpl].replace[Discord].with[<&d><&n><element[Discord].on_hover[www.is.gd/cdiscord]> (www.is.gd/cdiscord)<&r>]>"
       ################### build the text
       - define text "<player.proc[player_name_format]><&f><&co> <[textrpl]>"
       - definemap data:
