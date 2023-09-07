@@ -9,6 +9,51 @@
 # TODO: optimize highlitghting links
 # TODO: ratelimit notifiying highlighted players to prevent spam
 # TODO: let players choose nicknames and highlight them as well
+# TODO: make locations have hovers with lore info, e.g. Orbis with hover info that it is our main world
+# TODO: for some trigger words add a message to a new line of the message the player is typing
+
+# TODO: move this to a task script with data containers
+      #- define linkstart <list[https://|http://|www.|meta.|map.|forum.|login.]>
+      #- define linkend <list[.de|.com|.net|.info|.ly|.be|.fr|.is|.biz|.to|.co|.org|.uk|.at]>
+      #- define locations <list[Orbis|Avarus|Arboretum|Kaos|Orcus|Zeitkapsel|Hortusmanium|Ituria|Moraira|Blackshire]>
+      #- define serverwords <list[Projektantrag|Fachgespräche|Gallerie|Projektwelt|Bauprojekt]>
+      #- define misc <list[Discord|Regeln|Hilfe|Support|Wiki|Guide]>
+      #- define symbols <list[?|,|:|;|!|.]>
+      #- define textrpl <context.message.parse_color>
+      ## loop through each word of the message and highlight links
+      #- foreach <context.message.split> as:arg:
+      #  - if <[linkstart].filter_tag[<[arg].starts_with[<[filter_value]>]>].any> || <[linkend].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
+      #      - define textrpl <[textrpl].replace[<[arg]>].with[<&n><[arg]><&r>]>
+      ## filter out symbols like ?,:,!
+      #  - if <[symbols].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
+      #      - define textrpl <[textrpl].replace[<[arg].to_list.last>].with[<&f><[arg].to_list.last><&r>]>
+      ## highlitght predefined locations
+      #- foreach <[locations]> as:loc:
+      #    - define textrpl <[textrpl].replace[<[loc]>].with[<&c><[loc]><&r>]>
+      ## highlight server words
+      #- foreach <[serverwords]> as:words:
+      #    - define textrpl <[textrpl].replace[<[words]>].with[<&color[<color[#DBF227]>]><[words]><&r>]>
+      ## higlight player names
+      #- foreach <server.online_players.exclude[<player>].include[<server.offline_players>]> as:player:
+      #  - define name <[player].name>
+      #  - if <[textrpl].contains_text[<[name]>]>:
+      #    - define textrpl <[textrpl].replace[<[name]>].with[<&a><[name]><&r>]>
+      #    - if <[player].is_online>:
+      #      - playsound <[player]> sound:block_bell_use
+      ## highlight and replace misc words
+      #- foreach <[misc]> as:misc:
+      #  - choose <[misc]>:
+      #    - case Discord:
+      #      - define textrpl <[textrpl].replace_text[<element[Discord]>].with[<&color[<color[#5865F2]>]>Discord<&co> <&n>https://is.gd/cdiscord<&r>]>
+      #    - case Regeln rules:
+      #      - define textrpl <[textrpl].replace[<element[Regeln]>].with[<element[<&color[<color[#F26800]>]><&n>Regeln].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]><&r>]>
+      #      - define textrpl <[textrpl].replace[<element[rules]>].with[<element[<&color[<color[#F26800]>]><&n>Regeln].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]><&r>]>
+      #    - case Hilfe help:
+      #      - define textrpl <[textrpl].replace[<element[Hilfe]>].with[<element[<&color[<color[#F26800]>]><&n>Hilfe].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]><&r>]>
+      #      - define textrpl <[textrpl].replace[<element[help]>].with[<element[<&color[<color[#F26800]>]><&n>Hilfe].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]><&r>]>
+      #    - case Support report:
+      #      - define textrpl <[textrpl].replace[<element[Support]>].with[<element[<&color[<color[#F26800]>]><&n>Support].on_click[/support].on_hover[Klicken, um Support aufzurufen]><&r>]>
+      #      - define textrpl <[textrpl].replace[<element[report]>].with[<element[<&color[<color[#F26800]>]><&n>Support].on_click[/support].on_hover[Klicken, um Support aufzurufen]><&r>]>
 
 
 chat_formatting:
@@ -34,35 +79,46 @@ chat_formatting:
         - narrate format:c_warn "Akzeptiert zunächst unsere Regeln, damit ihr den Chat nutzen könnt."
         - stop
       ################## highlight player names, server locations and links
+      # TODO: move this to a task script with data containers
       - define linkstart <list[https://|http://|www.|meta.|map.|forum.|login.]>
       - define linkend <list[.de|.com|.net|.info|.ly|.be|.fr|.is|.biz|.to|.co|.org|.uk|.at]>
       - define locations <list[Orbis|Avarus|Arboretum|Kaos|Orcus|Zeitkapsel|Hortusmanium|Ituria|Moraira|Blackshire]>
-      - define serverwords <list[Projektantrag|Fachgespräche|Gallerie]>
+      - define serverwords <list[Projektantrag|Fachgespräche|Gallerie|Projektwelt|Bauprojekt]>
+      - define misc <list[Discord|Regeln|Hilfe|Support|Wiki|Guide]>
       - define symbols <list[?|,|:|;|!|.]>
       - define textrpl <context.message.parse_color>
       # loop through each word of the message and highlight links
       - foreach <context.message.split> as:arg:
         - if <[linkstart].filter_tag[<[arg].starts_with[<[filter_value]>]>].any> || <[linkend].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
             - define textrpl <[textrpl].replace[<[arg]>].with[<&n><[arg]><&r>]>
-      # filter out symbols like ?,:,!
+        # filter out symbols like ?,:,!
         - if <[symbols].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
             - define textrpl <[textrpl].replace[<[arg].to_list.last>].with[<&f><[arg].to_list.last><&r>]>
-      # highlitght predefined locations
-      - foreach <[locations]> as:loc:
-          - define textrpl <[textrpl].replace[<[loc]>].with[<&c><[loc]><&r>]>
-      # highlight server words
-      - foreach <[serverwords]> as:words:
-          - define textrpl <[textrpl].replace[<[words]>].with[<&5><[words]><&r>]>
-      # higlight player names
-      - foreach <server.online_players.exclude[<player>].include[<server.offline_players>]> as:player:
-        - define name <[player].name>
-        - if <[textrpl].contains_text[<[name]>]>:
-          - define textrpl <[textrpl].replace[<[name]>].with[<&a><[name]><&r>]>
-          - if <[player].is_online>:
-            - playsound <[player]> sound:block_bell_use
-      # highlight and replace misc words
-        - if <[textrpl].contains_text[Discord]>:
-          - define textrpl "<[textrpl].replace[Discord].with[<&d><&n><element[Discord].on_hover[www.is.gd/cdiscord]> (www.is.gd/cdiscord)<&r>]>"
+        # highlitght predefined locations
+        - if <[locations].filter_tag[<[arg].starts_with[<[filter_value]>]>].any>:
+          - define textrpl <[textrpl].replace[<[arg]>].with[<&c><[arg]><&r>]>
+        # highlight server words
+        - if <[serverwords].filter_tag[<[arg].starts_with[<[filter_value]>]>].any>:
+          - define textrpl <[textrpl].replace[<[arg]>].with[<&color[<color[#DBF227]>]><[arg]><&r>]>
+        # higlight player names
+        - foreach <server.online_players.exclude[<player>].include[<server.offline_players>]> as:player:
+          - define name <[player].name>
+          - if <[arg].starts_with[<[name]>]>:
+            - define textrpl <[textrpl].replace[<[arg]>].with[<&a><[name]><&r>]>
+            - if <[player].is_online>:
+              - playsound <[player]> sound:block_bell_use
+        # highlight and replace misc words
+        - if <[misc].filter_tag[<[arg].starts_with[<[filter_value]>]>].any>:
+          - foreach <[misc]> as:misc:
+            - choose <[misc]>:
+              - case Discord:
+                - define textrpl <[textrpl].replace_text[<element[Discord]>].with[<&color[<color[#5865F2]>]>Discord<&co> <&n>https://is.gd/cdiscord<&r>]>
+              - case Regeln:
+                - define textrpl <[textrpl].replace[<element[Regeln]>].with[<element[<&color[<color[#F26800]>]><&n>Regeln].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]><&r>]>
+              - case Hilfe:
+                - define textrpl <[textrpl].replace[<element[Hilfe]>].with[<element[<&color[<color[#F26800]>]><&n>Hilfe].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]><&r>]>
+              - case Support:
+                - define textrpl <[textrpl].replace[<element[Support]>].with[<element[<&color[<color[#F26800]>]><&n>Support].on_click[/support].on_hover[Klicken, um Support aufzurufen]><&r>]>
       ################### build the text
       - define text "<player.proc[player_name_format]><&f><&co> <[textrpl]>"
       - definemap data:
