@@ -13,47 +13,8 @@
 # TODO: for some trigger words add a message to a new line of the message the player is typing
 
 # TODO: move this to a task script with data containers
-      #- define linkstart <list[https://|http://|www.|meta.|map.|forum.|login.]>
-      #- define linkend <list[.de|.com|.net|.info|.ly|.be|.fr|.is|.biz|.to|.co|.org|.uk|.at]>
-      #- define locations <list[Orbis|Avarus|Arboretum|Kaos|Orcus|Zeitkapsel|Hortusmanium|Ituria|Moraira|Blackshire]>
-      #- define serverwords <list[Projektantrag|Fachgespräche|Gallerie|Projektwelt|Bauprojekt]>
-      #- define misc <list[Discord|Regeln|Hilfe|Support|Wiki|Guide]>
-      #- define symbols <list[?|,|:|;|!|.]>
-      #- define textrpl <context.message.parse_color>
-      ## loop through each word of the message and highlight links
-      #- foreach <context.message.split> as:arg:
-      #  - if <[linkstart].filter_tag[<[arg].starts_with[<[filter_value]>]>].any> || <[linkend].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
-      #      - define textrpl <[textrpl].replace[<[arg]>].with[<&n><[arg]><&r>]>
-      ## filter out symbols like ?,:,!
-      #  - if <[symbols].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
-      #      - define textrpl <[textrpl].replace[<[arg].to_list.last>].with[<&f><[arg].to_list.last><&r>]>
-      ## highlitght predefined locations
-      #- foreach <[locations]> as:loc:
-      #    - define textrpl <[textrpl].replace[<[loc]>].with[<&c><[loc]><&r>]>
-      ## highlight server words
-      #- foreach <[serverwords]> as:words:
-      #    - define textrpl <[textrpl].replace[<[words]>].with[<&color[<color[#DBF227]>]><[words]><&r>]>
-      ## higlight player names
-      #- foreach <server.online_players.exclude[<player>].include[<server.offline_players>]> as:player:
-      #  - define name <[player].name>
-      #  - if <[textrpl].contains_text[<[name]>]>:
-      #    - define textrpl <[textrpl].replace[<[name]>].with[<&a><[name]><&r>]>
-      #    - if <[player].is_online>:
-      #      - playsound <[player]> sound:block_bell_use
-      ## highlight and replace misc words
-      #- foreach <[misc]> as:misc:
-      #  - choose <[misc]>:
-      #    - case Discord:
-      #      - define textrpl <[textrpl].replace_text[<element[Discord]>].with[<&color[<color[#5865F2]>]>Discord<&co> <&n>https://is.gd/cdiscord<&r>]>
-      #    - case Regeln rules:
-      #      - define textrpl <[textrpl].replace[<element[Regeln]>].with[<element[<&color[<color[#F26800]>]><&n>Regeln].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]><&r>]>
-      #      - define textrpl <[textrpl].replace[<element[rules]>].with[<element[<&color[<color[#F26800]>]><&n>Regeln].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]><&r>]>
-      #    - case Hilfe help:
-      #      - define textrpl <[textrpl].replace[<element[Hilfe]>].with[<element[<&color[<color[#F26800]>]><&n>Hilfe].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]><&r>]>
-      #      - define textrpl <[textrpl].replace[<element[help]>].with[<element[<&color[<color[#F26800]>]><&n>Hilfe].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]><&r>]>
-      #    - case Support report:
-      #      - define textrpl <[textrpl].replace[<element[Support]>].with[<element[<&color[<color[#F26800]>]><&n>Support].on_click[/support].on_hover[Klicken, um Support aufzurufen]><&r>]>
-      #      - define textrpl <[textrpl].replace[<element[report]>].with[<element[<&color[<color[#F26800]>]><&n>Support].on_click[/support].on_hover[Klicken, um Support aufzurufen]><&r>]>
+
+### colors test: /ex narrate "Server Farben: <element[Location].custom_color[location]>, <element[Server Keyword].custom_color[server]>, <element[Discord].custom_color[discord]>, <element[Command].custom_color[command]>, <element[Spieler].custom_color[player]>."
 
 
 chat_formatting:
@@ -78,48 +39,40 @@ chat_formatting:
         - run chatsounds_error def:<player>
         - narrate format:c_warn "Akzeptiert zunächst unsere Regeln, damit ihr den Chat nutzen könnt."
         - stop
-      ################## highlight player names, server locations and links
-      # TODO: move this to a task script with data containers
-      - define linkstart <list[https://|http://|www.|meta.|map.|forum.|login.]>
-      - define linkend <list[.de|.com|.net|.info|.ly|.be|.fr|.is|.biz|.to|.co|.org|.uk|.at]>
-      - define locations <list[Orbis|Avarus|Arboretum|Kaos|Orcus|Zeitkapsel|Hortusmanium|Ituria|Moraira|Blackshire]>
-      - define serverwords <list[Projektantrag|Fachgespräche|Gallerie|Projektwelt|Bauprojekt]>
-      - define misc <list[Discord|Regeln|Hilfe|Support|Wiki|Guide]>
-      - define symbols <list[?|,|:|;|!|.]>
+      #### highlight player names, server locations, links or other keywords defined in data script "chat_keywords"
       - define textrpl <context.message.parse_color>
-      # loop through each word of the message and highlight links
-      - foreach <context.message.split> as:arg:
-        - if <[linkstart].filter_tag[<[arg].starts_with[<[filter_value]>]>].any> || <[linkend].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
-            - define textrpl <[textrpl].replace[<[arg]>].with[<&n><[arg]><&r>]>
-        # filter out symbols like ?,:,!
-        - if <[symbols].filter_tag[<[arg].ends_with[<[filter_value]>]>].any>:
-            - define textrpl <[textrpl].replace[<[arg].to_list.last>].with[<&f><[arg].to_list.last><&r>]>
-        # highlitght predefined locations
-        - if <[locations].filter_tag[<[arg].starts_with[<[filter_value]>]>].any>:
-          - define textrpl <[textrpl].replace[<[arg]>].with[<&c><[arg]><&r>]>
-        # highlight server words
-        - if <[serverwords].filter_tag[<[arg].starts_with[<[filter_value]>]>].any>:
-          - define textrpl <[textrpl].replace[<[arg]>].with[<&color[<color[#DBF227]>]><[arg]><&r>]>
-        # higlight player names
-        - foreach <server.online_players.exclude[<player>].include[<server.offline_players>]> as:player:
+      - define symbols <list[?|,|:|;|!|.]>
+      - define linkstart <list[https://|http://|www.]>
+      # loop through every word of the message
+      - foreach <context.message.split> as:word:
+        # test if the word is a link (definition used for now with list of linkstarts)
+        - if <[linkstart].filter_tag[<[word].starts_with[<[filter_value]>]>].any>:
+            # if the last letter of the word/link is a symbol
+            - if <[word].to_list.last.contains_any_text[<[symbols]>]>:
+              # save the last letter, flag the server with it, remove the letter from the word
+              # and later readd it via definition (sym).
+              # necessary because without it will also highlight the symbols like ?,!
+              - define sym <[word].to_list.last>
+              - define wordex <[word].to_list.exclude[<[word].to_list.last>].separated_by[]>
+              - define textrpl <[textrpl].replace[<[word]>].with[<element[<&n><[wordex]>].custom_color[link]><[sym]>]>
+            - else:
+              # if the word/link does not end with a symbol, just highlight it as usual
+              - define textrpl <[textrpl].replace[<[word]>].with[<element[<&n><[word]>].custom_color[link]>]>
+            - foreach next
+        # loop through online players, highlight player names and notify online players who got highlighted
+        - foreach <server.online_players.exclude[<player>]> as:player:
           - define name <[player].name>
-          - if <[arg].starts_with[<[name]>]>:
-            - define textrpl <[textrpl].replace[<[arg]>].with[<&a><[name]><&r>]>
+          - if <[textrpl].contains_text[<[name]>]>:
+            - define textrpl <[textrpl].replace[<[name]>].with[<element[<[name].custom_color[player]>]>]>
             - if <[player].is_online>:
               - playsound <[player]> sound:block_bell_use
-        # highlight and replace misc words
-        - if <[misc].filter_tag[<[arg].starts_with[<[filter_value]>]>].any>:
-          - foreach <[misc]> as:misc:
-            - choose <[misc]>:
-              - case Discord:
-                - define textrpl <[textrpl].replace_text[<element[Discord]>].with[<&color[<color[#5865F2]>]>Discord<&co> <&n>https://is.gd/cdiscord<&r>]>
-              - case Regeln:
-                - define textrpl <[textrpl].replace[<element[Regeln]>].with[<element[<&color[<color[#F26800]>]><&n>Regeln].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]><&r>]>
-              - case Hilfe:
-                - define textrpl <[textrpl].replace[<element[Hilfe]>].with[<element[<&color[<color[#F26800]>]><&n>Hilfe].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]><&r>]>
-              - case Support:
-                - define textrpl <[textrpl].replace[<element[Support]>].with[<element[<&color[<color[#F26800]>]><&n>Support].on_click[/support].on_hover[Klicken, um Support aufzurufen]><&r>]>
-      ################### build the text
+        # loop through every key in map "words" and highlight matching words from data script
+        - foreach <script[chat_keywords].list_keys> as:replaceable:
+          # if substring (length) of the currently indexed word matches with currently indexed key from words map
+          - if <[word].substring[0,<[replaceable].length>]> == <[replaceable]>:
+            - define textrpl <[textrpl].replace[<[word].substring[0,<[replaceable].length>]>].with[<script[chat_keywords].parsed_key[<[replaceable]>]>]>
+            - foreach stop
+      #### build the text
       - define text "<player.proc[player_name_format]><&f><&co> <[textrpl]>"
       - definemap data:
           text: <[text]>
@@ -317,3 +270,16 @@ chat_update_command:
     - run chat_formatting.sub_paths.chat_button_cache
     - run chat_formatting.sub_paths.rank_text_cache
     - flag server chat.cached
+
+chat_keywords:
+  type: data
+  discord: <element[Discord: <&n>https://is.gd/cdiscord].custom_color[discord]>
+  orbis:  <element[Orbis].custom_color[location].on_hover[Projekt- und Survivalwelt]>
+  moraira:  <element[Moraira].custom_color[location]>
+  ituria: <element[Ituria].custom_color[location]>
+  projektwelt: <element[Projektwelt].custom_color[server]>
+  regeln: <element[Regeln].custom_color[command].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]>
+  rules: <element[Rules].custom_color[command].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]>
+  hilfe: <element[Hilfe].custom_color[command].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]>
+  help: <element[help].custom_color[command].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]>
+  support: <element[support].custom_color[command].on_click[/support].on_hover[Klicken, um Support aufzurufen]>
