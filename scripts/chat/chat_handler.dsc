@@ -6,15 +6,8 @@
 
 # TODO: delete history every few days
 # TODO: delete history when it gets too big
-# TODO: optimize highlitghting links
-# TODO: ratelimit notifiying highlighted players to prevent spam
 # TODO: let players choose nicknames and highlight them as well
-# TODO: make locations have hovers with lore info, e.g. Orbis with hover info that it is our main world
 # TODO: for some trigger words add a message to a new line of the message the player is typing
-
-# TODO: move this to a task script with data containers
-
-### colors test: /ex narrate "Server Farben: <element[Location].custom_color[location]>, <element[Server Keyword].custom_color[server]>, <element[Discord].custom_color[discord]>, <element[Command].custom_color[command]>, <element[Spieler].custom_color[player]>."
 
 
 chat_formatting:
@@ -51,7 +44,7 @@ chat_formatting:
             - if <[word].to_list.last.contains_any_text[<[symbols]>]>:
               # save the last letter, flag the server with it, remove the letter from the word
               # and later readd it via definition (sym).
-              # necessary because without it will also highlight the symbols like ?,!
+              # necessary because without it, will also highlight symbols like ?,!
               - define sym <[word].to_list.last>
               - define wordex <[word].to_list.exclude[<[word].to_list.last>].separated_by[]>
               - define textrpl <[textrpl].replace[<[word]>].with[<element[<&n><[wordex]>].custom_color[link]><[sym]>]>
@@ -273,13 +266,17 @@ chat_update_command:
 
 chat_keywords:
   type: data
+  # misc keywords
   discord: <element[Discord: <&n>https://is.gd/cdiscord].custom_color[discord]>
+  # server locations
   orbis:  <element[Orbis].custom_color[location].on_hover[Projekt- und Survivalwelt]>
   moraira:  <element[Moraira].custom_color[location]>
   ituria: <element[Ituria].custom_color[location]>
+  # server keywords
   projektwelt: <element[Projektwelt].custom_color[server]>
+  # server commands
   regeln: <element[Regeln].custom_color[command].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]>
-  rules: <element[Rules].custom_color[command].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]>
+  rules: <element[rules].custom_color[command].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]>
   hilfe: <element[Hilfe].custom_color[command].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]>
   help: <element[help].custom_color[command].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]>
   support: <element[support].custom_color[command].on_click[/support].on_hover[Klicken, um Support aufzurufen]>
