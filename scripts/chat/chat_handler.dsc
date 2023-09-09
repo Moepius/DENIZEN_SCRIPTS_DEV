@@ -52,13 +52,16 @@ chat_formatting:
               # if the word/link does not end with a symbol, just highlight it as usual
               - define textrpl <[textrpl].replace[<[word]>].with[<element[<&n><[word]>].custom_color[link]>]>
             - foreach next
-        # loop through online players, highlight player names and notify online players who got highlighted
-        - foreach <server.online_players.exclude[<player>]> as:player:
-          - define name <[player].name>
+        # loop through online players, highlight player names and notify online players who got highlighted. Red coloring for admins
+        - define admins <list[SilberRegen|Moepius|Tolkier|FroherFrosch]>
+        - foreach <server.online_players.parse_tag[<[parse_value].name>].include[<[admins]>].exclude[<player>]> as:name:
           - if <[textrpl].contains_text[<[name]>]>:
+            - if <server.match_offline_player[<[name]>].is_online>:
+              - playsound <server.match_player[<[name]>]> sound:block_bell_use
+            - if <[admins].filter_tag[<[name].starts_with[<[filter_value]>]>].any>:
+              - define textrpl <[textrpl].replace[<[name]>].with[<element[<[name].custom_color[admin].on_hover[<&color[#ED1A3A]>Administrator]>]>]>
+              - foreach next
             - define textrpl <[textrpl].replace[<[name]>].with[<element[<[name].custom_color[player]>]>]>
-            - if <[player].is_online>:
-              - playsound <[player]> sound:block_bell_use
         # loop through every key in map "words" and highlight matching words from data script
         - foreach <script[chat_keywords].list_keys> as:replaceable:
           # if substring (length) of the currently indexed word matches with currently indexed key from words map
@@ -70,6 +73,7 @@ chat_formatting:
       - definemap data:
           text: <[text]>
           time: <util.time_now.epoch_millis>
+      # add message data (text + timestamp) to server chat history
       - flag server server.chat.history:->:<[data]>
       - flag server server.chat.history[1]:<- if:<server.flag[server.chat.history].size.is_more_than[50].if_null[false]>
       - define messages <server.flag[server.chat.history].if_null[<list>]>
@@ -78,6 +82,7 @@ chat_formatting:
       - foreach <server.online_players> as:player:
         - define data.uuid <[player].uuid>
         - define per_player_messages <[messages].include[<[player].flag[server.chat.history].if_null[<list>]>].sort_by_value[get[time]].parse[get[text]].if_null[<list>]>
+        # narrate the build message to all online players
         - narrate playerchat/<n.repeat[100]><[per_player_messages].separated_by[<&r><n>]><n.repeat[2]><[channel_buttons]> targets:<[player]> from:<player.uuid>
 
     on player receives message:
@@ -264,6 +269,7 @@ chat_update_command:
     - run chat_formatting.sub_paths.rank_text_cache
     - flag server chat.cached
 
+# stores all server keywords that get highlighted in chat
 chat_keywords:
   type: data
   # misc keywords
