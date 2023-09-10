@@ -15,7 +15,7 @@ fun_hallo:
                 - playsound <[player]> sound:UI_TOAST_CHALLENGE_COMPLETE volume:4
                 - playeffect at:<[player].location.add[0,2,0]> effect:fireworks_spark quantity:50
                 - playeffect at:<[player].location.add[0,1,0]> effect:explosion_huge quantity:10
-                - wait 2s
+                - wait 1s
                 - narrate "<&gradient[from=blue;to=green;style=rgb]><&m>--------------------------------------" targets:<[player]>
                 - narrate "<&gradient[from=red;to=yellow;style=rgb]>SCHÖNEN GUTEN HALLO LIEBE MINECRAFTFANS" targets:<[player]>
                 - narrate "<&gradient[from=red;to=yellow;style=rgb]>UND CRAFTASYFREUNDE!!!!!!!!!!!!" targets:<[player]>
