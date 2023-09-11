@@ -65,7 +65,7 @@ chat_formatting:
         # loop through every key in map "words" and highlight matching words from data script
         - foreach <script[chat_keywords].list_keys> as:replaceable:
           # if substring (length) of the currently indexed word matches with currently indexed key from words map
-          - if <[word].substring[0,<[replaceable].length>]> == <[replaceable]>:
+          - if <[word].substring[0,<[replaceable].length>].equals_case_sensitive[<[replaceable]>]>:
             - define textrpl <[textrpl].replace[<[word].substring[0,<[replaceable].length>]>].with[<script[chat_keywords].parsed_key[<[replaceable]>]>]>
             - foreach stop
       #### build the text
@@ -273,16 +273,16 @@ chat_update_command:
 chat_keywords:
   type: data
   # misc keywords
-  discord: <element[Discord: <&n>https://is.gd/cdiscord].custom_color[discord]>
+  Discord: <element[Discord: <&n>https://is.gd/cdiscord].custom_color[discord]>
   # server locations
-  orbis:  <element[Orbis].custom_color[location].on_hover[Projekt- und Survivalwelt]>
-  moraira:  <element[Moraira].custom_color[location]>
-  ituria: <element[Ituria].custom_color[location]>
+  Orbis:  <element[Orbis].custom_color[location].on_hover[Projekt- und Survivalwelt]>
+  Moraira:  <element[Moraira].custom_color[location]>
+  Ituria: <element[Ituria].custom_color[location]>
   # server keywords
   projektwelt: <element[Projektwelt].custom_color[server]>
   # server commands
-  regeln: <element[Regeln].custom_color[command].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]>
+  Regeln: <element[Regeln].custom_color[command].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]>
   rules: <element[rules].custom_color[command].on_click[/regeln].on_hover[Klicken, um Regeln aufzurufen]>
-  hilfe: <element[Hilfe].custom_color[command].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]>
+  Hilfe: <element[Hilfe].custom_color[command].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]>
   help: <element[help].custom_color[command].on_click[/hilfe].on_hover[Klicken, um Hilfe aufzurufen]>
   support: <element[support].custom_color[command].on_click[/support].on_hover[Klicken, um Support aufzurufen]>

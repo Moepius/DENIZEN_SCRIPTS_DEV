@@ -168,3 +168,16 @@
 ########## Spieler
 
 # Cooldown wenn Spieler zu oft hintereinander sterben, zB durch extra Sphäre oder Minigame nach Tod
+
+
+##################  script bits
+
+# how to lock a player from moving
+#- define orig_fly_speed <player.fly_speed>
+#- adjust <player> flying:true
+#- adjust <player> fly_speed:0
+#- teleport <player> <player.location.above[0.01]>
+#...
+#- adjust <player> flying:false
+#- adjust <player> fly_speed:<[orig_fly_speed]>
+#

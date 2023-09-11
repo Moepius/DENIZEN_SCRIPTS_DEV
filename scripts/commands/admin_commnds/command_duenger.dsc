@@ -1,8 +1,9 @@
 # TODO: add undo argument
 # TODO: add sea mode for sea plants
+# TODO: add presets
 
+#################### COMMAND ####################
 
-# <player.flag[player.commands.duenger.data].with[i.12].as[<player.flag[player.commands.duenger.data].deep_get[i.12].add[1]>]>
 command_duenger:
     type: command
     debug: false
@@ -25,6 +26,8 @@ command_duenger:
         - run superduenger_flagging def:<player>
         - inventory open d:duenger_inventory
 
+#################### GUI ####################
+
 duenger_inventory:
     type: inventory
     debug: false
@@ -44,16 +47,18 @@ duenger_inventory:
         - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+5).
         - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-5).
         intensity_lore:
-        - <&b>Intensität einstellen (0 bis 100 Prozent)
+        - <&b>Intensität einstellen (0 bis 50)
         - <&b>Aktuell: <&a><player.flag[player.commands.duenger.data].get[intensity]>
         - <&f><&m>----------
-        - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+10).
-        - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-10).
+        - <&3>➤ <&a>LINKSKLICK<&b>, um Intensität zu erhöhen (+1).
+        - <&3>➤ <&a>RECHTSKLICK<&b>, um Intensität zu verringern (-1).
     definitions:
+        # fill gui with non dynamic items/buttons
         mode: <item[<player.flag[player.commands.duenger.data].get[mode]>]>
         radius: <item[duenger_radius].with[lore=<script.parsed_key[data.radius_lore]>]>
         intensity: <item[duenger_intensity].with[lore=<script.parsed_key[data.intensity_lore]>]>
     procedural items:
+        # fill gui with set plant items/buttons from flag
         - define plant <list>
         - define slots <list[12|13|14|15|16|21|22|23|24|25]>
         - define flag <player.flag[player.commands.duenger.data]>
@@ -70,22 +75,25 @@ duenger_inventory:
     - [intensity] [air] [] [] [] [] [] [air] [air]
     - [mode] [air] [] [] [] [] [] [air] [gui_close]
 
+#################### HANDLER ####################
+
 duenger_handler:
     type: world
-    debug: true
+    debug: false
     enabled: true
     events:
+        # left click action for plant slots (set plants to be placed)
         on player left clicks item in duenger_inventory:
             - if !<list[12|13|14|15|16|21|22|23|24|25].contains[<context.raw_slot>]>:
                 - stop
             - define flag player.commands.duenger.data
-            # reset plant to empty if shift click was used
+            # reset plant and intensity to empty if player clicked with air
             # if clicked item is empty/air
             - if <context.cursor_item.material.name.if_null[air]> == air:
                 # set item name at the clicked slot to placeholder item (duenger_empty)
                 - flag <player> <[flag]>:<player.flag[<[flag]>].deep_with[items.<context.raw_slot>].as[duenger_empty]>
-                # reset slot intensity to 0
-                - define flagvaluezero <player.flag[<[flag]>].deep_with[i.<context.raw_slot>].as[0]>
+                # reset slot intensity to 1
+                - define flagvaluezero <player.flag[<[flag]>].deep_with[i.<context.raw_slot>].as[1]>
                 - flag <player> <[flag]>:<[flagvaluezero]>
                 # define an item from player flag
                 - define item <item[<player.flag[<[flag]>].deep_get[items.<context.raw_slot>]>].with[lore=<script[duenger_inventory].parsed_key[data.plant_lore]>]>
@@ -100,6 +108,7 @@ duenger_handler:
             - define intensity <player.flag[<[flag]>].deep_get[i.<context.raw_slot>]>
             - define item <item[<player.flag[<[flag]>].deep_get[items.<context.raw_slot>]>].with[lore=<list[<&b>Aktuelle Intensität: <[intensity]>].include[<script[duenger_inventory].parsed_key[data.plant_lore]>]>]>
             - inventory set d:<player.open_inventory> o:<[item]> s:<context.raw_slot>
+        # right click action for plant slots (set plants individual intensity)
         on player right clicks item in duenger_inventory:
             # adjust plant item weights
             - if !<list[12|13|14|15|16|21|22|23|24|25].contains[<context.raw_slot>]>:
@@ -123,22 +132,27 @@ duenger_handler:
                 - define item <item[<player.flag[<[flag]>].deep_get[items.<context.raw_slot>]>].with[lore=<list[<&b>Aktuelle Intensität: <[intensity]>].include[<script[duenger_inventory].parsed_key[data.plant_lore]>]>]>
                 - inventory set d:<player.open_inventory> o:<[item]> s:<context.slot>
                 - playsound <player> sound:entity_glow_item_frame_remove_item pitch:1
+        # increase overall intensity
         on player left clicks duenger_intensity in duenger_inventory:
             - define flag player.commands.duenger.data
-            - flag <player> <[flag]>:<player.flag[<[flag]>].with[intensity].as[<player.flag[<[flag]>].get[intensity].add[10].min[100]>]>
+            - flag <player> <[flag]>:<player.flag[<[flag]>].with[intensity].as[<player.flag[<[flag]>].get[intensity].add[1].min[50]>]>
             - inventory set d:<player.open_inventory> o:<item[duenger_intensity].with[lore=<script[duenger_inventory].parsed_key[data.intensity_lore]>]> s:<context.slot>
+        # decrease overall intensity
         on player right clicks duenger_intensity in duenger_inventory:
             - define flag player.commands.duenger.data
-            - flag <player> <[flag]>:<player.flag[<[flag]>].with[intensity].as[<player.flag[<[flag]>].get[intensity].sub[10].max[0]>]>
+            - flag <player> <[flag]>:<player.flag[<[flag]>].with[intensity].as[<player.flag[<[flag]>].get[intensity].sub[1].max[1]>]>
             - inventory set d:<player.open_inventory> o:<item[duenger_intensity].with[lore=<script[duenger_inventory].parsed_key[data.intensity_lore]>]> s:<context.slot>
+        # increase radius
         on player left clicks duenger_radius in duenger_inventory:
             - define flag player.commands.duenger.data
             - flag <player> <[flag]>:<player.flag[<[flag]>].with[radius].as[<player.flag[<[flag]>].get[radius].add[5].min[50]>]>
             - inventory set d:<player.open_inventory> o:<item[duenger_radius].with[lore=<script[duenger_inventory].parsed_key[data.radius_lore]>]> s:<context.slot>
+        # decrease radius
         on player right clicks duenger_radius in duenger_inventory:
             - define flag player.commands.duenger.data
-            - flag <player> <[flag]>:<player.flag[<[flag]>].with[radius].as[<player.flag[<[flag]>].get[radius].sub[5].max[0]>]>
+            - flag <player> <[flag]>:<player.flag[<[flag]>].with[radius].as[<player.flag[<[flag]>].get[radius].sub[5].max[5]>]>
             - inventory set d:<player.open_inventory> o:<item[duenger_radius].with[lore=<script[duenger_inventory].parsed_key[data.radius_lore]>]> s:<context.slot>
+        # right click action for superduenger (planting plants or open settings gui)
         on player right clicks block with:superduenger:
             - determine cancelled passively
             - if <player.is_sneaking>:
@@ -149,17 +163,20 @@ duenger_handler:
                 - stop
             - run superduenger_flagging def:<player>
             - run superduenger_rightclick def:<player>|<context.location>
+        # left click action (open settings gui)
         on player left clicks block with:superduenger:
             - determine cancelled passively
             - if <player.is_sneaking>:
                 - run superduenger_flagging def:<player>
                 - inventory open d:duenger_inventory
+        # safety stuff
         after player drops superduenger:
             - remove <context.entity>
         on player breaks block with:superduenger:
             - determine cancelled
 
-# rightclick action for planting in the set radius with set intensity
+#################### PLANTING TASK ####################
+
 superduenger_rightclick:
     type: task
     debug: false
@@ -170,7 +187,7 @@ superduenger_rightclick:
         - define intensity <[player].flag[player.commands.duenger.data].get[intensity]>
         - define found_blocks <[clicked_block].find_blocks[<[valid_blocks]>].within[<[radius]>]>
         - define flag <[player].flag[player.commands.duenger.data]>
-        # returns a map like slot.12=grass|100;slot.13=poppy|50 ... taken from player flag
+        # get all plants that player has set in slots as map
         - definemap plant_intensity:
             12: <[flag].deep_get[i.12]>
             13: <[flag].deep_get[i.13]>
@@ -187,11 +204,13 @@ superduenger_rightclick:
             - stop
         # TODO: make weights more granular, so that a low value results in lower numbers of this plant planted than right now
         - foreach <[plant_intensity]>:
+            # construct a weighted list from map, the higher the slot/plants intensity the more often it will be put into the list
             - flag <[player]> player.commands.duenger.weights:|:<[weighted_list].pad_left[<[value]>].with[<[key]>]>
-            ##DEBUG##- narrate format:c_debug "Value: <[value]> Key: <[key]><&nl>Flag player.commands.duenger.items_selected.weights: <[player].flag[player.commands.duenger.items_selected.weights].formatted>"
         - foreach <[found_blocks]> as:block:
+            # select random blocks in the set radius, more blocks will be chosen if overall intensity is higher
             - if !<util.random_chance[<[intensity]>]>:
                 - foreach next
+            # if air is above the found block
             - if <[block].above.material.name> == air:
                 - define slot <[player].flag[player.commands.duenger.weights].random>
                 - define plant <[player].flag[player.commands.duenger.data].deep_get[items.<[slot]>]>
@@ -211,12 +230,15 @@ superduenger_rightclick:
                 - modifyblock <[block].above> <[plant]> no_physics
         - flag <[player]> player.commands.duenger.weights:!
 
+#################### DEFAULT FLAGGING ####################
+
 superduenger_flagging:
     type: task
     debug: false
     definitions: player
     script:
         - definemap duenger_data:
+            # plants to be placed in slots, default is empty
             items:
                 12: duenger_empty
                 13: duenger_empty
@@ -230,16 +252,17 @@ superduenger_flagging:
                 25: duenger_empty
             # individual intensity for each plant slot
             i:
-                12: 10
-                13: 10
-                14: 10
-                15: 10
-                16: 10
-                21: 10
-                22: 10
-                23: 10
-                24: 10
-                25: 10
+                12: 1
+                13: 1
+                14: 1
+                15: 1
+                16: 1
+                21: 1
+                22: 1
+                23: 1
+                24: 1
+                25: 1
+            # settings
             mode: duenger_mode_air
             intensity: 10
             radius: 10
