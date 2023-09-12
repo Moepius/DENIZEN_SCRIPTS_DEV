@@ -41,11 +41,31 @@ toggle_afk:
     - if <[state]>:
       - narrate format:c_info "Ihr seid nun <&a>AFK<&b>." targets:<player>
       - narrate format:c_info "<player.name> ist nun <&a>AFK<&b>." targets:<server.online_players.exclude[<player>]>
+      - adjust <player> glowing:true
+      - adjust <player> glow_color:red
+      # spawn afk entity (text display) and flag the player with it using the save argument: https://meta.denizenscript.com/Docs/Languages/the%20save%20argument
+      - spawn afk_entity <player.location.add[0,2,0]> save:afk_entity
+      - flag <player> afk_entity:<entry[afk_entity].spawned_entity>
+      # flag player for beeing afk
       - flag <player> player.core.afk.isafk
     - else:
       - narrate format:c_info "Ihr seid nicht mehr <&a>AFK<&b>." targets:<player>
       - narrate format:c_info "<player.name> ist nicht länger <&a>AFK<&b>." targets:<server.online_players.exclude[<player>]>
+      - adjust <player> glowing:false
+      # remove afk entity (text display)
+      - remove <player.flag[afk_entity]>
+      - flag <player> afk_entity:!
       - flag <player> player.core.afk.isafk:!
+
+afk_entity:
+    type: entity
+    debug: false
+    entity_type: text_display
+    mechanisms:
+        text: <&f><&lb><&c>AFK<&f><&rb>
+        pivot: vertical
+        see_through: false
+        text_shadowed: true
 
 afk_events:
   type: world
@@ -71,6 +91,10 @@ afk_events:
     on player joins:
       - run toggle_afk def:false
     on player quits:
+      - adjust <player> glowing:false
+      # remove afk entity (text display)
+      - remove <player.flag[afk_entity]>
+      - flag <player> afk_entity:!
       - flag <player> player.core.afk:!
 
 afk_restrictions:
