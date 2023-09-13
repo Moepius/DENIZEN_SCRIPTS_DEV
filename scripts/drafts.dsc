@@ -29,3 +29,46 @@ quest_show_mark:
         - define tick <[tick].add[1]>
         - teleport <[armor]> <[origin].rotate_yaw[<[tick].mul[10]>].forward_flat[0.25].above[<[tick].div[5].sin.div[10]>]>
         - wait 1t
+
+
+# how to lock a player from moving
+#- define orig_fly_speed <player.fly_speed>
+#- adjust <player> flying:true
+#- adjust <player> fly_speed:0
+#- teleport <player> <player.location.above[0.01]>
+#...
+#- adjust <player> flying:false
+#- adjust <player> fly_speed:<[orig_fly_speed]>
+#
+
+# use "spawn argument" to have players a text display appear over their head
+
+## spawn afk entity (text display) and flag the player with it using the save argument: https://meta.denizenscript.com/Docs/Languages/the%20save%20argument
+#- spawn afk_entity <player.location.add[0,2,0]> save:afk_entity
+#- flag <player> afk_entity:<entry[afk_entity].spawned_entity>
+
+
+###### item lore cost display, as seen here:https://discord.com/channels/315163488085475337/843302108001468446/1151287639887065111
+inventory_cost_display:
+  type: world
+  debug: false
+  events:
+    on player opens inventory:
+      - foreach <player.inventory.map_slots> as:item:
+        - if <[item].has_flag[cost]>:
+          - if <[item].has_lore>:
+            - define lore <[item].lore>
+          - else:
+            - define lore <list>
+          - define new_lore "<[lore].include[<green>Cost: $<[item].flag[cost]>]>"
+          - inventory adjust slot:<[key]> lore:<[new_lore]>
+
+    on player closes inventory:
+      - foreach <player.inventory.map_slots> as:item:
+        - if <[item].has_flag[cost]>:
+          - if <[item].has_lore>:
+            - define lore <[item].lore>
+          - else:
+            - define lore <list>
+          - define new_lore "<[lore].exclude[<green>Cost: $<[item].flag[cost]>]>"
+          - inventory adjust slot:<[key]> lore:<[new_lore]>

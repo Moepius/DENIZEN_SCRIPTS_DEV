@@ -5,7 +5,7 @@ afk_command_example:
   type: command
   debug: false
   name: afk
-  description: shit
+  description: afk toggle
   usage: /afk
   script:
     - narrate format:c_info "<player.name> hat sich <&a>AFK<&b> gesetzt." targets:<server.online_players.exclude[<player>]>
@@ -42,19 +42,14 @@ toggle_afk:
       - narrate format:c_info "Ihr seid nun <&a>AFK<&b>." targets:<player>
       - narrate format:c_info "<player.name> ist nun <&a>AFK<&b>." targets:<server.online_players.exclude[<player>]>
       - adjust <player> glowing:true
-      - adjust <player> glow_color:red
-      # spawn afk entity (text display) and flag the player with it using the save argument: https://meta.denizenscript.com/Docs/Languages/the%20save%20argument
-      - spawn afk_entity <player.location.add[0,2,0]> save:afk_entity
-      - flag <player> afk_entity:<entry[afk_entity].spawned_entity>
+      - team name:afk add:<player> color:red prefix:<&f><&lb><&c>AFK<&f><&rb>
       # flag player for beeing afk
       - flag <player> player.core.afk.isafk
     - else:
       - narrate format:c_info "Ihr seid nicht mehr <&a>AFK<&b>." targets:<player>
       - narrate format:c_info "<player.name> ist nicht länger <&a>AFK<&b>." targets:<server.online_players.exclude[<player>]>
       - adjust <player> glowing:false
-      # remove afk entity (text display)
-      - remove <player.flag[afk_entity]>
-      - flag <player> afk_entity:!
+      - team name:afk remove:<player> color:red prefix:<&f><&lb><&c>AFK<&f><&rb><&sp>
       - flag <player> player.core.afk.isafk:!
 
 afk_entity:
@@ -92,9 +87,7 @@ afk_events:
       - run toggle_afk def:false
     on player quits:
       - adjust <player> glowing:false
-      # remove afk entity (text display)
-      - remove <player.flag[afk_entity]>
-      - flag <player> afk_entity:!
+      - team name:afk remove:<player> color:red prefix:<&f><&lb><&c>AFK<&f><&rb>
       - flag <player> player.core.afk:!
 
 afk_restrictions:

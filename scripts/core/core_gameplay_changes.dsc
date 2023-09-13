@@ -12,6 +12,41 @@
 # TODO: https://www.curseforge.com/minecraft/mc-mods/tweakeroo implementieren
 # TODO: Players can place buttons, pressure plates etc. on fences and walls  with sound
 
+###################  PLANNED CHANGES #####################
+
+## Rework of beds:
+# beds will no longer set the spawn location of the player, players always respawn in hortus manium except they have a special item
+# beds will no longer skip the night
+# beds will restore health over time and heal negative effects over time, also they restore sanity
+
+## Food/Hunger:
+# a full hunger bar won't heal players automatically, except they have a mastery in farming/cooking
+# other positive effects for a full hunger bar, faster walking, bonus critcal change when fighting, etc.
+# certain types of food will give buffs
+# change exhaustion level by skill ... https://meta.denizenscript.com/Docs/Search/sprint#playertag.exhaustion
+
+## weather/seasons:
+# add seasons which have different effects on weather, NPCs and day/night cycle
+# adjust day night cycle by season and make them longer in general
+# have a "year" counter that counts the ingame years
+# more weather effects
+# crops don't grow in winter and grow faster in summer
+
+## Farming:
+# cows and other breedable animals need much longer to grow up, the higher the players skill the faster they grow
+# milking cows has a cooldown of 24 ingame hours
+# crops and other plants need much longer to grow
+# restrict automatic farming: breaking crops by hand gives xp + the item, braking it via block rewards no xp and decreases yield drastically (e.g. only 1/4 of the broken block drop a crop)
+
+## Experience:
+# every action that rewards players with experience drops orbs, even custom ones
+# to buy skills you have to spend experience points
+# getting better at a specific task (farming, killing mobs, etc.) will reward players with more experience over time
+# decrease experience earned by killing mobs drastically
+
+
+
+
 # https://meta.denizenscript.com/Docs/Events/time%20changes%20in%20world
 
 # https://meta.denizenscript.com/Docs/Search/time
