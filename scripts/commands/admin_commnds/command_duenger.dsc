@@ -187,7 +187,7 @@ superduenger_rightclick:
         - define intensity <[player].flag[player.commands.duenger.data].get[intensity]>
         - define found_blocks <[clicked_block].find_blocks[<[valid_blocks]>].within[<[radius]>]>
         - define flag <[player].flag[player.commands.duenger.data]>
-        # get all plants that player has set in slots as map
+        # get all plants intensity that player has set in slots as map
         - definemap plant_intensity:
             12: <[flag].deep_get[i.12]>
             13: <[flag].deep_get[i.13]>
