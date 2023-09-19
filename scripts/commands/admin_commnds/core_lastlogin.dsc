@@ -31,9 +31,9 @@ lastlogin_command:
             - stop
         - if !<[player_matched].is_truthy>:
             - run chatsounds_error def:<player>
-            - narrate format:c_warn "Kein gültiger Spieler oder nicht online."
+            - narrate format:c_warn "Kein gültiger Spieler."
             - stop
         # narrate playtime
         - define lastlogin <[player_matched].flag[player.core.lastlogin.timestamp].format[dd/MM/yyyy HH:mm]>
-        - define session_duration <[player_matched].flag[player.core.lastlogin.timestamp].duration_since[<[player_matched].flag[player.core.lastquit.timestamp]>].formatted>
-        - narrate format:c_info "Der Spieler <&a><[player_matched].name><&b> wurde zuletzt am <&a><[lastlogin]><&b> gesehen und hat nach <&a><[session_duration]><&b> den Server verlassen."
+        #- define session_duration <[player_matched].flag[player.core.lastlogin.timestamp].duration_since[<[player_matched].flag[player.core.lastquit.timestamp]>].formatted>
+        - narrate format:c_info "Der Spieler <&a><[player_matched].name><&b> wurde zuletzt am <&a><[lastlogin]><&b> gesehen."
