@@ -103,6 +103,8 @@
 
 ######## Dungeons
 
+# Truhen sperren/entsprren mit Schlüsselitems, die als Loot gedroppt werden können: https://meta.denizenscript.com/Docs/Search/location#locationtag.lock
+
 ######## Blaupausen
 
 # Vorgefertigte Display Entity Module für Dekorationen - Craftingrezepte für Survival und Menüpunkt für Creative
@@ -168,5 +170,7 @@
 ########## Spieler
 
 # Cooldown wenn Spieler zu oft hintereinander sterben, zB durch extra Sphäre oder Minigame nach Tod
+
+
 
 
