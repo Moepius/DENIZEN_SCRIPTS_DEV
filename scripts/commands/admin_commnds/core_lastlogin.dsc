@@ -5,7 +5,7 @@
 
 lastlogin_command:
     type: command
-    debug: true
+    debug: false
     name: ll
     description: get a players last login
     usage: /ll
