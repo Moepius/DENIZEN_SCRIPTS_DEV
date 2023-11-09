@@ -26,6 +26,37 @@ command_duenger:
         - run superduenger_flagging def:<player>
         - inventory open d:duenger_inventory
 
+command_dundo:
+    type: command
+    debug: false
+    name: dundo
+    description: undo last dunger action
+    usage: /dundo
+    aliases:
+    - duu
+    script:
+        # initial checks
+        - if !<player.has_permission[craftasy.denizen.command.dundo]>:
+            - run core_error def:<player>|<script[messages].parsed_key[error.no_permission]>
+            - stop
+        - if !<player.has_flag[player.commands.dundo.data]>:
+            - run core_error "def:<player>|Keine Aktion im Cache vorhanden!"
+            - stop
+        # Have a list of lists that contain maps which contain the location and the material object of that location, before and after placing
+        # # Pseudo script
+        # - foreach <[locations]> as:location:
+        #   - definemap data:
+        #     location: <LocationTag>
+        #     material_after: <MaterialTag>
+        #     material: <MaterialTag>
+        #   - define list:->:<[data]>
+        # - define redundo:->:<[list]>
+        # cylcing is per .get[index] from that first list (redundo)
+        # which returns a list of maps, with data
+        # if it's undo you can place <[data.material]>, if it's redo <[data.material_after]>
+        # Icecapade — heute um 20:02 Uhr
+        # you can get the index by the amount of undo/redo commands and save that in a flag
+
 #################### GUI ####################
 
 duenger_inventory:
