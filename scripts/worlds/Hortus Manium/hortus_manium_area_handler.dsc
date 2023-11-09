@@ -12,10 +12,11 @@ hortusmanium_handler:
     enabled: true
     events:
         #flag players for entering/leaving the areas
-        on player enters area_portalraum_dungeon:
-            - flag <player> player.worlds.area.in_portalraum_dungeoneingang
-        on player exits area_portalraum_dungeon:
-            - flag <player> player.worlds.area.in_portalraum_dungeoneingang:!
+        # ego area: area on hortus manium surface where players can interact with the ego npc to adjust skills and character
+        on player enters area_ego:
+            - flag <player> player.worlds.area.in_area_ego
+        on player exits area_ego:
+            - flag <player> player.worlds.area.in_area_ego:!
         on player enters area_hortusmanium_zentrum:
             - flag <player> player.worlds.area.in_hortusmanium_zentrum
         after player exits area_hortusmanium_zentrum:
@@ -37,7 +38,7 @@ hortusmanium_handler:
             - cast darkness remove <player>
         on system time secondly:
             # sounds dungeoneingang
-            - define Spieler <server.online_players_flagged[player.worlds.area.in_portalraum_dungeoneingang]>
+            - define Spieler <server.online_players_flagged[player.worlds.area.in_area_ego]>
             - foreach <[Spieler]>:
                 - playsound <[Spieler]> sound:BLOCK_CONDUIT_AMBIENT pitch:1
             # particles Hortus Manium
