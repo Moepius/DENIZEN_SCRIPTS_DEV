@@ -17,6 +17,13 @@ hortusmanium_handler:
             - flag <player> player.worlds.area.in_area_ego
         on player exits area_ego:
             - flag <player> player.worlds.area.in_area_ego:!
+        # mons manium: surface of hortus manium ... spawn location: location_mons_manium_tempel
+        on player enters area_mons_manium:
+            - wait 2s
+            - ratelimit <player> 10m
+            - playsound <player> sound:block_bell_resonate pitch:0.8
+            - playsound <player> sound:block_beacon_power_select pitch:0.2
+            - title "title:<&6>Hortus Manium" "subtitle:<&f>Mons Manium" stay:3s targets:<player>
         on player enters area_hortusmanium_zentrum:
             - flag <player> player.worlds.area.in_hortusmanium_zentrum
         after player exits area_hortusmanium_zentrum:
