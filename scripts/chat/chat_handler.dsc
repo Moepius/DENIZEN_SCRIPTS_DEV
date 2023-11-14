@@ -9,6 +9,22 @@
 # TODO: let players choose nicknames and highlight them as well
 # TODO: for some trigger words add a message to a new line of the message the player is typing
 
+chat_update_command:
+  type: command
+  debug: false
+  name: chat_update
+  description: Chatdaten aktualisieren
+  usage: /chat_update
+  permission: chat.admin
+  script:
+    - if !<context.args.is_empty>:
+      - narrate "<&c>Dieser Befehl benötigt keine Parameter."
+      - run chatsounds_error def:<player>
+      - stop
+
+    - run chat_formatting.sub_paths.chat_button_cache
+    - run chat_formatting.sub_paths.rank_text_cache
+    - flag server chat.cached
 
 chat_formatting:
   type: world
@@ -144,6 +160,10 @@ chat_formatting:
       #   format: <&lb>Activate Fly<&rb>
       #   command: fly
       #   hover: Click to enable fly!
+      menu:
+        format: <&6><&lb><&b>Menü<&6><&rb>
+        command: menu
+        hover: <&b>Ruft das Hauptmenü auf.
       rules:
         format: <&3><&lb><&b>Regeln<&3><&rb>
         command: rules
@@ -151,11 +171,11 @@ chat_formatting:
       guide:
         format: <&3><&lb><&b>Guide<&3><&rb>
         command: guide
-        hover: <&b>Ruft das Hilfe-Menü auf.
+        hover: <&b>Ruft unsere Hilfe auf.
       support:
         format: <&3><&lb><&b>Support<&3><&rb>
         command: support
-        hover: <&b>Ruft das Support-Menü auf.
+        hover: <&b>Ruft unseren Support auf.
       afk:
         format: <&3><&lb><&b>AFK<&3><&rb>
         command: afk
@@ -252,22 +272,7 @@ player_name_format:
     # short instant version
     # - determine "<script.parsed_key[data.player_chat.format.prefix]><&f> ⎜ <script.parsed_key[data.player_chat.format.name].on_hover[<script.parsed_key[data.player_chat.format.hover]>].on_click[<script.parsed_key[data.player_chat.format.suggest_command]>].type[suggest_command]>"
 
-chat_update_command:
-  type: command
-  debug: false
-  name: chat_update
-  description: Chatdaten aktualisieren
-  usage: /chat_update
-  permission: chat.admin
-  script:
-    - if !<context.args.is_empty>:
-      - narrate "<&c>Dieser Befehl benötigt keine Parameter."
-      - run chatsounds_error def:<player>
-      - stop
 
-    - run chat_formatting.sub_paths.chat_button_cache
-    - run chat_formatting.sub_paths.rank_text_cache
-    - flag server chat.cached
 
 # stores all server keywords that get highlighted in chat
 chat_keywords:
