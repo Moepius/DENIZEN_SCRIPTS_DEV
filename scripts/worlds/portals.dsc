@@ -1,14 +1,13 @@
 # handles portals in worlds
 # permission named with craftasy.denizen.portals.use_<context.area.note_name> ... last bit is name of the area
-# locations named with teleportlocation_<context.area.note_name> ... last bit is name of the area
+# locations named with teleportlocation_<context.area.note_name> ... last bit is name of the area, example: teleportlocation_area_portals_hortus-avarus
 
 # generating area flag: /ex flag server server.worlds.portals.notedareas:<list[<cuboid[areaname]>|<cuboid[areaname]>|...]>
 # adding new area: /ex flag server server.worlds.portals.notedareas:|:<cuboid[areaname]>
 # remove area: /ex flag server server.worlds.portals.notedareas:<-:<cuboid[areaname]>
 # /ex note <player.location> as:teleportlocation_
-# areas: area_portals_avarusprojektportalraum-parallelwelt, area_portals_avarusprojektportalraum-spawn, area_portals_portalraum-parallelwelt, area_portals_parallelwelt-portalraum
-# area_portals_parallelwelt-avarusprojektportalraum, area_portals_avarusprojektportalraum-parallelwelt, area_portals_ruine-portalraum, area_portals_portalraum-ruine, area_portals_end-portalraum, area_portals_portalraum-end, area_portals_endcenter-portalraum
-# area_portals_nether-portalraum, area_portals_portalraum-nether
+# areas: area_portals_hortus-avarus, area_portals_avarus-hortus, area_portals_hortus-zeitkapsel, area_portals_zeitkapsel-hortus,
+# area_portals_hortus-arboretum, area_portals_arboretum-hortus
 # locations:
 
 debug_test_portals:
@@ -73,7 +72,7 @@ portal_menu:
 portal_handler:
     type: world
     debug: false
-    enabled: false
+    enabled: true
     events:
         # entering of portals
         ############################################
@@ -82,11 +81,6 @@ portal_handler:
         # remove 1 Seelenheil from player
         # TODO: permission check, no removal of seelenheil if no permission
         # TODO: if check, is target location in same world? no: remove 1 seelenheil, yes: do nothing
-        # remove 1 Seelenheil if player travels between worlds
-        #- if <context.area.world.name> != <location[teleportlocation_<context.area.note_name>].world.name>:
-            #- narrate format:c_debug "Area: <context.area.world.name> Target: <location[teleportlocation_<context.area.note_name>].world.name>"
-            #- flag <player> player.core.seelenheil.amount:-:1
-            #- narrate format:c_debug "1 Seelenheil abgezogen, Wert: <player.flag[player.core.seelenheil.amount].if_null[0]>"
         - flag <player> player.worlds.portals.isteleporting
         - run portal_checker def:<player>|craftasy.denizen.portals.use_<context.area.note_name>
         - run portal_enter_task def:<player>|teleportlocation_<context.area.note_name>
