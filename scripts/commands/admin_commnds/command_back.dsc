@@ -1,57 +1,77 @@
+# Script made by Hannybee (Discord-Tag: hannybee)
+## This Script creates a /back command alternative
 
-# TODO: let the player set backlocations (current location + name) up to 10 locations
+# Used Permissions:
+#   - craftasy.denizen.command.back               - allows access to the command /back.
+#   - craftasy.denizen.command.backl              - allows access to the command /backl.
 
-command_back:
+# Back command, der einen zu dem letzten speicherpunkt bringt
+back_command:
     type: command
-    debug: false
+    debug: true
     name: back
-    description: teleport to your last location
+    description: teleports back to the last saved location
     usage: /back
-    aliases:
-    - ba
-    permission: craftasy.denizen.command.admin.back
-    tab completions:
-        1: <list[<player.flag[player.commands.teleport.backlocations]>]>
+    permission: craftasy.denizen.command.back
     script:
-        # initial checks
-        - if <context.args.size> > 1:
-            - run core_error def:<player>|<script[<player.flag[player.settings.language]>].data_key[error.too_many_args].parse_color>
-            - stop
-        - if !<player.has_flag[player.commands.teleport.backlocations]> || !<player.has_flag[player.commands.teleport.lastlocation]>:
-            - run core_error def:<player>|<script[<player.flag[player.settings.language]>].data_key[command_back.no_backlocations].parse_color>
-            - stop
-        - define backlocation <player.flag[player.commands.teleport.backlocations]>
-        - define lastlocation <player.flag[player.commands.teleport.lastlocation]>
-        - if <context.args.is_empty>:
-            - teleport <player> <player.flag[player.commands.teleport.lastlocation]>
-        - if !<player.flag[player.commands.teleport.backlocations].contains[<context.args.get[1]>]>:
-            - run core_error def:<player>|<script[<player.flag[player.settings.language]>].data_key[command_back.location_not_valid].parse_color>
-            - stop
-        # get the name of the saved backlocation of the player flag and match it with the saved backlocations with the actual location info
-        # some flag like server.core.playerlocations.backlocation.<player.uuid>.<[locationname]>:<player.location>
+    - if <context.source_type> != PLAYER:
+        - stop
+    - if !<player.has_flag[lastlocation]>:
+        - run chatsounds_error
+        - narrate format:c_warn "Es gibt keine gespeicherten Positionen!"
+        - stop
+    - teleport <player> <player.flag[lastlocation]>
+    - stop
 
-
-        # first: save players current location as back location when logging in
-        # every 20 seconds: save the players current locations as general back locations and for the specific worlds they are in, also store a flag for specific game mode locations (admin, builder, survival modes)
-        # use world backlocation for tpw command: if player has a location there, send him to his backlocation ... tpws will send him to the spawn of that world
-        # teleport player to the last position saved that does not match the world the player is in and save location before teleport as back location
-
-# https://paste.denizenscript.com/View/100571 notiz
-# thread: https://discord.com/channels/315163488085475337/1011711170048163890/1011711411283566643
-
-
-command_saveloc:
+# Backl command, der einen zu dem letzten speicherpunkt einer bestimmten welt bringt
+backl_command:
     type: command
-    debug: false
-    name: saveloc
-    description: tsaves your location
-    usage: /saveloc
-    aliases:
-    - sl
-    permission: craftasy.denizen.command.admin.saveloc
+    debug: true
+    name: backl
+    description: teleports to a saved location
+    usage: /backl <&lt>world<&gt>
+    permission: craftasy.denizen.command.backl
     tab completions:
-        1: name
+        1: <player.flag[world].keys.if_null[]>
     script:
-        - if <context.args.size> > 1:
-            - run core_error def:<player>|<script[<player.flag[player.settings.language]>].data_key[error.too_many_args].parse_color>
+    - if <context.source_type> != PLAYER:
+        - stop
+    - if <context.args.size> < 1:
+        - narrate "<red>Bitte gebe eine Welt an."
+        - stop
+    - if !<player.has_flag[world.<context.args.first>.lastlocation]>:
+        - narrate "<red>Du hast keine gespeicherte Postition für diese Welt."
+        - stop
+    - teleport <player> <player.flag[world.<context.args.first>.lastlocation]>
+    - stop
+
+world_change:
+    type: world
+    debug: false
+    enabled: true
+    events:
+        # Minütliches speichern des letzten ortes in einer welt
+        on system time minutely:
+        - if <server.online_players.size> == 0:
             - stop
+        - foreach <server.online_players>:
+            # speichert per welt
+            - flag <[value]> world.<[value].location.world.name>.lastlocation:<[value].location>
+            # speichert die zuletzt gespeicherte position
+            - flag <[value]> lastlocation:<[value].location>
+            - stop
+
+        # Speichern beim ersten betreten einer welt
+        after player changes world:
+        - flag <player> world.<context.destination_world.name>.lastlocation:<player.location>
+        - stop
+
+        # Speichern beim einloggen
+        after player join:
+        - flag <player> world.<player.location.world.name>.lastlocation:<player.location>
+        - stop
+
+        # Speichern beim ausloggen
+        after player quit:
+        - flag <player> world.<player.location.world.name>.lastlocation:<player.location>
+        - stop
