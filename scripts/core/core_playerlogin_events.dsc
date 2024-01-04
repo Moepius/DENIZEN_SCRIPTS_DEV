@@ -58,12 +58,15 @@ core_login_handler:
             - playsound <[value]> sound:BLOCK_NOTE_BLOCK_CHIME volume:1 pitch:0.2
             - playsound <[value]> sound:BLOCK_NOTE_BLOCK_BELL volume:1 pitch:0.2
             - narrate format:c_info targets:<[value]> "<&a><player.name> <&b>hat den Server verlassen."
-        system time 04:00:
+        on system time 04:00:
             - flag server timeofday:Morgen
-        system time 11:00:
+        on system time 11:00:
             - flag server timeofday:Tag
-        system time 19:00:
+        on system time 19:00:
             - flag server timeofday:Abend
+        on system time 12:02:
+            - narrate test!
+            - flag server timeofday:test
 
 task_motd:
     type: task
