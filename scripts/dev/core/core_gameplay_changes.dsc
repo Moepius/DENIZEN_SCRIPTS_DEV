@@ -178,3 +178,21 @@ pathblock_speed_boost:
       - ratelimit <player> 0.5s
       - flag <player> pathblock_speed_boost.active:!
       - adjust <player> speed:0.1
+
+dropcancels:
+    type: world
+    debug: false
+    events:
+        on mob dies in:orbis:
+            - determine NO_DROPS
+        on mob dies in:world|avarus:
+            - determine NO_DROPS
+
+
+# disables sheeps eating grass in configured world
+world_disablesheepgrasseating:
+    type: world
+    debug: false
+    events:
+        on sheep changes grass_block into dirt in:Avarus|orbis:
+            - determine cancelled
