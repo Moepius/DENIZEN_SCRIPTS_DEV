@@ -130,6 +130,9 @@ refill_blocks:
   events:
     after player places block:
     # TODO: check for creative mode and dcreative
+    # intial checks
+    - if <player.gamemode> == creative:
+      - stop
     - define item <context.item_in_hand>
     - if <context.item_in_hand.quantity> != 1 || !<player.inventory.contains_item[<[item].material.name>]>:
       - stop
@@ -169,7 +172,7 @@ pathblock_speed_boost:
   events:
     after player steps on dirt_path flagged:!pathblock_speed_boost.active:
       - ratelimit <player> 0.5s
-      - adjust <player> speed:0.14
+      - adjust <player> speed:0.12
       - flag <player> pathblock_speed_boost.active
     after player steps on !dirt_path flagged:pathblock_speed_boost.active:
       - ratelimit <player> 0.5s

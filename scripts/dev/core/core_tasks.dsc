@@ -1,7 +1,7 @@
 # core tasks used by various scripts
 
 # used to play sounds and show the player an error message
-# Message via language file!
+# TODO: Message via language file!
 core_error:
     type: task
     debug: false

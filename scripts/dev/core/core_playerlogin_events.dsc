@@ -64,9 +64,6 @@ core_login_handler:
             - flag server timeofday:Tag
         on system time 19:00:
             - flag server timeofday:Abend
-        on system time 12:02:
-            - narrate test!
-            - flag server timeofday:test
 
 task_motd:
     type: task
