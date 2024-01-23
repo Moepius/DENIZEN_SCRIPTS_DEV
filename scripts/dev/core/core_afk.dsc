@@ -1,6 +1,7 @@
 # test for if a player is afk and handling stuff
 # TODO: disable actions when player is afk (receiving private Messages, getting hurt by players, collecting experience orbs and skills, items, etc.)
 # TODO: Abschalten, dass SPieler AFK Spieler schieben können, um AFK zu beenden. Aiuch gegen AFK-Maschinen verwenden
+# TODO: Counter für Springen + Linksklick, wenn Spieler nicht ab und zu springt oder Linksklick nutzt, ebenso AFK setzen
 
 afk_command_example:
   type: command

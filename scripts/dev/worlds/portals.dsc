@@ -6,7 +6,7 @@
 # adding new area: /ex flag server server.worlds.portals.notedareas:|:<cuboid[areaname]>
 # remove area: /ex flag server server.worlds.portals.notedareas:<-:<cuboid[areaname]>
 # /ex note <player.location> as:teleportlocation_
-# areas: area_portals_hortus-avarus, area_portals_avarus-hortus, area_portals_hortus-zeitkapsel, area_portals_zeitkapsel-hortus,
+# areas: area_portals_hortus-avarus, area_portals_avarus-hortus, area_portals_hortus-zeitkapsel, area_portals_zeitkapsel-hortus, area_portals_hortus-orbis, area_portals_orbis-hortus
 # area_portals_hortus-arboretum, area_portals_arboretum-hortus
 # locations:
 

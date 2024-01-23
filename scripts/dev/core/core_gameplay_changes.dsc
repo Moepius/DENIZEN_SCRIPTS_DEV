@@ -170,11 +170,11 @@ pathblock_speed_boost:
   debug: false
   enabled: true
   events:
-    after player steps on dirt_path flagged:!pathblock_speed_boost.active:
+    after player steps on dirt_path in:orbis|avarus flagged:!pathblock_speed_boost.active:
       - ratelimit <player> 0.5s
-      - adjust <player> speed:0.12
+      - adjust <player> speed:0.11
       - flag <player> pathblock_speed_boost.active
-    after player steps on !dirt_path flagged:pathblock_speed_boost.active:
+    after player steps on !dirt_path in:orbis|avarus flagged:pathblock_speed_boost.active:
       - ratelimit <player> 0.5s
       - flag <player> pathblock_speed_boost.active:!
       - adjust <player> speed:0.1
