@@ -1,6 +1,6 @@
 blockswapper_world:
   type: world
-  debug: true
+  debug: false
   events:
     on player right clicks block with Blockswapper:
       - narrate "<context.location> <context.location.material> <context.location.material.before[,]>"

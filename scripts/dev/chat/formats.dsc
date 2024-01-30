@@ -6,12 +6,15 @@
 ## NPC Formats
 ##========================================================================
 
-npc_talk:
+npc_god:
   type: format
-  format: "<&f>[<&a><&l>NPC<&f>] | <&a><npc.name><&f> | <&b><[text]>"
-npc_talk_absatz:
+  format: <&f>[<&6>🧍<&f>] <&b><[text]>
+npc_human:
   type: format
-  format: "<&f>[<&a><&l>NPC<&f>] | <&a><npc.name><&f>:"
+  format: <&f>[<&7>🧍<&f>] <&b><[text]>
+npc_wizard:
+  type: format
+  format: <&f>[<&7>🧙<&f>] <&b><[text]>
 
 ##========================================================================
 ## Information Formats

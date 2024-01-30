@@ -312,7 +312,7 @@ duenger_valid_items:
         - acacia_sapling
         - dark_oak_sapling
         - mangrove_propagule
-        - grass
+        - short_grass
         - tall_grass
         - fern
         - large_fern

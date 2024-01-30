@@ -79,7 +79,7 @@ item_worldbuilder_duenger_waldboden_handler:
                 #
                 - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[200]> as:block:
                     - if <[block].above.material.name> == air:
-                            - modifyblock <[block].above> grass no_physics
+                            - modifyblock <[block].above> short_grass no_physics
                 - foreach <context.location.find_blocks[grass_block|dirt|podzol|stone].within[15].random[200]> as:block:
                     - if <[block].above.material.name> == air:
                             - modifyblock <[block].above> fern no_physics

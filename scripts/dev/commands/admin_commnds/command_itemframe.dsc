@@ -41,7 +41,7 @@ itemframe_tool_item:
 
 itemframe_tool_world:
     type: world
-    debug: true
+    debug: false
     events:
         # usage
         on player right clicks item_frame with:itemframe_tool_item:

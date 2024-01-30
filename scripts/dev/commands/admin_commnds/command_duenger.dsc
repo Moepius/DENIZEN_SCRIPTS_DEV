@@ -304,6 +304,7 @@ superduenger_flagging:
 
 duenger_valid_items:
     type: data
+    debug: false
     items:
         - oak_sapling
         - spruce_sapling
@@ -312,7 +313,7 @@ duenger_valid_items:
         - acacia_sapling
         - dark_oak_sapling
         - mangrove_propagule
-        - grass
+        - short_grass
         - tall_grass
         - fern
         - large_fern
@@ -357,6 +358,7 @@ duenger_valid_items:
 
 duenger_valid_seaitems:
     type: data
+    debug: false
     items:
     - seagrass
     - sea_pickle
@@ -364,6 +366,7 @@ duenger_valid_seaitems:
 
 duenger_valid_blocks:
     type: data
+    debug: false
     blocks:
     - grass_block
     - podzol
@@ -377,6 +380,7 @@ duenger_valid_blocks:
 
 duenger_large_items:
     type: data
+    debug: false
     items:
     - tall_grass
     - large_fern
@@ -387,6 +391,7 @@ duenger_large_items:
 
 duenger_growing_items:
     type: data
+    debug: false
     items:
     - oak_sapling
     - spruce_sapling
@@ -400,6 +405,7 @@ duenger_growing_items:
 
 duenger_radius:
     type: item
+    debug: false
     material: player_head
     display name: <&3><&l>[<&6><&l>Radius<&3><&l>]
     mechanisms:
@@ -407,6 +413,7 @@ duenger_radius:
 
 duenger_intensity:
     type: item
+    debug: false
     material: player_head
     display name: <&3><&l>[<&6><&l>Intensität<&3><&l>]
     mechanisms:
@@ -414,6 +421,7 @@ duenger_intensity:
 
 duenger_mode_water:
     type: item
+    debug: false
     material: player_head
     display name: <&3><&l>[<&6><&l>Modus<&3><&l>]
     mechanisms:
@@ -425,6 +433,7 @@ duenger_mode_water:
 
 duenger_mode_air:
     type: item
+    debug: false
     material: player_head
     display name: <&3><&l>[<&6><&l>Modus<&3><&l>]
     mechanisms:
@@ -437,6 +446,7 @@ duenger_mode_air:
 
 duenger_empty:
     type: item
+    debug: false
     material: gray_stained_glass_pane
     display name: <&c><&l>[<&f><&l>Leer<&c><&l>]
     lore:
@@ -445,6 +455,7 @@ duenger_empty:
 
 superduenger:
     type: item
+    debug: false
     material: bone_meal
     display name: <gold><bold>Superdünger
     enchantments:

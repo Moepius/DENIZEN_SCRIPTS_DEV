@@ -8,7 +8,7 @@
 # Back command, der einen zu dem letzten speicherpunkt bringt
 back_command:
     type: command
-    debug: true
+    debug: false
     name: back
     description: teleports back to the last saved location
     usage: /back
@@ -26,7 +26,7 @@ back_command:
 # Backl command, der einen zu dem letzten speicherpunkt einer bestimmten welt bringt
 backl_command:
     type: command
-    debug: true
+    debug: false
     name: backl
     description: teleports to a saved location
     usage: /backl <&lt>world<&gt>

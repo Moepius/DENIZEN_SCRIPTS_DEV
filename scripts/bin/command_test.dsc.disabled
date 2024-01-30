@@ -47,7 +47,7 @@ npcequip_item:
 
 npcequip_command:
   type: command
-  debug: true
+  debug: false
   name: npcequip
   aliases:
   - npce

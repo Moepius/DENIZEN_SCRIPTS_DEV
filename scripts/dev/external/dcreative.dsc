@@ -117,30 +117,16 @@ creative_handlers:
         - run creative_inventory_creation_helper def.items:<[items]> def.type:horns
         after player left clicks item_flagged:potions in creative_inventory:
         - foreach <server.potion_types> as:effect:
-            - choose <[effect]>:
-                # Not extendable potions
-                - case UNCRAFTABLE WATER MUNDANE THICK AWKWARD INSTANT_HEAL INSTANT_DAMAGE LUCK:
-                    - define potion_base [type=<[effect]>;upgraded=false;extended=false]
-                    - define potions:->:potion[potion_effects=<[potion_base]>]
-                    - define splash_potions:->:splash_potion[potion_effects=<[potion_base]>]
-                    - define lingering_potions:->:lingering_potion[potion_effects=<[potion_base]>]
-                # Not upgradable potions, but extendable
-                - case NIGHT_VISION INVISIBILITY FIRE_RESISTANCE WATER_BREATHING WEAKNESS SLOW_FALLING:
-                    - define potion_base [type=<[effect]>;upgraded=false;extended=false]
-                    - define extended [type=<[effect]>;upgraded=false;extended=true]
-                    - define potions:|:potion[potion_effects=<[potion_base]>]|potion[potion_effects=<[extended]>]
-                    - define splash_potions:|:splash_potion[potion_effects=<[potion_base]>]|splash_potion[potion_effects=<[extended]>]
-                    - define lingering_potions:|:lingering_potion[potion_effects=<[potion_base]>]|lingering_potion[potion_effects=<[extended]>]
-                # All other potions
-                - default:
-                    - define potion_base [type=<[effect]>;upgraded=false;extended=false]
-                    - define extended [type=<[effect]>;upgraded=false;extended=true]
-                    - define upgraded [type=<[effect]>;upgraded=true;extended=false]
-                    - define potions:|:potion[potion_effects=<[potion_base]>]|potion[potion_effects=<[upgraded]>]|potion[potion_effects=<[extended]>]
-                    - define splash_potions:|:splash_potion[potion_effects=<[potion_base]>]|splash_potion[potion_effects=<[upgraded]>]|splash_potion[potion_effects=<[extended]>]
-                    - define lingering_potions:|:lingering_potion[potion_effects=<[potion_base]>]|lingering_potion[potion_effects=<[upgraded]>]|lingering_potion[potion_effects=<[extended]>]
+            - define potions:->:potion[potion_effects=[base_type=<[effect]>]]
+            - define splash_potions:->:splash_potion[potion_effects=[base_type=<[effect]>]]
+            - define lingering_potions:->:lingering_potion[potion_effects=[base_type=<[effect]>]]
         - define items <[potions].include[<[splash_potions]>].include[<[lingering_potions]>]>
         - run creative_inventory_creation_helper def.items:<[items]> def.type:potions
+        after player left clicks item_flagged:arrows in creative_inventory:
+        - define tipped_arrows:|:arrow|spectral_arrow
+        - foreach <server.potion_types> as:effect:
+            - define tipped_arrows:->:tipped_arrow[potion_effects=[base_type=<[effect]>]]
+        - run creative_inventory_creation_helper def.items:<[tipped_arrows]> def.type:arrow
         after player left clicks item_flagged:enchanted_books in creative_inventory:
         - foreach <server.enchantments> as:enchantment:
             - define items:|:<util.list_numbers_to[<enchantment[<[enchantment]>].max_level>].parse_tag[enchanted_book[enchantments=[<[enchantment]>=<[parse_value]>]]]>
@@ -153,7 +139,7 @@ creative_handlers:
         - determine cancelled
         on player clicks item_flagged:dcreative.search in anvil:
         - determine cancelled passively
-        - define matches <server.material_types.parse[item.material.name].include[<util.scripts.filter[data_key[type].equals[item]].parse[name]>].filter[contains_any_text[<context.item.display>]]>
+        - define matches <context.item.display.proc[creative_inventory_generate_all_items]>
         - if <[matches].is_empty>:
             - narrate "No Match! :("
             - inventory open d:creative_inventory
@@ -245,6 +231,19 @@ creative_inventory_creation_helper:
     - if <[has_opened].exists>:
         - stop
     - inventory open destination:<[destination]>
+creative_inventory_generate_all_items:
+    type: procedure
+    debug: false
+    definitions: search
+    script:
+    - define items.materials <server.material_types.parse[name]>
+    - define items.scripts <util.scripts.filter[container_type.equals[item]].parse[name.as[ItemTag]]>
+    - foreach <server.potion_types> as:effect:
+        - define items.potions:->:potion[potion_effects=[base_type=<[effect]>]]
+        - define items.splash_potions:->:splash_potion[potion_effects=[base_type=<[effect]>]]
+        - define items.lingering_potions:->:lingering_potion[potion_effects=[base_type=<[effect]>]]
+        - define items.tipped_arrows:->:tipped_arrow[potion_effects=[base_type=<[effect]>]]
+    - determine <[items].values.combine.filter[contains_any_text[<[search]>]]>
 creative_inventory:
     type: inventory
     debug: false
@@ -284,6 +283,7 @@ creative_inventory:
         weapons_and_armor: iron_sword[flag=type:weapons_and_armor;display=<&f>Weapons and Armor]
         wool: white_wool[flag=type:wool;display=<&f>Wool and Colors]
         # Special handler for special items
+        arrow: tipped_arrow[flag=arrows;display=<gold>Arrows;potion_effects=[base_type=UNCRAFTABLE]]
         denizen: stick[flag=denizen:items;display=<yellow>Denizen]
         enchanted_books: enchanted_book[flag=enchanted_books;display=<dark_purple>Enchanted Books]
         horns: goat_horn[flag=horns;display=<&f>Horns]
@@ -302,8 +302,8 @@ creative_inventory:
     slots:
     - [trees_and_logs] [nature] [pottery] [oceanic] [brewing] [food] [tools] [weapons_and_armor] [smithing_templates]
     - [glass] [terracotta] [wool] [enchanted_books] [potions] [transport] [redstone] [light] [misc]
-    - [blocks] [ores] [copper] [horns] [banner] [fences_and_walls] [stairs_and_slabs] [container] [interactables]
-    - [concrete] [air] [air] [air] [air] [air] [denizen] [special] [spawn_eggs]
+    - [blocks] [ores] [copper] [horns] [arrow] [fences_and_walls] [stairs_and_slabs] [container] [interactables]
+    - [concrete] [air] [air] [air] [banner] [air] [denizen] [special] [spawn_eggs]
     - [] [] [] [] [] [] [] [] [search]
     - [] [] [] [] [] [] [] [] []
 creative_inventory_data:
@@ -888,7 +888,7 @@ creative_data:
             - cobweb
             - flower_pot
             - decorated_pot
-            - grass
+            - short_grass
             - tall_grass
             - fern
             - large_fern

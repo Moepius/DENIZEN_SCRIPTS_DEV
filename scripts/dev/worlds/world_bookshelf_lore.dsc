@@ -11,7 +11,7 @@
 
 world_bookshelf_lore:
     type: world
-    debug: true
+    debug: false
     events:
         on player right clicks bookshelf with:air|book:
             - random:

@@ -1,6 +1,6 @@
 Tutorial_Tempelwache:
   Type: Interact
-  debug: true
+  debug: false
   Steps:
     1:
       Proximity Trigger:

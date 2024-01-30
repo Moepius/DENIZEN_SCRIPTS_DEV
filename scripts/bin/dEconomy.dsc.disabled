@@ -51,7 +51,7 @@ deconomy_Handler:
 Money_Command:
     type: command
     name: money
-    debug: true
+    debug: false
     usage: /money
     description: Ein Service der Bank Eures Vertrauens *Zwinker.
     tab completions:

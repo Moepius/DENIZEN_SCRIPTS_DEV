@@ -2,7 +2,7 @@
 
 hologram_create_task:
     type: task
-    debug: true
+    debug: false
     script:
         - spawn hologram_text_entity <[location]>
 

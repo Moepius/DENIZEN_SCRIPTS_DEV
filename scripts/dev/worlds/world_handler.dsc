@@ -5,7 +5,7 @@ world_handler:
     # data:
     events:
         on server prestart:
-            - define worlds_overworld <list[world|avarus|orbis|arboretum|baumschule|silberlab|world_lager|dungeon|orbis_west]>
+            - define worlds_overworld <list[world|avarus|orbis|arboretum|baumschule|silberlab|world_lager|dungeon|orbis_west|zeitkapsel]>
             - foreach <[worlds_overworld]> as:world:
                 - createworld <[world]>
                 - adjust <world[<[world]>]> keep_spawn:true
@@ -21,5 +21,5 @@ world_handler:
                 - adjust <world[<[world]>]> keep_spawn:true
                 - announce to_console "Welt <[world]> wurde geladen!"
 
-# flag server server.worlds.enabled_worlds:world|avarus|orbis|arboretum|baumschule|silberlab|world_lager|dungeon|orcus|world_nether|kaos|world_the_end|hortusmanium|orbis_west
+# flag server server.worlds.enabled_worlds:world|avarus|orbis|arboretum|baumschule|silberlab|world_lager|dungeon|orcus|world_nether|kaos|world_the_end|hortusmanium|orbis_west|zeitkapsel
 # todo: data script benutzen für eingeschaltetet welten und in config platzieren

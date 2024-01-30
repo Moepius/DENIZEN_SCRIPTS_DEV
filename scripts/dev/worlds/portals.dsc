@@ -1,12 +1,13 @@
 # handles portals in worlds
 # permission named with craftasy.denizen.portals.use_<context.area.note_name> ... last bit is name of the area
-# locations named with teleportlocation_<context.area.note_name> ... last bit is name of the area, example: teleportlocation_area_portals_hortus-avarus
+# locations named with teleportlocation_<context.area.note_name> ... last bit is name of the area, example: teleportlocation_area_portals_hortus-orbis
 
 # generating area flag: /ex flag server server.worlds.portals.notedareas:<list[<cuboid[areaname]>|<cuboid[areaname]>|...]>
 # adding new area: /ex flag server server.worlds.portals.notedareas:|:<cuboid[areaname]>
 # remove area: /ex flag server server.worlds.portals.notedareas:<-:<cuboid[areaname]>
 # /ex note <player.location> as:teleportlocation_
 # areas: area_portals_hortus-avarus, area_portals_avarus-hortus, area_portals_hortus-zeitkapsel, area_portals_zeitkapsel-hortus, area_portals_hortus-orbis, area_portals_orbis-hortus
+# area_portals_hortus-zeitkapsel
 # area_portals_hortus-arboretum, area_portals_arboretum-hortus
 # locations:
 
@@ -23,7 +24,7 @@ debug_test_portals:
 
 portal_creator:
     type: command
-    debug: true
+    debug: false
     name: portal
     description: create or change a portal
     permission: craftasy.denizen.command.portal
@@ -48,7 +49,7 @@ portal_creator:
 
 portal_menu:
     type: inventory
-    debug: true
+    debug: false
     inventory: chest
     title: <&f><&l>Portale Einstellungen
     gui: true
@@ -115,6 +116,7 @@ portal_enter_task:
 
 item_portal_selector:
     type: item
+    debug: false
     material: blaze_rod
     display name: <&a><&l>Portal Selector
     mechanisms:
@@ -137,6 +139,7 @@ item_portal_selector:
 
 portal_pager:
     type: item
+    debug: false
     material: blaze_rod
 
 

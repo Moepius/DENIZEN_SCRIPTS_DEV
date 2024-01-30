@@ -1,5 +1,6 @@
 npc_damage_standard:
     type: assignment
+    debug: false
     actions:
         on assignment:
         - trigger name:damage state:true
@@ -8,6 +9,7 @@ npc_damage_standard:
 
 npc_damage_standard_interact:
     type: interact
+    debug: false
     steps:
         1:
             damage trigger:

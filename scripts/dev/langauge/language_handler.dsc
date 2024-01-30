@@ -3,6 +3,7 @@
 language_handler:
     type: world
     debug: false
+    enabled: false
     events:
         on player joins:
             - if !<player.has_flag[player.settings.language.initialsetup]>:
@@ -37,7 +38,7 @@ lang_test_item:
 
 command_language:
     type: command
-    debug: true
+    debug: false
     name: language
     description: switch your language to german or English.
     usage: /language

@@ -22,7 +22,7 @@ trapdoor_protection:
     type: world
     debug: false
     events:
-        on player right clicks *_trapdoor|*_door flagged:!player.debug.trappdor_protection in:protected_*:
+        on player right clicks *_trapdoor|*_door flagged:!player.debug.trappdor_protection in:protected_*|zeitkapsel:
             - if !<player.has_flag[player.core.protection.door_cooldown]>:
                 # set cooldown flag
                 - flag <player> player.core.protection.door_cooldown expire:2.3s

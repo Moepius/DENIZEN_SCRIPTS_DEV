@@ -141,7 +141,7 @@ scrollable_inventory_task:
 
 swappable_offhand_events:
     type: world
-    debug: true
+    debug: false
     enabled: <script[inventory_tools_config].data_key[swappable_offhand_enabled]>
     # flags
     inventory_contents: player.hud.swappable_inventory.inventory_contents
@@ -197,7 +197,7 @@ swappable_offhand_events:
 
 swappable_offhand_inventory:
     type: inventory
-    debug: true
+    debug: false
     inventory: chest
     title: quick-menu
     procedural items:

@@ -1,6 +1,6 @@
 tut_main:
   type: command
-  debug: true
+  debug: false
   name: tut
   description: Spieloptionen
   usage: /tut <&lt>Option<&gt>

@@ -28,12 +28,7 @@
 # caldera 2014: -2198 69 1909
 
 # TODO: Seelenpartikel auf SPawninsel gelegentlich
-# TODO: Musik sobald Spieler alte Welten besucht
-# TODO: Auswahlmenü, um alte Spielwelten zu besuchen
-# TODO: Spieler zurück nach Hortus Manium Button in GUI
-# TODO: Musik ein/aus button
-# TODO: Inventar keeping für diese Welt
-# TODO: Teleport commands in zeitkapsel welt abschalten
+# TODO: Musik sobald Spieler alte Welten besucht mit resource pack
 
 zeitreise_inventory:
     type: inventory
@@ -49,7 +44,7 @@ zeitreise_inventory:
 zeitkapsel_handler:
   type: world
   enabled: true
-  debug: true
+  debug: false
   events:
     # prevent interaction in zeitkapsel world
     on player changes food level in:zeitkapsel:
@@ -183,6 +178,7 @@ zeitkapsel_handler:
       - teleport <player> location_zeitkapsel_caldera2014_hafen-offshorebhafen
 zeitkapsel_zeitbutton:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Zeitkapsel öffnen<&3><&l>]
   mechanisms:
@@ -193,6 +189,7 @@ zeitkapsel_zeitbutton:
 
 zeitkapsel_zurueck:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Zeitkapsel verlassen<&3><&l>]
   mechanisms:
@@ -203,6 +200,7 @@ zeitkapsel_zurueck:
 
 zeitkapsel_musikein:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Musik einschalten<&3><&l>]
   mechanisms:
@@ -213,6 +211,7 @@ zeitkapsel_musikein:
 
 zeitkapsel_musikaus:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Musik abschalten<&3><&l>]
   mechanisms:
@@ -224,6 +223,7 @@ zeitkapsel_musikaus:
 # world buttons
 zeitkapsel_ituria2011:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Ituria 2011<&3><&l>]
   mechanisms:
@@ -235,6 +235,7 @@ zeitkapsel_ituria2011:
 
 zeitkapsel_ituria2012:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Ituria 2012<&3><&l>]
   mechanisms:
@@ -246,6 +247,7 @@ zeitkapsel_ituria2012:
 
 zeitkapsel_ituria2013:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Ituria 2013<&3><&l>]
   mechanisms:
@@ -257,6 +259,7 @@ zeitkapsel_ituria2013:
 
 zeitkapsel_ituria2014:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Ituria 2014<&3><&l>]
   mechanisms:
@@ -268,6 +271,7 @@ zeitkapsel_ituria2014:
 
 zeitkapsel_ituria2015:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Ituria 2015<&3><&l>]
   mechanisms:
@@ -279,6 +283,7 @@ zeitkapsel_ituria2015:
 
 zeitkapsel_ituria2018:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Ituria 2018<&3><&l>]
   mechanisms:
@@ -290,6 +295,7 @@ zeitkapsel_ituria2018:
 
 zeitkapsel_tiuacen2014:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Tiuacen 2014<&3><&l>]
   mechanisms:
@@ -301,6 +307,7 @@ zeitkapsel_tiuacen2014:
 
 zeitkapsel_caldera2014:
   type: item
+  debug: false
   material: player_head
   display name: <&3><&l>[<&6><&l>Caldera 2014<&3><&l>]
   mechanisms:

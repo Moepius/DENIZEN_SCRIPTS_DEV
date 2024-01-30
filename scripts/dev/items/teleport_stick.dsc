@@ -25,7 +25,7 @@ item_teleport_stick:
 
 item_teleport_stick_handler:
     type: world
-    debug: true
+    debug: false
     events:
         on player right clicks block with:item_teleport_stick:
             - determine cancelled passively
@@ -41,7 +41,7 @@ item_teleport_stick_handler:
 
 command_teleport_stick:
     type: command
-    debug: true
+    debug: false
     name: tolkiers_pfeil
     description: Gives you <&dq>Tolkiers Pfeil<&dq>
     usage: /tolkiers_pfeil
@@ -63,7 +63,7 @@ command_teleport_stick:
 
 teleport_stick_leftclick:
     type: task
-    debug: true
+    debug: false
     definitions: player
     script:
         - define hit <[player].eye_location.ray_trace[range=150;entities=*;ignore=<player>;fluids=true;nonsolids=true]||null>
@@ -74,7 +74,7 @@ teleport_stick_leftclick:
 
 teleport_stick_rightclick:
     type: task
-    debug: true
+    debug: false
     definitions: player
     script:
         - define hit <[player].eye_location.ray_trace[range=150;entities=*;ignore=<player>;fluids=true;nonsolids=true]||null>

@@ -1,6 +1,6 @@
 Tempelwache:
   Type: Assignment
-  debug: true
+  debug: false
   actions:
     on assignment:
       - trigger name:chat toggle:true
@@ -18,7 +18,7 @@ Tempelwache:
 
 TempelwacheStandard:
   Type: Interact   
-  debug: true
+  debug: false
   Requirements:
     Mode: None
   Steps:

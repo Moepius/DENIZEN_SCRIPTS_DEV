@@ -3,6 +3,24 @@
 # Flag "testmodus_gast" vergeben, um Skripte als Gast auszuführen.
 # Notes:
 
+velnias_assign_inactive:
+    type: assignment
+    actions:
+        on assignment:
+        - trigger name:click state:true cooldown:2m
+    interact scripts:
+    - velnias_interact_inactive
+
+velnias_interact_inactive:
+    type: interact
+    steps:
+        1:
+            click trigger:
+                script:
+                - run chatsounds_standard def:<player>
+                - narrate format:npc_god ...
+
+# TODO: remake this whole interaction
 velnias_standard:
     type: assignment
     actions:

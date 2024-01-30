@@ -125,7 +125,7 @@ Vorpal_Vacuum_Impact_Tracker:
 
 Vorpal_Vacuum_Plunge_Attack:
     type: task
-    debug: true
+    debug: false
     speed: 0
     script:
     # Establish the cast location

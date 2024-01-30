@@ -138,7 +138,7 @@ VoteBoard_Sort:
  
 VoteBoard_ManuUpdate:
     type: task
-    debug: true
+    debug: false
     script:
     - foreach <server.list_players> {
       - if <%value%.has_flag[votes]> {

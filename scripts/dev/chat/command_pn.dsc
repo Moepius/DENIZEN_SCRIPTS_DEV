@@ -2,7 +2,7 @@
 
 command_pn:
     type: command
-    debug: true
+    debug: false
     name: pn
     description: Private Nachricht an einen Spieler
     usage: /pn <&lt>Spieler<&gt> <&lt>Nachricht<&gt>

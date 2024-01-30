@@ -4,7 +4,7 @@
 
 task_help_wiki_texts:
     type: task
-    debug: true
+    debug: false
     definitions: player
     subpaths:
         worlds:
@@ -57,7 +57,7 @@ task_help_wiki_texts:
 command_help_wiki_texts:
     type: command
     name: wiki
-    debug: true
+    debug: false
     permissions: craftasy.denizen.commands.wiki
     description: external plugin handle for wiki text task scripts
     usage: /wiki <&l>category<&gt> <&l>topic<&gt> <&l>target placeholder<&gt>

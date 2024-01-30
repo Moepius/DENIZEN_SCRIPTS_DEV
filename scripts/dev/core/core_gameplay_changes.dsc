@@ -61,6 +61,7 @@ core_gameplay:
 
 core_pickupheads:
     type: world
+    debug: false
     events:
         after player inventory slot changes to:player_head:
         #TODO: add custom creative mode to test
@@ -78,14 +79,14 @@ cancel_physics:
   debug: false
   events:
 # Changes the block that was clicked to the item that is currently held (grass/fern)
-    after player right clicks stone|cobblestone|gravel|stone_bricks|cracked_stone_bricks|andesite with:grass|tall_grass|dead_bush|fern:
+    after player right clicks stone|cobblestone|gravel|stone_bricks|cracked_stone_bricks|andesite with:short_grass|tall_grass|dead_bush|fern:
     - if <player.has_permission[craftasy.denizen.dblock.physicscancel]>:
       - modifyblock <context.location.up> <player.item_in_hand.material.name>
       - take iteminhand quantity:1
     - else:
       - stop
 # disables block physics (dropping the item), unless the supporting block is removed
-    on grass|fern physics:
+    on short_grass|fern physics:
     - if <context.location.below.material.name> == air:
       - stop
     - else:
