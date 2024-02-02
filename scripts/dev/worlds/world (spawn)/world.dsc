@@ -2,7 +2,7 @@
 # players who get here will be randomly teleported to different locations in the world
 # after some random time they will be telported to hortus manium
 
-world_handler:
+world_spawn_handler:
   type: world
   enabled: true
   debug: false
@@ -32,16 +32,10 @@ world_handler:
     - determine cancelled
     on player places block in:world:
     - determine cancelled
-    ### entering world "world"
-    on player changes world to world:
-    # teleport the player to a random spawn location
-    - random:
-        - teleport <player> teleportlocation_world_1
-        - teleport <player> teleportlocation_world_2
-        - teleport <player> teleportlocation_world_3
-        - teleport <player> teleportlocation_world_4
-        - teleport <player> teleportlocation_world_5
-        - teleport <player> teleportlocation_world_6
+    ### entering world "world" (you can use a "matcher" -> world_flagged:serverspawn, instead of providing the world name)
+    on player changes world to world_flagged:serverspawn:
+    - if !<context.destination_world.has_flag[serverspawn]>:
+        - stop
     # flag player that he is in world "world"
     - flag <player> player_in_world_world
     # note/save his current inventory and clear it
@@ -51,11 +45,20 @@ world_handler:
     - adjust <player> gamemode:adventure
     # hide the player from others
     - adjust <player> hide_from_players
+    ### entered world "world"
+    after player changes world to world_flagged:serverspawn:
+     # teleport the player to a random spawn location
+    - random:
+        - teleport <player> teleportlocation_world_1
+        - teleport <player> teleportlocation_world_2
+        - teleport <player> teleportlocation_world_3
+        - teleport <player> teleportlocation_world_4
+        - teleport <player> teleportlocation_world_5
+        - teleport <player> teleportlocation_world_6
     # show player world title and play some sounds
     - wait 2s
     - playsound <player> sound:block_bell_resonate pitch:0.8
     - playsound <player> sound:block_beacon_power_select pitch:0.2
-    - ratelimit <player> 2d
     - title "title:<&6>Welt der Vergessenen" stay:3s targets:<player>
     ### bring player back to hortus manium
     - random:
