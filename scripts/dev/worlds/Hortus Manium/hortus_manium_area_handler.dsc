@@ -78,10 +78,8 @@ hortusmanium_handler:
         # ambient sound for portal room
         on system time secondly every:10:
             - define Spieler <server.online_players_flagged[player.worlds.area.in_hortusmanium]>
-            - random:
-                - repeat 1:
-                    - foreach <[Spieler]> as:Spieler:
-                        - playsound <[Spieler]> sound:AMBIENT_SOUL_SAND_VALLEY_LOOP
+            - foreach <[Spieler]> as:Spieler:
+                - playsound <[Spieler]> sound:AMBIENT_SOUL_SAND_VALLEY_LOOP
         # ambient sound for portal room
         on system time secondly every:20:
             - define player <server.online_players_flagged[player.worlds.area.in_hortusmanium]>
