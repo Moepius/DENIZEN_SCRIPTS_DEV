@@ -104,20 +104,26 @@ zeitkapsel_handler:
       - playsound <player> sound:<[song]>
     ### exiting zeitkapsel world
     on player changes world from zeitkapsel:
-      - inventory clear
-      - inventory set o:inventory_hortusbackup_<player.uuid>
       - flag <player> player_in_world_zeitkapsel:!
       - flag <player> zeitkapsel_songplaying:!
+      - inventory clear
+      - inventory set o:inventory_hortusbackup_<player.uuid>
       - adjust <player> stop_sound
       # change gamemode
       - adjust <player> gamemode:survival
       - teleport <player> teleportlocation_zeitkapsel-hortus
+    ### save the zeitkapsel inventory every few ticks
+    ### (workaround because somehow when saving the inventory on the "changes from zeitkapsel", saves the wrong inventory)
+    on delta time secondly:
+      - define player <server.online_players_flagged[player_in_world_zeitkapsel]>
+      - foreach <[player]> as:p:
+        - note <[p].inventory> as:inventory_zeitkapsel_<[p].uuid>
     ### inventory buttons for controls in zeitkapsel world
     on player right clicks block with:zeitkapsel_zurueck:
       - determine cancelled passively
+      - flag <player> player_in_world_zeitkapsel:!
       - inventory clear
       - inventory set o:inventory_hortusbackup_<player.uuid>
-      - flag <player> player_in_world_zeitkapsel:!
       - adjust <player> stop_sound
       # change gamemode
       - adjust <player> gamemode:survival
