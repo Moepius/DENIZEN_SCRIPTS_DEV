@@ -49,6 +49,8 @@ zeitkapsel_handler:
     # prevent interaction in zeitkapsel world
     on player changes food level in:zeitkapsel:
       - determine cancelled
+    on player swaps items flagged:player_in_world_zeitkapsel:
+      - determine cancelled
     on player picks up item in:zeitkapsel:
       - determine cancelled
     on player item takes damage in:zeitkapsel:
