@@ -14,7 +14,7 @@ dnbrowse_config:
     address: craftasy.de
 
     # Port for internal webserver to listen on
-    port: 8124
+    port: 15000
 
     # Timeout period (after this time the internal webserver is stopped if there is no browser open)
     timeout: 5m
@@ -277,7 +277,7 @@ dnbrowse_command:
             - stop
 
         # Build base URL
-        - define url http://<script[dnbrowse_config].data_key[address]>
+        - define url https://<script[dnbrowse_config].data_key[address]>
         - if <script[dnbrowse_config].data_key[port]> != 80:
             - define url <[url]>:<script[dnbrowse_config].data_key[port]>
 
