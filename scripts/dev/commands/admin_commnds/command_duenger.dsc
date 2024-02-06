@@ -1,6 +1,8 @@
 # TODO: add undo argument
 # TODO: add sea mode for sea plants
 # TODO: add presets
+# TODO: add farm mode (plant wheat and other farmplants on farmland block)
+# TODO: add version for players, with protection for only planting plants on their plots etc.
 
 #################### COMMAND ####################
 
