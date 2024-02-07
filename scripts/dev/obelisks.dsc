@@ -7,5 +7,6 @@ end_eye_handler:
     debug: true
     enabled: true
     events:
+        # TODO: integrate functionality with obelisks (point ender eye location to nearest obelisk)
         on player right clicks block with:ender_eye in:orbis:
             - spawn ENDER_SIGNAL[ender_eye_target_location=endereye_test] <player.location.add[0,1,0]>
