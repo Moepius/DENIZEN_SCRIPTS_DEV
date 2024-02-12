@@ -88,6 +88,8 @@ waystone_create_waystone_area:
         # Prevent double fireing
         - ratelimit <player> 1t
         - determine cancelled passively
+        # if player is not in world "orbis" do nothing
+        - stop if:!<context.location.world.name.equals[orbis]>
         # If the player clicks on air, do nothing
         - stop if:<context.location.if_null[null].equals[null]>
         - if !<player.has_flag[waystone_selection_corner_one]>:
