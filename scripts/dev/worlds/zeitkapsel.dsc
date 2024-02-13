@@ -29,6 +29,7 @@
 
 # TODO: Seelenpartikel auf SPawninsel gelegentlich
 # TODO: Musik sobald Spieler alte Welten besucht mit resource pack
+# TODO: Protection: shulker, dispenser, usw.
 
 zeitreise_inventory:
     type: inventory
