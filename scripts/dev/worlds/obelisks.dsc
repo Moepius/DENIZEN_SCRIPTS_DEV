@@ -2,6 +2,7 @@
 
 # TODO: kleine Chance zufällig an einen unwirtlichen ort teleportiert zu werden in Hortus Manium, wo Spieler leiden: kleine Insel mit Gewitter auf dem versunkene Schiffe liegen, Nachricht "etwas stimmt nicht..."
 # TODO: wenn man Obelisken oft nutzt steigt Wahrscheinlichkeit in Hortsu Manium zu landen
+# TODO: Schutz vor Abbau für Obelisken aktivieren
 
 
 ### eye of ender handler
@@ -34,6 +35,7 @@ waystone_config:
             discovered_waystone: <italic>Ihr habt einen Obelisk entdeckt!<&co>
             no_teleport_location_set: <red>Teleport nicht möglich<&co> Teleportziel fehlt!
             not_enough_xp: <red>Nicht genügend Erfahrungspunkte.
+            teleport_loc_set: <green>Teleport location gesetzt!
         lore:
             current_teleport_location: <aqua>Ziel<&co>
             teleport_location_not_set: <red>nicht gesetzt
@@ -44,19 +46,20 @@ waystone_config:
             not_enough_experience: <red>Nicht genügend Erfahrungspunkte.
     permissions:
         # Name of admin permission
-        admin: denizen.admin
-        waystone_tool: denizen.waystone_tool
+        admin: denizen.admin.waystones
+        waystone_tool: denizen.admin.waystone_tool
     data:
         default_xp_cost: 5
+        # The size of the buffer area around the waystone.
+        # This is what will play the particle effects and narrate when the player discovers a new waystone.
+        waystone_buffer_size: 6
 
 waystone_selection_command:
     type: command
     debug: false
-    name: obelisk
+    name: waystonetool
     description: Gives the waystone selection tool.
-    usage: /obelisk
-    aliases:
-    - ob
+    usage: /waystonetool
     permission: <script[waystone_config].data_key[permissions.admin]><script[waystone_config].data_key[permissions.waystone_tool]>
     script:
     - give waystone_selection_tool
@@ -65,20 +68,15 @@ waystone_selection_tool:
     type: item
     debug: false
     material: blaze_rod
-    display name: Obelisk Tool
+    display name: Waystone Selection Tool
     enchantments:
         # For enchantment glint
         - unbreaking:1
     mechanisms:
         hides: ALL
     lore:
-    - <empty>
-    - <&a>Linkslick: <&3>Eckpunkt setzen
-    - <empty>
-    - <&f><&m>----------------------------------
-    - <&7>Zutat: <&c><&chr[274C]><&7> Herstellbar: <&c><&chr[274C]><&7>
-    - <&f><&m>----------------------------------
-    - <&c>Admin Tool
+    - To create a waystone,
+    - left click both end corners.
 
 waystone_create_waystone_area:
     type: world
@@ -88,8 +86,6 @@ waystone_create_waystone_area:
         # Prevent double fireing
         - ratelimit <player> 1t
         - determine cancelled passively
-        # if player is not in world "orbis" do nothing
-        - stop if:!<context.location.world.name.equals[orbis]>
         # If the player clicks on air, do nothing
         - stop if:<context.location.if_null[null].equals[null]>
         - if !<player.has_flag[waystone_selection_corner_one]>:
@@ -108,8 +104,10 @@ waystone_create_waystone_area:
                 - define waystone_id waystone_<server.flag[waystones.last_id]>
                 # Creates a new waystone. Default display is in titlecase with the number of its ID (for example: Waystone 5)
                 - flag server waystones.data.<[waystone_id]>:<map[display=<[waystone_id].split[_].space_separated.to_titlecase>;xp_cost=<script[waystone_config].data_key[data.default_xp_cost]>]>
+                - flag server waystones.buffers:->:buffer_<[waystone_id]>
             # This will create a new cuboid or overwrite the existing one if the player is editing the waystone zone.
             - note <[cuboid]> as:<[waystone_id]>
+            - note <[cuboid].expand[<script[waystone_config].data_key[data.waystone_buffer_size]>]> as:buffer_<[waystone_id]>
             - flag <player> editing_waystone:<[waystone_id]>
             - run waystone_open_edit_gui
 
@@ -128,7 +126,7 @@ waystone_refresh_guis:
     events:
         on player closes waystone_edit_gui:
         # Allows the player to continue editing the waystone even if the inventory is closed due to editing other values.
-        - if <player.has_flag[editing_waystone_zone]> || <player.has_flag[editing_waystone_display_name]> || <player.has_flag[editing_waystone_xp_cost]>:
+        - if <player.has_flag[editing_waystone_zone]> || <player.has_flag[editing_waystone_display_name]> || <player.has_flag[editing_waystone_xp_cost]> || <player.has_flag[editing_waystone_teleport_loc]>:
             - flag <player> editing_waystone_display_name:!
             - flag <player> editing_waystone_xp_cost:!
             - stop
@@ -208,15 +206,17 @@ waystone_edit_gui_events:
             - flag server waystones.data.<player.flag[editing_waystone]>.xp_cost:<context.new.get[1]>
         - run waystone_open_edit_gui
         on player clicks waystone_edit_teleport_location_item in waystone_edit_gui:
-        - flag server waystones.data.<player.flag[editing_waystone]>.teleport_loc:<player.location>
-        - run waystone_open_edit_gui
+        - flag <player> editing_waystone_teleport_loc expire:2m
+        - inventory close
         on player clicks waystone_edit_zone_item in waystone_edit_gui:
         - flag <player> editing_waystone_zone
         - inventory close
         on player clicks waystone_remove_item in waystone_edit_gui:
         - define id <player.flag[editing_waystone]>
         - note remove as:<[id]>
+        - note remove as:buffer_<[id]>
         - flag server waystones.data.<[id]>:!
+        - flag server waystones.buffers:<-:buffer_<[id]>
         # If a player has discovered this waystone, remove it from their list of discovered waystones.
         - foreach <server.players_flagged[discovered_waystones]> as:player:
             - if <[player].flag[discovered_waystones].contains[<[id]>]>:
@@ -224,14 +224,28 @@ waystone_edit_gui_events:
         - narrate <script[waystone_config].parsed_key[text.narrations.waystone_removed]>
         - inventory close
 
+waystone_set_teleport_location_command:
+    type: command
+    name: waystoneteleport
+    description: Sets the waytone teleport location. Does nothing if you are not currently ediditng the waystone.
+    usage: /waystoneteleport
+    permission: dscript.waystoneteleport
+    script:
+    - if !<player.has_flag[editing_waystone_teleport_loc]>:
+        - stop
+    - flag server waystones.data.<player.flag[editing_waystone]>.teleport_loc:<player.location>
+    - narrate <script[waystone_config].parsed_key[text.narrations.teleport_loc_set]>
+    - flag <player> editing_waystone_teleport_loc:!
+
 waystone_player_discovers_new_waystone:
     type: world
     debug: false
     events:
-        on player enters waystone_*:
-        - stop if:<player.flag[discovered_waystones].if_null[<list[]>].contains[<context.area.note_name>]>
-        - flag <player> discovered_waystones:->:<context.area.note_name>
-        - narrate "<script[waystone_config].parsed_key[text.narrations.discovered_waystone]> <server.flag[waystones.data.<context.area.note_name>].get[display]>"
+        on player enters buffer_*:
+        - define name <context.area.note_name.replace_text[buffer_]>
+        - stop if:<player.flag[discovered_waystones].if_null[<list[]>].contains[<[name]>]>
+        - flag <player> discovered_waystones:->:<[name]>
+        - narrate "<script[waystone_config].parsed_key[text.narrations.discovered_waystone]> <server.flag[waystones.data.<[name]>].get[display]>"
 
 waystone_list_of_waystones_gui:
     type: inventory
@@ -241,7 +255,7 @@ waystone_list_of_waystones_gui:
     gui: true
     size: 45
     procedural items:
-    - define result <list[]>
+    - define result <item[black_stained_glass_pane].repeat_as_list[45]>
     - define waystones <list[]>
     # Check if player is admin.
     - if <player.proc[waystone_has_admin_permission]>:
@@ -257,6 +271,7 @@ waystone_list_of_waystones_gui:
             - define page:++
         - define pages.<[page]>:->:<[i]>
     # Loop through the items on each page.
+    - define slot 1
     - foreach <[pages].get[<player.flag[waystones_page]||1>]> as:name:
         - define data <server.flag[waystones.data.<[name]>]>
         # Lore and display name data
@@ -272,14 +287,13 @@ waystone_list_of_waystones_gui:
             - define itemdata.lore:<[lore]>
         # Waystone item.
         - define item <item[blackstone].with_map[<[itemdata]>]>
-        - define result:->:<[item].with_flag[waystone_to_teleport_to:<[name]>]>
+        - define result[<[slot]>]:<[item].with_flag[waystone_to_teleport_to:<[name]>]>
+        - define slot:++
     # Add next page button if not on last page.
     - if <player.flag[waystones_page]> < <[pages].size>:
-        - define result <[result].pad_right[45].with[black_stained_glass_pane]>
         - define result[45]:waystone_next_page_paginator
     # Add back page button if on not on first page
     - if <player.flag[waystones_page]> > 1:
-        - define result <[result].pad_right[45].with[black_stained_glass_pane]>
         - define result[37]:waystone_previous_page_paginator
     - determine <[result]>
 
@@ -298,7 +312,7 @@ waystone_list_pagination:
         - inventory open d:waystone_list_of_waystones_gui
         - flag <player> moving_page:!
         on player closes waystone_list_of_waystones_gui flagged:!moving_page:
-        - flag <player> waystones_page:0
+        - flag <player> waystones_page:!
 
 waystone_previous_page_paginator:
     type: item
@@ -330,7 +344,7 @@ waystone_player_wants_to_teleport:
         # If the player is an admin, the if check will fail and allow them to teleport without an XP restriction.
         - if <player.calculate_xp> < <[data].get[xp_cost]> && !<player.proc[waystone_has_admin_permission]>:
             - narrate <script[waystone_config].parsed_key[text.narrations.not_enough_xp]>
-            - playsound <player> sound:item_shield_block
+            - playsound <player> sound:entity_villager_hurt
             - inventory close
             - stop
         - teleport <[data].get[teleport_loc]>
@@ -351,7 +365,7 @@ waystone_show_particles:
         on delta time secondly every:4:
         # Loop through all the waystones and plays the soul particle effect at each one.
         # If there are no waystones, the list returns empty and the foreach loop won't fire.
-        - foreach <server.flag[waystones.data].if_null[<list[]>]> key:name:
+        - foreach <server.flag[waystones.buffers].if_null[<list[]>]> as:name:
             # Finds players to make sure that the chunk is loaded
             - if <cuboid[<[name]>].center.find_players_within[50].any>:
                 - repeat 15:
