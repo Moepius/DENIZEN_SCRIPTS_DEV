@@ -8,13 +8,13 @@
 
 npc_god:
   type: format
-  format: <&f>[<&6>🧍<&f>] <&b><[text]>
+  format: <&f>[<&6>🧍<&f>] <&b><&o><[text]>
 npc_human:
   type: format
-  format: <&f>[<&7>🧍<&f>] <&b><[text]>
+  format: <&f>[<&7>🧍<&f>] <&b><&o><[text]>
 npc_wizard:
   type: format
-  format: <&f>[<&7>🧙<&f>] <&b><[text]>
+  format: <&f>[<&7>🧙<&f>] <&b><&o><[text]>
 
 ##========================================================================
 ## Information Formats
@@ -22,7 +22,7 @@ npc_wizard:
 
 c_info:
   type: format
-  debug: false 
+  debug: false
   format: "<&b><&l>[<&6><&l>i<&b><&l>]<&b> <[text]>"
 
 c_warn:
