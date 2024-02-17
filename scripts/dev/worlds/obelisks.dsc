@@ -14,6 +14,7 @@ end_eye_handler:
     events:
         # TODO: integrate functionality with obelisks (point ender eye location to nearest obelisk)
         on player right clicks block with:ender_eye in:orbis:
+            - define obelisks 
             - spawn ENDER_SIGNAL[ender_eye_target_location=endereye_test] <player.location.add[0,1,0]>
 
 
@@ -57,10 +58,12 @@ waystone_config:
 waystone_selection_command:
     type: command
     debug: false
-    name: waystonetool
+    name: otool
     description: Gives the waystone selection tool.
-    usage: /waystonetool
+    usage: /otool
     permission: <script[waystone_config].data_key[permissions.admin]><script[waystone_config].data_key[permissions.waystone_tool]>
+    aliases:
+    - ot
     script:
     - give waystone_selection_tool
 
@@ -68,15 +71,21 @@ waystone_selection_tool:
     type: item
     debug: false
     material: blaze_rod
-    display name: Waystone Selection Tool
+    display name: obelisk Auswahl
     enchantments:
         # For enchantment glint
         - unbreaking:1
     mechanisms:
         hides: ALL
     lore:
-    - To create a waystone,
-    - left click both end corners.
+    - <empty>
+    - <&a>Rechtsklick: <&3>Obelisk bearbeiten
+    - <&a>Linksklick: <&3>Eckpunkt setzen
+    - <empty>
+    - <&f><&m>----------------------------------
+    - <&7>Zutat: <&c><&chr[274C]><&7> Herstellbar: <&c><&chr[274C]><&7>
+    - <&f><&m>----------------------------------
+    - <&c>Admin Tool
 
 waystone_create_waystone_area:
     type: world
@@ -135,7 +144,7 @@ waystone_refresh_guis:
 waystone_edit_gui:
     type: inventory
     debug: false
-    title: Edit Waystone (<player.flag[editing_waystone]>)
+    title: Obelisk bearbeiten: (<player.flag[editing_waystone]>)
     inventory: chest
     gui: true
     definitions:
@@ -159,31 +168,31 @@ waystone_edit_display_item:
     type: item
     debug: false
     material: oak_sign
-    display name: Edit Waystone Display Name
+    display name: Name bearbeiten
 
 waystone_edit_xp_cost_item:
     type: item
     debug: false
     material: slime_ball
-    display name: Edit Waystone Exp. Cost
+    display name: XP Kosten bearbeiten
 
 waystone_edit_teleport_location_item:
     type: item
     debug: false
     material: compass
-    display name: Edit Waystone Teleport Location
+    display name: Teleport Location setzen
 
 waystone_edit_zone_item:
     type: item
     debug: false
     material: blaze_rod
-    display name: Edit Waystone Zone
+    display name: Zone bearbeiten
 
 waystone_remove_item:
     type: item
     debug: false
     material: barrier
-    display name: <white><italic>Remove Waystone
+    display name: <white><italic>Obelisk entfernen
 
 waystone_edit_gui_events:
     type: world
@@ -226,10 +235,12 @@ waystone_edit_gui_events:
 
 waystone_set_teleport_location_command:
     type: command
-    name: waystoneteleport
+    name: obelisktp
     description: Sets the waytone teleport location. Does nothing if you are not currently ediditng the waystone.
-    usage: /waystoneteleport
-    permission: dscript.waystoneteleport
+    usage: /obelisktp
+    permission: dscript.obelisktp
+    aliases:
+    - obtp
     script:
     - if !<player.has_flag[editing_waystone_teleport_loc]>:
         - stop
@@ -245,13 +256,13 @@ waystone_player_discovers_new_waystone:
         - define name <context.area.note_name.replace_text[buffer_]>
         - stop if:<player.flag[discovered_waystones].if_null[<list[]>].contains[<[name]>]>
         - flag <player> discovered_waystones:->:<[name]>
-        - narrate "<script[waystone_config].parsed_key[text.narrations.discovered_waystone]> <server.flag[waystones.data.<[name]>].get[display]>"
+        - narrate format:c_info "<script[waystone_config].parsed_key[text.narrations.discovered_waystone]> <server.flag[waystones.data.<[name]>].get[display]>"
 
 waystone_list_of_waystones_gui:
     type: inventory
     debug: false
     inventory: chest
-    title: Discovered Waystones
+    title: Entdeckte Obelisken
     gui: true
     size: 45
     procedural items:
@@ -318,13 +329,13 @@ waystone_previous_page_paginator:
     type: item
     debug: false
     material: spectral_arrow
-    display name: Previous Page
+    display name: weiter
 
 waystone_next_page_paginator:
     type: item
     debug: false
     material: spectral_arrow
-    display name: Next Page
+    display name: zurück
 
 waystone_player_wants_to_teleport:
     type: world
@@ -344,9 +355,11 @@ waystone_player_wants_to_teleport:
         # If the player is an admin, the if check will fail and allow them to teleport without an XP restriction.
         - if <player.calculate_xp> < <[data].get[xp_cost]> && !<player.proc[waystone_has_admin_permission]>:
             - narrate <script[waystone_config].parsed_key[text.narrations.not_enough_xp]>
-            - playsound <player> sound:entity_villager_hurt
+            - playsound <player> sound:item_shield_block
             - inventory close
             - stop
+        - cast darkness no_icon no_ambient no_clear duration:3s
+        - playsound <player> sound:block_bell_resonate pitch:0.2
         - teleport <[data].get[teleport_loc]>
         # Take XP if the player is not an admin
         - experience take <[data].get[xp_cost]> if:!<player.proc[waystone_has_admin_permission]>
