@@ -10,10 +10,11 @@ schiffe_handler:
     enabled: true
     debug: false
     events:
+        # Schiff nach Terra Nova
         after player enters area_moraira_schiff-terra-nova flagged:!player.terra_nova.reiseberechtigung:
             - wait 2s
             - run chatsounds_standard def:<player>
             - narrate format:npc_human "Runter von meinem Schiff!"
-            - cast blindness duration:1s no_icon no_ambient no_clear
+            - cast blindness duration:2s no_icon no_ambient no_clear hide_particles
             - playsound <player> sound:ENTITY_VILLAGER_NO pitch:0.2
             - teleport <player> teleportlocation_schiff-terra-nova-kick
