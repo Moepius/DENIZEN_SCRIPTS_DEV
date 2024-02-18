@@ -12,10 +12,15 @@ end_eye_handler:
     debug: true
     enabled: true
     events:
-        # TODO: integrate functionality with obelisks (point ender eye location to nearest obelisk)
         on player right clicks block with:ender_eye in:orbis:
-            - define obelisks 
-            - spawn ENDER_SIGNAL[ender_eye_target_location=endereye_test] <player.location.add[0,1,0]>
+        - take iteminhand
+        # take the buffers zones stored in waystones.buffer flag, and if there are non return an empty list
+        - define list_of_cuboids <server.flag[waystones.buffers].if_null[<list[]>]>
+        # input the cuboid list of waystone areas, sort by number by getting distance from center of the cuboid to the current player location
+        # important: do not forget "as[cuboid]" for the filter, since center.distance needs an actual cuboid and not just a name of the cuboid stored in the list
+        - define nearest_obelisk <[list_of_cuboids].sort_by_number[as[cuboid].center.distance[<player.location>]].first>
+        # spawn the end eye, with the target location adjustet to the nearest obelisk
+        - spawn ENDER_SIGNAL[ender_eye_target_location=<cuboid[<[nearest_obelisk]>].center>] <player.location.add[0,1,0]>
 
 
 ## When the player creates a new waystone, the default display name of the waystone is: Waystone <waystone_number>
