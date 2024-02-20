@@ -349,6 +349,8 @@ waystone_player_wants_to_teleport:
         on player right clicks block in:waystone* with:!waystone_selection_tool:
         - flag <player> waystones_page:1
         - inventory open d:waystone_list_of_waystones_gui
+        - playsound <player> sound:block_beacon_activate pitch:0.1
+        - playsound <player> sound:entity_illusioner_cast_spell pitch:0.1
         on player right clicks item_flagged:waystone_to_teleport_to in waystone_list_of_waystones_gui:
         - define data <server.flag[waystones.data.<context.item.flag[waystone_to_teleport_to]>]>
         # Check if teleport location is set.
@@ -363,6 +365,7 @@ waystone_player_wants_to_teleport:
             - playsound <player> sound:item_shield_block
             - inventory close
             - stop
+        - inventory close
         - cast darkness no_icon no_ambient no_clear hide_particles duration:4s
         - playsound <player> sound:block_bell_resonate pitch:0.2
         - wait 2s
