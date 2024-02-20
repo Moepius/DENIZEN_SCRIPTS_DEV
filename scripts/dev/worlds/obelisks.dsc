@@ -363,7 +363,7 @@ waystone_player_wants_to_teleport:
             - playsound <player> sound:item_shield_block
             - inventory close
             - stop
-        - cast darkness no_icon no_ambient no_clear duration:4s
+        - cast darkness no_icon no_ambient no_clear hide_particles duration:4s
         - playsound <player> sound:block_bell_resonate pitch:0.2
         - wait 2s
         - teleport <[data].get[teleport_loc]>
