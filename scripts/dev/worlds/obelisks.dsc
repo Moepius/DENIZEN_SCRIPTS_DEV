@@ -369,7 +369,11 @@ waystone_player_wants_to_teleport:
         - cast darkness no_icon no_ambient no_clear hide_particles duration:4s
         - playsound <player> sound:block_bell_resonate pitch:0.2
         - wait 2s
+        - playsound <player> sound:entity_illusioner_prepare_mirror pitch:0.1
+        - playsound <player> sound:entity_enderman_teleport pitch:0.1
+        - playeffect effect:soul at:<player.location> visibility:500 quantity:120 offset:1.5
         - teleport <[data].get[teleport_loc]>
+        - playeffect effect:sculk_soul at:<player.location> visibility:500 quantity:120 offset:1.5
         # Take XP if the player is not an admin
         - experience take <[data].get[xp_cost]> if:!<player.proc[waystone_has_admin_permission]>
 
